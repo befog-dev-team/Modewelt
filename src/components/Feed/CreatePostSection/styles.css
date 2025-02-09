@@ -1,0 +1,15 @@
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: #adb5bd;
+  pointer-events: none;
+  height: 0;
+}
+
+.ProseMirror p {
+  min-height: 2em; /* Ensures cursor visibility */
+}
+
+.ProseMirror:focus {
+  outline: none; /* Removes the default outline */
+  border: none; /* Removes any border */
+}

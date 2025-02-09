@@ -1,0 +1,23 @@
+import Image from "next/image"
+import avatarPlaceholder from "../../public/assets/sample/avatar.png"
+import { cn } from "@/lib/utils"
+
+interface useAvatarProps {
+    avatarUrl: string | null | undefined
+    size?: number
+    className?: string
+}
+
+export default function UserAvatar({
+    avatarUrl,
+    size,
+    className
+}: useAvatarProps) {
+    return <Image
+        src={avatarUrl || avatarPlaceholder}
+        width={size ?? 500}
+        height={size ?? 500}
+        className={cn("aspect-square w-[48px] h-[48px]  flex-none rounded-full bg-secondary object-cover", className)}
+        alt="User avatar"
+    />
+}

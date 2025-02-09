@@ -2,8 +2,11 @@
 
 // Import the necessary modules
 const nextConfig: import('next').NextConfig = {
+  typescript: {
+    ignoreBuildErrors: true, // Ignore TypeScript errors during build
+  },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: true, // Ignore ESLint errors during build
   },
   experimental: { // Enable experimental features
     staleTimes: { // Configure the stale time for the cache

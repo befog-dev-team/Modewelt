@@ -58,7 +58,7 @@
     "react-image-file-resizer": "^0.4.8",
     "react-intersection-observer": "^9.15.1",
     "react-linkify-it": "^1.0.8",
-    "react-markdown": "^7.1.1",
+    "react-markdown": "^7.1.2",
     "react-pdf": "^9.2.1",
     "react-toastify": "^11.0.3",
     "stream-chat": "^8.55.0",

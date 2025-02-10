@@ -1,0 +1,384 @@
+generator client {
+  provider        = "prisma-client-js" // provider is the name of the generator
+  // Dont't change below line. There is incompatible issue with "Prisma Client and lucia/adapter-prisma"
+  previewFeatures = ["fullTextSearch"] // previewFeatures enables the full-text search feature and full-text search is used to search for text within the database
+}
+
+datasource db {
+  provider = "postgresql" // provider is the name of the datasource 
+  url      = env("DATABASE_URL") // url is the connection string to the database
+}
+
+// User model is used to define the structure of the User table in the database
+model User {
+  id                     String                   @id @default(cuid()) // @id marks a field as the primary key and @default sets a default value for a field
+  username               String                   @unique // @unique creates a unique constraint on the field
+  displayName            String // displayName is a string field
+  email                  String?                  @unique // ? means that the field is optional
+  location               String? // ? means that the field is optional
+  phone                  String // phone is a string field
+  passwordHash           String // passwordHash is a string field
+  googleId               String?                  @unique // ? means that the field is optional
+  backgroundImageUrl     String? // ? means that the field is optional
+  avatarUrl              String? // ? means that the field is optional
+  bio                    String? // ? means that the field is optional
+  profileHeadline        String? // ? means that the field is optional
+  profileHeadlineLink    String? // ? means that the field is optional
+  totalProfileViews      Int                      @default(0) // @default sets a default value for a field
+  totalLikes             Int                      @default(0) // @default sets a default value for a field
+  totalComments          Int                      @default(0) // @default sets a default value for a field
+  totalPosts             Int                      @default(0) // @default sets a default value for a field
+  totalFollowers         Int                      @default(0) // @default sets a default value for a field
+  totalFollowing         Int                      @default(0) // @default sets a default value for a field
+  totalShares            Int                      @default(0) // @default sets a default value for a field
+  totalSearchAppearances Int                      @default(0) // @default sets a default value for a field
+  isVerified             Boolean                  @default(false) // @default sets a default value for a field
+  isAdmin                Boolean                  @default(false) // @default sets a default value for a field
+  isBanned               Boolean                  @default(false) // @default sets a default value for a field
+  isDeleted              Boolean                  @default(false) // @default sets a default value for a field
+  Session                Session[] // @relation links the User to the Session model
+  emailTokens            EmailVerificationToken[] // @relation links the User to the EmailVerificationToken model
+  posts                  Post[] // @relation links the User to the Post model
+  following              Follow[]                 @relation("Following") // Named relation
+  followers              Follow[]                 @relation("Followers") // Named relation
+  likes                  Like[] // @relation links the User to the Like model
+  comments               Comment[] // @relation links the User to the Comment model
+  commentLikes           CommentLike[] // @relation links the User to the CommentLike model
+  receivedNotifications  Notification[]           @relation("Recipient") // @relation links the User to the Notification model
+  issuedNotifications    Notification[]           @relation("Issuer") // @relation links the User to the Notification model
+  senderRequest          FollowerRequest[]        @relation("SenderRequests") // Named relation
+  receiverRequest        FollowerRequest[]        @relation("ReceiverRequests") // Named relation
+  profileViewedUser      ProfileView[]            @relation("ProfileViewedUser") // @relation links the User to the ProfileView model
+  profileViewerView      ProfileView[]            @relation("ProfileViewerView") // @relation links the User to the ProfileView model
+  jobs                   Job[]
+  jobApplications        JobApplication[] // Establishes the relation with JobApplication
+  projects               Project[]
+  educations             Education[]
+  experiences            Experience[]
+  skills                 Skill[]
+  endorsements           Endorsement[]
+
+  createdAt DateTime @default(now()) // @default sets a default value for a field
+
+  @@map("users") // @@map allows you to set the name of the table in the database
+}
+
+// Session model is used to define the structure of the Session table in the database
+model Session {
+  id        String   @id // @id marks a field as the primary key
+  userId    String // userId is a string field
+  createdAt DateTime @default(now()) // @default sets a default value for a field
+  expiresAt DateTime // expiresAt is a date-time field
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade) // @relation links the Session to the User model and define relation because of fields, references and onDelete
+
+  @@map("sessions") // @@map allows you to set the name of the table in the database
+}
+
+// EmailVerificationToken model is used to define the structure of the EmailVerificationToken table in the database
+model EmailVerificationToken {
+  id        String   @id @default(cuid()) // @id marks a field as the primary key
+  token     String   @unique // @unique creates a unique constraint on the field
+  userId    String // userId is a string field
+  user      User     @relation(fields: [userId], references: [id]) // @relation links the EmailVerificationToken to the User model
+  expiresAt DateTime // expiresAt is a date-time field
+}
+
+// Post model is used to define the structure of the Post table in the database
+model Post {
+  id                  String         @id @default(cuid()) // @id marks a field as the primary key
+  content             String // content is a string field
+  userId              String // userId is a string field
+  user                User           @relation(fields: [userId], references: [id], onDelete: Cascade) // @relation links the Post to the User model
+  attachments         Media[] // @relation links the Post to the Media model
+  likes               Like[] // @relation links the Post to the Like model
+  comments            Comment[] // @relation links the Post to the Comment model
+  linkedNotifications Notification[] // @relation links the Post to the Notification model
+
+  createdAt DateTime @default(now()) // @default sets a default value for a field 
+
+  @@map("posts") // @@map allows you to set the name of the table in the database
+}
+
+// Media model is used to define the structure of the Media table in the database
+model Media {
+  id        String    @id @default(cuid()) // @id marks a field as the primary key
+  postId    String? // ? means that the field is optional
+  post      Post?     @relation(fields: [postId], references: [id], onDelete: SetNull)
+  projectId String?
+  project   Project?  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  fileName  String // fileName is a string field
+  fileSize  Int // fileSize is an integer field
+  type      MediaType // MediaType is an enum
+  url       String // url is a string field
+  public_id  String
+  createdAt DateTime  @default(now()) // @default sets a default value for a field
+
+  @@map("post_media") // @@map allows you to set the name of the table in the database
+}
+
+// enum is used to define a type with a fixed set of values.
+enum MediaType {
+  IMAGE // IMAGE is a value of the enum
+  VIDEO // VIDEO is a value of the enum
+  PDF // PDF is a value of the enum
+}
+
+// Like model is used to define the structure of the Like table in the database
+model Like {
+  userId String // userId is a string field
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade) // @relation links the Like to the User model
+  postId String // postId is a string field
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade) // @relation links the Like to the Post model
+
+  @@unique([userId, postId]) // @@unique creates a unique constraint on the fields
+  @@map("likes") // @@map allows you to set the name of the table in the database
+}
+
+// Comment model is used to define the structure of the Comment table in the database
+model Comment {
+  id      String @id @default(cuid()) // @id marks a field as the primary key
+  content String // content is a string field
+  userId  String // userId is a string field
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade) // @relation links the Comment to the User model
+  postId  String // postId is a string field
+  post    Post   @relation(fields: [postId], references: [id], onDelete: Cascade) // @relation links the Comment to the Post model
+
+  likes    CommentLike[]
+  parentId String?
+  parent   Comment?      @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies  Comment[]     @relation("CommentReplies")
+
+  createdAt DateTime @default(now()) // @default sets a default value for a field
+
+  @@map("comments") // @@map allows you to set the name of the table in the database
+}
+
+// CommentLike model is used to define the structure of the CommentLike table in the database
+model CommentLike {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  commentId String
+  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, commentId])
+  @@map("comment_likes")
+}
+
+// Follow model is used to define the structure of the Follow table in the database
+model Follow {
+  id          String @id @default(cuid()) // Primary key
+  followerId  String // followerId is a string field
+  follower    User   @relation("Following", fields: [followerId], references: [id], onDelete: Cascade) // @relation links the Follow to the User model
+  followingId String // followingId is a string field
+  following   User   @relation("Followers", fields: [followingId], references: [id], onDelete: Cascade) // @relation links the Follow to the User model
+
+  @@unique([followerId, followingId]) // @@unique creates a unique constraint on the fields
+  @@map("follows") // @@map allows you to set the name of the table in the database
+}
+
+model FollowerRequest {
+  id         String        @id @default(cuid()) // Primary key
+  senderId   String // The user who sent the follow request
+  receiverId String // The user who will receive the follow request
+  status     RequestStatus // Pending, Accepted, Rejected
+  createdAt  DateTime      @default(now()) // Timestamp when the request was created
+  updatedAt  DateTime      @updatedAt // Timestamp when the request was last updated
+
+  sender   User @relation("SenderRequests", fields: [senderId], references: [id]) // Sender relation
+  receiver User @relation("ReceiverRequests", fields: [receiverId], references: [id]) // Receiver relation
+
+  @@unique([senderId, receiverId]) // Ensure only one request between sender and receiver
+  @@map("follower_requests") // Table name in the database
+}
+
+// Enum for request status
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+}
+
+// Notification model is used to define the structure of the Notification table in the database
+model Notification {
+  id          String           @id @default(cuid()) // Primary key
+  recipientId String // The user who will receive the notification
+  recipient   User             @relation("Recipient", fields: [recipientId], references: [id], onDelete: Cascade) // Recipient relation
+  issuerId    String // The user who triggered the notification
+  issuer      User             @relation("Issuer", fields: [issuerId], references: [id], onDelete: Cascade)
+  postId      String?
+  post        Post?            @relation(fields: [postId], references: [id], onDelete: Cascade)
+  type        NotificationType
+  read        Boolean          @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@map("notifications") // @@map allows you to set the name of the table in the database
+}
+
+// Enum for notification type
+enum NotificationType {
+  LIKE
+  COMMENT
+  FOLLOW_REQUESTED
+  FOLLOW_ACCEPTED
+  PROFILE_VIEW
+}
+
+model ProfileView {
+  id        String   @id @default(cuid())
+  viewerId  String // The user who viewed the profile
+  viewedId  String // The user whose profile was viewed
+  viewer    User     @relation("ProfileViewerView", fields: [viewerId], references: [id], onDelete: Cascade)
+  viewed    User     @relation("ProfileViewedUser", fields: [viewedId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([viewerId, viewedId]) // Ensure a user can only view another user's profile once
+  @@map("profile_views")
+}
+
+model Job {
+  id             String           @id @default(cuid())
+  jobTitle       String
+  company        String
+  companyPic     String? // Optional field for company picture
+  workplaceType  String
+  location       String
+  jobType        String
+  description    String
+  requirements   String
+  benefits       String
+  skills         String[]
+  salaryCountry  String
+  salaryCurrency String
+  salaryAmount   String
+  salaryType     String
+  jobLevel       String
+  expirationDate String
+  createdAt      DateTime         @default(now())
+  userId         String // Foreign key to reference the User
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade) // Relation to User model
+  applications   JobApplication[] // Relation to JobApplication
+}
+// model Job {
+//   id             String           @id @default(cuid())
+//   jobTitle       String
+//   company        String
+//   companyPic     String? // Optional field for company picture
+//   workplaceType  String
+//   location       String
+//   jobType        String
+//   description    String
+//   requirements   String
+//   benefits       String
+//   skills         String[] 
+//   salaryCountry  String
+//   salaryCurrency String
+//   salaryAmount   Int             // 🔥 Change from String to Int
+//   salaryType     String
+//   jobLevel       String
+//   expirationDate DateTime        // 🔥 Change from String to DateTime
+//   createdAt      DateTime         @default(now())
+//   userId         String
+//   user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   applications   JobApplication[]
+// }
+
+
+model JobApplication {
+  id                  Int      @id @default(autoincrement())
+  firstName           String
+  middleName          String?
+  lastName            String
+  email               String
+  gender              String
+  mobilePhone         String
+  resume              String // Path to the resume file
+  additionalDocuments String? // Path to additional documents
+  dateOfBirth         DateTime
+  experienceYears     Int?
+  experienceMonths    Int?
+  currentSalary       Int?
+  expectedSalary      Int?
+  availableToJoinDays Int?
+  preferredLocation   String
+  notes               String?
+  skills              String
+  captcha             String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  jobId               String
+  job                 Job      @relation(fields: [jobId], references: [id])
+  userId              String // Foreign key referencing the User
+  user                User     @relation(fields: [userId], references: [id]) // Relation to User model
+}
+
+//Project model is used to define the structure of the Project table in the database
+model Project {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  description String?
+  media       Media[]
+  createdAt   DateTime  @default(now())
+
+  @@map("projects")
+}
+
+//Education model is used to define the structure of the Education table in the database
+model Education {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  institution    String
+  degree         String
+  duration       String
+  additionalInfo String?
+  imageUrl       String?  // Optional field for institution logo
+  createdAt      DateTime @default(now())
+
+  @@map("educations")
+}
+
+//Experience model is used to define the structure of the Experience table in the database
+model Experience {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jobTitle    String
+  company     String
+  location    String
+  duration    String
+  description String?
+  publicId    String?
+  imageUrl    String?  // Optional field for company logo or job-related image
+  createdAt   DateTime @default(now())
+
+  @@map("experiences")  // Custom table name in database
+}
+
+model Skill {
+  id           String   @id @default(cuid()) 
+  userId       String  
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title        String  
+  endorsements Int      @default(0)  // Ensures endorsements start at 0
+  createdAt    DateTime @default(now()) 
+
+  endorsementsList Endorsement[] // Relation to track who endorsed
+
+  @@map("skills") 
+}
+
+model Endorsement {
+  id       String   @id @default(cuid())
+  skillId  String  
+  skill    Skill    @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  userId   String  
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([skillId, userId])  // Prevents duplicate endorsements
+}

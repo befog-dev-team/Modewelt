@@ -25,7 +25,7 @@ const geistMono = localFont({ // Create a local font for Geist Mono
   display: "swap", // Ensures faster font rendering
 });
 
-// Define the global styles
+// Define the metadata object
 export const metadata: Metadata = { // Define the metadata object
   title: { // Define the title object
     template: "Modewelt | %s", // Define the title template

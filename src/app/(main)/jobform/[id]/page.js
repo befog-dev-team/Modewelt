@@ -13,8 +13,7 @@ import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 
-
-
+// Input Field Component 
 function InputField({ label, type, placeholder, required = false, value, onChange }) {
     return (
         <div className="flex flex-col">
@@ -33,7 +32,8 @@ function InputField({ label, type, placeholder, required = false, value, onChang
     );
 }
 
-function SelectField({ label, options, required = false }) {
+// Select Field Component 
+function SelectField({ label, value, options, onChange, required = false }) {
     return (
         <div className="flex flex-col">
             <label className="text-gray-700 font-medium mb-1">
@@ -41,6 +41,8 @@ function SelectField({ label, options, required = false }) {
             </label>
             <select
                 className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#a35284]"
+                value={value} // <-- Controlled value
+                onChange={(e) => onChange(e.target.value)} // <-- Pass value to parent
                 required={required}
             >
                 <option value="">Select an option</option>
@@ -54,6 +56,7 @@ function SelectField({ label, options, required = false }) {
     );
 }
 
+// File Upload Component
 function FileUpload({ label, description, accept, onChange }) {
     return (
         <div className="flex flex-col items-center justify-center bg-gray-100 border border-gray-300 rounded-lg p-6 text-center">
@@ -81,6 +84,7 @@ const fetchJob = async (id) => {
     return response.data;
 };
 
+// Function to handle 404 error
 export default function Home() {
     const { id } = useParams(); // Get the job id from the URL
     if (!id) notFound(); // Redirect to 404 page if id is not provided
@@ -95,6 +99,7 @@ export default function Home() {
         email: "",
         countryCode: "+91",
         phone: "",
+        additionalDocuments: null,
         dob: "",
         experienceYears: "",
         experienceMonths: "",
@@ -224,29 +229,31 @@ export default function Home() {
 
     // Function to handle file change
     const handleFileChange = (e) => {
-        const selectedFiles = e.target.files;
+        const selectedFiles = Array.from(e.target.files); // Convert FileList to an array
         const maxSize = 10 * 1024 * 1024; // 10MB
-        let errorMessage = null;
 
-        const fileList = [];
-        for (let i = 0; i < selectedFiles.length; i++) {
-            if (selectedFiles[i].size > maxSize) {
-                errorMessage = "File size exceeds 10MB";
-                break;
-            }
-            fileList.push(selectedFiles[i]);
-        }
+        // Filter out invalid files
+        const validFiles = selectedFiles.filter(file => file.size <= maxSize);
+        const invalidFiles = selectedFiles.filter(file => file.size > maxSize);
 
-        if (errorMessage) {
-            setErrorFile(errorMessage);
+        // Show error if any file was too large
+        if (invalidFiles.length > 0) {
+            setErrorFile("Some files exceed 10MB and were not added.");
         } else {
             setErrorFile(null);
-            setFiles(fileList);
         }
+
+        // Update files separately
+        setFiles(validFiles);
+
+        // Update formData safely using previous state
+        setFormData(prev => ({
+            ...prev,
+            additionalDocuments: validFiles,
+        }));
     };
 
     console.log("formData", formData);
-
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -270,6 +277,7 @@ export default function Home() {
         formDataToSend.append("email", formData.email);
         formDataToSend.append("countryCode", formData.countryCode);
         formDataToSend.append("phone", formData.phone);
+        formDataToSend.append("additionalDocuments", formData.additionalDocuments);
         formDataToSend.append("dob", formData.dob);
         formDataToSend.append("experienceYears", formData.experienceYears);
         formDataToSend.append("experienceMonths", formData.experienceMonths);
@@ -318,6 +326,7 @@ export default function Home() {
                     email: "",
                     countryCode: "+91",
                     phone: "",
+                    additionalDocuments: null,
                     dob: "",
                     experienceYears: "",
                     experienceMonths: "",
@@ -413,11 +422,12 @@ export default function Home() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <SelectField
                             label="Gender"
-                            value={formData.gender}
+                            value={formData.gender} // <-- Controlled value
                             options={["Male", "Female", "Other"]}
-                            onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
+                            onChange={(value) => setFormData((prev) => ({ ...prev, gender: value }))} // <-- Update state
                             required
                         />
+
                         <InputField
                             label="Email Address"
                             value={formData.email}
@@ -556,16 +566,16 @@ export default function Home() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <InputField
                             label="Preferred Location"
-                            value={formData.prefferedLocation}
+                            value={formData.preferredLocation}
                             type="text"
                             placeholder="Enter preferred location"
-                            onChange={(e) => setFormData({ ...formData, prefferedLocation: e.target.value })}
+                            onChange={(e) => setFormData({ ...formData, preferredLocation: e.target.value })}
                         />
                         <InputField
                             label="Available To Join (in days)"
                             value={formData.availableJoinDays}
                             type="text"
-                            placeholder="Enter current salary"
+                            placeholder="Enter available join days"
                             onChange={(e) => setFormData({ ...formData, availableJoinDays: e.target.value })}
                         />
                     </div>

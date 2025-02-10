@@ -18,7 +18,7 @@ export default function useFollowerInfo(
     queryKey: ["follower-info", userId], // Query key
     queryFn: async () => { // Query function
       const response = await kyInstance.get(`/api/users/${userId}/followers`).json<FollowerInfo>(); // Fetch follower info
-      console.log("API Response for user", userId, response);
+      // console.log("API Response for user", userId, response);
       // Normalize the API response
       return {
         followers: response.followers || 0, // Followers count

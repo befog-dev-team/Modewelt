@@ -21,17 +21,14 @@ import SearchField from "../SearchField";
 
 function Navbar({ unreadNotificationCount }) {
   // const [placeholder, setPlaceholder] = useState("Search"); // Search Bar Placeholder
-  // const [isSearchOpen, setIsSearchOpen] = useState(false); // Search Modal
   const [isModalOpen, setIsModalOpen] = useState(false); // Other Modal
   //  const [searchQuery, setSearchQuery] = useState(""); // Search Query
 
   const toggleModal = () => setIsModalOpen(!isModalOpen); // Toggle Other Modal
-  // const toggleSearch = () => setIsSearchOpen(!isSearchOpen); // Toggle Search Modal
 
   // Close Modals
   const closeModal = () => {
     setIsModalOpen(false); // Close Other Modal
-    setIsSearchOpen(false); // Close Search Modal
   };
 
   // Search Query Handler
@@ -90,7 +87,7 @@ function Navbar({ unreadNotificationCount }) {
 
         {/* Search Bar */}
         <div className="flex flex-grow items-center relative mx-4">
-          <SearchField/>
+          <SearchField />
           {/* <SearchModal isSearchOpen={isSearchOpen} closeModal={closeModal} /> */}
         </div>
 

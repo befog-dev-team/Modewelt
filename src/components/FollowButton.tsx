@@ -24,7 +24,7 @@ export default function FollowRequestButton({ userId, initialState }: FollowRequ
 
     useEffect(() => {
         // Debugging: Log the current state
-        console.log("Current state:", data);
+        // console.log("Current state:", data);
     }, [data]);
 
     const { mutate } = useMutation({

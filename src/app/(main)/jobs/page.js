@@ -8,7 +8,7 @@ import JobSection from "../../../components/Jobs/JobSection";
 // import MoreJobSection from "../../../components/Jobs/MoreJobSection";
 // Right Sections
 // import PostJobSection from "../../../components/Jobs/PostJobSection";
-import MySearchSection from "../../../components/Jobs/MySearchSection";
+// import MySearchSection from "../../../components/Jobs/MySearchSection";
 import Navbar from "@/components/Navbar";
 import JobMenu from "../../../components/Jobs/Jobmenu/page";
 // import Footer from "@/components/Footer";
@@ -17,6 +17,11 @@ import JobMenu from "../../../components/Jobs/Jobmenu/page";
 //   { title: "Fashion Designer", company: "Company Name" },
 //   { title: "Product Designer", company: "Company Name" },
 // ];
+
+export const metadata = {
+  title: "Jobs",
+  description: "Jobs page for showing jobs",
+};
 
 export default function Jobs() {
   return (
@@ -47,10 +52,10 @@ export default function Jobs() {
           {/* <PostJobSection /> */}
 
           {/* My Search Section */}
-          <MySearchSection />
+          {/* <MySearchSection /> */}
 
           {/* Job Menu Section */}
-          <JobMenu/>
+          <JobMenu />
 
           {/* Trending Job Section */}
           {/* <div className="bg-white h-[245px] shadow-lg mb-4 rounded-lg p-4">

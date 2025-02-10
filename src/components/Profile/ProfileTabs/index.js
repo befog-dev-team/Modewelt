@@ -12,6 +12,8 @@ import Commentpage from "../Comment"
 import Videopage from "../Video";
 import Imagepage from "../Images";
 import Documentpage from "../Documents";
+import ProfileFeed from "../../../app/(main)/profile/[username]/ProfileFeed";
+import { useSession } from "@/app/(main)/SessionProvider";
 
 const ProfileTabs = ({ imageArticle }) => {
     const [activeSection, setActiveSection] = useState("profile");
@@ -61,6 +63,10 @@ const ProfileTabs = ({ imageArticle }) => {
         },
     ];
 
+    const { user } = useSession();
+
+    if (!user) return null;
+
     return (
         <div className="w-full max-w-[850px] mt-2">
             <div className="flex flex-wrap items-end border-b-[1px] border-[#E7E7E7] w-full max-w-[850px] mt-2">
@@ -74,7 +80,7 @@ const ProfileTabs = ({ imageArticle }) => {
                     Profile
                 </button>
 
-                <button
+                {/* <button
                     onClick={() => setActiveSection("activities")}
                     className={`flex-1 min-w-[100px] flex justify-center items-center font-[Arial] text-[14px] md:text-[16px] font-semibold transition-all duration-300 leading-[13.8px] ${activeSection === "activities"
                         ? "h-[50px] bg-gradient-to-r from-[#c166a0] via-[#A45286] to-[#c166a0] text-white rounded-t-[4px] cursor-pointer"
@@ -82,6 +88,16 @@ const ProfileTabs = ({ imageArticle }) => {
                         }`}
                 >
                     Activity & Interests
+                </button> */}
+
+                <button
+                    onClick={() => setActiveSection("your-posts")}
+                    className={`flex-1 min-w-[100px] flex justify-center items-center font-[Arial] text-[14px] md:text-[16px] font-semibold transition-all duration-300 leading-[13.8px] ${activeSection === "your-posts"
+                        ? "h-[50px] bg-gradient-to-r from-[#c166a0] via-[#A45286] to-[#c166a0] text-white rounded-t-[4px] cursor-pointer"
+                        : "bg-white text-black h-[40px] cursor-pointer"
+                        }`}
+                >
+                    Your Posts
                 </button>
 
                 {/* <button
@@ -102,6 +118,14 @@ const ProfileTabs = ({ imageArticle }) => {
                     <SkillsPage />
                     <Experience />
                     <ProjectPage2 />
+                </div>
+            )}
+
+            {/* Your Posts */}
+
+            {activeSection === "your-posts" && (
+                <div>
+                    <ProfileFeed userId={user.id} />
                 </div>
             )}
 

@@ -16,7 +16,7 @@ export default function Index() {
 
     return (
         <div>
-            <div className="bg-white w-[290px] h-[280px] text-center mb-3 rounded-[4px]">
+            <div className="bg-white w-[290px] min-h-[280px] text-center mb-3 rounded-[4px]">
                 <UserBackground
                     backgroundImageUrl={user.backgroundImageUrl || '/assets/feed/cover.png'}
                     alt="Profile Background"

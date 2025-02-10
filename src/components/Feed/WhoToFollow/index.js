@@ -31,7 +31,7 @@ export default async function WhoToFollow() {
     });
 
     return (
-        <div className="bg-white h-[300px] p-4 mb-3 rounded-[4px]">
+        <div className="bg-white min-h-[300px] p-4 mb-3 rounded-[4px]">
             {/* Heading */}
             <p className="font-[600] text-[12px] uppercase leading-[11.48px] font-[Gotham]">Who To Follow</p>
 

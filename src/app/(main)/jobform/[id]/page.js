@@ -258,10 +258,12 @@ export default function Home() {
         }));
     };
 
-    console.log("formData", formData);
+    // console.log("formData", formData);
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+
+        console.log("formData Sumit", formData);
 
         if (!formData.checkbox) {
             alert("You must agree to the privacy policy before submitting.");
@@ -274,17 +276,24 @@ export default function Home() {
         }
 
         const formDataToSend = new FormData();
+
+        // Append normal fields
         Object.entries(formData).forEach(([key, value]) => {
-            if (Array.isArray(value)) {
-                value.forEach((item) => {
-                    Object.entries(item).forEach(([subKey, subValue]) => {
-                        formDataToSend.append(`${key}[${item.id}][${subKey}]`, subValue);
-                    });
-                });
-            } else {
+            if (key !== "experienceList" && key !== "educationList" && key !== "additionalDocuments") {
                 formDataToSend.append(key, value);
             }
         });
+
+        // Append multiple files correctly
+        if (formData.additionalDocuments && formData.additionalDocuments.length > 0) {
+            formData.additionalDocuments.forEach((file) => {
+                formDataToSend.append("additionalDocuments", file);
+            });
+        }
+
+        // Append JSON-encoded experience & education
+        formDataToSend.append("experienceList", JSON.stringify(formData.experienceList));
+        formDataToSend.append("educationList", JSON.stringify(formData.educationList));
 
         console.log("formDataToSend", formDataToSend);
 

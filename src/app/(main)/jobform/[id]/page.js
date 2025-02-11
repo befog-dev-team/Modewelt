@@ -12,6 +12,8 @@ import { useParams } from "next/navigation";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { useSession } from "../../SessionProvider";
+import { toast } from "react-toastify";
 
 // Input Field Component 
 function InputField({ label, type, placeholder, required = false, value, onChange }) {
@@ -86,6 +88,8 @@ const fetchJob = async (id) => {
 
 // Function to handle 404 error
 export default function Home() {
+    const { user } = useSession();
+
     const { id } = useParams(); // Get the job id from the URL
     if (!id) notFound(); // Redirect to 404 page if id is not provided
 
@@ -109,15 +113,10 @@ export default function Home() {
         availableJoinDays: "",
         currentLocation: "",
         notes: "",
-        previousEducation: "",
         language: "",
         skills: "",
         experienceList: [{ id: "", role: "", company: "" }],
         educationList: [{ id: "", degree: "", institution: "" }],
-        role: "",
-        company: "",
-        degree: "",
-        institution: "",
         checkbox: false,
     });
 
@@ -127,7 +126,7 @@ export default function Home() {
     const [files, setFiles] = useState([]);
     const [errorFile, setErrorFile] = useState(null);
 
-    // const [submitLoading, setSubmitLoading] = useState(false);
+    const [submitLoading, setSubmitLoading] = useState(false);
 
     // Using useQuery to fetch and cache job data
     const { data: job, error, isLoading } = useQuery({
@@ -165,35 +164,17 @@ export default function Home() {
             return;
         }
 
-        const newExperience = {
-            id: Date.now(),
-            role: formData.role,
-            company: formData.company,
-        };
-
         setFormData((prevState) => ({
             ...prevState,
             experienceList:
                 prevState.experienceList.length > 0 && prevState.experienceList[0].id === ""
                     ? [newExperience] // Replace the empty first entry
                     : [...prevState.experienceList, newExperience], // Append if not empty
-            role: "", // Reset input fields
-            company: "",
         }));
     };
 
     const addEducation = (event) => {
         event.preventDefault();
-        if (!formData.degree.trim() || !formData.institution.trim()) {
-            alert("Please enter both degree and institution.");
-            return;
-        }
-
-        const newEducation = {
-            id: Date.now(),
-            degree: formData.degree,
-            institution: formData.institution,
-        };
 
         setFormData((prevState) => ({
             ...prevState,
@@ -201,8 +182,6 @@ export default function Home() {
                 prevState.educationList.length > 0 && prevState.educationList[0].id === ""
                     ? [newEducation] // Replace the empty first entry
                     : [...prevState.educationList, newEducation], // Append if not empty
-            degree: "", // Reset input fields
-            institution: "",
         }));
     };
 
@@ -269,6 +248,9 @@ export default function Home() {
         }
 
         const formDataToSend = new FormData();
+        formDataToSend.append("jobId", id);
+        formDataToSend.append("userId", user.id);
+
         formDataToSend.append("resumeFile", formData.resumeFile);
         formDataToSend.append("firstName", formData.firstName);
         formDataToSend.append("middleName", formData.middleName);
@@ -287,7 +269,6 @@ export default function Home() {
         formDataToSend.append("availableJoinDays", formData.availableJoinDays);
         formDataToSend.append("currentLocation", formData.currentLocation);
         formDataToSend.append("notes", formData.notes);
-        formDataToSend.append("previousEducation", formData.previousEducation);
         formDataToSend.append("language", formData.language);
         formDataToSend.append("skills", formData.skills);
 
@@ -309,14 +290,15 @@ export default function Home() {
 
         setSubmitLoading(true);
         try {
-            const response = await axios.post("/api/apply", formDataToSend, {
-                headers: { "Content-Type": "multipart/form-data" },
+            const response = await fetch("/api/jobform", {
+                method: "POST",
+                body: formDataToSend,
             });
 
             setSubmitLoading(false);
 
             if (response.status === 200) {
-                alert("Application submitted successfully!");
+                toast.success("Application submitted successfully!");
                 setFormData({
                     resumeFile: null,
                     firstName: "",
@@ -336,13 +318,8 @@ export default function Home() {
                     availableJoinDays: "",
                     currentLocation: "",
                     notes: "",
-                    previousEducation: "",
                     language: "",
                     skills: "",
-                    role: "",
-                    company: "",
-                    degree: "",
-                    institution: "",
                     checkbox: false,
                 });
                 setFiles([]);
@@ -353,7 +330,7 @@ export default function Home() {
             }
         } catch (error) {
             console.error("Error submitting form:", error);
-            alert("There was an error submitting your application. Please try again later.");
+            toast.error("Error submitting application. Please try again later.");
         }
     };
 
@@ -601,15 +578,6 @@ export default function Home() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <InputField
-                            label="Previous Education"
-                            value={formData.previousEducation}
-                            type="text"
-                            placeholder="Enter your previous education"
-                            onChange={(e) => setFormData({ ...formData, previousEducation: e.target.value })}
-                        />
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <InputField
                             label="Language"
                             value={formData.language}
                             type="text"
@@ -796,10 +764,17 @@ export default function Home() {
                     {/* Submit Button */}
                     <button
                         type="submit"
+                        disabled={submitLoading}
                         onClick={handleFormSubmit}
-                        className="w-1/4 bg-[#a35284] text-white py-2 px-4 rounded-md hover:bg-[#872466] transition"
+                        className={`w-1/4 bg-[#a35284] text-white py-2 px-4 rounded-md hover:bg-[#872466] transition ${submitLoading ? "cursor-not-allowed" : "cursor-pointer"}`}
                     >
-                        Apply Now
+                        {
+                            submitLoading ? (
+                                <Loader2 className="h-6 w-6 mx-auto animate-spin" />
+                            ) : (
+                                "Apply Now"
+                            )
+                        }
                     </button>
                 </form>
             </main>

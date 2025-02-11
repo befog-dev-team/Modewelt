@@ -110,7 +110,7 @@ model Media {
   fileSize  Int // fileSize is an integer field
   type      MediaType // MediaType is an enum
   url       String // url is a string field
-  public_id  String
+  public_id String
   createdAt DateTime  @default(now()) // @default sets a default value for a field
 
   @@map("post_media") // @@map allows you to set the name of the table in the database
@@ -261,68 +261,50 @@ model Job {
   user           User             @relation(fields: [userId], references: [id], onDelete: Cascade) // Relation to User model
   applications   JobApplication[] // Relation to JobApplication
 }
-// model Job {
-//   id             String           @id @default(cuid())
-//   jobTitle       String
-//   company        String
-//   companyPic     String? // Optional field for company picture
-//   workplaceType  String
-//   location       String
-//   jobType        String
-//   description    String
-//   requirements   String
-//   benefits       String
-//   skills         String[] 
-//   salaryCountry  String
-//   salaryCurrency String
-//   salaryAmount   Int             // 🔥 Change from String to Int
-//   salaryType     String
-//   jobLevel       String
-//   expirationDate DateTime        // 🔥 Change from String to DateTime
-//   createdAt      DateTime         @default(now())
-//   userId         String
-//   user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   applications   JobApplication[]
-// }
-
 
 model JobApplication {
   id                  Int      @id @default(autoincrement())
   firstName           String
   middleName          String?
   lastName            String
-  email               String
   gender              String
-  mobilePhone         String
-  resume              String // Path to the resume file
+  email               String
+  countryCode         String   
+  phone               String
+  resumeFile          String // Path to the resume file
   additionalDocuments String? // Path to additional documents
   dateOfBirth         DateTime
-  experienceYears     Int?
-  experienceMonths    Int?
+  experienceYears     String?
+  experienceMonths    String?
   currentSalary       Int?
   expectedSalary      Int?
   availableToJoinDays Int?
-  preferredLocation   String
+  preferredLocation   String?
+  currentLocation     String?
   notes               String?
-  skills              String
+  language            String?
+  skills              String?
+  experienceList      String[] // List of experiences [{ id, role, company }]
+  educationList       String[] // List of educations [{ id, degree, institution }]
+  checkbox            Boolean  @default(false)
   captcha             String
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
   jobId               String
   job                 Job      @relation(fields: [jobId], references: [id])
-  userId              String // Foreign key referencing the User
-  user                User     @relation(fields: [userId], references: [id]) // Relation to User model
+  userId              String
+  user                User     @relation(fields: [userId], references: [id])
 }
 
 //Project model is used to define the structure of the Project table in the database
 model Project {
-  id          String    @id @default(cuid())
+  id          String   @id @default(cuid())
   userId      String
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   name        String
   description String?
   media       Media[]
-  createdAt   DateTime  @default(now())
+  createdAt   DateTime @default(now())
 
   @@map("projects")
 }
@@ -336,7 +318,7 @@ model Education {
   degree         String
   duration       String
   additionalInfo String?
-  imageUrl       String?  // Optional field for institution logo
+  imageUrl       String? // Optional field for institution logo
   createdAt      DateTime @default(now())
 
   @@map("educations")
@@ -353,32 +335,32 @@ model Experience {
   duration    String
   description String?
   publicId    String?
-  imageUrl    String?  // Optional field for company logo or job-related image
+  imageUrl    String? // Optional field for company logo or job-related image
   createdAt   DateTime @default(now())
 
-  @@map("experiences")  // Custom table name in database
+  @@map("experiences") // Custom table name in database
 }
 
 model Skill {
-  id           String   @id @default(cuid()) 
-  userId       String  
+  id           String   @id @default(cuid())
+  userId       String
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  title        String  
-  endorsements Int      @default(0)  // Ensures endorsements start at 0
-  createdAt    DateTime @default(now()) 
+  title        String
+  endorsements Int      @default(0) // Ensures endorsements start at 0
+  createdAt    DateTime @default(now())
 
   endorsementsList Endorsement[] // Relation to track who endorsed
 
-  @@map("skills") 
+  @@map("skills")
 }
 
 model Endorsement {
-  id       String   @id @default(cuid())
-  skillId  String  
-  skill    Skill    @relation(fields: [skillId], references: [id], onDelete: Cascade)
-  userId   String  
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  skillId   String
+  skill     Skill    @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 
-  @@unique([skillId, userId])  // Prevents duplicate endorsements
+  @@unique([skillId, userId]) // Prevents duplicate endorsements
 }

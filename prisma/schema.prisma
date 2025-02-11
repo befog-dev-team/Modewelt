@@ -268,26 +268,25 @@ model JobApplication {
   middleName          String?
   lastName            String
   gender              String
-  email               String
-  countryCode         String   
-  phone               String
-  resumeFile          String // Path to the resume file
+  email               String?
+  countryCode         String?
+  phone               String?
+  resumeFile          String? // Path to the resume file
   additionalDocuments String? // Path to additional documents
-  dateOfBirth         DateTime
+  dob                 String?
   experienceYears     String?
   experienceMonths    String?
-  currentSalary       Int?
-  expectedSalary      Int?
-  availableToJoinDays Int?
+  currentSalary       String?
+  expectedSalary      String?
+  availableToJoinDays String?
   preferredLocation   String?
   currentLocation     String?
   notes               String?
   language            String?
   skills              String?
-  experienceList      String[] // List of experiences [{ id, role, company }]
-  educationList       String[] // List of educations [{ id, degree, institution }]
-  checkbox            Boolean  @default(false)
-  captcha             String
+  // experienceList      String[] // List of experiences [{ id, role, company }]
+  // educationList       String[] // List of educations [{ id, degree, institution }]
+  checkbox            Boolean?  @default(false)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
   jobId               String

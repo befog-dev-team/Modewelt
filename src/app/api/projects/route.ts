@@ -93,16 +93,11 @@ export async function POST(req: NextRequest) {
             include: { media: true },
         });
 
-        
-
         return Response.json({ success: true, project: newProject }, { status: 201 });
     } catch (error) {
         console.error("❌ Error creating project:", error);
         return Response.json({ error: "Internal Server Error" }, { status: 500 });
-        
-        
     }
-    
 }
 
 // API Route: Handle GET request to fetch projects

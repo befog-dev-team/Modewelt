@@ -95,6 +95,8 @@ export default function Home() {
 
     // State variables
     const [formData, setFormData] = useState({
+        jobId: id,
+        userId: user.id,
         resumeFile: null,
         firstName: "",
         middleName: "",
@@ -117,6 +119,10 @@ export default function Home() {
         skills: "",
         experienceList: [{ id: "", role: "", company: "" }],
         educationList: [{ id: "", degree: "", institution: "" }],
+        role: "",
+        company: "",
+        degree: "",
+        institution: "",
         checkbox: false,
     });
 
@@ -164,17 +170,35 @@ export default function Home() {
             return;
         }
 
+        const newExperience = {
+            id: Date.now(),
+            role: formData.role,
+            company: formData.company,
+        };
+
         setFormData((prevState) => ({
             ...prevState,
             experienceList:
                 prevState.experienceList.length > 0 && prevState.experienceList[0].id === ""
                     ? [newExperience] // Replace the empty first entry
                     : [...prevState.experienceList, newExperience], // Append if not empty
+            role: "", // Reset input fields
+            company: "",
         }));
     };
 
     const addEducation = (event) => {
         event.preventDefault();
+        if (!formData.degree.trim() || !formData.institution.trim()) {
+            alert("Please enter both degree and institution.");
+            return;
+        }
+
+        const newEducation = {
+            id: Date.now(),
+            degree: formData.degree,
+            institution: formData.institution,
+        };
 
         setFormData((prevState) => ({
             ...prevState,
@@ -182,6 +206,8 @@ export default function Home() {
                 prevState.educationList.length > 0 && prevState.educationList[0].id === ""
                     ? [newEducation] // Replace the empty first entry
                     : [...prevState.educationList, newEducation], // Append if not empty
+            degree: "", // Reset input fields
+            institution: "",
         }));
     };
 
@@ -248,42 +274,16 @@ export default function Home() {
         }
 
         const formDataToSend = new FormData();
-        formDataToSend.append("jobId", id);
-        formDataToSend.append("userId", user.id);
-
-        formDataToSend.append("resumeFile", formData.resumeFile);
-        formDataToSend.append("firstName", formData.firstName);
-        formDataToSend.append("middleName", formData.middleName);
-        formDataToSend.append("lastName", formData.lastName);
-        formDataToSend.append("gender", formData.gender);
-        formDataToSend.append("email", formData.email);
-        formDataToSend.append("countryCode", formData.countryCode);
-        formDataToSend.append("phone", formData.phone);
-        formDataToSend.append("additionalDocuments", formData.additionalDocuments);
-        formDataToSend.append("dob", formData.dob);
-        formDataToSend.append("experienceYears", formData.experienceYears);
-        formDataToSend.append("experienceMonths", formData.experienceMonths);
-        formDataToSend.append("currentSalary", formData.currentSalary);
-        formDataToSend.append("expectedSalary", formData.expectedSalary);
-        formDataToSend.append("preferredLocation", formData.preferredLocation);
-        formDataToSend.append("availableJoinDays", formData.availableJoinDays);
-        formDataToSend.append("currentLocation", formData.currentLocation);
-        formDataToSend.append("notes", formData.notes);
-        formDataToSend.append("language", formData.language);
-        formDataToSend.append("skills", formData.skills);
-
-        experienceList.forEach((exp, index) => {
-            formDataToSend.append(`experience[${index}][role]`, exp.role);
-            formDataToSend.append(`experience[${index}][company]`, exp.company);
-        });
-
-        educationList.forEach((edu, index) => {
-            formDataToSend.append(`education[${index}][degree]`, edu.degree);
-            formDataToSend.append(`education[${index}][institution]`, edu.institution);
-        });
-
-        files.forEach((file, index) => {
-            formDataToSend.append(`additionalFiles[${index}]`, file);
+        Object.entries(formData).forEach(([key, value]) => {
+            if (Array.isArray(value)) {
+                value.forEach((item) => {
+                    Object.entries(item).forEach(([subKey, subValue]) => {
+                        formDataToSend.append(`${key}[${item.id}][${subKey}]`, subValue);
+                    });
+                });
+            } else {
+                formDataToSend.append(key, value);
+            }
         });
 
         console.log("formDataToSend", formDataToSend);
@@ -318,8 +318,13 @@ export default function Home() {
                     availableJoinDays: "",
                     currentLocation: "",
                     notes: "",
+                    previousEducation: "",
                     language: "",
                     skills: "",
+                    role: "",
+                    company: "",
+                    degree: "",
+                    institution: "",
                     checkbox: false,
                 });
                 setFiles([]);

@@ -207,7 +207,7 @@ const Auth = () => {
         </div>
 
         {/* REGISTRATION FORM */}
-        <div className="form-box Register">
+        <div className="form-box Register sm:w-full md:w-full">
           <div className="relative">
             <h2
               className="animation text-center text-[2.5rem] font-[800] text-[#A45286] uppercase"

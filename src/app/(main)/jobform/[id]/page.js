@@ -274,6 +274,26 @@ export default function Home() {
             return;
         }
 
+        if (!formData.gender) {
+            toast.error("Please select your gender.");
+            return;
+        }
+
+        if (!formData.email) {
+            toast.error("Please enter your email address.");
+            return;
+        }
+
+        if (!formData.phone) {
+            toast.error("Please enter your phone number.");
+            return;
+        }
+
+        if (!formData.dob) {
+            toast.error("Please enter your date of birth.");
+            return;
+        }
+
         if (!formData.checkbox) {
             toast.error("You must agree to the privacy policy before submitting.");
             return;

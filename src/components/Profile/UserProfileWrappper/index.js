@@ -32,7 +32,6 @@ export default function UserProfileWrappper({ user, loggedinUserId, totalLikesRe
 
                         {/* Profile Tabs */}
                         <ProfileTabs user={user} loggedinUserId={loggedinUserId} />
-
                     </div>
 
                     {/* Sidebar Area */}

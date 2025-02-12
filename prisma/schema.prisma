@@ -238,6 +238,7 @@ model ProfileView {
   @@map("profile_views")
 }
 
+// Job model is used to define the structure of the Job table in the database
 model Job {
   id             String           @id @default(cuid())
   jobTitle       String
@@ -262,15 +263,16 @@ model Job {
   applications   JobApplication[] // Relation to JobApplication
 }
 
+// JobApplication model is used to define the structure of the JobApplication table in the database
 model JobApplication {
   id                  String   @id @default(cuid())
   resumeFile          String? // Store file URL
-  additionalDocuments String[] // Store multiple file URLs
+  additionalDocuments Json? // Store multiple file URLs as an array
   firstName           String
   middleName          String?
   lastName            String
   gender              String
-  email               String   @unique
+  email               String
   countryCode         String
   phone               String
   dob                 DateTime
@@ -284,39 +286,16 @@ model JobApplication {
   notes               String?
   language            String?
   skills              String?
-  role                String?
-  company             String?
-  degree              String?
-  institution         String?
   agreedToPolicy      Boolean? @default(false)
   createdAt           DateTime @default(now())
 
-  experienceList ExperienceList[] // Store experience as JSON
-  educationList  EducationList[] // Store education as JSON
+  experienceList    Json?    // Store as JSON
+  educationList     Json?    // Store as JSON
 
   jobId  String
   job    Job    @relation(fields: [jobId], references: [id])
   userId String
   user   User   @relation(fields: [userId], references: [id])
-}
-
-model ExperienceList {
-  id               String         @id @default(cuid())
-  jobTitle         String
-  companyName      String
-  startDate        DateTime
-  endDate          DateTime?
-  description      String?
-  jobApplicationId String
-  jobApplication   JobApplication @relation(fields: [jobApplicationId], references: [id], onDelete: Cascade)
-}
-
-model EducationList {
-  id               String         @id @default(cuid())
-  degree           String
-  institution      String
-  jobApplicationId String
-  jobApplication   JobApplication @relation(fields: [jobApplicationId], references: [id], onDelete: Cascade)
 }
 
 //Project model is used to define the structure of the Project table in the database

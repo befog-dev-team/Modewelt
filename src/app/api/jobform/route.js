@@ -44,130 +44,105 @@ const uploadToCloudinary = async (fileBuffer, folder, filename) => {
 export async function POST(req) {
     try {
         const formData = await req.formData();
+
         if (!formData) {
             return NextResponse.json({ error: "No form data provided" }, { status: 400 });
         }
 
-        // Extract main fields
+        // Extract and validate required fields
         const jobId = formData.get("jobId");
         const userId = formData.get("userId");
         const firstName = formData.get("firstName");
+        const middleName = formData.get("middleName");
         const lastName = formData.get("lastName");
-        const gender = formData.get("gender");
         const email = formData.get("email");
+
+        if (!jobId || !userId || !firstName || !lastName || !email) {
+            return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+        }
+
+        // Extract optional fields
+        const gender = formData.get("gender");
         const countryCode = formData.get("countryCode");
         const phone = formData.get("phone");
         const dob = formData.get("dob") || null;
         const experienceYears = parseInt(formData.get("experienceYears")) || 0;
         const experienceMonths = parseInt(formData.get("experienceMonths")) || 0;
-        const currentSalary = formData.get("currentSalary") || null;
-        const expectedSalary = formData.get("expectedSalary") || null;
-        const availableJoinDays = formData.get("availableJoinDays") || null;
-        const preferredLocation = formData.get("preferredLocation") || null;
-        const currentLocation = formData.get("currentLocation") || null;
-        const notes = formData.get("notes") || null;
-        const language = formData.get("language") || null;
-        const skills = formData.get("skills") || null;
-        const role = formData.get("role") || null;
-        const company = formData.get("company") || null;
-        const degree = formData.get("degree") || null;
-        const institution = formData.get("institution") || null;
+        const currentSalary = formData.get("currentSalary") || undefined;
+        const expectedSalary = formData.get("expectedSalary") || undefined;
+        const availableJoinDays = formData.get("availableJoinDays") || undefined;
+        const preferredLocation = formData.get("preferredLocation") || undefined;
+        const currentLocation = formData.get("currentLocation") || undefined;
+        const notes = formData.get("notes") || undefined;
+        const language = formData.get("language") || undefined;
+        const skills = formData.get("skills") || undefined;
         const agreedToPolicy = formData.get("checkbox") === "true";
 
         // Upload Resume
-        let resumeUrl = null;
+        let resumeUrl = undefined;
         const resumeFile = formData.get("resumeFile");
-        if (resumeFile instanceof File) {
-            const resumeBuffer = await resumeFile.arrayBuffer();
-            resumeUrl = await uploadToCloudinary(Buffer.from(resumeBuffer), "job-resumes", resumeFile.name);
+        if (resumeFile instanceof File && resumeFile.size > 0) {
+            try {
+                const resumeBuffer = await resumeFile.arrayBuffer();
+                resumeUrl = await uploadToCloudinary(Buffer.from(resumeBuffer), "job-resumes", resumeFile.name);
+            } catch (error) {
+                console.error("❌ Error uploading resume to Cloudinary:", error);
+                throw new Error("Failed to upload resume");
+            }
         }
 
         // Upload Additional Documents
         let additionalDocuments = [];
         const documentFiles = formData.getAll("additionalDocuments") || [];
         for (const document of documentFiles) {
-            if (document instanceof File) {
-                const docBuffer = await document.arrayBuffer();
-                const docUrl = await uploadToCloudinary(Buffer.from(docBuffer), "job-documents", document.name);
-                additionalDocuments.push(docUrl);
-            } else {
-                additionalDocuments.push(document);
+            if (document instanceof File && document.size > 0) {
+                try {
+                    const docBuffer = await document.arrayBuffer();
+                    const docUrl = await uploadToCloudinary(Buffer.from(docBuffer), "job-documents", document.name);
+                    additionalDocuments.push(docUrl);
+                } catch (error) {
+                    console.error("❌ Error uploading additional document to Cloudinary:", error);
+                    throw new Error("Failed to upload additional documents");
+                }
             }
         }
 
-        console.log("📂 Uploaded Additional Documents:", additionalDocuments);
-
-        // Ensure Experience & Education Lists are valid arrays
+        // Parse Experience and Education Lists
         const experienceList = JSON.parse(formData.get("experienceList") || "[]");
         const educationList = JSON.parse(formData.get("educationList") || "[]");
 
-        console.log("📌 Experience List:", experienceList);
-        console.log("🎓 Education List:", educationList);
-
-        // 🔥 Use Prisma Transaction to Store Data Atomically
-        const newApplication = await prisma.$transaction(async (tx) => {
-            // Step 1: Create Job Application
-            const jobApplication = await tx.jobApplication.create({
-                data: {
-                    jobId,
-                    userId,
-                    firstName,
-                    lastName,
-                    gender,
-                    email,
-                    countryCode,
-                    phone,
-                    dob,
-                    resumeFile: resumeUrl || null,
-                    additionalDocuments,
-                    experienceYears,
-                    experienceMonths,
-                    currentSalary,
-                    expectedSalary,
-                    availableJoinDays,
-                    preferredLocation,
-                    currentLocation,
-                    notes,
-                    language,
-                    skills,
-                    role,
-                    company,
-                    degree,
-                    institution,
-                    agreedToPolicy,
-                },
-            });
-
-            // Step 2: Store Experience List (Only if Not Empty)
-            if (experienceList.length > 0) {
-                await tx.experience.createMany({
-                    data: experienceList.map(exp => ({
-                        jobApplicationId: jobApplication.id,
-                        jobTitle: exp.role,
-                        companyName: exp.company,
-                        startDate: exp.startDate ? new Date(exp.startDate) : null,
-                        endDate: exp.endDate ? new Date(exp.endDate) : null,
-                        description: exp.description || null,
-                    })),
-                });
-            }
-
-            // Step 3: Store Education List (Only if Not Empty)
-            if (educationList.length > 0) {
-                await tx.education.createMany({
-                    data: educationList.map(edu => ({
-                        jobApplicationId: jobApplication.id,
-                        degree: edu.degree,
-                        institution: edu.institution,
-                    })),
-                });
-            }
-
-            return jobApplication;
+        // Create Job Application
+        const jobApplication = await prisma.jobApplication.create({
+            data: {
+                jobId,
+                userId,
+                firstName,
+                middleName,
+                lastName,
+                gender,
+                email,
+                countryCode,
+                phone,
+                dob: dob ? new Date(dob) : undefined,
+                resumeFile: resumeUrl,
+                additionalDocuments: additionalDocuments.length > 0 ? additionalDocuments : undefined,
+                experienceYears,
+                experienceMonths,
+                currentSalary,
+                expectedSalary,
+                availableJoinDays,
+                preferredLocation,
+                currentLocation,
+                notes,
+                language,
+                skills,
+                agreedToPolicy,
+                experienceList,
+                educationList
+            },
         });
-
-        return NextResponse.json(newApplication, { status: 201 });
-
+        
+        return NextResponse.json(jobApplication, { status: 200 });
     } catch (error) {
         console.error("❌ Error submitting application:", error);
         return NextResponse.json({ error: "Internal Server Error", details: error.message || error }, { status: 500 });

@@ -263,15 +263,24 @@ export default function Home() {
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        console.log("formData Sumit", formData);
+        // Validate form fields
+        if (!formData.resumeFile) {
+            toast.error("Please upload your resume before submitting.");
+            return;
+        }
+
+        if (!formData.firstName || !formData.lastName) {
+            toast.error("Please enter your first and last name.");
+            return;
+        }
 
         if (!formData.checkbox) {
-            alert("You must agree to the privacy policy before submitting.");
+            toast.error("You must agree to the privacy policy before submitting.");
             return;
         }
 
         if (inputCaptcha !== captcha) {
-            alert("Invalid Captcha! Please try again.");
+            toast.error("Invalid Captcha! Please try again.");
             return;
         }
 
@@ -345,6 +354,7 @@ export default function Home() {
         } catch (error) {
             console.error("Error submitting form:", error);
             toast.error("Error submitting application. Please try again later.");
+            setSubmitLoading(false);
         }
     };
 

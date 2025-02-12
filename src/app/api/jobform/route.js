@@ -141,7 +141,7 @@ export async function POST(req) {
                 educationList
             },
         });
-        
+
         return NextResponse.json(jobApplication, { status: 200 });
     } catch (error) {
         console.error("❌ Error submitting application:", error);
@@ -154,7 +154,6 @@ export async function GET(req) {
     try {
         const { searchParams } = new URL(req.url);
         const jobId = searchParams.get("jobId");
-
         if (!jobId) return NextResponse.json({ error: "Job ID is required" }, { status: 400 });
 
         const applications = await prisma.jobApplication.findMany({
@@ -164,7 +163,7 @@ export async function GET(req) {
 
         return NextResponse.json({ success: true, applications }, { status: 200 });
     } catch (error) {
-        console.error("❌ Error fetching applications:", error);
+        console.error("Error fetching applications:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }
@@ -175,31 +174,19 @@ export async function DELETE(req) {
         const { applicationId } = await req.json();
         if (!applicationId) return NextResponse.json({ error: "Application ID is required" }, { status: 400 });
 
-        const application = await prisma.jobApplication.findUnique({
-            where: { id: applicationId },
-        });
-
+        const application = await prisma.jobApplication.findUnique({ where: { id: applicationId } });
         if (!application) return NextResponse.json({ error: "Application not found" }, { status: 404 });
 
-        // Delete files from Cloudinary
-        const deleteFiles = [
-            ...(application.resumeFile ? [application.resumeFile] : []),
-            ...(application.additionalDocuments ? application.additionalDocuments : []),
-        ];
-
+        const deleteFiles = [application.resumeFile, ...(application.additionalDocuments || [])].filter(Boolean);
         for (const fileUrl of deleteFiles) {
             const publicId = fileUrl.split("/").pop().split(".")[0];
             await cloudinary.api.delete_resources([publicId], { resource_type: "raw" });
         }
 
-        // Delete application from database
-        await prisma.jobApplication.delete({
-            where: { id: applicationId },
-        });
-
+        await prisma.jobApplication.delete({ where: { id: applicationId } });
         return NextResponse.json({ success: true, message: "Application deleted" }, { status: 200 });
     } catch (error) {
-        console.error("❌ Error deleting application:", error);
+        console.error("Error deleting application:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }

@@ -17,7 +17,7 @@ export default function SortBySection() {
     return (
         <div className="px-4 sm:px-8">
             {/* Dropdown */}
-            <div className="flex justify-center items-center my-4 space-x-4 flex-wrap relative">
+            <div className="flex justify-center items-center space-x-4 flex-wrap relative">
                 <hr className="flex-grow border-gray-300" />
                 <div className="relative">
                     <p

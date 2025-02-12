@@ -24,7 +24,7 @@ export default function Chat() {
 
     return (
         <main className="w-full h-[92vh] mb-[-4rem] mt-[2rem] flex justify-center shadow-xl">
-            <div className="relative flex w-[95vw] h-[83vh] bg-card shadow-[#A45286] shadow-sm p-10 rounded-lg border-[#A45286] border-2">
+            <div className="relative flex w-[95vw] h-[83vh] bg-card shadow-[#A45286] shadow-sm p-10 rounded-lg border-[#A45286] border-6">
                 <StreamChat
                     client={chatClient} // the chat client
                 >

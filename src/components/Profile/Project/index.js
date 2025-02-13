@@ -5,6 +5,7 @@ import Image from "next/image";
 import profileimg from "../../../../public/assets/profile/backgroundImageBackrgound.png";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { LuPlus } from "react-icons/lu";
+import { Loader2 } from "lucide-react";
 
 export default function ProjectPage({ user, username, loggedinUserId }) {
 
@@ -20,7 +21,7 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
   // Fetch projects on component mount
   useEffect(() => {
     fetchProjects();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Fetch projects from API
@@ -196,21 +197,23 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
           />
         )}
 
-        {/* Hover actions */}
-        <div className="absolute top-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
-          <MdEdit
-            aria-label="Edit project"
-            className="text-white bg-black bg-opacity-50 p-1 rounded-full cursor-pointer"
-            size={20}
-            onClick={() => handleEditProject(project)}
-          />
-          <MdDelete
-            aria-label="Delete project"
-            className="text-white bg-black bg-opacity-50 p-1 rounded-full cursor-pointer"
-            size={20}
-            onClick={() => handleDeleteProject(project)}
-          />
-        </div>
+        {/* Hover actions - Show only if logged-in user is profile owner */}
+        {loggedinUserId === user?.id && (
+          <div className="absolute top-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <MdEdit
+              aria-label="Edit project"
+              className="text-white bg-black bg-opacity-50 p-1 rounded-full cursor-pointer"
+              size={20}
+              onClick={() => handleEditProject(project)}
+            />
+            <MdDelete
+              aria-label="Delete project"
+              className="text-white bg-black bg-opacity-50 p-1 rounded-full cursor-pointer"
+              size={20}
+              onClick={() => handleDeleteProject(project)}
+            />
+          </div>
+        )}
       </div>
 
       {/* Project details */}
@@ -236,22 +239,23 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
       <div className="flex justify-between">
         <div className="flex items-center mb-3 space-x-5">
           <h1 className="font-bold">Projects</h1>
-          {/* ({projects.length}) */}
         </div>
-        <LuPlus
-          aria-label="Add project"
-          className="cursor-pointer text-2xl"
-          onClick={() => {
-            setCurrentProject(null); // Ensure fresh state
-            setFile(null);
-            setIsPopupOpen(true);
-          }}
-        />
+        {/* Add button: Show only for logged-in user's profile */}
+        {loggedinUserId === user?.id && (
+          <LuPlus
+            aria-label="Add project"
+            className="cursor-pointer text-2xl"
+            onClick={() => {
+              setCurrentProject(null); // Ensure fresh state
+              setFile(null);
+              setIsPopupOpen(true);
+            }}
+          />
+        )}
       </div>
 
-
       {/* Loading and error states */}
-      {isLoading && <p className="text-center text-[#A45286]">Loading...</p>}
+      {isLoading && <Loader2 className="mx-auto animate-spin size-6" />}
       {error && <p className="text-red-500">{error}</p>}
 
       {/* Projects grid */}

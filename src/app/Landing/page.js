@@ -15,6 +15,10 @@ const initialFeatures = [
   { title: "Networking & Collaboration" },
   { title: "Verified Job Listings" },
   { title: "Career Growth & Learning" },
+  { title: "Industry Insights & Trends" },  
+  { title: "Mentorship & Expert Guidance" },
+  { title: "Access to Exclusive Fashion Events" }
+
 ];
 
 const features = [
@@ -313,25 +317,27 @@ export default function Navbar() {
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
           Why Choose Modewelt?
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 justify-items-center m-auto">
-          {initialFeatures.map((initialFeatures, index) => (
-            <div
-              key={index}
-              className="bg-gray-300 w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 flex flex-col items-center justify-center rounded-lg shadow-md p-4 m-auto"
-            >
-              <div className="w-12 h-12 bg-gray-500 rounded-full flex items-center justify-center mb-4">
-                <Image
-                  src="/placeholder-image.png"
-                  alt={initialFeatures.title}
-                  width={24}
-                  height={24}
-                />
+        <div className="flex justify-center">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 justify-center">
+            {initialFeatures.map((feature, index) => (
+              <div
+                key={index}
+                className="bg-gray-300 w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 flex flex-col items-center justify-center rounded-lg shadow-md p-4"
+              >
+                <div className="w-12 h-12 bg-gray-500 rounded-full flex items-center justify-center mb-4">
+                  <Image
+                    src="/placeholder-image.png"
+                    alt=""
+                    width={24}
+                    height={24}
+                  />
+                </div>
+                <p className="text-center text-sm md:text-base font-medium">
+                  {feature.title}
+                </p>
               </div>
-              <p className="text-center text-sm md:text-base font-medium">
-                {initialFeatures.title}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
       <div className="p-6 md:p-12 min-h-screen rounded-xl max-w-full lg:px-[90px] lg:py-[101px] justify-center">

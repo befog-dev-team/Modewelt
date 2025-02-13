@@ -7,7 +7,7 @@ import VisitorSection from '../VisitorSection'
 import ProfileTabs from '../ProfileTabs'
 
 
-export default function UserProfileWrappper({ user, loggedinUserId, totalLikesReceived, totalCommentsReceived, visitors }) {
+export default function UserProfileWrappper({ username, user, loggedinUserId, totalLikesReceived, totalCommentsReceived, visitors }) {
     const followerInfo = {
         followers: user._count.followers, // Total followers
         isFollowedByUser: user.followers.some( // Check if the user is followed by the logged in user
@@ -31,7 +31,7 @@ export default function UserProfileWrappper({ user, loggedinUserId, totalLikesRe
                         <UserProfile user={user} followerInfo={followerInfo} loggedinUserId={loggedinUserId} />
 
                         {/* Profile Tabs */}
-                        <ProfileTabs users={user} loggedinUserId={loggedinUserId} />
+                        <ProfileTabs username={username} users={user} loggedinUserId={loggedinUserId} />
                     </div>
 
                     {/* Sidebar Area */}

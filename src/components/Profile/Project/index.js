@@ -6,9 +6,7 @@ import profileimg from "../../../../public/assets/profile/backgroundImageBackrgo
 import { MdEdit, MdDelete } from "react-icons/md";
 import { LuPlus } from "react-icons/lu";
 
-export default function ProjectPage({ user, loggedinUserId }) {
-
-  console.log("user", user);
+export default function ProjectPage({ user, username, loggedinUserId }) {
 
   // State management
   const [isPopupOpen, setIsPopupOpen] = useState(false); // Controls add/edit modal
@@ -30,7 +28,7 @@ export default function ProjectPage({ user, loggedinUserId }) {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/projects/${user.id}`);
+      const res = await fetch(`/api/projects/${username}`);
       if (!res.ok) throw new Error("Failed to fetch projects");
       const data = await res.json();
       setProjects(data.projects);
@@ -60,7 +58,7 @@ export default function ProjectPage({ user, loggedinUserId }) {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/projects/${user.id}`, {
+      const res = await fetch(`/api/projects`, {
         method: "POST",
         body: formData,
       });

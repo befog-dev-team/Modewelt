@@ -4,9 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import ProjectPage from "../Project";
-import SkillsPage from "../Skills";
-import Experience from "../Experience";
-import ProjectPage2 from "../Project2";
+// import SkillsPage from "../Skills";
+// import Experience from "../Experience";
+// import ProjectPage2 from "../Project2";
 import Postpage from "../Post";
 import Commentpage from "../Comment"
 import Videopage from "../Video";
@@ -15,7 +15,7 @@ import Documentpage from "../Documents";
 import ProfileFeed from "../../../app/(main)/profile/[username]/ProfileFeed";
 import { useSession } from "@/app/(main)/SessionProvider";
 
-const ProfileTabs = ({ imageArticle, users, loggedinUserId }) => {
+const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
     const [activeSection, setActiveSection] = useState("profile");
     const [activeSectionPost, setActiveSectionPost] = useState("post");
 
@@ -114,10 +114,10 @@ const ProfileTabs = ({ imageArticle, users, loggedinUserId }) => {
             {/* Profile Section */}
             {activeSection === "profile" && (
                 <div>
-                    <ProjectPage user={users} loggedinUserId={loggedinUserId} />
-                    <SkillsPage />
+                    <ProjectPage user={users} username={username} loggedinUserId={loggedinUserId} />
+                    {/* <SkillsPage />
                     <Experience />
-                    <ProjectPage2 />
+                    <ProjectPage2 /> */}
                 </div>
             )}
 

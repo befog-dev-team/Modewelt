@@ -8,6 +8,9 @@ import { LuPlus } from "react-icons/lu";
 
 
 export default function ProjectPage({ user, loggedinUserId }) {
+
+  console.log("user", user);
+  
   // State management
   const [isPopupOpen, setIsPopupOpen] = useState(false); // Controls add/edit modal
   const [projects, setProjects] = useState([]); // Stores project list
@@ -58,7 +61,7 @@ export default function ProjectPage({ user, loggedinUserId }) {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/projects", {
+      const res = await fetch(`/api/projects/${user.id}`, {
         method: "POST",
         body: formData,
       });

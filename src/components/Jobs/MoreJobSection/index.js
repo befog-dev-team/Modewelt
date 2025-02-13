@@ -57,7 +57,7 @@ export default function Index() {
           {/* Buttons Section */}
           <div className="flex justify-end sm:justify-center w-full sm:w-auto">
             <Link href={job.link}>
-              <button className="w-[120px] h-[36px] flex justify-center items-center rounded-[4px] uppercase bg-gradient-to-r from-[#c166a0] via-[#A45286] to-[#c166a0] text-white text-[14px] font-semibold hover:bg-gradient-to-l hover:from-[#a3527e] hover:to-[#c166a0] transition duration-300 ease-in-out">
+              <button className="w-[120px] h-[36px] flex justify-center items-center rounded-[4px] uppercase bg-gradient-to-r from-[#c166a0] via-[#f26744] to-[#c166a0] text-white text-[14px] font-semibold hover:bg-gradient-to-l hover:from-[#a3527e] hover:to-[#c166a0] transition duration-300 ease-in-out">
                 <span className="font-[Arial] text-[14px] leading-[16px]">
                   More Info
                 </span>

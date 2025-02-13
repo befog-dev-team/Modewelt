@@ -25,7 +25,7 @@ export const metadata = {
 
 export default function Jobs() {
   return (
-    <div>
+    <div className="bg-[#a2e0fa] min-h-full">
       <Navbar />
       <div className="flex flex-col lg:flex-row justify-center mt-12 mb-10 space-y-10 lg:space-y-0 lg:space-x-14 px-4 lg:px-8">
         {/* Left Section */}

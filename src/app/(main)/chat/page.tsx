@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
     return (
-        <div>
+        <div className="bg-[#a2e0fa]">
             <Navbar unreadNotificationCount={undefined} />
             <Chat />
             {/* <Footer /> */}

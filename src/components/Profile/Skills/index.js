@@ -364,7 +364,7 @@ export default function SkillsPage() {
     };
 
     return (
-        <div className="max-w-[850px] w-full mt-4 shadow-lg min-h-fit p-4">
+        <div className="max-w-[850px] bg-[#ffffff] w-full mt-4 shadow-lg min-h-fit p-4">
             {/* Header Section */}
             <div className="flex justify-between">
                 <div className="flex space-x-5 mt-3">

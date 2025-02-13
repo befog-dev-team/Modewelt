@@ -88,6 +88,35 @@ export default function Navbar() {
       isOpen: false,
     },
   ];
+  const jobCategories = [
+    { title: "Fashion Design", jobs: 235, icon: "📐" },
+    { title: "Graphic", jobs: 756, icon: "📊" },
+    { title: "Illustrator", jobs: 140, icon: "📢", highlighted: true },
+    { title: "Textile", jobs: 325, icon: "📸" },
+    { title: "Pattern Cutter", jobs: 436, icon: "🖥️" },
+    { title: "Trend Forecaster", jobs: 542, icon: "💻" },
+    { title: "Makeup", jobs: 211, icon: "💼" },
+    { title: "Retail Manager", jobs: 346, icon: "👥" },
+  ];
+  const jobTags = [
+    "Fashion Merchandiser",
+    "Textile Designer",
+    "Visual Merchandiser",
+    "Fashion Designer",
+    "Graphic Designer",
+    "Model",
+    "Trend Forecaster",
+    "Fashion Marketing And PR",
+    "Textile Designer",
+    "Fashion Merchandiser",
+    "Graphic Designer",
+    "Model",
+    "Visual Merchandiser",
+    "Fashion Marketing And PR",
+    "Fashion Designer",
+    "Trend Forecaster",
+  ];
+
 
   const [openIndex, setOpenIndex] = useState(null);
 
@@ -205,6 +234,47 @@ export default function Navbar() {
           </p>
         </div>
       </div>
+      <div className="flex justify-center items-center bg-blue-50 m-auto">
+      <div className="flex flex-wrap gap-4 p-6 bg-gradient-to-r from-blue-100 to-blue-300 rounded-lg">
+        {jobTags.map((tag, index) => (
+          <span
+            key={index}
+            className="px-4 py-2 text-gray-700 bg-white border border-pink-300 rounded-full shadow-sm text-sm font-semibold"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+      <section className="bg-blue-200 py-10 px-5 min-h-screen">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 justify-start">
+            Explore by <span className="text-orange-500">category</span>
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {jobCategories.map((category, index) => (
+              <div
+                key={index}
+                className={`p-6 rounded-lg shadow-md transition-all duration-300 cursor-pointer flex flex-col items-center text-center ${
+                  category.highlighted
+                    ? "bg-orange-500 text-white"
+                    : "bg-white text-gray-800"
+                } hover:shadow-xl hover:-translate-y-1`}
+              >
+                <span className="text-4xl">{category.icon}</span>
+                <h3 className="mt-4 text-lg font-semibold">{category.title}</h3>
+                <p className="text-sm mt-2">{category.jobs} jobs available</p>
+              </div>
+            ))}
+          </div>
+          <a
+            href="#"
+            className="inline-block mt-6 text-blue-700 font-semibold hover:underline"
+          >
+            Show all jobs →
+          </a>
+        </div>
+      </section>
       <section className="bg-[#f0fff1] min-h-screen flex items-center justify-center p-6">
         <div className="max-w-6xl w-full grid md:grid-cols-2 items-center gap-8">
           <div className="text-center md:text-left">
@@ -374,13 +444,13 @@ export default function Navbar() {
             hiring
           </p>
           <div className="mt-6 grid lg:grid-cols-2 sm:grid-cols-1 gap-4 justify-center sm:justify-start">
-          <button className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition w-full sm:w-auto">
-            Login/Sign up
-          </button>
-          <button className="px-6 py-3 border border-gray-500 text-gray-700 font-semibold rounded-lg hover:bg-gray-100 transition w-full sm:w-auto">
-            Contact us
-          </button>
-        </div>
+            <button className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition w-full sm:w-auto">
+              Login/Sign up
+            </button>
+            <button className="px-6 py-3 border border-gray-500 text-gray-700 font-semibold rounded-lg hover:bg-gray-100 transition w-full sm:w-auto">
+              Contact us
+            </button>
+          </div>
         </div>
       </div>
       <footer className="w-full bg-gray-900 text-gray-400 mt-16 py-8">

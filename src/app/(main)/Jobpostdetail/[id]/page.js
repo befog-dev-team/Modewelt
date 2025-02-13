@@ -41,7 +41,7 @@ export default function JobListing() {
   const router = useRouter(); // ✅ Moved inside the component
 
   return (
-    <div>
+    <div className="bg-[#a2defa] min-h-screen">
       <Navbar />
       <div className="p-4 sm:p-6 max-w-7xl w-full mx-auto">
         <motion.div
@@ -62,12 +62,12 @@ export default function JobListing() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 mt-4 justify-end">
                 <button
-                  className="bg-white border-[#ba669d] border-2 text-[#ba669d] px-4 py-2 rounded-[4rem] hover:bg-[#ba669d] hover:text-white transition w-full sm:w-auto"
+                  className="bg-white border-[#f26744] border-2 text-[#f26744] px-4 py-2 rounded-[4rem] hover:bg-[#f26744] hover:text-white transition w-full sm:w-auto"
                   onClick={() => router.push(`/Applicants/${jobData._id}`)}
                 >
                   View Applicants
                 </button>
-                <button className="bg-white border-[#ba669d] border-2 text-[#ba669d] px-4 py-2 rounded-[4rem] hover:bg-[#ba669d] hover:text-white transition w-full sm:w-auto">
+                <button className="bg-white border-[#f26744] border-2 text-[#f26744] px-4 py-2 rounded-[4rem] hover:bg-[#f26744] hover:text-white transition w-full sm:w-auto">
                   Repost Job
                 </button>
               </div>

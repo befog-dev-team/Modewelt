@@ -85,7 +85,7 @@ function MenuHeader({ onClose }: MenuHeaderProps) {
             <div className="flex items-center gap-3 p-2">
                 <div className="h-full md:hidden">
                     <Button size="icon" variant="ghost" onClick={onClose}>
-                        <X className="size-5 text-primarybtn" />
+                        <X className="size-5 text-[#f26744]" />
                     </Button>
                 </div>
                 <h1 className="me-auto text-xl font-bold md:ms-2">Messages</h1>
@@ -95,7 +95,7 @@ function MenuHeader({ onClose }: MenuHeaderProps) {
                     title="Start new chat"
                     onClick={() => setShowNewChatDialog(true)}
                 >
-                    <MailPlus className="size-5 text-primarybtn" />
+                    <MailPlus className="size-5 text-[#f26744]" />
                 </Button>
             </div>
             {showNewChatDialog && (

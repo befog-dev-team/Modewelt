@@ -272,7 +272,7 @@ export default function Index() {
                         Cancel
                       </button>
                       <button
-                        className={cn("bg-[#A45286] text-white px-3 py-2 w-[4.2rem] h-[2.2rem] rounded-md text-xs sm:text-sm transition", isUploading || selectedFiles.length === 0 && "opacity-50 disabled:cursor-not-allowed disabled")}
+                        className={cn("bg-[#f26744] text-white px-3 py-2 w-[4.2rem] h-[2.2rem] rounded-md text-xs sm:text-sm transition", isUploading || selectedFiles.length === 0 && "opacity-50 disabled:cursor-not-allowed disabled")}
                         disabled={mutation.isPending || isUploading || selectedFiles.length === 0} // Disable button if uploading or no files selected
                         onClick={onSubmit}
                       >
@@ -314,8 +314,8 @@ export default function Index() {
             </div>
             {/* Post Submit Button */}
             <button
-              className={`flex cursor-pointer justify-center items-center w-[28px] sm:w-[32px] h-[28px] sm:h-[32px] bg-[#A45286] text-white rounded-sm ${isUploading || input.trim() === ''
-                ? 'disabled:bg-[#A45286] disabled:cursor-not-allowed disabled:text-white disabled:opacity-50'
+              className={`flex cursor-pointer justify-center items-center w-[28px] sm:w-[32px] h-[28px] sm:h-[32px] bg-[#f26744] text-white rounded-sm ${isUploading || input.trim() === ''
+                ? 'disabled:bg-[#f26744] disabled:cursor-not-allowed disabled:text-white disabled:opacity-50'
                 : ''
                 } transition`}
               disabled={mutation.isPending || isUploading || !input.trim()} // Disable button if uploading or no input if there is blank spaces

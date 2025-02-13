@@ -6,7 +6,7 @@ import { FaEllipsisVertical } from "react-icons/fa6";
 import ProjectPage from "../Project";
 // import SkillsPage from "../Skills";
 // import Experience from "../Experience";
-// import ProjectPage2 from "../Project2";
+import ProjectPage2 from "../Project2";
 import Postpage from "../Post";
 import Commentpage from "../Comment"
 import Videopage from "../Video";
@@ -115,9 +115,9 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
             {activeSection === "profile" && (
                 <div>
                     <ProjectPage user={users} username={username} loggedinUserId={loggedinUserId} />
-                    {/* <SkillsPage />
-                    <Experience />
-                    <ProjectPage2 /> */}
+                    {/* <SkillsPage  /> */}
+                    {/* <Experience /> */}
+                    <ProjectPage2 user={users} username={username} loggedinUserId={loggedinUserId} />
                 </div>
             )}
 

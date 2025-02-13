@@ -112,10 +112,10 @@ export default function UserProfile({ user, loggedinUserId, followerInfo }) {
 
                             {/* Buttons */}
                             <div className="mt-6 flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-4">
-                                <div className="w-full flex justify-center items-center md:w-[170px] h-[32px] bg-gradient-to-b from-[#FFA1AF] to-[#A45286] text-white rounded-md">
+                                <div className="w-full flex justify-center items-center md:w-[170px] h-[32px] bg-gradient-to-b from-[#FFA1AF] to-[#f26744] text-white rounded-md">
                                     {formatNumber(user._count.posts)} Posts
                                 </div>
-                                <div className="w-full flex justify-center items-center md:w-[170px] h-[32px] bg-white text-[#A45286] border-[2px] border-[#A45286] rounded-md">
+                                <div className="w-full flex justify-center items-center md:w-[170px] h-[32px] bg-white text-[#f26744] border-[2px] border-[#f26744] rounded-md">
                                     {formatNumber(user._count.following)} Connections
                                 </div>
                             </div>

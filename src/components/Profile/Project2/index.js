@@ -139,7 +139,7 @@ export default function EducationPage() {
 
 
     return (
-        <div className="max-w-[850px] w-full min-h-fit shadow-lg mt-8 p-4">
+        <div className="max-w-[850px] bg-[#ffffff] w-full min-h-fit shadow-lg mt-8 p-4">
             <div className="flex justify-between">
                 <div className="flex p-2 space-x-5">
                     <h1 className="font-bold">Education</h1>

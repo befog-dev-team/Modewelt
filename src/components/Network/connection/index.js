@@ -66,10 +66,10 @@ export default function Connection() {
               </div>
               {/* New Connection Info */}
               <div className="flex items-center gap-2 mb-4">
-                <div className="min-w-[33px] min-h-[33px] font-[Arial] text-[16px] flex justify-center items-center text-white bg-[#A45286] rounded-[4px]">
+                <div className="min-w-[33px] min-h-[33px] font-[Arial] text-[16px] flex justify-center items-center text-white bg-[#f26744] rounded-[4px]">
                   {item.connections.length > 0 ? `${formatNumber(item.connections.length)}+` : "0"}
                 </div>
-                <div className="text-[#A45286] font-bold text-[12px] uppercase">
+                <div className="text-[#f26744] font-bold text-[12px] uppercase">
                   New Connection
                 </div>
               </div>

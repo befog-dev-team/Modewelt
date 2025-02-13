@@ -71,7 +71,7 @@ function OtherModal({ isModalOpen, closeModal }) {
                         <button
                             type="button"
                             style={{
-                                background: 'linear-gradient(180deg, #D675B2 0%, #A45286 100%)',
+                                background: '#f26744',
                             }}
                             className="text-white w-full h-[37px] font-medium rounded-lg text-sm inline-flex items-center justify-center px-5 py-2"
                             onClick={() => {
@@ -120,7 +120,7 @@ function OtherModal({ isModalOpen, closeModal }) {
                                 onClick={handleLogout}
                                 type="button"
                                 disabled={loading} // Disable when loading
-                                style={{ background: 'linear-gradient(180deg, #D675B2 0%, #A45286 100%)' }}
+                                style={{ background: ' #f26744 ' }}
                                 className="text-white w-[111px] h-[32px] text-[12px] font-medium rounded-lg flex items-center justify-center"
                             >
                                 {loading ?

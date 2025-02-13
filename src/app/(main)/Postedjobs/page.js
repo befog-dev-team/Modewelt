@@ -27,21 +27,21 @@ export default function PostedJobs() {
   const filteredJobs = filter === "All" ? jobs : jobs.filter((job) => job.status === filter);
 
   return (
-    <div>
+    <div className="bg-[#a2defa] min-h-screen">
       <Navbar />
       <div className="px-4 lg:px-8 lg:my-6 space-y-10 lg:space-y-0 lg:space-x-14">
         <div className="flex flex-col md:flex-row p-4 md:p-6 lg:p-8">
           {/* Sidebar Menu */}
           <aside className="w-full md:w-1/4 bg-white shadow-md rounded-lg p-4">
             <h3 className="text-lg font-semibold flex items-center gap-2">
-              <i className="ri-briefcase-line text-[#ba669d]"></i> MANAGE YOUR JOBS
+              <i className="ri-briefcase-line text-[#f26744]"></i> MANAGE YOUR JOBS
             </h3>
             <hr className="my-2" />
             <ul className="space-y-2">
-              <li className="cursor-pointer text-gray-700 hover:text-[#ba669d]" onClick={() => router.push("/Myjobs")}>
+              <li className="cursor-pointer text-gray-700 hover:text-[#f26744]" onClick={() => router.push("/Myjobs")}>
                 My Jobs
               </li>
-              <li className="cursor-pointer text-[#ba669d] font-semibold" onClick={() => router.push("/Postedjobs")}>
+              <li className="cursor-pointer text-[#f26744] font-semibold" onClick={() => router.push("/Postedjobs")}>
                 Posted Job
               </li>
             </ul>
@@ -49,13 +49,13 @@ export default function PostedJobs() {
 
           {/* Main Content */}
           <main className="w-full md:w-3/4 mt-6 md:mt-0 md:ml-6">
-            <h2 className="text-xl font-semibold text-center text-[#ba669d]">POSTED JOBS</h2>
+            <h2 className="text-xl font-semibold text-center text-[#f26744]">POSTED JOBS</h2>
             <div className="flex justify-center gap-2 my-4">
               {["All", "Draft", "Completed", "Active"].map((status) => (
                 <button
                   key={status}
                   onClick={() => setFilter(status)}
-                  className={`px-4 py-2 border rounded-full text-sm ${filter === status ? "bg-[#ba669d] text-white" : "border-gray-300 text-gray-600"}`}
+                  className={`px-4 py-2 border rounded-full text-sm ${filter === status ? "bg-[#f26744] text-white" : "border-gray-300 text-gray-600"}`}
                 >
                   {status}
                 </button>

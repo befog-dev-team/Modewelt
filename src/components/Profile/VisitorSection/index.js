@@ -17,7 +17,7 @@ export default function VisitorSection({ visitors }) {
 
     return (
         <div>
-            <div className="h-[427px] mt-5 shadow-lg p-4">
+            <div className="h-[427px] bg-[#ffffff] mt-5 shadow-lg p-4">
                 <div className="flex justify-between px-3 py-3 w-full font-[Gotham] mt-2">
                     <span className="font-semibold text-sm">VISITORS</span>
                     {/* <span

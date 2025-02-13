@@ -124,7 +124,7 @@ export default async function Page(props) {
     const user = await getUser(username, loggedInUser.id);
 
     return (
-        <div>
+        <div className="bg-[#a2defa]">
             <UserProfileWrappper
                 user={user}
                 loggedinUserId={loggedInUser.id}

@@ -9,7 +9,7 @@ export default function Page() {
   const query = searchParams.get("q") || "";
 
   return (
-    <div>
+    <div className="bg-[#a2defa]">
       <Navbar unreadNotificationCount={undefined} />
       <main className="flex w-full justify-center gap-5 mt-6">
         <div className="flex flex-col justify-center min-w-[70vw] space-y-5">

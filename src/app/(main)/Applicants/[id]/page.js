@@ -80,7 +80,7 @@ const ApplicantsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-[#a2defa]">
       <Navbar />
       <div className="p-6 max-w-7xl mx-auto">
         {/* Job Details Card */}
@@ -94,12 +94,12 @@ const ApplicantsPage = () => {
           </p>
           <div className="flex gap-4 mt-4 justify-end">
             <button
-              className="border border-[#a34e83] text-[#a34e83] px-4 py-2 rounded-full hover:bg-[#a34e83] hover:text-white transition"
+              className="border border-[#f26744] text-[#f26744] px-4 py-2 rounded-full hover:bg-[#f26744] hover:text-white transition"
               onClick={() => router.push(`/Applicants/${job.id}`)}
             >
               View Applicants
             </button>
-            <button className="border border-[#a34e83] text-[#a34e83] px-4 py-2 rounded-full hover:bg-[#a34e83] hover:text-white transition">
+            <button className="border border-[#f26744] text-[#f26744] px-4 py-2 rounded-full hover:bg-[#f26744] hover:text-white transition">
               Repost Job
             </button>
           </div>
@@ -109,7 +109,7 @@ const ApplicantsPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
           {/* Applicants List */}
           <div className="bg-white shadow-md rounded-lg p-4 overflow-y-auto h-[500px]">
-            <h2 className="text-lg font-semibold text-[#a34e83] mb-4">
+            <h2 className="text-lg font-semibold text-[#f26744] mb-4">
               Applicants
             </h2>
             {applicantsData.map((applicant) => (
@@ -157,7 +157,7 @@ const ApplicantsPage = () => {
                 <p className="text-sm text-gray-500">
                   {selectedApplicant.description}
                 </p>
-                <p className="text-sm font-medium text-[#a34e83]">
+                <p className="text-sm font-medium text-[#f26744]">
                   {selectedApplicant.role}
                 </p>
                 <p className="text-sm text-gray-400">
@@ -167,16 +167,16 @@ const ApplicantsPage = () => {
             </div>
             <div className="flex gap-4 mt-4">
               <button
-                className="border border-[#a34e83] uppercase text-[#a34e83] px-4 py-2 rounded-full hover:bg-[#a34e83] hover:text-white transition"
+                className="border border-[#f26744] uppercase text-[#f26744] px-4 py-2 rounded-full hover:bg-[#f26744] hover:text-white transition"
                 onClick={() => router.push(`/Applicants/${job.id}`)}
               >
                 See profile
               </button>
-              <button className="border border-[#a34e83] text-[#a34e83] px-4 py-2 rounded-full hover:bg-[#a34e83] hover:text-white uppercase transition">
+              <button className="border border-[#f26744] text-[#f26744] px-4 py-2 rounded-full hover:bg-[#f26744] hover:text-white uppercase transition">
                 Message
               </button>
             </div>
-            <h2 className="mt-8 text-md font-semibold text-[#a34e83] uppercase">Insights from profile</h2>
+            <h2 className="mt-8 text-md font-semibold text-[#f26744] uppercase">Insights from profile</h2>
             <h3 className="mt-6 text-md font-semibold text-gray-700">
               Experience
             </h3>
@@ -200,7 +200,7 @@ const ApplicantsPage = () => {
               <a
                 href={`/${selectedApplicant.resume}`}
                 download
-                className="ml-auto text-[#a34e83] text-2xl my-4"
+                className="ml-auto text-[#f26744] text-2xl my-4"
               >
                 <MdOutlineFileDownload />
               </a>

@@ -49,7 +49,7 @@ export default function Network({ users, trendingTopics }) {
     }, [activeSection]);
 
     return (
-        <div>
+        <div className='bg-[#a2defa] min-h-screen'>
             <Navbar />
             <div className="flex flex-col lg:flex-row mt-4 md:mt-[45px] lg:ml-[134px]">
                 {/* Left Sidebar */}
@@ -58,7 +58,7 @@ export default function Network({ users, trendingTopics }) {
                         {/* Scroller Indicator */}
                         <div
                             ref={scrollerRef}
-                            className="absolute w-[5px] h-[48px] rounded-r-[50px] bg-gradient-to-r from-[#A45286] to-[#A45286] shadow-lg transition-all duration-300 ease-in-out"
+                            className="absolute w-[5px] h-[48px] rounded-r-[50px] bg-[#f26744] shadow-lg transition-all duration-300 ease-in-out"
                         ></div>
 
                         {[

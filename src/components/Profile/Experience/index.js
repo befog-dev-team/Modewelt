@@ -138,7 +138,7 @@ export default function ExperiencePage() {
     };
 
     return (
-        <div className="max-w-[850px] w-full min-h-fit shadow-lg mt-8 p-4">
+        <div className="max-w-[850px] bg-[#ffffff] w-full min-h-fit shadow-lg mt-8 p-4">
             <div className="flex justify-between">
                 <h1 className="font-bold">Experience</h1>
                 {/* ({experienceList.length}/5) */}

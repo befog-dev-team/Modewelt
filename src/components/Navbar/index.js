@@ -49,7 +49,7 @@ function Navbar({ unreadNotificationCount }) {
   }
 
   return (
-    <div className="bg-white w-full h-16 flex flex-col lg:flex-row items-center text-sm text-gray-600">
+    <div className="bg-[#a2defa] w-full h-16 flex flex-col lg:flex-row items-center text-sm text-gray-600">
       <div className="container mx-auto flex items-center px-2 lg:px-6">
         {/* Logo */}
         <Link href="/feed" className="flex flex-col items-center">
@@ -106,7 +106,7 @@ function Navbar({ unreadNotificationCount }) {
           </Link>
 
           <button
-            className="flex flex-col items-center text-sm text-gray-600 hover:text-[#a8568a]"
+            className="flex flex-col items-center text-sm text-gray-600 hover:text-[#f26744]"
             onClick={toggleModal}
           >
             <FaEllipsisH className="text-2xl" />
@@ -118,7 +118,7 @@ function Navbar({ unreadNotificationCount }) {
       </div>
 
       {/* Bottom Navbar for Mobile & Tablet */}
-      <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 flex justify-around items-center py-2 lg:hidden">
+      <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 flex justify-around items-center py-2 lg:hidden z-10">
         <Link href="/feed" className="flex flex-col items-center">
           <SlFeed className="h-6 w-6" />
           <span className="text-xs">Feed</span>

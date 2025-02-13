@@ -80,7 +80,7 @@ export default function FollowRequestButton({ userId, initialState }: FollowRequ
             : "Follow";
 
     const buttonStyles = {
-        Follow: "bg-gradient-to-r from-[#c166a0] to-[#A45286] text-white text-sm font-bold py-1 px-4 rounded",
+        Follow: "bg-gradient-to-r from-[#c166a0] to-[#f26744] text-white text-sm font-bold py-1 px-4 rounded",
         Requested: "bg-gray-300 py-1 px-4 text-sm font-semibold py-1 px-4 rounded",
         Following: "bg-white text-[#B7B7B7] text-sm font-bold py-1 px-4 rounded border-[#E7E7E7] border-[1px]",
     };

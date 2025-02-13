@@ -26,7 +26,7 @@ export default function Index() {
               size={24}
               className="text-[#e3e3e3] hover:text-gray-500"
             />
-            <div className="flex justify-center items-center w-[32px] h-[32px] bg-[#bb679c] rounded-[4px]">
+            <div className="flex justify-center items-center w-[32px] h-[32px] bg-[#f26744] rounded-[4px]">
               <IoSearchOutline className="text-white" />
             </div>
           </div>

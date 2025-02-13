@@ -61,7 +61,7 @@ function SelectField({ label, value, options, onChange, required = false }) {
 // File Upload Component
 function FileUpload({ label, description, accept, onChange }) {
     return (
-        <div className="flex flex-col items-center justify-center bg-gray-100 border border-gray-300 rounded-lg p-6 text-center">
+        <div className="flex flex-col items-center justify-center bg-[#a2defa] border border-gray-300 rounded-lg p-6 text-center">
             <label
                 htmlFor="fileUpload"
                 className="text-lg font-medium text-[#a35284] cursor-pointer"

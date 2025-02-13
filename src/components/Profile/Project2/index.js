@@ -5,6 +5,7 @@ import { LuPlus } from "react-icons/lu";
 import profileimg from "../../../../public/assets/profile/imgarticle.png";
 import axios from "axios";
 import { MdEdit, MdDelete } from "react-icons/md";
+import { Loader2 } from "lucide-react";
 
 export default function EducationPage({ user, username, loggedinUserId }) {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -13,6 +14,7 @@ export default function EducationPage({ user, username, loggedinUserId }) {
     const [file, setFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
+    const [error, setError] = useState(null); // Error handling
     const MAX_EDUCATION_LIMIT = 5; // Limit user to 5 education entries
 
     // Fetch education data when the component loads
@@ -29,6 +31,7 @@ export default function EducationPage({ user, username, loggedinUserId }) {
             }
         } catch (error) {
             console.error("Error fetching education data:", error);
+            setError("Failed to fetch education data. Please try again.");
         } finally {
             setIsLoading(false);
         }
@@ -147,9 +150,10 @@ export default function EducationPage({ user, username, loggedinUserId }) {
             )}
         </div>
 
-            {isLoading ? (
-                <p className="text-center text-[#A45286]">Loading...</p>
-            ) : (
+        {isLoading && <Loader2 className="mx-auto animate-spin size-6" />}
+{error && <p className="text-red-500">{error}</p>}
+{!isLoading && !error && (
+
                 <div className="w-full h-full">
                     {educationList.map((education) => (
                        <div key={education.id} className="flex items-center justify-between p-2 rounded-lg shadow-md relative group">

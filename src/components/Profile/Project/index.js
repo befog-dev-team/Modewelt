@@ -7,19 +7,20 @@ import { MdEdit, MdDelete } from "react-icons/md";
 import { LuPlus } from "react-icons/lu";
 
 
-export default function ProjectPage() {
- // State management
- const [isPopupOpen, setIsPopupOpen] = useState(false); // Controls add/edit modal
- const [projects, setProjects] = useState([]); // Stores project list
- const [currentProject, setCurrentProject] = useState(null); // Currently edited project
- const [file, setFile] = useState(null); // Stores uploaded media file
- const [visibleProjects, setVisibleProjects] = useState(3); // Pagination control
- const [isLoading, setIsLoading] = useState(false); // Loading state
- const [error, setError] = useState(null); // Error handling
+export default function ProjectPage({ user, loggedinUserId }) {
+  // State management
+  const [isPopupOpen, setIsPopupOpen] = useState(false); // Controls add/edit modal
+  const [projects, setProjects] = useState([]); // Stores project list
+  const [currentProject, setCurrentProject] = useState(null); // Currently edited project
+  const [file, setFile] = useState(null); // Stores uploaded media file
+  const [visibleProjects, setVisibleProjects] = useState(3); // Pagination control
+  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [error, setError] = useState(null); // Error handling
 
   // Fetch projects on component mount
   useEffect(() => {
     fetchProjects();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Fetch projects from API
@@ -27,7 +28,7 @@ export default function ProjectPage() {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/projects");
+      const res = await fetch(`/api/projects/${user.id}`);
       if (!res.ok) throw new Error("Failed to fetch projects");
       const data = await res.json();
       setProjects(data.projects);
@@ -39,9 +40,9 @@ export default function ProjectPage() {
     }
   };
 
-   // Add new project handler
+  // Add new project handler
   const handleAddProject = async () => {
-     // Form validation
+    // Form validation
     if (!currentProject?.name?.trim()) {
       alert("Project name is required");
       return;
@@ -86,7 +87,7 @@ export default function ProjectPage() {
     setIsPopupOpen(true);
   };
 
-   // Update project handler (similar structure to Add)
+  // Update project handler (similar structure to Add)
   const handleUpdateProject = async () => {
     if (!currentProject?.name?.trim()) {
       alert("Project name is required");
@@ -154,7 +155,7 @@ export default function ProjectPage() {
     }
   };
 
-   // Media file validation
+  // Media file validation
   const handleMediaChange = (e) => {
     const file = e.target.files[0];
     if (file && !file.type.match(/^(image\/.*|video\/.*)$/)) {
@@ -167,11 +168,11 @@ export default function ProjectPage() {
   // Project card component
   const ProjectCard = ({ project }) => (
     <div className="flex flex-col mb-4 w-[250px] group relative">
-         {/* Media display section */}
+      {/* Media display section */}
       <div className="w-[250px] h-[187.5px] overflow-hidden rounded-md relative">
         {project.media &&
-        project.media.length > 0 &&
-        project.media[0].type === "IMAGE" ? (
+          project.media.length > 0 &&
+          project.media[0].type === "IMAGE" ? (
           <>
             <Image
               width={250}
@@ -212,18 +213,18 @@ export default function ProjectPage() {
         </div>
       </div>
 
-       {/* Project details */}
+      {/* Project details */}
       <div className="mt-2">
         <span className="font-arial">{project.name}</span>
         {project.date && (
-        <p className="text-[#5A5A5A] text-[10px]">
-          {new Date(project.date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-          })}
-        </p>
-      )}
+          <p className="text-[#5A5A5A] text-[10px]">
+            {new Date(project.date).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric'
+            })}
+          </p>
+        )}
         <p className="text-[#5A5A5A] text-[10px]">{project.description}</p>
       </div>
     </div>
@@ -231,7 +232,7 @@ export default function ProjectPage() {
 
   return (
     <div className="mt-12 h-auto max-w-[850px] w-full shadow-lg p-6">
-         {/* Header section */}
+      {/* Header section */}
       <div className="flex justify-between">
         <div className="flex items-center mb-3 space-x-5">
           <h1 className="font-bold">Projects</h1>
@@ -248,12 +249,12 @@ export default function ProjectPage() {
         />
       </div>
 
-    
-        {/* Loading and error states */}
+
+      {/* Loading and error states */}
       {isLoading && <p className="text-center text-[#A45286]">Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
 
-        {/* Projects grid */}
+      {/* Projects grid */}
       <div className="flex flex-wrap gap-2 p-4">
         {projects.slice(0, visibleProjects).map((project) => (
           <ProjectCard key={project.id} project={project} />
@@ -274,7 +275,7 @@ export default function ProjectPage() {
         </button>
       )}
 
-    {/* Add/Edit modal */}
+      {/* Add/Edit modal */}
       {isPopupOpen && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-6 rounded shadow-lg w-[500px]">
@@ -340,11 +341,11 @@ export default function ProjectPage() {
               <button
                 className="bg-gray-300 px-4 py-2 rounded mr-2"
                 onClick={() => {
-                    setIsPopupOpen(false);
-                    setCurrentProject(null); // Reset current project
-                    setFile(null); // Clear selected file
-                  }}
-                
+                  setIsPopupOpen(false);
+                  setCurrentProject(null); // Reset current project
+                  setFile(null); // Clear selected file
+                }}
+
               >
                 Cancel
               </button>
@@ -358,8 +359,8 @@ export default function ProjectPage() {
                 {isLoading
                   ? "Saving..."
                   : currentProject?.id
-                  ? "Update"
-                  : "Save"}
+                    ? "Update"
+                    : "Save"}
               </button>
             </div>
           </div>

@@ -102,6 +102,8 @@ export async function GET(req: NextRequest) {
             orderBy: { createdAt: "desc" }, // Sort by latest experiences
         });
 
+        console.log("✅ Fetched Experiences:", experiences);
+
         return Response.json({ success: true, experiences }, { status: 200 });
     } catch (error) {
         console.error("❌ Error fetching experiences:", error);

@@ -100,35 +100,6 @@ export async function POST(req: NextRequest) {
     }
 }
 
-// API Route: Handle GET request to fetch projects
-export async function GET(req: NextRequest) {
-    console.log(req);
-  try {
-      console.log("📡 Fetching projects...");
-
-      // Authenticate user
-      const { user } = await validateRequest();
-      if (!user) {
-          console.log("❌ Unauthorized: No valid session found");
-          return Response.json({ error: "Unauthorized" }, { status: 401 });
-      }
-
-      console.log("✅ Authenticated User:", user);
-
-      // Fetch projects from the database for the logged-in user
-      const projects = await prisma.project.findMany({
-          where: { userId: user.id },
-          include: { media: true },
-          orderBy: { createdAt: "desc" }, // Sort by latest projects
-      });
-
-      return Response.json({ success: true, projects }, { status: 200 });
-  } catch (error) {
-      console.error("❌ Error fetching projects:", error);
-      return Response.json({ error: "Internal Server Error" }, { status: 500 });
-  }
-}
-
 // API Route: Handle PUT request (Edit Project)
 export async function PUT(req: NextRequest) {
     try {

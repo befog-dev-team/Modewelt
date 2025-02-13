@@ -15,7 +15,7 @@ import Documentpage from "../Documents";
 import ProfileFeed from "../../../app/(main)/profile/[username]/ProfileFeed";
 import { useSession } from "@/app/(main)/SessionProvider";
 
-const ProfileTabs = ({ imageArticle }) => {
+const ProfileTabs = ({ imageArticle, users, loggedinUserId }) => {
     const [activeSection, setActiveSection] = useState("profile");
     const [activeSectionPost, setActiveSectionPost] = useState("post");
 
@@ -114,7 +114,7 @@ const ProfileTabs = ({ imageArticle }) => {
             {/* Profile Section */}
             {activeSection === "profile" && (
                 <div>
-                    <ProjectPage />
+                    <ProjectPage user={users} loggedinUserId={loggedinUserId} />
                     <SkillsPage />
                     <Experience />
                     <ProjectPage2 />

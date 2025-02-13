@@ -10,7 +10,6 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// 📌 Upload to Cloudinary Function
 // 📌 Allowed document types
 const ALLOWED_DOC_TYPES = ["pdf", "doc", "docx", "rtf", "odt", "txt"];
 

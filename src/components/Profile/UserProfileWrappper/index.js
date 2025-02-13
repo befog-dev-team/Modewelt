@@ -31,7 +31,7 @@ export default function UserProfileWrappper({ user, loggedinUserId, totalLikesRe
                         <UserProfile user={user} followerInfo={followerInfo} loggedinUserId={loggedinUserId} />
 
                         {/* Profile Tabs */}
-                        <ProfileTabs user={user} loggedinUserId={loggedinUserId} />
+                        <ProfileTabs users={user} loggedinUserId={loggedinUserId} />
                     </div>
 
                     {/* Sidebar Area */}

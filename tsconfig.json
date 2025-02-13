@@ -34,7 +34,7 @@
     "src/**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "src/app/(main)/jobform/[id]/jobApplication.js", "src/app/api/projects/route.js", "src/app/api/education/route.js"  ],
+, "src/app/(main)/jobform/[id]/jobApplication.js", "src/app/api/projects/route.js", "src/app/api/education/route.js", "src/app/api/experience/route.js"  ],
   "exclude": [
     "node_modules"
   ]

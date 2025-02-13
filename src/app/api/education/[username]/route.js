@@ -2,7 +2,8 @@ import { validateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
 
 // API Route: Get education records by username
-export async function GET(req, { params }) {
+export async function GET(req, props) {
+    const params = await props.params;
     try {
         const { user } = await validateRequest();
 
@@ -15,7 +16,7 @@ export async function GET(req, { params }) {
             return Response.json({ error: "Username is required" }, { status: 400 });
         }
 
-        console.log("👤 Fetching education records for:", username);
+        // console.log("👤 Fetching education records for:", username);
 
         // Find user by username
         const profileUser = await prisma.user.findUnique({

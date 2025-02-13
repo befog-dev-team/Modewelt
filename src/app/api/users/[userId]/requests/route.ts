@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 
-export async function PATCH(req: Request, { params }: { params: { userId: string } }) {
+export async function PATCH(req: Request, props: { params: Promise<{ userId: string }> }) {
+    const params = await props.params;
     const { userId } = params;
 
     // Validate JSON Parsing
@@ -12,10 +13,6 @@ export async function PATCH(req: Request, { params }: { params: { userId: string
     }
 
     const { action, currentUserId } = body;
-
-    console.log("Action:", action);
-    console.log("Current user ID:", currentUserId);
-    console.log("User ID:", userId);
 
     try {
         switch (action) {

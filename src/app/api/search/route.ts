@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     const q = searchParams.get("q")?.trim() || "";
     const cursor = searchParams.get("cursor");
 
-    const pageSize = 10;
+    const pageSize = 5;
 
     const { user } = await validateRequest();
     if (!user) {

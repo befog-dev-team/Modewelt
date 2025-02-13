@@ -64,8 +64,6 @@ export default function FollowRequestButton({ userId, initialState }: FollowRequ
         },
         onError: (error, _, context) => {
             queryClient.setQueryData(queryKey, context?.previousState);
-            // console.log(error);
-            // toast.error("Something went wrong. Please try again.");
         },
         // onError: (error, _, context) => {
         //     queryClient.setQueryData(queryKey, context?.previousState);

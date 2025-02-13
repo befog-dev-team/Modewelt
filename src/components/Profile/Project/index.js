@@ -6,11 +6,10 @@ import profileimg from "../../../../public/assets/profile/backgroundImageBackrgo
 import { MdEdit, MdDelete } from "react-icons/md";
 import { LuPlus } from "react-icons/lu";
 
-
 export default function ProjectPage({ user, loggedinUserId }) {
 
   console.log("user", user);
-  
+
   // State management
   const [isPopupOpen, setIsPopupOpen] = useState(false); // Controls add/edit modal
   const [projects, setProjects] = useState([]); // Stores project list

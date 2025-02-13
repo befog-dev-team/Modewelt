@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
         const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
 
         // Set the page size
-        const pageSize = 10;
+        const pageSize = 5;
 
         // Validate the request to ensure the user is logged in
         const { user } = await validateRequest();

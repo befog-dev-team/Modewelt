@@ -27,7 +27,6 @@ export default async function WhoToFollow() {
             },
         },
         select: getUserDataSelect(user.id), // Pass the user-specific selection logic here
-        take: 3, // Get the top 3 users
     });
 
     return (
@@ -39,7 +38,7 @@ export default async function WhoToFollow() {
             <hr className="border-t border-[#F4F4F4] mt-4" />
 
             {/* Users to follow */}
-            <div className="w-[227px] h-[198px] mt-2">
+            <div className="h-[250px] mt-2 mx-2 overflow-y-auto no-scrollbar">
                 {usersToFollow.map((user) => (
                     <div key={user.id} className="flex items-center space-x-3 my-6">
                         <Link

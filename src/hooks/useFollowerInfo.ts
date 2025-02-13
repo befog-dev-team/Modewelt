@@ -30,8 +30,8 @@ export default function useFollowerInfo(
       };
     },
     initialData: initialState, // Initial data to populate the cache
-    staleTime: 1000, // Data is considered stale after 1 seconds
-    refetchInterval: 5000, // Polls the server every 5 seconds
+    staleTime: 5000, // Data is considered stale after 5 seconds
+    refetchInterval: 10000, // Refetch every 10 seconds
     refetchOnWindowFocus: true, // Refetch when user focuses on the tab
   });
 

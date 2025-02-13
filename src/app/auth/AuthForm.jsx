@@ -18,8 +18,6 @@ const Auth = () => {
   const [pending, startTransition] = useTransition(); // for transition
   const [error, setError] = useState(undefined); // for error handling
 
-  toast.error(error); // error toast
-
   // Login Form
   const {
     register: loginRegister, // register function
@@ -51,6 +49,7 @@ const Auth = () => {
       });
     } catch (err) {
       setError(err.response?.data?.message || "Login Failed"); // set error
+      toast.error(error); // error toast
     }
   };
 
@@ -93,6 +92,7 @@ const Auth = () => {
       });
     } catch (err) {
       setError(err.response?.data?.message || "Signup Failed"); // set error
+      toast.error(error); // error toast
     }
   };
 

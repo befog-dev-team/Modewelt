@@ -31,7 +31,7 @@ export default function ForYouJobFeed() {
   const jobs = data?.pages.flatMap((page) => page.jobs) || []; // Flatmap is used to flatten the array of jobs. It gives one dimensional data array instead of the two dimensional array. 
 
   if (status === "pending") { // If the status is pending, show the loading skeleton
-    return <Loader2 className="mx-auto text-[#A45286]" />; // Show the JobsLoadingSkeleton component
+    return <Loader2 className="mx-auto animate-spin text-[#A45286]" />; // Show the JobsLoadingSkeleton component
   }
 
   if (status === "success" && !jobs.length && !hasNextPage) { // If the status is success and there are no jobs and no next page

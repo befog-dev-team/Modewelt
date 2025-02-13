@@ -71,7 +71,7 @@ export default function NotificationWrapper({ user, todayViews }) {
                 </div>
 
                 {/* Right Section */}
-                <div className="flex-grow mx-4 overflow-y-auto h-[70vh]">
+                <div className="flex-grow mx-4 overflow-y-auto h-[85vh]">
                     <Box className=" h-[330px] lg:w-[900px] w-full">
                         {/* <Box className="flex justify-between items-center mb-4">
                             <Divider className="flex-grow mx-4" />

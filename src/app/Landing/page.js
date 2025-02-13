@@ -19,19 +19,19 @@ const initialFeatures = [
 
 const features = [
   {
-    icon: <FaUserFriends className="text-[#a35083] text-4xl" />,
+    icon: <FaUserFriends className="text-[#f26744] text-4xl" />,
     title: "Unlimited Profile Views",
     description:
       "Review endless profiles free-of-cost. Pay only when you want to contact suitable candidates",
   },
   {
-    icon: <FaFileAlt className="text-[#a35083] text-4xl" />,
+    icon: <FaFileAlt className="text-[#f26744] text-4xl" />,
     title: "Auto Generated Resumes",
     description:
       "Effortlessly generate downloadable resumes from apna profiles for seamless candidate review.",
   },
   {
-    icon: <FaFilter className="text-[#a35083] text-4xl" />,
+    icon: <FaFilter className="text-[#f26744] text-4xl" />,
     title: "Precision Filtering",
     description: "Use 22+ advanced filters to fine-tune candidate searches.",
   },
@@ -117,12 +117,11 @@ export default function Navbar() {
     "Trend Forecaster",
   ];
 
-
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <div>
-      <nav className="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+    <div className="bg-[#a2defa]">
+      <nav className="shadow-md py-4 px-6 flex justify-between items-center">
         {/* Logo */}
         <div className="text-[#a35083] text-xl font-bold">
           <Image src={logo} alt="Modewelt" width={50} height={50} />
@@ -133,13 +132,13 @@ export default function Navbar() {
           <span className="text-gray-700">Looking for a Job</span>
           <Link
             href="/contact"
-            className="border border-[#a35083] text-[#a35083] px-4 py-2 rounded-lg hover:bg-purple-100 transition"
+            className="border border-[#f26744] text-[#f26744] px-4 py-2 rounded-lg hover:bg-purple-100 transition"
           >
             Contact Us
           </Link>
           <Link
             href="/signup"
-            className="bg-[#a35083] text-white px-4 py-2 rounded-lg hover:bg-[#a35083] transition"
+            className="bg-[#f26744] text-white px-4 py-2 rounded-lg hover:bg-[#f26744] transition"
           >
             Sign up / Log in
           </Link>
@@ -152,24 +151,24 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="absolute top-16 left-0 w-full bg-white shadow-md md:hidden flex flex-col items-center space-y-4 py-4">
+          <div className="absolute top-16 left-0 w-full shadow-md md:hidden flex flex-col items-center space-y-4 py-4">
             <span className="text-gray-700">Looking for a Job</span>
             <Link
               href="/contact"
-              className="border border-[#a35083] text-[#a35083] px-4 py-2 rounded-lg hover:bg-purple-100 transition"
+              className="border border-[#f26744] text-[#f26744] px-4 py-2 rounded-lg hover:bg-purple-100 transition"
             >
               Contact Us
             </Link>
             <Link
               href="/signup"
-              className="bg-[#a35083] text-white px-4 py-2 rounded-lg hover:bg-[#a35083] transition"
+              className="bg-[#f26744] text-white px-4 py-2 rounded-lg hover:bg-[#f26744] transition"
             >
               Sign up / Log in
             </Link>
           </div>
         )}
       </nav>
-      <div className="flex flex-col md:flex-row items-center justify-center min-h-screen px-6 md:px-12 bg-gray-50">
+      <div className="flex flex-col md:flex-row items-center justify-center min-h-screen px-6 md:px-12">
         {/* Left Section */}
         <div className="w-full md:w-1/2 text-center md:text-left space-y-4">
           <h1 className="text-4xl md:text-5xl font-bold text-black">
@@ -178,7 +177,7 @@ export default function Navbar() {
           <p className="text-gray-600">
             An Exclusive Platform for Fashion Designers
           </p>
-          <button className="border border-[#a35083] text-[#a35083] px-6 py-2 rounded-lg hover:bg-[#a35083] hover:text-white transition">
+          <button className="border border-[#f26744] text-[#f26744] px-6 py-2 rounded-lg hover:bg-[#f26744] hover:text-white transition">
             Registered Now
           </button>
         </div>
@@ -201,11 +200,11 @@ export default function Navbar() {
               placeholder="Enter 10 digit mobile number"
               value={mobile}
               onChange={(e) => setMobile(e.target.value)}
-              className="w-full mt-2 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full mt-2 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#f26744]"
             />
           </div>
 
-          <button className="w-full mt-4 bg-[#a35083] text-white py-2 rounded-md hover:bg-[#a35083] transition">
+          <button className="w-full mt-4 bg-[#f26744] text-white py-2 rounded-md hover:bg-[#f26744] transition">
             Continue
           </button>
 
@@ -217,45 +216,46 @@ export default function Navbar() {
 
           <a
             href="#"
-            className="text-[#a35083] font-semibold hover:underline block text-center"
+            className="text-[#f26744] font-semibold hover:underline block text-center"
           >
             Click here for Enterprise login
           </a>
 
           <p className="text-gray-500 text-xs text-center mt-4">
             By clicking continue, you agree to the Modewelt
-            <a href="#" className="text-[#a35083] hover:underline">
+            <a href="#" className="text-[#f26744] hover:underline">
               Terms of service
             </a>
             &
-            <a href="#" className="text-#a35083 hover:underline">
+            <a href="#" className="text-[#f26744] hover:underline">
               Privacy policy
             </a>
           </p>
         </div>
       </div>
       <div className="flex justify-center items-center bg-blue-50 m-auto">
-      <div className="flex flex-wrap gap-4 p-6 bg-gradient-to-r from-blue-100 to-blue-300 rounded-lg">
-        {jobTags.map((tag, index) => (
-          <span
-            key={index}
-            className="px-4 py-2 text-gray-700 bg-white border border-pink-300 rounded-full shadow-sm text-sm font-semibold"
-          >
-            {tag}
-          </span>
-        ))}
+        <div className="flex flex-wrap gap-4 p-6 bg-gradient-to-r from-[#b8e6fc] to-[#a2e0fa] rounded-lg">
+          {jobTags.map((tag, index) => (
+            <span
+              key={index}
+              className="px-4 py-2 text-gray-700 bg-white border border-pink-300 rounded-full shadow-sm text-sm font-semibold"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
-    </div>
-      <section className="bg-blue-200 py-10 px-5 min-h-screen">
+      <section className="bg-[#a2defa] py-10 px-5 min-h-screen">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 justify-start">
+          <h2 className="text-4xl md:text-4xl lg:text-6xl text-gray-800 mb-6 text-left">
             Explore by <span className="text-orange-500">category</span>
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+          <div className="grid justify-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:mt-20 m-auto sm:mt-2">
             {jobCategories.map((category, index) => (
               <div
                 key={index}
-                className={`p-6 rounded-lg shadow-md transition-all duration-300 cursor-pointer flex flex-col items-center text-center ${
+                className={`max-w-[274px] w-full h-[214px] p-6 rounded-lg shadow-md transition-all duration-300 cursor-pointer flex flex-col items-center text-center ${
                   category.highlighted
                     ? "bg-orange-500 text-white"
                     : "bg-white text-gray-800"
@@ -292,7 +292,7 @@ export default function Navbar() {
               leveling up your career, Modewelt makes it easier for you to
               showcase your talent and get hired.
             </p>
-            <button className="mt-6 bg-[#a35083] text-white px-6 py-2 rounded-md shadow-md hover:bg-[#a35083">
+            <button className="mt-6 bg-[#f26744] text-white px-6 py-2 rounded-md shadow-md hover:bg-[#a35083">
               Registered Now
             </button>
           </div>
@@ -334,7 +334,7 @@ export default function Navbar() {
           ))}
         </div>
       </section>
-      <div className="bg-gray-100 p-6 md:p-12 min-h-screen rounded-xl max-w-full lg:px-[90px] lg:py-[101px] justify-center">
+      <div className="p-6 md:p-12 min-h-screen rounded-xl max-w-full lg:px-[90px] lg:py-[101px] justify-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="bg-gray-400 flex items-center justify-center h-[400px] rounded-xl">
             <div className="bg-gray-600 p-4 rounded-full">
@@ -347,7 +347,7 @@ export default function Navbar() {
           </div>
 
           <div className="space-y-8">
-            <p className="text-[#a35083] font-semibold uppercase text-sm">
+            <p className="text-[#f26744] font-semibold uppercase text-sm">
               Modewelt Database
             </p>
             <h2 className="text-2xl md:text-3xl font-bold mt-2">
@@ -369,7 +369,7 @@ export default function Navbar() {
               ))}
             </div>
 
-            <button className="mt-4 bg-[#a35083] text-white px-6 py-2 rounded-md hover:bg-[#a35083] transition">
+            <button className="mt-4 bg-[#f26744] text-white px-6 py-2 rounded-md hover:bg-[#f26744] transition">
               Search candidates
             </button>
           </div>
@@ -408,7 +408,7 @@ export default function Navbar() {
           />
         </div>
       </section>
-      <div className=" flex flex-col items-center justify-center min-h-screen p-6 bg-white">
+      <div className=" flex flex-col items-center justify-center min-h-screen p-6">
         <div className="max-w-[1192px] w-full">
           <h2 className="text-2xl font-bold text-gray-800">
             Frequently asked questions
@@ -434,7 +434,7 @@ export default function Navbar() {
             ))}
           </div>
         </div>
-        <div className="max-w-[1192px] w-full my-8 border-t border-[#a65386] mt-10 p-[4px]" />
+        <div className="max-w-[1192px] w-full my-8 border-t border-[#f26744] mt-10 p-[4px]" />
         <div className="text-center">
           <h3 className="text-2xl font-bold text-gray-800">
             Let's hire your next great candidate

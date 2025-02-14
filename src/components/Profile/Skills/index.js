@@ -15,8 +15,7 @@ export default function SkillsPage({ user, username, loggedinUserId }) {
   const [isLoading, setIsLoading] = useState(false); // 🔹 Loading state
   const [isSaving, setIsSaving] = useState(false); // 🔹 Saving state
   const [error, setError] = useState(null); // Error handling
-
-  // const [skillList, setSkillList] = useState([]);
+  const MAX_SKILLS_LIMIT = 10; // Maximum skills limit
 
   // 🔹 Fetch all skills from the API when the component loads
   useEffect(() => {
@@ -50,9 +49,13 @@ export default function SkillsPage({ user, username, loggedinUserId }) {
 
   // 🔹 Handle opening add skill modal
   const handleAddSkillClick = () => {
+    // Step 3: Validate before opening modal
+    if (skills.length >= MAX_SKILLS_LIMIT) {
+      alert("You can only add up to 10 skills.");
+      return;
+    }
     setIsPopupOpen(true);
   };
-
   // 🔹 Handle input change for new skill
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -66,6 +69,21 @@ export default function SkillsPage({ user, username, loggedinUserId }) {
   const handleSaveSkill = async () => {
     if (newSkill.title.trim() === "") {
       alert("Skill title is required!");
+      return;
+    }
+
+    // Step 4: Validate again before saving
+    if (skills.length >= MAX_SKILLS_LIMIT) {
+      alert("You can only add up to 10 skills.");
+      return;
+    }
+
+    if (
+      skills.some(
+        (skill) => skill.title.toLowerCase() === newSkill.title.toLowerCase()
+      )
+    ) {
+      alert("This skill already exists.");
       return;
     }
 
@@ -158,7 +176,7 @@ export default function SkillsPage({ user, username, loggedinUserId }) {
         <div className="flex space-x-5 mt-3">
           <h1 className="font-bold font-[Gotham]">Skills & Endorsements</h1>
         </div>
-        {loggedinUserId === user?.id && (
+        {loggedinUserId === user?.id && skills.length < MAX_SKILLS_LIMIT && (
           <div className="cursor-pointer" onClick={handleAddSkillClick}>
             <LuPlus className="text-2xl" />
           </div>

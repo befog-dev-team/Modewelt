@@ -8,7 +8,7 @@ import { FaPlus, FaTrash } from "react-icons/fa6";
 // import { BellRing } from "lucide-react";
 // import { CircleUser } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
@@ -88,6 +88,7 @@ const fetchJob = async (id) => {
 
 // Function to handle 404 error
 export default function Home() {
+    const router = useRouter();
     const { user } = useSession();
 
     const { id } = useParams(); // Get the job id from the URL
@@ -107,14 +108,15 @@ export default function Home() {
         phone: "",
         additionalDocuments: null,
         dob: "",
-        experienceYears: "",
-        experienceMonths: "",
+        // experienceYears: "",
+        // experienceMonths: "",
         currentSalary: "",
         expectedSalary: "",
         preferredLocation: "",
         availableJoinDays: "",
         currentLocation: "",
-        notes: "",
+        achievements: "",
+        portfolioUrl: "",
         language: "",
         skills: "",
         experienceList: [{ id: "", role: "", company: "" }],
@@ -258,7 +260,7 @@ export default function Home() {
         }));
     };
 
-    // console.log("formData", formData);
+    console.log("formData", formData);
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -338,6 +340,8 @@ export default function Home() {
             if (response.status === 200) {
                 toast.success("Application submitted successfully!");
                 setFormData({
+                    jobId: id,
+                    userId: user.id,
                     resumeFile: null,
                     firstName: "",
                     middleName: "",
@@ -348,17 +352,19 @@ export default function Home() {
                     phone: "",
                     additionalDocuments: null,
                     dob: "",
-                    experienceYears: "",
-                    experienceMonths: "",
+                    // experienceYears: "",
+                    // experienceMonths: "",
                     currentSalary: "",
                     expectedSalary: "",
                     preferredLocation: "",
                     availableJoinDays: "",
                     currentLocation: "",
-                    notes: "",
-                    previousEducation: "",
+                    achievements: "",
+                    portfolioUrl: "",
                     language: "",
                     skills: "",
+                    experienceList: [{ id: "", role: "", company: "" }],
+                    educationList: [{ id: "", degree: "", institution: "" }],
                     role: "",
                     company: "",
                     degree: "",
@@ -366,10 +372,10 @@ export default function Home() {
                     checkbox: false,
                 });
                 setFiles([]);
-                setExperienceList([]);
-                setEducationList([]);
                 setInputCaptcha("");
                 setCaptcha(regenerateCaptcha());
+                router.push("/Postedjobs")
+                toast.success("Application submitted successfully!");
             }
         } catch (error) {
             console.error("Error submitting form:", error);
@@ -530,7 +536,7 @@ export default function Home() {
                                 onChange={(e) => setFormData({ ...formData, experienceMonths: e.target.value })}
                             />
                         </div> */}
-                       
+
                     </div>
 
                     {/* Expected and Current Salary */}
@@ -579,29 +585,29 @@ export default function Home() {
                         />
                         <InputField
                             label="Language"
-                            value={formData.notes}
+                            value={formData.language}
                             type="text"
                             placeholder="Languages"
                             className="col-span-2"
-                            onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                            onChange={(e) => setFormData({ ...formData, language: e.target.value })}
                         />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <InputField
                             label="Achievements"
-                            value={formData.currentLocation}
+                            value={formData.achievements}
                             type="text"
                             placeholder="Enter your achievements"
-                            onChange={(e) => setFormData({ ...formData, currentLocation: e.target.value })}
+                            onChange={(e) => setFormData({ ...formData, achievements: e.target.value })}
                         />
                         <InputField
                             label="Portfolio"
-                            value={formData.notes}
+                            value={formData.portfolioUrl}
                             type="text"
                             placeholder="Portfolio link"
                             className="col-span-2"
-                            onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                            onChange={(e) => setFormData({ ...formData, portfolioUrl: e.target.value })}
                         />
                     </div>
 
@@ -621,9 +627,8 @@ export default function Home() {
 
                         {/* Dynamic List of Experience */}
                         <ul className="space-y-2">
-                            {formData.experienceList.length > 0 ? (
+                            {formData.experienceList?.length > 0 ? (
                                 formData.experienceList.map((exp) => (
-                                    // Only render the list item if there is valid content for degree or institution
                                     (exp.role && exp.company) ? (
                                         <li
                                             key={exp.id}
@@ -640,7 +645,7 @@ export default function Home() {
                                                 <FaTrash />
                                             </button>
                                         </li>
-                                    ) : null // Don't render if no content for degree or institution
+                                    ) : null
                                 ))
                             ) : (
                                 <p className="text-gray-500 text-sm">No experience details added yet.</p>
@@ -683,7 +688,7 @@ export default function Home() {
 
                         {/* Dynamic List of Education */}
                         <ul className="space-y-2">
-                            {formData.educationList.length > 0 ? (
+                            {formData.educationList?.length > 0 ? (
                                 formData.educationList.map((edu) => (
                                     // Only render the list item if there is valid content for degree or institution
                                     (edu.degree && edu.institution) ? (

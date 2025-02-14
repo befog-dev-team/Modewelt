@@ -266,7 +266,9 @@ model Job {
 // JobApplication model is used to define the structure of the JobApplication table in the database
 model JobApplication {
   id                  String   @id @default(cuid())
-  resumeFile          String? // Store file URL
+  resumeFileUrl       String?
+  resumeFileName      String?
+  resumeFileSize      Int?
   additionalDocuments Json? // Store multiple file URLs as an array
   firstName           String
   middleName          String?
@@ -276,21 +278,22 @@ model JobApplication {
   countryCode         String
   phone               String
   dob                 DateTime
-  experienceYears     Int
-  experienceMonths    Int
   currentSalary       String?
   expectedSalary      String?
   preferredLocation   String?
   availableJoinDays   String
   currentLocation     String
+  achievements        String?
+  portfolioUrl        String?
   notes               String?
   language            String?
   skills              String?
   agreedToPolicy      Boolean? @default(false)
   createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-  experienceList    Json?    // Store as JSON
-  educationList     Json?    // Store as JSON
+  experienceList Json? // Store as JSON
+  educationList  Json? // Store as JSON
 
   jobId  String
   job    Job    @relation(fields: [jobId], references: [id])

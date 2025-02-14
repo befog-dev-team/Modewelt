@@ -81,7 +81,6 @@ export default async function JobListing(props) {
     if (!id) notFound();
 
     const job = await getJobData(id);
-    console.log(job);
 
     const formatCreatedDate = (dateString) => {
         const date = new Date(dateString);

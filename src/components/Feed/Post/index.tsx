@@ -61,6 +61,7 @@ export default function Post({ post }: PostProps) {
         <Link
           href={`/posts/${post.id}`}
           className="block text-sm text-muted-foreground hover:underline"
+          prefetch={true}
           suppressHydrationWarning
         >
           <p className="leading-[15px] text-xs font-[Gotham] text-[#181818]">
@@ -112,11 +113,11 @@ export default function Post({ post }: PostProps) {
 
       {/* User Info */}
       <div className="flex items-center mt-3 space-x-4 px-8">
-        <Link href={`/profile/${post.user.username}`}>
+        <Link href={`/profile/${post.user.username}`} prefetch={true}>
           <UserAvatar avatarUrl={post.user.avatarUrl} size={500} />
         </Link>
         <div className="flex flex-col">
-          <Link href={`/profile/${post.user.username}`}>
+          <Link href={`/profile/${post.user.username}`} prefetch={true}>
             <h1 className="text-sm font-bold line-clamp-1 break-all hover:underline">{post.user.displayName}</h1>
           </Link>
           <span className="text-xs font-light">{post.user.profileHeadline}</span>
@@ -214,7 +215,7 @@ function MediaPreview({ media }: MediaPreviewProps) {
   // Add support for image attachments
   if (media.type === "IMAGE") {
     return (
-      <Link href={media.url} target="_blank">
+      <Link href={media.url} target="_blank" prefetch={true}>
         <Image
           src={media.url}
           alt="Attachment"
@@ -249,7 +250,7 @@ function MediaPreview({ media }: MediaPreviewProps) {
             <span>{filesize(media.fileSize)}</span>
           </div>
         </div>
-        <Link href={media.url} target="_blank">
+        <Link href={media.url} target="_blank" prefetch={true}>
           <Image width={24} height={24} src="/assets/feed/download.png" alt="Download" />
         </Link>
       </div>

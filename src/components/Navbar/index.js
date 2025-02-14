@@ -52,7 +52,7 @@ function Navbar({ unreadNotificationCount }) {
     <div className="bg-[#a2defa] w-full h-16 flex flex-col lg:flex-row items-center text-sm text-gray-600">
       <div className="container mx-auto flex items-center px-2 lg:px-6">
         {/* Logo */}
-        <Link href="/feed" className="flex flex-col items-center">
+        <Link href="/feed" className="flex flex-col items-center" prefetch={true}>
           <Image
             src={logo}
             alt="Company Logo"
@@ -60,23 +60,23 @@ function Navbar({ unreadNotificationCount }) {
           />
         </Link>
         <div className="hidden lg:flex flex-grow items-center space-x-4 lg:space-x-6">
-          <Link href="/feed" className="flex flex-col items-center">
+          <Link href="/feed" className="flex flex-col items-center" prefetch={true}>
             <SlFeed className="h-6 w-6" />
             <span className="text-xs">Feed</span>
           </Link>
-          <Link href="/network" className="flex flex-col items-center">
+          <Link href="/network" className="flex flex-col items-center" prefetch={true}>
             <GoPeople className="h-6 w-6" />
             <span className="text-xs">Network</span>
           </Link>
-          <Link href="/jobs" className="flex flex-col items-center">
+          <Link href="/jobs" className="flex flex-col items-center" prefetch={true}>
             <FiBriefcase className="h-6 w-6" />
             <span className="text-xs">Jobs</span>
           </Link>
-          <Link href="/chat" className="flex flex-col items-center ">
+          <Link href="/chat" className="flex flex-col items-center" prefetch={true}>
             <IoChatbubbleEllipsesOutline className="h-6 w-6" />
             <span className="text-xs">Messages</span>
           </Link>
-          <Link href="/notifications" className="flex flex-col items-center">
+          <Link href="/notifications" className="flex flex-col items-center" prefetch={true}>
             <NotificationsButton initialState={{ unreadCount: unreadNotificationCount }} />
           </Link>
           {/* <Link href="/shop" className="flex flex-col items-center">
@@ -95,7 +95,7 @@ function Navbar({ unreadNotificationCount }) {
         <div className="flex items-center space-x-4">
           {/* <Link href="/profile" className="flex items-center space-x-2">
           </Link> */}
-          <Link href={`/profile/${user.username}`} className="flex items-center space-x-2" >
+          <Link href={`/profile/${user.username}`} className="flex items-center space-x-2" prefetch={true}>
             <div className="w-[3rem] h-[3rem] rounded-[100%] overflow-hidden">
               <UserAvatar avatarUrl={user.avatarUrl} size={500} />
             </div>
@@ -119,23 +119,23 @@ function Navbar({ unreadNotificationCount }) {
 
       {/* Bottom Navbar for Mobile & Tablet */}
       <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 flex justify-around items-center py-2 lg:hidden z-10">
-        <Link href="/feed" className="flex flex-col items-center">
+        <Link href="/feed" className="flex flex-col items-center" prefetch={true}>
           <SlFeed className="h-6 w-6" />
           <span className="text-xs">Feed</span>
         </Link>
-        <Link href="/network" className="flex flex-col items-center">
+        <Link href="/network" className="flex flex-col items-center" prefetch={true}>
           <GoPeople className="h-6 w-6" />
           <span className="text-xs">People</span>
         </Link>
-        <Link href="/jobs" className="flex flex-col items-center">
+        <Link href="/jobs" className="flex flex-col items-center" prefetch={true}>
           <FiBriefcase className="h-6 w-6" />
           <span className="text-xs">Jobs</span>
         </Link>
-        <Link href="/chat" className="flex flex-col items-center">
+        <Link href="/chat" className="flex flex-col items-center" prefetch={true}>
           <IoChatbubbleEllipsesOutline className="h-6 w-6" />
           <span className="text-xs">Messages</span>
         </Link>
-        <Link href="/notifications" className="flex flex-col items-center">
+        <Link href="/notifications" className="flex flex-col items-center" prefetch={true}>
           <NotificationsButton initialState={{ unreadCount: unreadNotificationCount }} />
         </Link>
         {/* <Link href="/shop" className="flex flex-col items-center">

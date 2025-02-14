@@ -56,7 +56,7 @@ function OtherModal({ isModalOpen, closeModal }) {
                     <div className="text-center space-y-4">
                         <div className="flex items-center space-x-4">
                             {/* User Avatar */}
-                            <Link href={`/profile/${user.username}`}>
+                            <Link href={`/profile/${user.username}`} prefetch={true}>
                                 <UserAvatar avatarUrl={user.avatarUrl} size={500} className="rounded-full h-20 w-20 object-cover" />
                             </Link>
                             <div className="text-left">
@@ -94,10 +94,10 @@ function OtherModal({ isModalOpen, closeModal }) {
                                 {/* <Link href={"/setting"}>
                                     <p className="text-[11px] cursor-pointer">Setting</p>
                                 </Link> */}
-                                <Link href={"/Help"}>
+                                <Link href={"/Help"} prefetch={true}>
                                     <p className="text-[11px] cursor-pointer">Help</p>
                                 </Link>
-                                <Link href={"/Terms&Condition"}>
+                                <Link href={"/Terms&Condition"} prefetch={true}>
                                     <p className="text-[11px] cursor-pointer">Terms and Conditions</p>
                                 </Link>
                             </div>
@@ -105,10 +105,10 @@ function OtherModal({ isModalOpen, closeModal }) {
                             <div className="space-y-2">
                                 <h1 className="font-medium text-[14px] cursor-pointer">Manage</h1>
                                 <div className="space-y-1">
-                                    <Link href={"/feed"}>
+                                    <Link href={"/feed"} prefetch={true}>
                                         <p className="text-[11px] cursor-pointer">Posts & Activities</p>
                                     </Link>
-                                    <Link href={"/jobs"}>
+                                    <Link href={"/jobs"} prefetch={true}>
                                         <p className="text-[11px] cursor-pointer">Job post account</p>
                                     </Link>
                                 </div>

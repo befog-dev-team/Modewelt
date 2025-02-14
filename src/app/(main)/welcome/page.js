@@ -180,7 +180,7 @@ export default function Welcome() {
 
       {/* Button linking to home page */}
       <div className="mt-12">
-        <Link href="/feed">
+        <Link href="/feed" prefetch={true}>
           <button
             id="welcome-btn"
             className="bg-[#f26744] hover:bg-[#f26744] text-white py-3 px-8 rounded-full font-semibold hidden"

@@ -2,7 +2,6 @@ import { validateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
 
 export async function GET(req) {
-    console.log("req", req);
     try {
         // Get the cursor from the query parameters (for pagination)
         const cursor = req.nextUrl.searchParams.get("cursor") || undefined;

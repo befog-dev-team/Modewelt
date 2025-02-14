@@ -75,7 +75,7 @@ const searchOptions = [
 ];
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [mobile, setMobile] = useState("");
+  // const [mobile, setMobile] = useState("");
   const [expanded, setExpanded] = useState(null);
 
   const toggleExpand = (index) => {
@@ -378,8 +378,8 @@ export default function Navbar() {
   const bottomRef = useRef(null);
 
   useEffect(() => {
-    const topWidth = topRef.current.scrollWidth / 2; // Get half width for smooth looping
-    const bottomWidth = bottomRef.current.scrollWidth / 2;
+    // const topWidth = topRef.current.scrollWidth / 2; // Get half width for smooth looping
+    // const bottomWidth = bottomRef.current.scrollWidth / 2;
 
     gsap.to(topRef.current, {
       xPercent: -50, // Move by half its width
@@ -416,6 +416,7 @@ export default function Navbar() {
           <Link
             href="/auth"
             className="bg-[#f26744] text-white px-4 py-2 rounded-lg hover:bg-[#f26744] transition"
+            prefetch={true}
           >
             Sign up / Log in
           </Link>
@@ -433,6 +434,7 @@ export default function Navbar() {
             <Link
               href="/auth"
               className="bg-[#f26744] text-white px-4 py-2 rounded-lg hover:bg-[#f26744] transition"
+              prefetch={true}
             >
               Sign up / Log in
             </Link>
@@ -450,7 +452,7 @@ export default function Navbar() {
           </p>
           <div className="lg:w-3/4 sm:w-full h-[1px] bg-gray-500"></div>
           <button className="border border-[#f26744] text-[#f26744] px-6 py-2 rounded-lg hover:bg-[#f26744] hover:text-white transition">
-            <Link href="/auth" className="mt-4">
+            <Link href="/auth" className="mt-4" prefetch={true}>
               Registered Now
             </Link>
           </button>
@@ -560,12 +562,12 @@ export default function Navbar() {
               Are you a fashion designer, stylist, photographer, or industry
               expert looking for the right opportunities? Modewelt is here to
               connect you with top brands, recruiters, and creative
-              professionals worldwide. Whether you're starting your journey or
+              professionals worldwide. Whether you&apos;re starting your journey or
               leveling up your career, Modewelt makes it easier for you to
               showcase your talent and get hired.
             </p>
             <button className="mt-6 bg-[#f26744] text-white px-6 py-2 rounded-md shadow-md hover:bg-[#f26744] transition-all duration-300">
-              <Link href="/auth" className="mt-4">
+              <Link href="/auth" className="mt-4" prefetch={true}>
                 Registered Now
               </Link>
             </button>
@@ -665,7 +667,7 @@ export default function Navbar() {
             </h1>
             <p className="text-lg mb-6">Start posting jobs for only Free.</p>
             <button className="bg-white text-blue-600 px-6 py-3 rounded-md font-semibold hover:bg-gray-200 transition">
-            <Link href="/auth">
+            <Link href="/auth" prefetch={true}>
               Sign Up For Free
             </Link>
             </button>
@@ -712,7 +714,7 @@ export default function Navbar() {
         <div className="max-w-[1192px] w-full my-8 border-t border-[#f26744] mt-10 p-[4px]" />
         <div className="text-center">
           <h3 className="text-2xl font-bold text-gray-800">
-            Let's hire your next great candidate
+            Let&apos;s hire your next great candidate
           </h3>
           <p className="text-gray-600 mt-6">
             A hiring platform built to solve for relevancy, volume and speed of
@@ -720,7 +722,7 @@ export default function Navbar() {
           </p>
           <div className="mt-6 grid lg:grid-cols-2 sm:grid-cols-1 gap-4 justify-center sm:justify-start">
             <button className="px-6 py-3 bg-[#f26744] text-white font-semibold rounded-lg shadow-md hover:bg-[#f26744] transition w-full sm:w-auto">
-              <Link href="/auth">Login/Sign up</Link>
+              <Link href="/auth" prefetch={true}>Login/Sign up</Link>
             </button>
             <button className="px-6 py-3 border border-[#f26744] text-[#f26744] font-semibold rounded-lg hover:bg-gray-100 transition w-full sm:w-auto">
               <a href="mailto:contact.us@befog.in">Contact us</a>

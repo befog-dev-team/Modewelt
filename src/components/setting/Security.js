@@ -30,7 +30,7 @@ const Security = () => {
                   →
                 </button>
               </li> */}
-              <Link href={forgetpassword}>
+              <Link href={forgetpassword} prefetch={true}>
               <li className="flex justify-between items-center p-2">
                 <span>Change password</span>
                   <button

@@ -1,49 +1,128 @@
+// "use client";
+
+// import InfiniteScrollContainer from "@/components/InfiniteScrollContainer"; // Import the InfiniteScrollContainer component
+// import kyInstance from "@/lib/ky"; // Import the ky instance
+// import { useInfiniteQuery } from "@tanstack/react-query"; // Import the useInfiniteQuery hook
+// import { Loader2 } from "lucide-react"; // Import the Loader2 component
+// import JobPost from './JobPost'; // Import the JobPost component
+
+// export default function ForYouJobFeed() {
+//   const {
+//     data, // The data from the query
+//     fetchNextPage, // The function to fetch the next page of jobs
+//     hasNextPage, // Whether there is a next page of jobs
+//     isFetching, // Whether the query is fetching
+//     isFetchingNextPage, // Whether the next page is fetching
+//     status, // The status of the query
+//   } = useInfiniteQuery({ // Use the useInfiniteQuery hook to fetch the jobs
+//     queryKey: ["job-feed", "for-you"], // The query key and the query type
+//     queryFn: ({ pageParam }) => // The query function that fetches the jobs
+//       kyInstance // Use the ky instance to fetch the jobs from the for-you feed endpoint. It gives error automatically like 404, 401, 500 etc. We dont need to handle it manually like we did for the axios and fetch api.
+//         .get(
+//           "/api/jobs/for-you-job-feed", // Fetch the jobs from the for-you feed endpoint
+//           pageParam ? { searchParams: { cursor: pageParam } } : {}, // Use the cursor to fetch the next page of jobs
+//         )
+//         .json(), // Parse the JSON response
+//     initialPageParam: null, // The initial page parameter
+//     getNextPageParam: (lastPage) => lastPage.nextCursor, // Get the next page parameter
+//   });
+
+//   // The jobs from the data
+//   const jobs = data?.pages.flatMap((page) => page.jobs) || []; // Flatmap is used to flatten the array of jobs. It gives one dimensional data array instead of the two dimensional array. 
+
+//   if (status === "pending") { // If the status is pending, show the loading skeleton
+//     return <Loader2 className="mx-auto animate-spin text-[#A45286]" />; // Show the JobsLoadingSkeleton component
+//   }
+
+//   if (status === "success" && !jobs.length && !hasNextPage) { // If the status is success and there are no jobs and no next page
+//     return ( // Show a message that no one has posted anything yet
+//       <p className="text-center text-muted-foreground">
+//         No one has posted anything yet.
+//       </p>
+//     );
+//   }
+
+//   if (status === "error") { // If the status is error, show an error message
+//     return ( // Show an error message that an error occurred while loading jobs
+//       <p className="text-center text-destructive">
+//         An error occurred while loading jobs.
+//       </p>
+//     );
+//   }
+
+//   return (
+//     <InfiniteScrollContainer
+//       className="space-y-8 w-full px-4 sm:px-6 lg:px-8 mt-6 mb-12" // Add space between the jobs
+//       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()} // Trigger this if we have next page and we are not fetching the data or the next page then call the fetchNextPage function to fetch the next page
+//     >
+//       {jobs.map((job) => (
+//         <JobPost key={job.id} jobs={job} />
+//       ))}
+//       {/* Show a loading spinner when fetching the next page */}
+//       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
+//     </InfiniteScrollContainer>
+//   );
+// }
+
 "use client";
 
-import InfiniteScrollContainer from "@/components/InfiniteScrollContainer"; // Import the InfiniteScrollContainer component
-import kyInstance from "@/lib/ky"; // Import the ky instance
-import { useInfiniteQuery } from "@tanstack/react-query"; // Import the useInfiniteQuery hook
-import { Loader2 } from "lucide-react"; // Import the Loader2 component
-import JobPost from './JobPost'; // Import the JobPost component
+import { useState } from "react";
+import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
+import kyInstance from "@/lib/ky";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
+import JobPost from "./JobPost";
 
-export default function ForYouJobFeed() {
+export default function ForYouJobFeed({ searchQuery }) {
+  // const [filteredJobs, setFilteredJobs] = useState([]);
+
   const {
-    data, // The data from the query
-    fetchNextPage, // The function to fetch the next page of jobs
-    hasNextPage, // Whether there is a next page of jobs
-    isFetching, // Whether the query is fetching
-    isFetchingNextPage, // Whether the next page is fetching
-    status, // The status of the query
-  } = useInfiniteQuery({ // Use the useInfiniteQuery hook to fetch the jobs
-    queryKey: ["job-feed", "for-you"], // The query key and the query type
-    queryFn: ({ pageParam }) => // The query function that fetches the jobs
-      kyInstance // Use the ky instance to fetch the jobs from the for-you feed endpoint. It gives error automatically like 404, 401, 500 etc. We dont need to handle it manually like we did for the axios and fetch api.
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ["job-feed", "for-you"],
+    queryFn: ({ pageParam }) =>
+      kyInstance
         .get(
-          "/api/jobs/for-you-job-feed", // Fetch the jobs from the for-you feed endpoint
-          pageParam ? { searchParams: { cursor: pageParam } } : {}, // Use the cursor to fetch the next page of jobs
+          "/api/jobs/for-you-job-feed",
+          pageParam ? { searchParams: { cursor: pageParam } } : {}
         )
-        .json(), // Parse the JSON response
-    initialPageParam: null, // The initial page parameter
-    getNextPageParam: (lastPage) => lastPage.nextCursor, // Get the next page parameter
+        .json(),
+    initialPageParam: null,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
   });
 
-  // The jobs from the data
-  const jobs = data?.pages.flatMap((page) => page.jobs) || []; // Flatmap is used to flatten the array of jobs. It gives one dimensional data array instead of the two dimensional array. 
+  console.log("Fetched job pages:", data?.pages);
 
-  if (status === "pending") { // If the status is pending, show the loading skeleton
-    return <Loader2 className="mx-auto animate-spin text-[#A45286]" />; // Show the JobsLoadingSkeleton component
+  // Flatten the jobs array
+  const jobs = data?.pages.flatMap((page) => page.jobs) || [];
+
+  // Filter jobs based on search input
+  const filteredJobsList = searchQuery
+    ? jobs.filter((job) =>
+        job.jobTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        job.company.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : jobs;
+
+  if (status === "pending") {
+    return <Loader2 className="mx-auto animate-spin text-[#A45286]" />;
   }
 
-  if (status === "success" && !jobs.length && !hasNextPage) { // If the status is success and there are no jobs and no next page
-    return ( // Show a message that no one has posted anything yet
+  if (status === "success" && !filteredJobsList.length && !hasNextPage) {
+    return (
       <p className="text-center text-muted-foreground">
-        No one has posted anything yet.
+        No jobs found matching your search.
       </p>
     );
   }
 
-  if (status === "error") { // If the status is error, show an error message
-    return ( // Show an error message that an error occurred while loading jobs
+  if (status === "error") {
+    return (
       <p className="text-center text-destructive">
         An error occurred while loading jobs.
       </p>
@@ -52,13 +131,12 @@ export default function ForYouJobFeed() {
 
   return (
     <InfiniteScrollContainer
-      className="space-y-8 w-full px-4 sm:px-6 lg:px-8 mt-6 mb-12" // Add space between the jobs
-      onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()} // Trigger this if we have next page and we are not fetching the data or the next page then call the fetchNextPage function to fetch the next page
+      className="space-y-8 w-full px-4 sm:px-6 lg:px-8 mt-6 mb-12"
+      onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
-      {jobs.map((job) => (
+      {filteredJobsList.map((job) => (
         <JobPost key={job.id} jobs={job} />
       ))}
-      {/* Show a loading spinner when fetching the next page */}
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
     </InfiniteScrollContainer>
   );

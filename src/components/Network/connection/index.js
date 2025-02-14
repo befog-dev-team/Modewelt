@@ -35,7 +35,7 @@ export default function Connection() {
       <div className="mb-24 space-y-8">
         {/* Connections Section */}
         <div className="text-center">
-          <p className="font-[Arial] text-[#A45286] text-[20px] sm:text-[24px] font-bold uppercase leading-[23px]">
+          <p className="font-[Arial] text-[#f26744] text-[20px] sm:text-[24px] font-bold uppercase leading-[23px]">
             Connections
           </p>
         </div>

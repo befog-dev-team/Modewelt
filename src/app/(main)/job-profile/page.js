@@ -215,7 +215,7 @@ const jobProfile = () => {
             </h1>
 
             {/* Button */}
-            <Link href="/job-profile2">
+            <Link href="/job-profile2" prefetch={true}>
               <button className="flex items-center gap-2 px-4 py-2 sm:py-3 border border-[#E7F0FA] rounded-md bg-white shadow-md hover:shadow-lg transition-all duration-300">
                 <span className="text-sm sm:text-base md:text-lg font-semibold text-[#0A65CC] whitespace-nowrap">
                   View All

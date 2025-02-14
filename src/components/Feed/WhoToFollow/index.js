@@ -44,6 +44,7 @@ export default async function WhoToFollow() {
                         <Link
                             href={`/profile/${user.username}`}
                             className="flex items-center gap-3"
+                            prefetch={true}
                         >
                             <UserAvatar avatarUrl={user.avatarUrl} size={500} className="w-[52px] h-[52px]" />
                             <div>

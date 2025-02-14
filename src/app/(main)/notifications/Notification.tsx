@@ -49,7 +49,7 @@ export default function Notification({ notification }: NotificationProps) {
     const { message, icon, href } = notificationTypeMap[notification.type];
 
     return (
-        <Link href={href} className="block">
+        <Link href={href} className="block" prefetch={true}>
             <article
                 className={cn( // cn is a utility function to conditionally join class names
                     "flex gap-3 rounded bg-card p-5 shadow-sm transition-colors hover:bg-primary/5 hover:bg-opacity-10",

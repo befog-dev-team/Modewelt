@@ -295,14 +295,14 @@ export default function Comment({ comment, postId, depth = 0 }: CommentProps) {
     <div className={`flex flex-col gap-3 py-3 px-4 border-b ${depth > 0 ? "ml-6" : ""}`}>
       <div className="flex gap-3">
         {/* User Avatar */}
-        <Link href={`/users/${comment.user.username}`}>
+        <Link href={`/users/${comment.user.username}`} prefetch={true}>
           <UserAvatar avatarUrl={comment.user.avatarUrl} size={40} />
         </Link>
 
         <div className="flex-1">
           {/* Username, Timestamp, and More Button */}
           <div className="flex items-center gap-2 text-sm group/comment">
-  <Link href={`/users/${comment.user.username}`} className="font-medium text-gray-800 hover:underline">
+  <Link href={`/users/${comment.user.username}`} className="font-medium text-gray-800 hover:underline" prefetch={true}>
     {comment.user.displayName}
   </Link>
   <span className="text-gray-500 text-xs">{formatRelativeDate(comment.createdAt)}</span>

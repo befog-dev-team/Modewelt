@@ -67,9 +67,9 @@ export default function JobListing() {
                 >
                   View Applicants
                 </button>
-                <button className="bg-white border-[#f26744] border-2 text-[#f26744] px-4 py-2 rounded-[4rem] hover:bg-[#f26744] hover:text-white transition w-full sm:w-auto">
+                {/* <button className="bg-white border-[#f26744] border-2 text-[#f26744] px-4 py-2 rounded-[4rem] hover:bg-[#f26744] hover:text-white transition w-full sm:w-auto">
                   Repost Job
-                </button>
+                </button> */}
               </div>
             </div>
 
@@ -78,7 +78,7 @@ export default function JobListing() {
               <h2 className="text-lg font-semibold">Job Performance</h2>
               <div className="grid grid-cols-2 md:grid-cols-2 gap-4 text-gray-700 mt-2">
                 <p>
-                  Applicants:{" "}
+                  Applicants:
                   <span className="font-bold">{jobData.applicants}</span>
                 </p>
                 <p>

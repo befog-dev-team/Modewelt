@@ -33,7 +33,7 @@ const Footer = () => {
         <div className="mx-4 grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 gap-6">
           {/* Logo */}
           <div className="flex justify-center items-center">
-            <Link href="/" className="">
+            <Link href="/" className="" prefetch={true}>
               <Image
                 src={logo}
                 alt="logo"
@@ -53,6 +53,7 @@ const Footer = () => {
                   <Link
                     href={link.link}
                     className="block py-1 text-black hover:text-[#A45286] transition duration-200 ease-in-out"
+                    prefetch={true}
                   >
                     {link.title}
                   </Link>
@@ -70,6 +71,7 @@ const Footer = () => {
                   <Link
                     href={link.link}
                     className="block py-1 text-black hover:text-[#A45286] transition duration-200 ease-in-out"
+                    prefetch={true}
                   >
                     {link.title}
                   </Link>
@@ -87,6 +89,7 @@ const Footer = () => {
                   <Link
                     href={link.link}
                     className="block py-1 text-black hover:text-[#A45286] transition duration-200 ease-in-out"
+                    prefetch={true}
                   >
                     {link.title}
                   </Link>
@@ -100,7 +103,7 @@ const Footer = () => {
             <h2 className="font-bold text-[#333333] text-xs sm:text-sm lg:text-base mb-4">Fast Access</h2>
             <ul>
               <li className="my-1 text-sm sm:text-base relative">
-                <Link href="/quick-access-1">
+                <Link href="/quick-access-1" prefetch={true}>
                   <button className="font-[Gotham] text-white bg-[#934276] border border-[#934276] w-full sm:w-[170px] h-[32px] gap-3 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-[12px] sm:text-base px-3 py-2.5 inline-flex items-center">
                     Questions?
                     <Image
@@ -113,7 +116,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li className="my-1 text-sm sm:text-base relative">
-                <Link href="/setting">
+                <Link href="/setting" prefetch={true}>
                   <button className="font-[Gotham] text-[#934276] bg-white border border-[#934276] w-full sm:w-[170px] h-[32px] gap-3 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-[12px] sm:text-base px-3 py-2.5 inline-flex items-center">
                     Settings
                     <Image

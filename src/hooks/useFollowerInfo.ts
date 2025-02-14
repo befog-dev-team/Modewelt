@@ -32,7 +32,7 @@ export default function useFollowerInfo(
     initialData: initialState, // Initial data to populate the cache
     staleTime: 5000, // Data is considered stale after 5 seconds
     refetchInterval: 10000, // Refetch every 10 seconds
-    refetchOnWindowFocus: true, // Refetch when user focuses on the tab
+    // refetchOnWindowFocus: true, // Refetch when user focuses on the tab
   });
 
   return query; // Return the query object

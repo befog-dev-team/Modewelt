@@ -25,7 +25,7 @@ function InputField({ label, type, placeholder, required = false, value, onChang
             <input
                 type={type}
                 placeholder={placeholder}
-                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#a35284]"
+                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#f26744]"
                 required={required}
                 value={value}
                 onChange={onChange}
@@ -42,7 +42,7 @@ function SelectField({ label, value, options, onChange, required = false }) {
                 {label} {required && <span className="text-red-500">*</span>}
             </label>
             <select
-                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#a35284]"
+                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#f26744]"
                 value={value} // <-- Controlled value
                 onChange={(e) => onChange(e.target.value)} // <-- Pass value to parent
                 required={required}
@@ -61,10 +61,10 @@ function SelectField({ label, value, options, onChange, required = false }) {
 // File Upload Component
 function FileUpload({ label, description, accept, onChange }) {
     return (
-        <div className="flex flex-col items-center justify-center bg-[#a2defa] border border-gray-300 rounded-lg p-6 text-center">
+        <div className="flex flex-col items-center justify-center bg-white border border-gray-300 rounded-lg p-6 text-center">
             <label
                 htmlFor="fileUpload"
-                className="text-lg font-medium text-[#a35284] cursor-pointer"
+                className="text-lg font-medium text-[#f26744] cursor-pointer"
             >
                 {label}
             </label>
@@ -379,12 +379,12 @@ export default function Home() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-[#a2defa]">
             {/* Navbar */}
             <Navbar />
 
             {/* Header Section */}
-            <header className="bg-[#a35285] text-white">
+            <header className="bg-[#f26744] text-white">
                 <div className="max-w-4xl mx-auto p-6 md:p-10">
                     <h1 className="text-2xl font-bold">{job.company} - {job.jobTitle}</h1>
                     <p className="text-sm">{job.salaryAmount} {job.salaryCurrency} | {job.location} | {job.workplaceType}</p>
@@ -392,7 +392,7 @@ export default function Home() {
             </header>
 
             {/* Form Section */}
-            <main className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 md:p-10 mt-6">
+            <main className="max-w-4xl mx-auto bg-[#a2defa] rounded-lg shadow-lg p-6 md:p-10 mt-6">
                 <form className="space-y-6" noValidate>
                     {/* /* Upload Resume  */}
                     <FileUpload
@@ -409,7 +409,7 @@ export default function Home() {
                     />
 
                     {formData.resumeFile && (
-                        <p className="text-sm text-gray-600 mt-2">Selected File: {formData.resumeFile?.name}</p>
+                        <p className="text-sm text-gray-600 mt-2 bg-white">Selected File: {formData.resumeFile?.name}</p>
                     )}
 
                     {/* Personal Information */}
@@ -468,7 +468,7 @@ export default function Home() {
                             <select
                                 value={formData.countryCode}
                                 onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
-                                className="border p-2 rounded-l focus:outline-none focus:ring-2 focus:ring-[#a35284]"
+                                className="border p-2 rounded-l focus:outline-none focus:ring-2 focus:ring-[#f26744]"
                                 required
                             >
                                 <option value="+91">+91</option>
@@ -498,45 +498,11 @@ export default function Home() {
                                 type="text"
                                 value={formData.phone}
                                 placeholder="Enter your phone number"
-                                className="border p-2 flex-1 rounded-r focus:outline-none focus:ring-2 focus:ring-[#a35284]"
+                                className="border p-2 flex-1 rounded-r focus:outline-none focus:ring-2 focus:ring-[#f26744]"
                                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                 required
                             />
                         </div>
-                    </div>
-
-                    {/* Additional Documents */}
-                    <div>
-                        <label className="text-gray-700 font-medium">Additional Documents</label>
-                        <div className="flex items-center mt-2">
-                            <label className="flex flex-col items-center justify-center w-32 h-20 border-2 border-dashed border-gray-300 rounded-md cursor-pointer text-sm text-gray-500">
-                                <CiCirclePlus className="text-3xl text-[#a35284]" />
-                                <span>Add Files</span>
-                                <input
-                                    type="file"
-                                    className="hidden"
-                                    accept=".doc,.pdf,.docx,.rtf,.odt"
-                                    multiple
-                                    onChange={handleFileChange} // ✅ No "value" attribute here
-                                />
-                            </label>
-                            <p className="ml-4 text-xs text-gray-400">
-                                Max size: 10MB (Formats: .doc, .pdf, .docx, .rtf, .odt)
-                            </p>
-                        </div>
-
-                        {errorFile && <p className="text-red-500 text-xs mt-2">{errorFile}</p>}
-
-                        {files.length > 0 && (
-                            <div className="mt-4">
-                                <h3 className="text-gray-700 font-medium">Selected Files:</h3>
-                                <ul className="list-disc ml-5">
-                                    {files.map((file, index) => (
-                                        <li key={index} className="text-sm text-gray-600">{file.name}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
                     </div>
 
                     {/* Experience */}
@@ -548,7 +514,7 @@ export default function Home() {
                             placeholder="Select Date of Birth"
                             onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
                         />
-                        <div className="grid grid-cols-2 gap-2">
+                        {/* <div className="grid grid-cols-2 gap-2">
                             <InputField
                                 label="Experience (Years)"
                                 type="number"
@@ -563,7 +529,8 @@ export default function Home() {
                                 placeholder="Months"
                                 onChange={(e) => setFormData({ ...formData, experienceMonths: e.target.value })}
                             />
-                        </div>
+                        </div> */}
+                       
                     </div>
 
                     {/* Expected and Current Salary */}
@@ -611,10 +578,10 @@ export default function Home() {
                             onChange={(e) => setFormData({ ...formData, currentLocation: e.target.value })}
                         />
                         <InputField
-                            label="Notes"
+                            label="Language"
                             value={formData.notes}
                             type="text"
-                            placeholder="Add any additional notes"
+                            placeholder="Languages"
                             className="col-span-2"
                             onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                         />
@@ -622,13 +589,22 @@ export default function Home() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <InputField
-                            label="Language"
-                            value={formData.language}
+                            label="Achievements"
+                            value={formData.currentLocation}
                             type="text"
-                            placeholder="Enter your language"
-                            onChange={(e) => setFormData({ ...formData, language: e.target.value })}
+                            placeholder="Enter your achievements"
+                            onChange={(e) => setFormData({ ...formData, currentLocation: e.target.value })}
+                        />
+                        <InputField
+                            label="Portfolio"
+                            value={formData.notes}
+                            type="text"
+                            placeholder="Portfolio link"
+                            className="col-span-2"
+                            onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                         />
                     </div>
+
                     <InputField
                         label="Skills"
                         value={formData.skills}
@@ -693,7 +669,7 @@ export default function Home() {
                         {/* Button to Add Experience */}
                         <button
                             onClick={addExperience}
-                            className="mt-3 flex items-center gap-2 text-[#a35284] text-sm font-medium hover:text-[#892d6b] transition-all"
+                            className="mt-3 flex items-center gap-2 text-[#f26744] text-sm font-medium hover:text-[#892d6b] transition-all"
                         >
                             <FaPlus /> Add Experience Details
                         </button>
@@ -754,20 +730,54 @@ export default function Home() {
                         {/* Button to Add Education */}
                         <button
                             onClick={addEducation}
-                            className="mt-3 flex items-center gap-2 text-[#a35284] text-sm font-medium hover:text-[#892d6b] transition-all"
+                            className="mt-3 flex items-center gap-2 text-[#f26744] text-sm font-medium hover:text-[#892d6b] transition-all"
                         >
                             <FaPlus /> Add Education Details
                         </button>
                     </div>
 
+                    {/* Additional Documents */}
+                    <div>
+                        <label className="text-gray-700 font-medium">Additional Documents</label>
+                        <div className="flex items-center mt-2">
+                            <label className="flex flex-col items-center justify-center w-32 h-20 border-2 border-dashed border-gray-300 rounded-md cursor-pointer text-sm text-gray-500">
+                                <CiCirclePlus className="text-3xl text-[#f26744]" />
+                                <span>Add Files</span>
+                                <input
+                                    type="file"
+                                    className="hidden"
+                                    accept=".doc,.pdf,.docx,.rtf,.odt"
+                                    multiple
+                                    onChange={handleFileChange} // ✅ No "value" attribute here
+                                />
+                            </label>
+                            <p className="ml-4 text-xs text-gray-400">
+                                Max size: 10MB (Formats: .doc, .pdf, .docx, .rtf, .odt)
+                            </p>
+                        </div>
+
+                        {errorFile && <p className="text-red-500 text-xs mt-2">{errorFile}</p>}
+
+                        {files.length > 0 && (
+                            <div className="mt-4">
+                                <h3 className="text-gray-700 font-medium">Selected Files:</h3>
+                                <ul className="list-disc ml-5">
+                                    {files.map((file, index) => (
+                                        <li key={index} className="text-sm text-gray-600">{file.name}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                    </div>
+
                     {/* Captcha */}
                     <div className="flex items-center space-x-4 w-1/2">
-                        <div className="bg-gray-100 border rounded-md p-2 flex justify-center items-center text-lg font-semibold text-[#a35284] w-24">
+                        <div className="bg-gray-100 border rounded-md p-2 flex justify-center items-center text-lg font-semibold text-[#f26744] w-24">
                             {captcha}
                         </div>
                         <button
                             type="button"
-                            className="text-[#a35284] text-sm font-medium hover:underline"
+                            className="text-[#f26744] text-sm font-medium hover:underline"
                             onClick={regenerateCaptcha}
                         >
                             <IoMdRefresh className="text-[2rem]" />
@@ -775,7 +785,7 @@ export default function Home() {
                         <input
                             type="text"
                             placeholder="Captcha"
-                            className="border rounded-md p-2 flex-1 focus:outline-none focus:ring-2 focus:ring-[#a35284]"
+                            className="border rounded-md p-2 flex-1 focus:outline-none focus:ring-2 focus:ring-[#f26744]"
                             value={inputCaptcha}
                             onChange={(e) => setInputCaptcha(e.target.value)}
                             required
@@ -796,7 +806,7 @@ export default function Home() {
                             By applying, you hereby accept the data processing terms under the {" "}
                             <a
                                 href="/Terms&Condition"
-                                className="text-[#a35284] underline hover:no-underline"
+                                className="text-[#f26744] underline hover:no-underline"
                             >
                                 Privacy Policy {" "}
                             </a>
@@ -810,7 +820,7 @@ export default function Home() {
                         type="submit"
                         disabled={submitLoading}
                         onClick={handleFormSubmit}
-                        className={`w-1/4 bg-[#a35284] text-white py-2 px-4 rounded-md hover:bg-[#872466] transition ${submitLoading ? "cursor-not-allowed" : "cursor-pointer"}`}
+                        className={`w-1/4 bg-[#f26744] text-white py-2 px-4 rounded-md hover:bg-[#f26744] transition ${submitLoading ? "cursor-not-allowed" : "cursor-pointer"}`}
                     >
                         {
                             submitLoading ? (
@@ -820,6 +830,7 @@ export default function Home() {
                             )
                         }
                     </button>
+
                 </form>
             </main>
         </div>

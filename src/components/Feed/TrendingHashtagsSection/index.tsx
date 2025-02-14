@@ -43,10 +43,10 @@ export default async function Index() {
 
                         return (
                             // Link to the hashtag page
-                            (<Link key={title} href={`/hashtag/${title}`} className="block">
+                            (<Link key={title} href={`/hashtag/${title}`} className="block" prefetch={true}>
                                 <div
                                     title={`${formatNumber(count)} ${count === 1 ? "post" : "posts"}`}
-                                    className="bg-[#ffb7a3] min-w-[64px] h-[32px] flex justify-center rounded-[4px] items-center my-[0.1rem] text-[12px] px-2 font-[Gotham] leading-[18px]"
+                                    className="bg-[#fadf57] min-w-[64px] h-[32px] flex justify-center rounded-[4px] items-center my-[0.1rem] text-[12px] px-2 font-[Gotham] leading-[18px]"
                                 >
                                     {hashtag}
                                 </div>

@@ -89,7 +89,7 @@ export const validateRequest = cache( // cache the validateRequest function
   > => {
     // Get the session ID from the session cookie
     const sessionId = (await cookies()).get(lucia.sessionCookieName)?.value ?? null;
-    console.log("Session ID:", sessionId);
+    // console.log("Session ID:", sessionId);
 
     // If the session ID does not exist
     if (!sessionId) {

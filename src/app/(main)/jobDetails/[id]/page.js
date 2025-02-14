@@ -144,7 +144,7 @@ export default async function JobListing(props) {
                             {/* <div className="w-10 h-10 bg-[#ffe3ef] justify-center items-center flex rounded-md">
                             <FaRegBookmark className="text-[#a35284]" />
                         </div> */}
-                            <Link href={`/jobform/${job.id}`}>
+                            <Link href={`/jobform/${job.id}`} prefetch={true}>
                                 <button className="mt-4 md:mt-0 bg-[#f26744] text-white py-2 px-4 rounded-md text-xs sm:text-sm">
                                     Apply Now →
                                 </button>

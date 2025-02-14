@@ -5,7 +5,6 @@ import prisma from "@/lib/prisma";
 export async function GET(req: Request, props: { params: Promise<{ userId: string }> }) {
     const params = await props.params;
     const { userId } = params;
-    console.log("User ID:", userId);
 
     try {
         const { user: loggedInUser } = await validateRequest();

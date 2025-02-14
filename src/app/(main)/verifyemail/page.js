@@ -65,7 +65,7 @@ export default function VerifyEmail() {
                     {verified && (
                         <div className="mb-4">
                             <h3 className="text-xl font-semibold text-green-500">Email Verified!</h3>
-                            <Link href="/auth">
+                            <Link href="/auth" prefetch={true}>
                                 <p className="text-purple-500 underline mt-4 block">Proceed to Login</p>
                             </Link>
                         </div>

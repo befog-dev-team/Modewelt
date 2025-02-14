@@ -8,7 +8,6 @@ import { LuPlus } from "react-icons/lu";
 import { Loader2 } from "lucide-react";
 
 export default function ProjectPage({ user, username, loggedinUserId }) {
-
   // State management
   const [isPopupOpen, setIsPopupOpen] = useState(false); // Controls add/edit modal
   const [projects, setProjects] = useState([]); // Stores project list
@@ -46,6 +45,12 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
     // Form validation
     if (!currentProject?.name?.trim()) {
       alert("Project name is required");
+      return;
+    }
+
+    // Prevent adding more than 6 projects
+    if (projects.length >= 6) {
+      alert("You can only add up to 6 projects.");
       return;
     }
 
@@ -172,8 +177,8 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
       {/* Media display section */}
       <div className="w-[250px] h-[187.5px] overflow-hidden rounded-md relative">
         {project.media &&
-          project.media.length > 0 &&
-          project.media[0].type === "IMAGE" ? (
+        project.media.length > 0 &&
+        project.media[0].type === "IMAGE" ? (
           <>
             <Image
               width={250}
@@ -221,10 +226,10 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
         <span className="font-arial">{project.name}</span>
         {project.date && (
           <p className="text-[#5A5A5A] text-[10px]">
-            {new Date(project.date).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'short',
-              day: 'numeric'
+            {new Date(project.date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
             })}
           </p>
         )}
@@ -241,7 +246,7 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
           <h1 className="font-bold">Projects</h1>
         </div>
         {/* Add button: Show only for logged-in user's profile */}
-        {loggedinUserId === user?.id && (
+        {loggedinUserId === user?.id && projects.length < 6 && (
           <LuPlus
             aria-label="Add project"
             className="cursor-pointer text-2xl"
@@ -349,7 +354,6 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
                   setCurrentProject(null); // Reset current project
                   setFile(null); // Clear selected file
                 }}
-
               >
                 Cancel
               </button>
@@ -363,8 +367,8 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
                 {isLoading
                   ? "Saving..."
                   : currentProject?.id
-                    ? "Update"
-                    : "Save"}
+                  ? "Update"
+                  : "Save"}
               </button>
             </div>
           </div>

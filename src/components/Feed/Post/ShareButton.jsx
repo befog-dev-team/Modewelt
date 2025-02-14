@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
     FacebookIcon, FacebookShareButton,
-    XIcon, TwitterShareButton,
+    TwitterIcon, TwitterShareButton,
     LinkedinIcon, LinkedinShareButton,
     WhatsappIcon, WhatsappShareButton,
 } from "react-share";
@@ -56,19 +56,19 @@ export default function ShareButton({ shareUrl }) {
                         </button>
 
                         <FacebookShareButton url={shareUrl} quote="Check this out!" hashtag="#fashion">
-                            <FacebookIcon size={40} round data-networkname="facebook" />
+                            <FacebookIcon size={40} round />
                         </FacebookShareButton>
 
                         <TwitterShareButton url={shareUrl} title="Check out this post!" hashtags={["fashion", "style"]}>
-                            <XIcon size={40} round data-networkname="twitter" />
+                            <TwitterIcon size={40} round />
                         </TwitterShareButton>
 
                         <LinkedinShareButton url={shareUrl} title="Check this out!" summary="A cool fashion post" source="FashionApp">
-                            <LinkedinIcon size={40} round data-networkname="linkedin" />
+                            <LinkedinIcon size={40} round />
                         </LinkedinShareButton>
 
                         <WhatsappShareButton url={shareUrl} title="Check out this fashion post!" separator=":: ">
-                            <WhatsappIcon size={40} round data-networkname="whatsapp" />
+                            <WhatsappIcon size={40} round />
                         </WhatsappShareButton>
                     </motion.div>
                 </motion.div>

@@ -38,7 +38,7 @@ export default function Hashtag() {
             {hashtags.map((hashtag) => (
               <div
                 key={hashtag}
-                className="bg-[#f26744] text-white min-w-[51px] h-[23px] flex justify-center rounded-[4px] items-center py-[4px] px-[14px] text-[12px] font-[Gotham] leading-[13.8px]"
+                className="bg-[#fadd5a] text-white min-w-[51px] h-[23px] flex justify-center rounded-[4px] items-center py-[4px] px-[14px] text-[12px] font-[Gotham] leading-[13.8px]"
               >
                 <span className="font-[Arial] font-[700px] text-white text-[12px] leading-[13.8px]">
                   {hashtag}

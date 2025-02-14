@@ -8,6 +8,9 @@ import { Menu } from "lucide-react";
 import Link from "next/link";
 import { FaUserFriends, FaFileAlt, FaFilter } from "react-icons/fa";
 import Admin from "../../../public/Images/admin.png";
+import fashionDesigner from "../../../public/Images/Fashion.png";
+import Professionals from "../../../public/Images/landing1.png";
+import Landing from "../../../public/Images/landingsec.png";
 
 const initialFeatures = [
   { title: "Exclusive for Fashion Industry" },
@@ -401,13 +404,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center space-x-6">
           <span className="text-gray-700">Looking for a Job</span>
           <Link
-            href="/contact"
-            className="border border-[#f26744] text-[#f26744] px-4 py-2 rounded-lg hover:bg-purple-100 transition"
-          >
-            Contact Us
-          </Link>
-          <Link
-            href="/signup"
+            href="/auth"
             className="bg-[#f26744] text-white px-4 py-2 rounded-lg hover:bg-[#f26744] transition"
           >
             Sign up / Log in
@@ -424,13 +421,7 @@ export default function Navbar() {
           <div className="absolute top-16 left-0 w-full shadow-md md:hidden flex flex-col items-center space-y-4 py-4 bg-[#a2defa]">
             <span className="text-gray-700">Looking for a Job</span>
             <Link
-              href="/contact"
-              className="border border-[#f26744] text-[#f26744] px-4 py-2 rounded-lg hover:bg-purple-100 transition"
-            >
-              Contact Us
-            </Link>
-            <Link
-              href="/signup"
+              href="/auth"
               className="bg-[#f26744] text-white px-4 py-2 rounded-lg hover:bg-[#f26744] transition"
             >
               Sign up / Log in
@@ -438,69 +429,28 @@ export default function Navbar() {
           </div>
         )}
       </nav>
-      <div className="flex flex-col md:flex-row items-center justify-center min-h-screen px-6 md:px-12">
+      <div className="flex flex-col md:flex-row items-center justify-center px-6 md:px-12 sm:py-10 py-2 lg:py-4">
         {/* Left Section */}
         <div className="w-full md:w-1/2 text-center md:text-left space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-black">
+          <h1 className="text-4xl md:text-5xl font-bold text-[#f26744]">
             The Future of Fashion Networking
           </h1>
           <p className="text-gray-600">
             An Exclusive Platform for Fashion Designers
           </p>
+          <div className="lg:w-3/4 sm:w-full h-[1px] bg-gray-500"></div>
           <button className="border border-[#f26744] text-[#f26744] px-6 py-2 rounded-lg hover:bg-[#f26744] hover:text-white transition">
             Registered Now
           </button>
         </div>
 
         {/* Right Section (Form) */}
-        <div className="w-full md:w-1/3 bg-white p-6 md:p-8 rounded-lg shadow-lg mt-6 md:mt-0">
-          <h2 className="text-xl font-semibold text-[#a35083">
-            Let's get started
-          </h2>
-          <p className="text-gray-500 text-sm">
-            Hire top fashion talent faster with Modewelt
-          </p>
-
-          <div className="mt-4">
-            <label className="block text-gray-700 text-sm font-semibold">
-              Enter Your Mobile
-            </label>
-            <input
-              type="tel"
-              placeholder="Enter 10 digit mobile number"
-              value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
-              className="w-full mt-2 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#f26744]"
-            />
-          </div>
-
-          <button className="w-full mt-4 bg-[#f26744] text-white py-2 rounded-md hover:bg-[#f26744] transition">
-            Continue
-          </button>
-
-          <div className="flex items-center my-4">
-            <hr className="flex-grow border-gray-300" />
-            <span className="text-gray-500 px-2 text-sm">OR</span>
-            <hr className="flex-grow border-gray-300" />
-          </div>
-
-          <a
-            href="#"
-            className="text-[#f26744] font-semibold hover:underline block text-center"
-          >
-            Click here for Enterprise login
-          </a>
-
-          <p className="text-gray-500 text-xs text-center mt-4">
-            By clicking continue, you agree to the Modewelt
-            <a href="#" className="text-[#f26744] hover:underline">
-              Terms of service
-            </a>
-            &
-            <a href="#" className="text-[#f26744] hover:underline">
-              Privacy policy
-            </a>
-          </p>
+        <div className="w-full md:w-1/3 p-6 md:p-8 rounded-lg mt-6 md:mt-0">
+          <Image
+            src={fashionDesigner}
+            alt="Fashion Designer"
+            className="lg:w-[600px] lg:h-[600px] sm:h-[300px] w-full object-cover rounded-lg"
+          />
         </div>
       </div>
       <div className="relative flex flex-col items-center justify-center bg-[#b6e4fc] m-auto overflow-hidden w-full py-6">
@@ -537,7 +487,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <section className="bg-[#a2defa] py-10 px-5 min-h-screen">
+      <section className="bg-[#a2defa] py-10 px-5 ">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-4xl md:text-4xl lg:text-6xl text-gray-800 mb-6 text-left">
             Explore by <span className="text-orange-500">category</span>
@@ -567,15 +517,33 @@ export default function Navbar() {
           </a>
         </div>
       </section>
-      <section className="bg-[#f0fff1] min-h-screen flex items-center justify-center p-6">
-        <div className="max-w-6xl w-full grid md:grid-cols-2 items-center gap-8">
+
+      <div className="bg-[#f0fff1] lg:h-[718] flex flex-col items-center p-6 lg:pb-20 sm:pb-10">
+        {/* Header Section */}
+        <div className="max-w-[750px] w-full text-center lg:px-[90px] lg:py-[101px] p-6 md:p-12 rounded-xl">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+            The Ultimate Career Platform for Fashion Professionals
+          </h1>
+          <p className="mt-2 text-lg text-gray-700">
+            Build Your Fashion Career with Modeweltjob
+          </p>
+        </div>
+
+        {/* Content Section */}
+        <section className="max-w-6xl w-full grid md:grid-cols-2 items-center gap-8">
+          {/* Image Container */}
+          <div className="flex justify-center">
+            <div className="w-full rounded-lg">
+              <Image
+                src={Professionals}
+                alt="Fashion industry career opportunities"
+                className="w-full max-w-md h-64"
+              />
+            </div>
+          </div>
+
+          {/* Description & Button */}
           <div className="text-center md:text-left">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-              The Ultimate Career Platform for Fashion Professionals
-            </h1>
-            <p className="mt-2 text-lg text-gray-700">
-              Build Your Fashion Career with Modeweltjob
-            </p>
             <p className="mt-4 text-gray-700">
               Are you a fashion designer, stylist, photographer, or industry
               expert looking for the right opportunities? Modewelt is here to
@@ -584,23 +552,13 @@ export default function Navbar() {
               leveling up your career, Modewelt makes it easier for you to
               showcase your talent and get hired.
             </p>
-            <button className="mt-6 bg-[#f26744] text-white px-6 py-2 rounded-md shadow-md hover:bg-[#a35083">
-              Registered Now
+            <button className="mt-6 bg-[#f26744] text-white px-6 py-2 rounded-md shadow-md hover:bg-[#a35083] transition-all duration-300">
+              Register Now
             </button>
           </div>
-          <div className="flex justify-center">
-            <div className="w-full max-w-md h-64 bg-gray-400 flex items-center justify-center rounded-lg">
-              <Image
-                src="/placeholder-image.png"
-                alt="Fashion Career"
-                width={150}
-                height={150}
-                className="rounded-full"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
+
       <section className="py-12 px-4 md:px-8 lg:px-16">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
           Why Choose Modewelt?
@@ -613,12 +571,7 @@ export default function Navbar() {
                 className="bg-gray-300 w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 flex flex-col items-center justify-center rounded-lg shadow-md p-4"
               >
                 <div className="w-12 h-12 bg-gray-500 rounded-full flex items-center justify-center mb-4">
-                  <Image
-                    src="/placeholder-image.png"
-                    alt=""
-                    width={24}
-                    height={24}
-                  />
+                  <Image src="" alt="" width={24} height={24} />
                 </div>
                 <p className="text-center text-sm md:text-base font-medium">
                   {feature.title}
@@ -628,82 +581,89 @@ export default function Navbar() {
           </div>
         </div>
       </section>
-      <div className="p-6 md:p-12 min-h-screen rounded-xl max-w-full lg:px-[90px] lg:py-[101px] justify-center bg-[#f4f2ff]">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div className="bg-gray-400 flex items-center justify-center h-[400px] rounded-xl">
-            <div className="bg-gray-600 p-4 rounded-full">
-              <img
-                src="/placeholder-image.svg"
-                alt="Placeholder"
-                className="w-16"
-              />
-            </div>
+      <div className="p-6 md:p-12 min-h-screen rounded-xl bg-[#f4f2ff] flex flex-col items-center">
+        {/* Main Grid Section */}
+        <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          {/* Image Section */}
+          <div className="h-[400px] rounded-xl flex justify-center">
+            <img
+              src={Landing}
+              alt="Modewelt Hiring Platform"
+              className="rounded-xl object-cover w-full h-full"
+            />
           </div>
 
-          <div className="space-y-8">
-            <p className="text-[#f26744] font-semibold uppercase text-sm">
+          {/* Content Section */}
+          <div className="space-y-6">
+            <p className="text-[#f26744] font-semibold uppercase text-sm tracking-wider">
               Modewelt Database
             </p>
-            <h2 className="text-2xl md:text-3xl font-bold mt-2">
+            <h2 className="text-2xl md:text-3xl font-bold leading-snug">
               Quickly hire active jobseekers around your office.
             </h2>
 
-            <div className="mt-4 space-y-2">
+            {/* Expandable Options */}
+            <div className="space-y-3">
               {searchOptions.map((option) => (
                 <div
                   key={option.id}
                   onClick={() => toggleExpand(option.id)}
-                  className="cursor-pointer border-b pb-2"
+                  className="cursor-pointer border-b pb-2 transition-all duration-300"
                 >
                   <p className="font-semibold">{option.title}</p>
                   {expanded === option.id && (
-                    <p className="text-gray-600">{option.description}</p>
+                    <p className="text-gray-600 text-sm">
+                      {option.description}
+                    </p>
                   )}
                 </div>
               ))}
             </div>
 
-            <button className="mt-4 bg-[#f26744] text-white px-6 py-2 rounded-md hover:bg-[#f26744] transition">
-              Search candidates
+            {/* Button */}
+            <button className="mt-4 bg-[#f26744] text-white px-6 py-2 rounded-md shadow-md hover:bg-[#d5533d] transition-all duration-300">
+              Search Candidates
             </button>
           </div>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+        {/* Features Section */}
+        <div className="mt-12 max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
           {features.map((feature, index) => (
             <div key={index} className="flex flex-col items-center">
               {feature.icon}
-              <h3 className="font-semibold mt-2">{feature.title}</h3>
+              <h3 className="font-semibold mt-2 text-lg">{feature.title}</h3>
               <p className="text-gray-600 text-sm">{feature.description}</p>
             </div>
           ))}
         </div>
       </div>
-     <div className="lg:pt-16 sm:pt-4">
-     <section className="max-w-[1192px] w-full flex flex-col md:flex-row items-center justify-between bg-[#4640de] text-white p-8 md:p-16 m-auto gap-10">
-        {/* Left Section */}
-        <div className="md:w-1/2 text-center md:text-left">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Start posting jobs today
-          </h1>
-          <p className="text-lg mb-6">Start posting jobs for only Free.</p>
-          <button className="bg-white text-blue-600 px-6 py-3 rounded-md font-semibold hover:bg-gray-200 transition">
-            Sign Up For Free
-          </button>
-        </div>
 
-        {/* Right Section */}
-        <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center">
-          <Image
-            src={Admin}
-            alt="Dashboard Preview"
-            width={600}
-            height={400}
-            className="rounded-md shadow-lg"
-          />
-        </div>
-      </section>
-     </div>
+      <div className="lg:pt-16 sm:pt-4">
+        <section className="max-w-[1192px] w-full flex flex-col md:flex-row items-center justify-between bg-[#4640de] text-white p-8 md:p-16 m-auto gap-10">
+          {/* Left Section */}
+          <div className="md:w-1/2 text-center md:text-left">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Start posting jobs today
+            </h1>
+            <p className="text-lg mb-6">Start posting jobs for only Free.</p>
+            <button className="bg-white text-blue-600 px-6 py-3 rounded-md font-semibold hover:bg-gray-200 transition">
+              Sign Up For Free
+            </button>
+          </div>
+
+          {/* Right Section */}
+          <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center">
+            <Image
+              src={Admin}
+              alt="Dashboard Preview"
+              width={600}
+              height={400}
+              className="rounded-md shadow-lg"
+            />
+          </div>
+        </section>
+      </div>
       <div className=" flex flex-col items-center justify-center min-h-screen p-6">
         <div className="max-w-[1192px] w-full">
           <h2 className="text-2xl font-bold text-gray-800">

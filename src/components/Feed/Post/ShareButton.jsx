@@ -52,7 +52,7 @@ export default function ShareButton({ shareUrl }) {
                 <motion.div initial="hide" animate="show" variants={variant1} className="absolute right-0 mt-2 w-72 bg-white border rounded-lg shadow-lg p-4">
                     <motion.div variants={variant2} className="flex justify-between space-x-4">
                         <button onClick={copyToClipboard} className="flex items-center justify-center w-20 h-10 rounded-full bg-gray-200 hover:bg-gray-300">
-                            <LuClipboard size={30} />
+                            <LuClipboard size={30} round data-networkname="link" />
                         </button>
 
                         <FacebookShareButton url={shareUrl} quote="Check this out!" hashtag="#fashion">

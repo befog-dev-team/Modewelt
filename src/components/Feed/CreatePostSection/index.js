@@ -31,7 +31,7 @@ export default function Index() {
     startUpload, // Start upload
     attachments, // Attachments
     isUploading, // Uploading state
-    uploadProgress, // Upload progress
+    // uploadProgress, // Upload progress
     removeAttachment, // Remove attachment
     reset: resetMediaUploads // Reset media uploads
   } = useMediaUpload() // Media upload hook
@@ -51,7 +51,7 @@ export default function Index() {
     return () => window.removeEventListener("keydown", handleKeyDown); // Remove event listener
   }, [isModalOpen]);
 
-  console.log("Uploadthing upload progress:", uploadProgress); // Log upload progress
+  // console.log("Uploadthing upload progress:", uploadProgress); // Log upload progress
 
   // Editor instance
   const editor = useEditor({

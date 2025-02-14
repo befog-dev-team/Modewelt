@@ -2,7 +2,7 @@
 
 import { PostData } from "@/lib/types"; // Import PostData type
 import Image from "next/image"; // Import Image component
-import { FaEllipsisH, FaShareAlt } from "react-icons/fa"; // Import icons
+import { FaEllipsisH } from "react-icons/fa"; // Import icons
 // import { BiLike } from "react-icons/bi"; // Import icons
 import Modal from "../Sharepopup/Model"; // Import Modal component
 import { useState } from "react"; // Import useState hook
@@ -17,6 +17,7 @@ import { MessageSquare } from "lucide-react";
 import Commentss from "@/components/Feed/comments/Commentss";
 import LikeButton from "./LikeButton";
 import FollowButton from "@/components/FollowButton";
+import ShareButton from './ShareButton';
 
 // PostProps interface
 interface PostProps {
@@ -166,10 +167,13 @@ export default function Post({ post }: PostProps) {
           </div>
         </div>
 
-        <div className="flex items-center space-x-2 cursor-pointer" onClick={() => setIsModalOpen(true)}>
+        {/* Share Button */}
+        <ShareButton shareUrl={`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${post.id}`} />
+
+        {/* <div className="flex items-center space-x-2 cursor-pointer" onClick={() => setIsModalOpen(true)}>
           <FaShareAlt className="text-primary text-lg" />
           <span className="text-sm font-semibold text-gray-800">SHARE</span>
-        </div>
+        </div> */}
       </div>
 
       {/* Comments Section */}

@@ -38,9 +38,9 @@ export default function PostedJobs() {
             </h3>
             <hr className="my-2" />
             <ul className="space-y-2">
-              <li className="cursor-pointer text-gray-700 hover:text-[#f26744]" onClick={() => router.push("/Myjobs")}>
+              {/* <li className="cursor-pointer text-gray-700 hover:text-[#f26744]" onClick={() => router.push("/Myjobs")}>
                 My Jobs
-              </li>
+              </li> */}
               <li className="cursor-pointer text-[#f26744] font-semibold" onClick={() => router.push("/Postedjobs")}>
                 Posted Job
               </li>
@@ -49,8 +49,8 @@ export default function PostedJobs() {
 
           {/* Main Content */}
           <main className="w-full md:w-3/4 mt-6 md:mt-0 md:ml-6">
-            <h2 className="text-xl font-semibold text-center text-[#f26744]">POSTED JOBS</h2>
-            <div className="flex justify-center gap-2 my-4">
+            <h2 className="text-xl font-semibold text-center text-[#f26744] mb-4">POSTED JOBS</h2>
+            {/* <div className="flex justify-center gap-2 my-4">
               {["All", "Draft", "Completed", "Active"].map((status) => (
                 <button
                   key={status}
@@ -60,7 +60,7 @@ export default function PostedJobs() {
                   {status}
                 </button>
               ))}
-            </div>
+            </div> */}
 
             {/* Jobs List */}
             <section className="bg-white shadow-md rounded-lg p-4 sm:p-6">

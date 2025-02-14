@@ -69,7 +69,7 @@ export default function Myjob() {
               </li>
               <li
                 className="cursor-pointer text-gray-700 hover:text-[#f26744]"
-                onClick={() => router.push("/Postedjobs")}
+                onClick={() => router.push("/jobManagement")}
               >
                 Posted Job
               </li>

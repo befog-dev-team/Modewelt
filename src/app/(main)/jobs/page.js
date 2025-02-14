@@ -4,7 +4,6 @@ import React from "react";
 // Left Sections
 import NewJobSection from "../../../components/Jobs/NewJobSection";
 // import SortBySection from "../../../components/Jobs/SortBySection";
-import JobSection from "../../../components/Jobs/JobSection";
 // import MoreJobSection from "../../../components/Jobs/MoreJobSection";
 // Right Sections
 // import PostJobSection from "../../../components/Jobs/PostJobSection";
@@ -35,9 +34,6 @@ export default function Jobs() {
 
           {/* Sort By Section */}
           {/* <SortBySection headingText="Jobs For You" /> */}
-
-          {/* Job Section */}
-          <JobSection />
 
           {/* Sort By Section */}
           {/* <SortBySection headingText="New Jobs" /> */}

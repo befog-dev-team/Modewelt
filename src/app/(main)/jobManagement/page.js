@@ -36,7 +36,7 @@ const fetchJobs = async () => {
   ];
 };
 
-export default function PostedJobs() {
+export default function JobManagementPage() {
   const [filter, setFilter] = useState("All");
   const [jobs, setJobs] = useState([]);
   const router = useRouter();
@@ -66,7 +66,7 @@ export default function PostedJobs() {
               </li> */}
               <li
                 className="cursor-pointer text-[#f26744] font-semibold"
-                onClick={() => router.push("/Postedjobs")}
+                onClick={() => router.push("/jobManagement")}
               >
                 My Jobs
               </li>

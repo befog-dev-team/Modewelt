@@ -11,18 +11,28 @@ import Admin from "../../../public/Images/admin.png";
 import fashionDesigner from "../../../public/Images/Fashion.png";
 import Professionals from "../../../public/Images/landing1.png";
 import Landing from "../../../public/Images/landingsec.png";
+import img1 from "../../../public/Images/l1.png";
+import img2 from "../../../public/Images/l2.png";
+import img3 from "../../../public/Images/l3.png";
+import img4 from "../../../public/Images/l4.png";
+import img5 from "../../../public/Images/l5.png";
+import img6 from "../../../public/Images/l6.png";
+import img7 from "../../../public/Images/l7.png";
+import img8 from "../../../public/Images/l8.webp";
+import img9 from "../../../public/Images/l9.webp";
+import img10 from "../../../public/Images/l10.png";
 
 const initialFeatures = [
-  { title: "Exclusive for Fashion Industry" },
-  { title: "Connect with Top Brands & Recruiters" },
-  { title: "Showcase Your Portfolio" },
-  { title: "Freelance & Full-Time Opportunities" },
-  { title: "Networking & Collaboration" },
-  { title: "Verified Job Listings" },
-  { title: "Career Growth & Learning" },
-  { title: "Industry Insights & Trends" },
-  { title: "Mentorship & Expert Guidance" },
-  { title: "Access to Exclusive Fashion Events" },
+  { title: "Exclusive for Fashion Industry", img: img1 },
+  { title: "Connect with Top Brands & Recruiters", img: img2 },
+  { title: "Showcase Your Portfolio", img: img3 },
+  { title: "Freelance & Full-Time Opportunities", img: img4 },
+  { title: "Networking & Collaboration", img: img5 },
+  { title: "Verified Job Listings", img: img6 },
+  { title: "Career Growth & Learning", img: img7 },
+  { title: "Industry Insights & Trends", img: img8 },
+  { title: "Mentorship & Expert Guidance", img: img9 },
+  { title: "Access to Exclusive Fashion Events", img: img10 },
 ];
 
 const features = [
@@ -564,29 +574,32 @@ export default function Navbar() {
           Why Choose Modewelt?
         </h2>
         <div className="flex justify-center">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 justify-center">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {initialFeatures.map((feature, index) => (
-              <div
+              <figure
                 key={index}
-                className="bg-gray-300 w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 flex flex-col items-center justify-center rounded-lg shadow-md p-4"
+                className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 flex flex-col items-center justify-center rounded-lg p-4 text-center"
               >
-                <div className="w-12 h-12 bg-gray-500 rounded-full flex items-center justify-center mb-4">
-                  <Image src="" alt="" width={24} height={24} />
-                </div>
-                <p className="text-center text-sm md:text-base font-medium">
+                <Image
+                  src={feature.img}
+                  alt={feature.title}
+                  className="rounded-lg w-40 h-40 sm:w-30 sm:h-30 md:w-56 md:h-56 object-cover mb-4 mt-4 p-4"
+                />
+                <figcaption className="text-sm md:text-base font-medium">
                   {feature.title}
-                </p>
-              </div>
+                </figcaption>
+              </figure>
             ))}
           </div>
         </div>
       </section>
+
       <div className="p-6 md:p-12 min-h-screen rounded-xl bg-[#f4f2ff] flex flex-col items-center">
         {/* Main Grid Section */}
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Image Section */}
           <div className="h-[400px] rounded-xl flex justify-center">
-            <img
+            <Image
               src={Landing}
               alt="Modewelt Hiring Platform"
               className="rounded-xl object-cover w-full h-full"

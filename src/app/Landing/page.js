@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import logo from "../../../public/Images/logo.svg";
+import logo from "../../../public/Images/logo.png";
 import Image from "next/image";
 import { useState } from "react";
 import { Menu } from "lucide-react";
@@ -407,7 +407,7 @@ export default function Navbar() {
       <nav className="shadow-md py-4 px-6 flex justify-between items-center">
         {/* Logo */}
         <div className="text-[#a35083] text-xl font-bold">
-          <Image src={logo} alt="Modewelt" width={70} height={70} />
+          <Image src={logo} alt="Modewelt" width={40} height={40} />
         </div>
 
         {/* Desktop Menu */}

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../../public/Images/logo.svg";
+import logo from "../../../public/Images/logo.png";
 import { SlFeed } from "react-icons/sl";
 import { GoPeople } from "react-icons/go";
 import { FiBriefcase } from "react-icons/fi";

@@ -581,7 +581,7 @@ export default function Home() {
                             label="Language"
                             value={formData.notes}
                             type="text"
-                            placeholder="Add any additional notes"
+                            placeholder="Languages"
                             className="col-span-2"
                             onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                         />
@@ -592,14 +592,14 @@ export default function Home() {
                             label="Achievements"
                             value={formData.currentLocation}
                             type="text"
-                            placeholder="Enter current location"
+                            placeholder="Enter your achievements"
                             onChange={(e) => setFormData({ ...formData, currentLocation: e.target.value })}
                         />
                         <InputField
-                            label="Profolio"
+                            label="Portfolio"
                             value={formData.notes}
                             type="text"
-                            placeholder="Add any additional notes"
+                            placeholder="Portfolio link"
                             className="col-span-2"
                             onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                         />

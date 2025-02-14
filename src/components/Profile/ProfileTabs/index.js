@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import ProjectPage from "../Project";
-// import SkillsPage from "../Skills";
+import SkillsPage from "../Skills";
 import Experience from "../Experience";
 import ProjectPage2 from "../Project2";
 import Postpage from "../Post";
@@ -115,7 +115,7 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
             {activeSection === "profile" && (
                 <div>
                     <ProjectPage user={users} username={username} loggedinUserId={loggedinUserId} />
-                    {/* <SkillsPage  /> */}
+                    <SkillsPage user={users} username={username} loggedinUserId={loggedinUserId}  />
                     <Experience user={users} username={username} loggedinUserId={loggedinUserId} />
                     <ProjectPage2 user={users} username={username} loggedinUserId={loggedinUserId} />
                 </div>

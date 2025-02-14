@@ -1,8 +1,8 @@
 import { validateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, props: { params: Promise<{ skillId: string }> }) {
+export async function GET(req, props) {
     const params = await props.params;
     try {
         const { skillId } = params;
@@ -23,7 +23,7 @@ export async function GET(req: NextRequest, props: { params: Promise<{ skillId: 
     }
 }
 
-export async function DELETE(req: NextRequest, props: { params: Promise<{ skillId: string }> }) {
+export async function DELETE(req, props) {
     const params = await props.params;
     try {
         const { user } = await validateRequest();

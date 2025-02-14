@@ -1,4 +1,6 @@
 "use client";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 import logo from "../../../public/Images/logo.png";
 import Image from "next/image";
 import { useState } from "react";
@@ -359,6 +361,34 @@ export default function Navbar() {
 
   const [openIndex, setOpenIndex] = useState(null);
 
+  const topRef = useRef(null);
+  const bottomRef = useRef(null);
+
+  useEffect(() => {
+    const topWidth = topRef.current.scrollWidth / 2; // Get half width for smooth looping
+    const bottomWidth = bottomRef.current.scrollWidth / 2;
+
+    gsap.to(topRef.current, {
+      xPercent: -50, // Move by half its width
+      duration: 20,
+      repeat: -1,
+      ease: "linear",
+      modifiers: {
+        xPercent: gsap.utils.wrap(-100, 0), // Ensure infinite loop
+      },
+    });
+
+    gsap.to(bottomRef.current, {
+      xPercent: 50, // Move opposite direction
+      duration: 20,
+      repeat: -1,
+      ease: "linear",
+      modifiers: {
+        xPercent: gsap.utils.wrap(-100, 0),
+      },
+    });
+  }, []);
+
   return (
     <div className="bg-[#a2defa]">
       <nav className="shadow-md py-4 px-6 flex justify-between items-center">
@@ -391,7 +421,7 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="absolute top-16 left-0 w-full shadow-md md:hidden flex flex-col items-center space-y-4 py-4">
+          <div className="absolute top-16 left-0 w-full shadow-md md:hidden flex flex-col items-center space-y-4 py-4 bg-[#a2defa]">
             <span className="text-gray-700">Looking for a Job</span>
             <Link
               href="/contact"
@@ -473,18 +503,40 @@ export default function Navbar() {
           </p>
         </div>
       </div>
-      <div className="flex justify-center items-center bg-blue-50 m-auto">
-        <div className="flex flex-wrap gap-4 p-6 bg-gradient-to-r from-[#b8e6fc] to-[#a2e0fa] rounded-lg">
-          {jobTags.map((tag, index) => (
-            <span
-              key={index}
-              className="px-4 py-2 text-gray-700 bg-white border border-pink-300 rounded-full shadow-sm text-sm font-semibold"
-            >
-              {tag}
-            </span>
-          ))}
+      <div className="relative flex flex-col items-center justify-center bg-[#b6e4fc] m-auto overflow-hidden w-full py-6">
+        {/* Left & Right Blur Effect (Subtle) */}
+        <div className="absolute top-0 left-0 w-10 h-full bg-gradient-to-r from-[#b6e4fc] via-[#b6e4fc]/50 to-transparent pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-10 h-full bg-gradient-to-l from-[#b6e4fc] via-[#b6e4fc]/50 to-transparent pointer-events-none"></div>
+
+        {/* Top Scrolling Text */}
+        <div className="w-full overflow-hidden whitespace-nowrap">
+          <div ref={topRef} className="flex gap-4">
+            {[...jobTags, ...jobTags].map((tag, index) => (
+              <span
+                key={`top-${index}`}
+                className="px-4 py-2 text-gray-700 bg-white border border-pink-300 rounded-full shadow-sm text-sm font-semibold"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom Scrolling Text */}
+        <div className="w-full overflow-hidden whitespace-nowrap mt-4">
+          <div ref={bottomRef} className="flex gap-4">
+            {[...jobTags, ...jobTags].map((tag, index) => (
+              <span
+                key={`bottom-${index}`}
+                className="px-4 py-2 text-gray-700 bg-white border border-pink-300 rounded-full shadow-sm text-sm font-semibold"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
+
       <section className="bg-[#a2defa] py-10 px-5 min-h-screen">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-4xl md:text-4xl lg:text-6xl text-gray-800 mb-6 text-left">
@@ -576,7 +628,7 @@ export default function Navbar() {
           </div>
         </div>
       </section>
-      <div className="p-6 md:p-12 min-h-screen rounded-xl max-w-full lg:px-[90px] lg:py-[101px] justify-center">
+      <div className="p-6 md:p-12 min-h-screen rounded-xl max-w-full lg:px-[90px] lg:py-[101px] justify-center bg-[#f4f2ff]">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="bg-gray-400 flex items-center justify-center h-[400px] rounded-xl">
             <div className="bg-gray-600 p-4 rounded-full">
@@ -627,7 +679,8 @@ export default function Navbar() {
           ))}
         </div>
       </div>
-      <section className="max-w-[1192px] w-full flex flex-col md:flex-row items-center justify-between bg-[#4640de] text-white p-8 md:p-16 m-auto gap-10">
+     <div className="lg:pt-16 sm:pt-4">
+     <section className="max-w-[1192px] w-full flex flex-col md:flex-row items-center justify-between bg-[#4640de] text-white p-8 md:p-16 m-auto gap-10">
         {/* Left Section */}
         <div className="md:w-1/2 text-center md:text-left">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -650,6 +703,7 @@ export default function Navbar() {
           />
         </div>
       </section>
+     </div>
       <div className=" flex flex-col items-center justify-center min-h-screen p-6">
         <div className="max-w-[1192px] w-full">
           <h2 className="text-2xl font-bold text-gray-800">
@@ -686,10 +740,10 @@ export default function Navbar() {
             hiring
           </p>
           <div className="mt-6 grid lg:grid-cols-2 sm:grid-cols-1 gap-4 justify-center sm:justify-start">
-            <button className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition w-full sm:w-auto">
+            <button className="px-6 py-3 bg-[#f26744] text-white font-semibold rounded-lg shadow-md hover:bg-[#f26744] transition w-full sm:w-auto">
               Login/Sign up
             </button>
-            <button className="px-6 py-3 border border-gray-500 text-gray-700 font-semibold rounded-lg hover:bg-gray-100 transition w-full sm:w-auto">
+            <button className="px-6 py-3 border border-[#f26744] text-[#f26744] font-semibold rounded-lg hover:bg-gray-100 transition w-full sm:w-auto">
               Contact us
             </button>
           </div>

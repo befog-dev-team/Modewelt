@@ -99,9 +99,9 @@ const ApplicantsPage = () => {
             >
               View Applicants
             </button>
-            <button className="border border-[#f26744] text-[#f26744] px-4 py-2 rounded-full hover:bg-[#f26744] hover:text-white transition">
+            {/* <button className="border border-[#f26744] text-[#f26744] px-4 py-2 rounded-full hover:bg-[#f26744] hover:text-white transition">
               Repost Job
-            </button>
+            </button> */}
           </div>
         </div>
 

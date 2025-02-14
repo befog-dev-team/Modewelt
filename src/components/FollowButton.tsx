@@ -85,9 +85,9 @@ export default function FollowRequestButton({ userId, initialState }: FollowRequ
             : "Follow";
 
     const buttonStyles = {
-        Follow: "bg-gradient-to-r from-[#c166a0] to-[#A45286] text-white text-sm font-bold py-1 px-4 rounded flex items-center justify-center",
-        Requested: "bg-gray-300 py-1 px-4 text-sm font-semibold rounded flex items-center justify-center",
-        Following: "bg-white text-[#B7B7B7] text-sm font-bold py-1 px-4 rounded border-[#E7E7E7] border-[1px] flex items-center justify-center",
+        Follow: "bg-gradient-to-r from-[#c166a0] to-[#A45286] text-white text-sm font-bold w-full py-1 px-4 rounded flex items-center justify-center",
+        Requested: "bg-gray-300 py-1 px-4 text-sm font-semibold rounded flex items-center w-full justify-center",
+        Following: "bg-white text-[#B7B7B7] text-sm font-bold py-1 px-4 rounded border-[#E7E7E7] w-full border-[1px] flex items-center justify-center",
     };
 
     return (

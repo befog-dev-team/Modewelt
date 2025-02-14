@@ -16,6 +16,7 @@ import { filesize } from "filesize"; // Import filesize function
 import { MessageSquare } from "lucide-react";
 import Commentss from "@/components/Feed/comments/Commentss";
 import LikeButton from "./LikeButton";
+import FollowButton from "@/components/FollowButton";
 
 // PostProps interface
 interface PostProps {
@@ -84,9 +85,23 @@ export default function Post({ post }: PostProps) {
                 onClose={handleCloseDialog} // Pass the handleCloseDialog function to the DeletePostDialog component
               />
 
-              <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Report Post</button>
+              {user.id !== post.user.id && (
+                <FollowButton
+                  userId={post.user.id}
+                  initialState={{
+                    followers: post.user._count.followers,
+                    following: post.user._count.following,
+                    hasPendingRequest: false,
+                    isFollowedByUser: false,
+                    followingId: "",
+                    sentRequests: [],
+                    receivedRequests: []
+                  }}
+                />
+              )}
+              {/* <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Report Post</button>
               <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Connect</button>
-              <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Not Interested</button>
+              <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Not Interested</button> */}
             </div>
           )}
         </div>
@@ -139,16 +154,16 @@ export default function Post({ post }: PostProps) {
       <div className="flex justify-between items-center pb-[16px] px-8 mb-4 mt-4">
         <div className="flex gap-12">
           <div className="flex items-center space-x-2">
-          <div className="hover:text-[#a35285]">
-            <LikeButton  postId={post.id} initialState={{
-            likes: post._count.likes,
-            isLikedByUser: post.likes.some((like) => like.userId === user.id),
-          }} />
+            <div className="hover:text-[#a35285]">
+              <LikeButton postId={post.id} initialState={{
+                likes: post._count.likes,
+                isLikedByUser: post.likes.some((like) => like.userId === user.id),
+              }} />
             </div>
-         <div className="hover:text-[#a35285]">
-          <CommentButton  post={post} onClick={() => setShowComments(!showComments)} />
+            <div className="hover:text-[#a35285]">
+              <CommentButton post={post} onClick={() => setShowComments(!showComments)} />
+            </div>
           </div>
-       </div>
         </div>
 
         <div className="flex items-center space-x-2 cursor-pointer" onClick={() => setIsModalOpen(true)}>

@@ -150,7 +150,7 @@ const Auth = () => {
                 className="SignUpLink cursor-pointer"
                 onClick={() => setActive(true)}
               >
-                Create Account
+                {/* Create Account */}
               </p>
             </div>
 

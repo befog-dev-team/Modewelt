@@ -9,9 +9,9 @@ export default function SearchField() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const query = (e.currentTarget.q as HTMLInputElement).value.trim();
+    const query = (e.currentTarget.query as HTMLInputElement).value.trim();
     if (query) {
-      router.push(`/search?q=${encodeURIComponent(query)}`);
+      router.push(`/search?query=${encodeURIComponent(query)}`);
     }
   };
 
@@ -19,7 +19,7 @@ export default function SearchField() {
     <form onSubmit={handleSubmit} className="focus:ring-[#a34e83] focus:outline-none">
       <div className="relative">
         <Input
-          name="q"
+          name="query"
           placeholder="Search"
           className="pr-10 sm:pr-8 md:pr-[4rem] lg:pr-[8rem] xl:pr-[10rem]"
         />

@@ -374,7 +374,7 @@ export default function Home() {
                 setFiles([]);
                 setInputCaptcha("");
                 setCaptcha(regenerateCaptcha());
-                router.push("/jobManagement")
+                router.push("/jobs")
                 toast.success("Application submitted successfully!");
             }
         } catch (error) {

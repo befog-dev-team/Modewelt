@@ -22,6 +22,7 @@ import img7 from "../../../public/Images/l7.png";
 import img8 from "../../../public/Images/l8.webp";
 import img9 from "../../../public/Images/l9.webp";
 import img10 from "../../../public/Images/l10.png";
+import { getCurrentYear } from "@/lib/utils";
 
 const initialFeatures = [
   { title: "Exclusive for Fashion Industry", img: img1 },
@@ -85,28 +86,32 @@ export default function Navbar() {
 
   const faqs = [
     {
-      question: "Why should I use Modeweltjob over others?",
-      answer: "Modeweltjob offers the best features for hiring efficiently.",
+      question: "What is ModeweltJob.com?",
+      answer: "ModeweltJob.com is a dedicated platform that consolidates all top fashion job listings in one place, saving professionals time and effort from searching across multiple websites.",
       isOpen: false,
     },
     {
-      question: "What happens if I don't receive enough candidates?",
-      answer:
-        "We ensure a continuous stream of candidates to match your requirements.",
+      question: "How does ModeweltJob.com help job seekers?",
+      answer: "The platform provides direct access to leading fashion brands, including major fashion houses, startups, and established companies, making it easier to secure interviews and job offers.",
       isOpen: false,
     },
     {
-      question: "In which cities can I hire via modeweltjob?",
-      answer: "Modeweltjob operates in multiple cities nationwide.",
+      question: "What types of job opportunities are available?",
+      answer: "ModeweltJob.com offers both freelance and full-time job opportunities, catering to different career preferences.",
       isOpen: false,
     },
     {
-      question:
-        "I want to hire more than 10 candidates, do you have any bulk-hiring plans?",
-      answer: "Yes, we offer bulk-hiring solutions tailored to your needs.",
+      question: "Does the platform provide job alerts?",
+      answer: "Yes, job seekers receive real-time notifications about new job openings, exclusive internships, and the latest fashion industry trends.",
+      isOpen: false,
+    },
+    {
+      question: "How does ModeweltJob.com improve the hiring process?",
+      answer: "The platform speeds up recruitment by ensuring quick responses from employers, reducing long waiting times, and making hiring more efficient.",
       isOpen: false,
     },
   ];
+
   const jobCategories = [
     {
       title: "Fashion Design",
@@ -512,11 +517,10 @@ export default function Navbar() {
             {jobCategories.map((category, index) => (
               <div
                 key={index}
-                className={`max-w-[274px] w-full h-[214px] p-6 rounded-lg shadow-md transition-all duration-300 cursor-pointer flex flex-col items-center text-center ${
-                  category.highlighted
-                    ? "bg-orange-500 text-white"
-                    : "bg-white text-gray-800"
-                } hover:shadow-xl hover:-translate-y-1`}
+                className={`max-w-[274px] w-full h-[214px] p-6 rounded-lg shadow-md transition-all duration-300 cursor-pointer flex flex-col items-center text-center ${category.highlighted
+                  ? "bg-orange-500 text-white"
+                  : "bg-white text-gray-800"
+                  } hover:shadow-xl hover:-translate-y-1`}
               >
                 <span className="text-4xl">{category.icon}</span>
                 <h3 className="mt-4 text-lg font-semibold">{category.title}</h3>
@@ -668,9 +672,9 @@ export default function Navbar() {
             </h1>
             <p className="text-lg mb-6">Start posting jobs for only Free.</p>
             <button className="bg-white text-blue-600 px-6 py-3 rounded-md font-semibold hover:bg-gray-200 transition">
-            <Link href="/auth" prefetch={true}>
-              Sign Up For Free
-            </Link>
+              <Link href="/auth" prefetch={true}>
+                Sign Up For Free
+              </Link>
             </button>
           </div>
 
@@ -731,7 +735,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <footer className="w-full bg-gray-900 text-gray-400 mt-16 py-8">
+      <footer className="w-full flex justify-center items-center bg-gray-900 text-gray-400 mt-16 py-8">
         {/* <div className="max-w-6xl mx-auto px-6 md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
             <div className="bg-gray-700 h-12 w-12 rounded-md"></div>
@@ -771,8 +775,8 @@ export default function Navbar() {
             </div>
           </div>
         </div> */}
-        <div className="border-t border-gray-700 mt-6 pt-4 text-center text-sm">
-          <p>© 2025 Modeweltjob | All rights reserved.</p>
+        <div className="border-gray-700 text-sm">
+          <p>© {getCurrentYear()} Modeweltjob | All rights reserved.</p>
         </div>
       </footer>
     </div>

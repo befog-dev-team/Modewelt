@@ -50,13 +50,13 @@ export default function ShareButton({ shareUrl }) {
 
             {showIcons && (
                 <motion.div initial="hide" animate="show" variants={variant1} className="absolute right-0 mt-2 min-w-72 bg-white border rounded-lg shadow-lg p-4">
-                    <motion.div variants={variant2} className="flex justify-between space-x-4">
+                    <motion.div variants={variant2} className="flex justify-between space-x-4" suppressHydrationWarning>
                         {/* Clipboard Button */}
                         <button
+                            suppressHydrationWarning
                             data-networkname="link"
                             onClick={copyToClipboard}
-                            className="flex items-center justify-center w-20 rounded-full bg-gray-200 hover:bg-gray-300"
-                            suppressHydrationWarning
+                            className="flex items-center justify-center w-[40px] rounded-full bg-gray-200 hover:bg-gray-300"
                         >
                             <LuClipboard size={20} />
                         </button>

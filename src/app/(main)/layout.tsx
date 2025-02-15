@@ -51,7 +51,7 @@ export default async function Layout({
     }
 
     // If the user is not logged in, redirect to the auth page
-    if (!session.user) redirect("/landing");
+    if (!session.user) redirect("/");
 
     return (
         // Pass the session to the SessionProvider

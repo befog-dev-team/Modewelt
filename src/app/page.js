@@ -2,26 +2,26 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import logo from "../../../public/Images/logo.png";
+import logo from "../../public/Images/logo.png";
 import Image from "next/image";
 import { useState } from "react";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { FaUserFriends, FaFileAlt, FaFilter } from "react-icons/fa";
-import Admin from "../../../public/Images/admin.png";
-import fashionDesigner from "../../../public/Images/Fashion.png";
-import Professionals from "../../../public/Images/landing1.png";
-import Landing from "../../../public/Images/landingsec.png";
-import img1 from "../../../public/Images/l1.png";
-import img2 from "../../../public/Images/l2.png";
-import img3 from "../../../public/Images/l3.png";
-import img4 from "../../../public/Images/l4.png";
-import img5 from "../../../public/Images/l5.png";
-import img6 from "../../../public/Images/l6.png";
-import img7 from "../../../public/Images/l7.png";
-import img8 from "../../../public/Images/l8.webp";
-import img9 from "../../../public/Images/l9.webp";
-import img10 from "../../../public/Images/l10.png";
+import Admin from "../../public/Images/admin.png";
+import fashionDesigner from "../../public/Images/Fashion.png";
+import Professionals from "../../public/Images/landing1.png";
+import Landing from "../../public/Images/landingsec.png";
+import img1 from "../../public/Images/l1.png";
+import img2 from "../../public/Images/l2.png";
+import img3 from "../../public/Images/l3.png";
+import img4 from "../../public/Images/l4.png";
+import img5 from "../../public/Images/l5.png";
+import img6 from "../../public/Images/l6.png";
+import img7 from "../../public/Images/l7.png";
+import img8 from "../../public/Images/l8.webp";
+import img9 from "../../public/Images/l9.webp";
+import img10 from "../../public/Images/l10.png";
 import { getCurrentYear } from "@/lib/utils";
 
 const initialFeatures = [

@@ -43,7 +43,7 @@ export default function ForYouJobFeed({ searchQuery }) {
     : jobs;
 
   if (status === "pending") {
-    return <Loader2 className="mx-auto animate-spin text-[#A45286]" />;
+    return <Loader2 className="mx-auto animate-spin text-[#f26744]" />;
   }
 
   if (status === "success" && !filteredJobsList.length && !hasNextPage) {

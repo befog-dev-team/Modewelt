@@ -49,7 +49,7 @@ export default function Comments({ post }: CommentsProps) {
       )}
       
       {/* Loading spinner */}
-      {status === "pending" && <Loader2 className="mx-auto animate-spin text-[#a35285]" />}
+      {status === "pending" && <Loader2 className="mx-auto animate-spin text-[#f26744]" />}
       
       {/* No comments message */}
       {status === "success" && !comments.length && (

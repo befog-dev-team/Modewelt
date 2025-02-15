@@ -59,7 +59,7 @@ function Navbar({ unreadNotificationCount }) {
             className="h-10 w-10 lg:mx-10 sm:mx-1"
           />
         </Link>
-        <div className="hidden lg:flex flex-grow items-center space-x-4 lg:space-x-6">
+        <div className="hidden lg:flex flex-grow items-center space-x-4 lg:space-x-8">
           <Link href="/feed" className="flex flex-col items-center" prefetch={true}>
             <SlFeed className="h-6 w-6" />
             <span className="text-xs">Feed</span>

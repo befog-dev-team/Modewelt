@@ -13,12 +13,12 @@ export default function JobMenu() {
       action: () => router.push("/postJob"),
       color: "text-blue-500",
     },
-    {
-      icon: "ri-briefcase-line",
-      text: "MANAGE YOUR JOBS",
-      action: () => router.push("/jobManagement"),
-      color: "text-purple-500",
-    },
+    // {
+    //   icon: "ri-briefcase-line",
+    //   text: "MANAGE YOUR JOBS",
+    //   action: () => router.push("/jobManagement"),
+    //   color: "text-purple-500",
+    // },
   ];
 
   return (

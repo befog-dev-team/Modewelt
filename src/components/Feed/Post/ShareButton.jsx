@@ -49,26 +49,36 @@ export default function ShareButton({ shareUrl }) {
             </div>
 
             {showIcons && (
-                <motion.div initial="hide" animate="show" variants={variant1} className="absolute right-0 mt-2 w-72 bg-white border rounded-lg shadow-lg p-4">
+                <motion.div initial="hide" animate="show" variants={variant1} className="absolute right-0 mt-2 min-w-72 bg-white border rounded-lg shadow-lg p-4">
                     <motion.div variants={variant2} className="flex justify-between space-x-4">
-                        <button onClick={copyToClipboard} className="flex items-center justify-center w-20 h-10 rounded-full bg-gray-200 hover:bg-gray-300">
-                            <LuClipboard size={30} round data-networkname="link" />
+                        {/* Clipboard Button */}
+                        <button
+                            data-networkname="link"
+                            onClick={copyToClipboard}
+                            className="flex items-center justify-center w-20 rounded-full bg-gray-200 hover:bg-gray-300"
+                            suppressHydrationWarning
+                        >
+                            <LuClipboard size={20} />
                         </button>
 
-                        <FacebookShareButton url={shareUrl} quote="Check this out!" hashtag="#fashion">
-                            <FacebookIcon size={40} round />
+                        {/* Facebook Share */}
+                        <FacebookShareButton suppressHydrationWarning data-networkname="facebook" url={shareUrl} quote="Check this out!" hashtag="#fashion">
+                            <FacebookIcon size={40} className="rounded-full" />
                         </FacebookShareButton>
 
-                        <TwitterShareButton url={shareUrl} title="Check out this post!" hashtags={["fashion", "style"]}>
-                            <TwitterIcon size={40} round />
+                        {/* Twitter Share */}
+                        <TwitterShareButton suppressHydrationWarning data-networkname="twitter" url={shareUrl} title="Check out this post!" hashtags={["fashion", "style"]}>
+                            <TwitterIcon size={40} className="rounded-full" />
                         </TwitterShareButton>
 
-                        <LinkedinShareButton url={shareUrl} title="Check this out!" summary="A cool fashion post" source="FashionApp">
-                            <LinkedinIcon size={40} round />
+                        {/* LinkedIn Share */}
+                        <LinkedinShareButton suppressHydrationWarning data-networkname="linkedin" url={shareUrl} title="Check this out!" summary="A cool fashion post" source="FashionApp">
+                            <LinkedinIcon size={40} className="rounded-full" />
                         </LinkedinShareButton>
 
-                        <WhatsappShareButton url={shareUrl} title="Check out this fashion post!" separator=":: ">
-                            <WhatsappIcon size={40} round />
+                        {/* WhatsApp Share */}
+                        <WhatsappShareButton suppressHydrationWarning data-networkname="whatsapp" url={shareUrl} title="Check out this fashion post!" separator=":: ">
+                            <WhatsappIcon size={40} className="rounded-full" />
                         </WhatsappShareButton>
                     </motion.div>
                 </motion.div>

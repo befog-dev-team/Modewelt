@@ -44,7 +44,7 @@ export default function CommentInput({ post }: CommentInputProps) {
         variant="ghost"
         size="icon"
         disabled={!input.trim() || mutation.isPending}
-        className="hover:text-[#fcf9fb] bg-[#a65687] hover:bg-[#8c4a74] text-white disabled:bg-[#d6a6c4] disabled:opacity-50 transition-colors duration-200 rounded-lg shadow-md"
+        className="hover:text-[#fcf9fb] bg-[#f26744] hover:bg-[#f26744] text-white disabled:bg-[#d6a6c4] disabled:opacity-50 transition-colors duration-200 rounded-lg shadow-md"
       >
         {!mutation.isPending ? (
           <SendHorizonal />

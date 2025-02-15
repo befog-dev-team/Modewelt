@@ -39,7 +39,7 @@ export default function SearchResults({ query }: SearchResultsProps) {
 
   if (status === "pending") {
     return (
-      <div className="space-y-5 ">
+      <div className="space-y-5 min-h-screen">
         <PostsLoadingSkeleton />
       </div>
     )
@@ -63,7 +63,7 @@ export default function SearchResults({ query }: SearchResultsProps) {
 
   return (
     <InfiniteScrollContainer
-      className="space-y-5"
+      className="space-y-5 min-h-screen"
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
       {posts.map((post) => (

@@ -406,7 +406,7 @@ export default function Navbar() {
     <div className="bg-[#a2defa]">
       <nav className="shadow-md py-4 px-6 flex justify-between items-center">
         {/* Logo */}
-        <div className="text-[#a35083] text-xl font-bold">
+        <div className="text-xl font-bold">
           <Image src={logo} alt="Modewelt" width={40} height={40} />
         </div>
 
@@ -732,7 +732,7 @@ export default function Navbar() {
       </div>
       <footer className="w-full bg-gray-900 text-gray-400 mt-16 py-8">
         <div className="max-w-6xl mx-auto px-6 md:flex md:justify-between">
-          <div className="mb-6 md:mb-0">
+          {/* <div className="mb-6 md:mb-0">
             <div className="bg-gray-700 h-12 w-12 rounded-md"></div>
             <div className="flex space-x-4 mt-4">
               <span className="bg-gray-700 h-6 w-6 rounded-full"></span>
@@ -740,7 +740,7 @@ export default function Navbar() {
               <span className="bg-gray-700 h-6 w-6 rounded-full"></span>
               <span className="bg-gray-700 h-6 w-6 rounded-full"></span>
             </div>
-          </div>
+          </div> */}
           {/* <div className="grid grid-cols-2 md:grid-cols-3 gap-20">
             <div>
               <h4 className="text-white font-semibold mb-2">PRODUCT</h4>

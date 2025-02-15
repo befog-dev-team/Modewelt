@@ -93,12 +93,12 @@ const ApplicantsPage = () => {
             Closed {job.closedAgo} · {job.type} · {job.views} views
           </p>
           <div className="flex gap-4 mt-4 justify-end">
-            <button
+            {/* <button
               className="border border-[#f26744] text-[#f26744] px-4 py-2 rounded-full hover:bg-[#f26744] hover:text-white transition"
               onClick={() => router.push(`/Applicants/${job.id}`)}
             >
               View Applicants
-            </button>
+            </button> */}
             {/* <button className="border border-[#f26744] text-[#f26744] px-4 py-2 rounded-full hover:bg-[#f26744] hover:text-white transition">
               Repost Job
             </button> */}

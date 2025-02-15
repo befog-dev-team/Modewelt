@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import logo from "../../../public/Images/logo.png";
+import logo from "../../../public/Images/logo.svg";
 import Image from "next/image";
 import { useState } from "react";
 import { Menu } from "lucide-react";
@@ -44,14 +44,14 @@ const features = [
   },
   {
     icon: <FaFileAlt className="text-[#f26744] text-4xl" />,
-    title: "Auto Generated Resumes",
+    title: "All Fashion Jobs in One Place",
     description:
-      "Effortlessly generate downloadable resumes from apna profiles for seamless candidate review.",
+      "Find top fashion jobs on ModeweltJob.com without the hassle of searching multiple sites.",
   },
   {
     icon: <FaFilter className="text-[#f26744] text-4xl" />,
-    title: "Precision Filtering",
-    description: "Use 22+ advanced filters to fine-tune candidate searches.",
+    title: "Direct Access to Top Brands",
+    description: "Connect with leading fashion houses, startups, and established brands for job opportunities.",
   },
 ];
 
@@ -404,14 +404,14 @@ export default function Navbar() {
 
   return (
     <div className="bg-[#a2defa]">
-      <nav className="shadow-md py-4 px-6 flex justify-between items-center">
+      <nav className="shadow-md py-4 px-6 flex justify-between items-center ">
         {/* Logo */}
-        <div className="text-xl font-bold">
+        <div className="text-xl font-bold lg:mx-20 md:mx-10 sm:mx-5 mx-2">
           <Image src={logo} alt="Modewelt" width={40} height={40} />
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-6">
+        <div className="hidden md:flex items-center space-x-6 lg:mx-20 md:mx-10 sm:mx-5 mx-2">
           <span className="text-gray-700">Looking for a Job</span>
           <Link
             href="/auth"

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import logo from "../../../public/Images/logo.png";
+import logo from "../../../public/Images/logo.svg";
 import { SlFeed } from "react-icons/sl";
 import { GoPeople } from "react-icons/go";
 import { FiBriefcase } from "react-icons/fi";
@@ -34,7 +34,7 @@ function Navbar({ unreadNotificationCount }) {
   ];
 
   return (
-    <div className="bg-[#a2defa] w-full h-16 flex flex-col lg:flex-row items-center text-sm text-gray-600">
+    <div className="bg-[#a2defa] w-full h-16 flex flex-col lg:flex-row items-center text-sm text-gray-600 shadow-sm">
       <div className="container mx-auto flex items-center px-2 lg:px-6">
         <Link href="/feed" className="flex flex-col items-center" prefetch>
           <Image src={logo} alt="Company Logo" className="h-10 w-10 lg:mx-10 sm:mx-1" />

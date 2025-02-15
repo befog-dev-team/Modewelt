@@ -1,5 +1,5 @@
 import React from 'react'
-import Landingpage from '../Landing/page';
+import AuthForm from './AuthForm'
 
 export const metadata = {
     title: "Authentication",
@@ -10,7 +10,7 @@ export default function Page() {
     
   return (
     <div>
-      <Landingpage  />
+      <AuthForm  />
     </div>
   )
 }

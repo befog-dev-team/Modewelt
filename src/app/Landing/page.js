@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import logo from "../../../public/Images/logo.png";
@@ -731,8 +732,8 @@ export default function Navbar() {
         </div>
       </div>
       <footer className="w-full bg-gray-900 text-gray-400 mt-16 py-8">
-        <div className="max-w-6xl mx-auto px-6 md:flex md:justify-between">
-          {/* <div className="mb-6 md:mb-0">
+        {/* <div className="max-w-6xl mx-auto px-6 md:flex md:justify-between">
+          <div className="mb-6 md:mb-0">
             <div className="bg-gray-700 h-12 w-12 rounded-md"></div>
             <div className="flex space-x-4 mt-4">
               <span className="bg-gray-700 h-6 w-6 rounded-full"></span>
@@ -740,8 +741,8 @@ export default function Navbar() {
               <span className="bg-gray-700 h-6 w-6 rounded-full"></span>
               <span className="bg-gray-700 h-6 w-6 rounded-full"></span>
             </div>
-          </div> */}
-          {/* <div className="grid grid-cols-2 md:grid-cols-3 gap-20">
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-20">
             <div>
               <h4 className="text-white font-semibold mb-2">PRODUCT</h4>
               <ul className="space-y-1">
@@ -768,8 +769,8 @@ export default function Navbar() {
                 <li>Blogs</li>
               </ul>
             </div>
-          </div> */}
-        </div>
+          </div>
+        </div> */}
         <div className="border-t border-gray-700 mt-6 pt-4 text-center text-sm">
           <p>© 2025 Modeweltjob | All rights reserved.</p>
         </div>

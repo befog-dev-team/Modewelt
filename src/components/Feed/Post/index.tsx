@@ -58,7 +58,7 @@ export default function Post({ post }: PostProps) {
     <div className="bg-white mx-auto my-4 rounded-md shadow-md w-full max-w-4xl">
       {/* Header */}
       <div className="flex justify-between items-center px-4 py-2">
-        <Link
+        {/* <Link
           href={`/posts/${post.id}`}
           className="block text-sm text-muted-foreground hover:underline"
           prefetch={true}
@@ -67,7 +67,14 @@ export default function Post({ post }: PostProps) {
           <p className="leading-[15px] text-xs font-[Gotham] text-[#181818]">
             Post created by <span className="text-primary">{post.user.displayName}</span> <span className="text-primary">{formatRelativeDate(post.createdAt)}</span>
           </p>
-        </Link>
+        </Link> */}
+
+        <div>
+          <p className="leading-[15px] text-xs font-[Gotham] text-[#181818]">
+            Post created by <span className="text-primary">{post.user.displayName}</span> <span className="text-primary">{formatRelativeDate(post.createdAt)}</span>
+          </p>
+        </div>
+
         <div className="relative">
           <FaEllipsisH
             className="text-[#181818] hover:text-primary cursor-pointer w-[20px] h-[24px]"

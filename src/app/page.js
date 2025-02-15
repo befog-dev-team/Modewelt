@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Menu } from "lucide-react";
 import Link from "next/link";
-import { FaUserFriends, FaFileAlt, FaFilter } from "react-icons/fa";
+// import { FaUserFriends, FaFileAlt, FaFilter } from "react-icons/fa";
 import Admin from "../../public/Images/admin.png";
 import fashionDesigner from "../../public/Images/Fashion.png";
 import Professionals from "../../public/Images/landing1.png";
@@ -37,25 +37,25 @@ const initialFeatures = [
   { title: "Access to Exclusive Fashion Events", img: img10 },
 ];
 
-const features = [
-  {
-    icon: <FaUserFriends className="text-[#f26744] text-4xl" />,
-    title: "Unlimited Profile Views",
-    description:
-      "Review endless profiles free-of-cost. Pay only when you want to contact suitable candidates",
-  },
-  {
-    icon: <FaFileAlt className="text-[#f26744] text-4xl" />,
-    title: "Auto Generated Resumes",
-    description:
-      "Effortlessly generate downloadable resumes from apna profiles for seamless candidate review.",
-  },
-  {
-    icon: <FaFilter className="text-[#f26744] text-4xl" />,
-    title: "Precision Filtering",
-    description: "Use 22+ advanced filters to fine-tune candidate searches.",
-  },
-];
+// const features = [
+//   {
+//     icon: <FaUserFriends className="text-[#f26744] text-4xl" />,
+//     title: "Unlimited Profile Views",
+//     description:
+//       "Review endless profiles free-of-cost. Pay only when you want to contact suitable candidates",
+//   },
+//   {
+//     icon: <FaFileAlt className="text-[#f26744] text-4xl" />,
+//     title: "Auto Generated Resumes",
+//     description:
+//       "Effortlessly generate downloadable resumes from apna profiles for seamless candidate review.",
+//   },
+//   {
+//     icon: <FaFilter className="text-[#f26744] text-4xl" />,
+//     title: "Precision Filtering",
+//     description: "Use 22+ advanced filters to fine-tune candidate searches.",
+//   },
+// ];
 
 const searchOptions = [
   {
@@ -605,7 +605,7 @@ export default function Navbar() {
         </div>
       </section>
 
-      <div className="p-6 md:p-12 min-h-screen rounded-xl bg-[#f4f2ff] flex flex-col items-center">
+      <div className="p-6 md:p-12 min-h-[50vh] rounded-xl bg-[#f4f2ff] flex flex-col items-center">
         {/* Main Grid Section */}
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Image Section */}
@@ -652,7 +652,7 @@ export default function Navbar() {
         </div>
 
         {/* Features Section */}
-        <div className="mt-12 max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+        {/* <div className="mt-12 max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
           {features.map((feature, index) => (
             <div key={index} className="flex flex-col items-center">
               {feature.icon}
@@ -660,7 +660,7 @@ export default function Navbar() {
               <p className="text-gray-600 text-sm">{feature.description}</p>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
 
       <div className="lg:pt-16 sm:pt-4">

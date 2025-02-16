@@ -42,12 +42,10 @@ const uploadToCloudinary = async (fileBuffer, folder, filename) => {
     });
 };
 
-
 // 📌 Handle POST Request: Submit Job Application
 export async function POST(req) {
     try {
         const formData = await req.formData();
-        console.log("📦 Form Data:", formData);
 
         if (!formData) {
             return NextResponse.json({ error: "No form data provided" }, { status: 400 });
@@ -100,10 +98,6 @@ export async function POST(req) {
             }
         }
 
-        console.log("📄 Resume:", resumeFileUrl);
-        console.log("📄 Resume File Name:", resumeFileName);
-        console.log("📄 Resume File Size:", resumeFileSize);
-
         // 📌 Upload Additional Documents
         const documentFiles = formData.getAll("additionalDocuments") || [];
         const additionalDocuments = await Promise.all(
@@ -120,8 +114,6 @@ export async function POST(req) {
                 return null; // Return null for non-file entries
             })
         ).then(results => results.filter(Boolean)); // Filter out null values
-
-        console.log("📄 Additional Documents:", additionalDocuments);
 
         // Parse Experience and Education Lists
         const experienceList = JSON.parse(formData.get("experienceList") || "[]");

@@ -260,8 +260,6 @@ export default function Home() {
         }));
     };
 
-    console.log("formData", formData);
-
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
@@ -325,8 +323,6 @@ export default function Home() {
         // Append JSON-encoded experience & education
         formDataToSend.append("experienceList", JSON.stringify(formData.experienceList));
         formDataToSend.append("educationList", JSON.stringify(formData.educationList));
-
-        console.log("formDataToSend", formDataToSend);
 
         setSubmitLoading(true);
         try {

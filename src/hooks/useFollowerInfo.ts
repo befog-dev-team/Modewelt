@@ -28,7 +28,7 @@ export default function useFollowerInfo(
       };
     },
     initialData: initialState,
-    staleTime: 0, // Immediate stale
+    staleTime: 1, // Immediate stale
     refetchOnWindowFocus: true,
     refetchOnReconnect: true,
     enabled: !!loggedInUser && !!userId,

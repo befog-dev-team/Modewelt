@@ -1,7 +1,7 @@
 "use client";
 
 import { MdOutlineFileDownload } from "react-icons/md";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useState } from "react";
 import Navbar from "@/components/Navbar";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
@@ -41,13 +41,6 @@ const ApplicantsPage = () => {
     },
   });
 
-  // Set default applicant when data is fetched
-  useEffect(() => {
-    if (applicantsData && applicantsData.length > 0 && !selectedApplicant) {
-      setSelectedApplicant(applicantsData[0]);
-    }
-  }, [applicantsData, selectedApplicant]);
-
   // Loading or error state handling
   if (isLoading) {
     return (
@@ -58,6 +51,11 @@ const ApplicantsPage = () => {
   // Error handling if job data fetch fails
   if (error) {
     return <div className="min-h-screen bg-gray-100">Error: {error.message}</div>;
+  }
+
+  // Set the first applicant as selected by default
+  if (applicantsData && applicantsData.length > 0 && !selectedApplicant) {
+    setSelectedApplicant(applicantsData[0]);
   }
 
   // Job status and formatted expiration date
@@ -117,195 +115,196 @@ const ApplicantsPage = () => {
           <Suspense fallback={<Loader2 className="mx-auto" />}>
             <div className="bg-white shadow-md rounded-lg p-4 overflow-y-auto h-[500px]">
               <h2 className="text-lg font-semibold text-[#f26744] mb-4">Applicants</h2>
-              {Array.isArray(applicantsData) && applicantsData.map((applicant) => (
-                <div
-                  key={applicant.id}
-                  className={`flex items-center gap-4 p-3 mb-2 rounded-md cursor-pointer hover:bg-gray-100 transition ${selectedApplicant?.id === applicant.id ? "bg-gray-200" : ""
-                    }`}
-                  onClick={() => setSelectedApplicant(applicant)}
-                >
-                  <UserAvatar
-                    avatarUrl={applicant.user.avatarUrl}
-                    size={1000}
-                  />
-                  <div>
-                    <h3 className="text-sm font-medium">
-                      {applicant.firstName} {applicant.lastName}
-                    </h3>
-                    <p className="text-xs text-gray-500 truncate w-48">
-                      {applicant.email}
-                    </p>
-                    <span className="text-xs text-gray-400">
-                      Applied on: {formatRelativeDate(applicant.createdAt)}
-                    </span>
+              {Array.isArray(applicantsData) && applicantsData.length > 0 ? (
+                applicantsData.map((applicant) => (
+                  <div
+                    key={applicant.id}
+                    className={`flex items-center gap-4 p-3 mb-2 rounded-md cursor-pointer hover:bg-gray-100 transition ${selectedApplicant?.id === applicant.id ? "bg-gray-200" : ""
+                      }`}
+                    onClick={() => setSelectedApplicant(applicant)}
+                  >
+                    <UserAvatar avatarUrl={applicant.user.avatarUrl} size={1000} />
+                    <div>
+                      <h3 className="text-sm font-medium">
+                        {applicant.firstName} {applicant.lastName}
+                      </h3>
+                      <p className="text-xs text-gray-500 truncate w-48">{applicant.email}</p>
+                      <span className="text-xs text-gray-400">
+                        Applied on: {formatRelativeDate(applicant.createdAt)}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <div className="text-center text-gray-500">No applications received yet.</div>
+              )}
             </div>
           </Suspense>
 
           {/* Applicant Details */}
           <Suspense fallback={<Loader2 className="mx-auto" />}>
-            {selectedApplicant && (
-              <div className="col-span-2 bg-white shadow-md rounded-lg p-6 overflow-y-auto h-[500px]">
-                {/* Header Section */}
-                <div className="flex items-center gap-4">
-                  <UserAvatar
-                    className="w-20 h-20"
-                    avatarUrl={selectedApplicant.user.avatarUrl}
-                    size={1000}
-                  />
-                  <div>
-                    <h2 className="text-lg font-semibold">
-                      {selectedApplicant.firstName} {selectedApplicant.lastName}
-                    </h2>
-                    <p className="text-sm text-gray-500">{selectedApplicant.email}</p>
-                    <p className="text-sm text-gray-400">
-                      Phone: {selectedApplicant.countryCode} {selectedApplicant.phone}
-                    </p>
+            <div className="col-span-2 bg-white shadow-md rounded-lg p-6 overflow-y-auto h-[500px] no-scrollbar">
+              {selectedApplicant && (
+                <div>
+                  {/* Header Section */}
+                  <div className="flex items-center gap-4">
+                    <UserAvatar
+                      className="w-20 h-20"
+                      avatarUrl={selectedApplicant.user.avatarUrl}
+                      size={1000}
+                    />
+                    <div>
+                      <h2 className="text-lg font-semibold">
+                        {selectedApplicant.firstName} {selectedApplicant.lastName}
+                      </h2>
+                      <p className="text-sm text-gray-500">{selectedApplicant.email}</p>
+                      <p className="text-sm text-gray-400">
+                        Phone: {selectedApplicant.countryCode} {selectedApplicant.phone}
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                {/* Action Button */}
-                <div className="flex gap-4 mt-4">
-                  <button
-                    className="border border-[#f26744] uppercase text-[#f26744] px-4 py-2 rounded-full hover:bg-[#f26744] hover:text-white transition"
-                    onClick={() => router.push(`/profile/${selectedApplicant.user.username}`)}
-                  >
-                    See profile
-                  </button>
-                </div>
-
-                {/* Insights from Profile */}
-                <h2 className="mt-8 text-md font-semibold text-[#f26744] uppercase">
-                  Insights from profile
-                </h2>
-
-                {/* Experience */}
-                <h3 className="mt-6 text-md font-semibold text-gray-700">Experience</h3>
-                {selectedApplicant.experienceList.map((exp, index) => (
-                  <div key={index} className="mt-2">
-                    <p className="text-sm font-medium">{exp.role}</p>
-                    <p className="text-xs text-gray-500">{exp.company}</p>
+                  {/* Action Button */}
+                  <div className="flex gap-4 mt-4">
+                    <button
+                      className="border border-[#f26744] uppercase text-[#f26744] px-4 py-2 rounded-full hover:bg-[#f26744] hover:text-white transition"
+                      onClick={() => router.push(`/profile/${selectedApplicant.user.username}`)}
+                    >
+                      See profile
+                    </button>
                   </div>
-                ))}
 
-                {/* Education */}
-                <h3 className="mt-6 text-md font-semibold text-gray-700">Education</h3>
-                {selectedApplicant.educationList.map((edu, index) => (
-                  <div key={index} className="mt-2">
-                    <p className="text-sm font-medium">{edu.degree}</p>
-                    <p className="text-xs text-gray-500">{edu.institution}</p>
-                  </div>
-                ))}
+                  {/* Insights from Profile */}
+                  <h2 className="mt-8 text-md font-semibold text-[#f26744] uppercase">
+                    Insights from profile
+                  </h2>
 
-                {/* Skills */}
-                <h3 className="mt-6 text-md font-semibold text-gray-700">Skills</h3>
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {selectedApplicant.skills.split(", ").map((skill, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 text-sm bg-gray-100 rounded-full"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Achievements */}
-                <h3 className="mt-6 text-md font-semibold text-gray-700">Achievements</h3>
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {selectedApplicant.achievements.split(", ").map((achievement, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 text-sm bg-gray-100 rounded-full"
-                    >
-                      {achievement}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Preferred Location */}
-                <h3 className="mt-6 text-md font-semibold text-gray-700">Preferred Location</h3>
-                <p className="text-sm text-gray-500 mt-2">
-                  {selectedApplicant.preferredLocation}
-                </p>
-
-                {/* Salary Expectations */}
-                <h3 className="mt-6 text-md font-semibold text-gray-700">Salary Expectations</h3>
-                <p className="text-sm text-gray-500 mt-2">
-                  Current: {selectedApplicant.currentSalary} | Expected: {selectedApplicant.expectedSalary}
-                </p>
-
-                {/* Languages */}
-                <h3 className="mt-6 text-md font-semibold text-gray-700">Languages</h3>
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {selectedApplicant.language.split(", ").map((lang, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 text-sm bg-gray-100 rounded-full"
-                    >
-                      {lang}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Resume */}
-                <h3 className="mt-6 text-lg font-semibold text-gray-800">Resume</h3>
-                <div className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm transition-all hover:shadow-md">
-                  <Image src={pdf} alt="pdf" width={28} height={28} />
-                  <span className="text-md text-gray-700 font-medium">
-                    {selectedApplicant.resumeFileName}
-                  </span>
-                  {/* View Icon */}
-                  <SquareArrowOutUpRight
-                    onClick={() => window.open(selectedApplicant.resumeFileUrl, "_blank")}
-                    className="ml-auto text-[#f26744] transition-transform duration-200 hover:scale-110 cursor-pointer"
-                    size={20}
-                  />
-                  {/* Download Icon */}
-                  <MdOutlineFileDownload
-                    className="text-[#f26744] transition-transform duration-200 hover:scale-110 cursor-pointer"
-                    size={24}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      downloadFile(selectedApplicant.resumeFileUrl, selectedApplicant.resumeFileName || "resume.pdf");
-                    }}
-                  />
-                </div>
-
-                {/* Additional Documents */}
-                <h3 className="mt-8 text-lg font-semibold text-gray-800">Additional Documents</h3>
-                <div className="space-y-3">
-                  {selectedApplicant.additionalDocuments.map((doc, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm transition-all hover:shadow-md"
-                    >
-                      <Image src={pdf} alt="pdf" width={28} height={28} />
-                      <span className="text-md text-gray-700 font-medium">
-                        {doc.fileName}
-                      </span>
-                      {/* View Icon */}
-                      <SquareArrowOutUpRight
-                        onClick={() => window.open(doc.fileUrl, "_blank")}
-                        className="ml-auto text-[#f26744] transition-transform duration-200 hover:scale-110 cursor-pointer"
-                        size={20}
-                      />
-                      {/* Download Icon */}
-                      <MdOutlineFileDownload
-                        className="text-[#f26744] transition-transform duration-200 hover:scale-110 cursor-pointer"
-                        size={24}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          downloadFile(doc.fileUrl, doc.fileName || "document.pdf");
-                        }}
-                      />
+                  {/* Experience */}
+                  <h3 className="mt-6 text-md font-semibold text-gray-700">Experience</h3>
+                  {selectedApplicant.experienceList.map((exp, index) => (
+                    <div key={index} className="mt-2">
+                      <p className="text-sm font-medium">{exp.role}</p>
+                      <p className="text-xs text-gray-500">{exp.company}</p>
                     </div>
                   ))}
+
+                  {/* Education */}
+                  <h3 className="mt-6 text-md font-semibold text-gray-700">Education</h3>
+                  {selectedApplicant.educationList.map((edu, index) => (
+                    <div key={index} className="mt-2">
+                      <p className="text-sm font-medium">{edu.degree}</p>
+                      <p className="text-xs text-gray-500">{edu.institution}</p>
+                    </div>
+                  ))}
+
+                  {/* Skills */}
+                  <h3 className="mt-6 text-md font-semibold text-gray-700">Skills</h3>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {selectedApplicant.skills.split(", ").map((skill, index) => (
+                      <span
+                        key={index}
+                        className="px-3 py-1 text-sm bg-gray-100 rounded-full"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Achievements */}
+                  <h3 className="mt-6 text-md font-semibold text-gray-700">Achievements</h3>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {selectedApplicant.achievements.split(", ").map((achievement, index) => (
+                      <span
+                        key={index}
+                        className="px-3 py-1 text-sm bg-gray-100 rounded-full"
+                      >
+                        {achievement}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Preferred Location */}
+                  <h3 className="mt-6 text-md font-semibold text-gray-700">Preferred Location</h3>
+                  <p className="text-sm text-gray-500 mt-2">
+                    {selectedApplicant.preferredLocation}
+                  </p>
+
+                  {/* Salary Expectations */}
+                  <h3 className="mt-6 text-md font-semibold text-gray-700">Salary Expectations</h3>
+                  <p className="text-sm text-gray-500 mt-2">
+                    Current: {selectedApplicant.currentSalary} | Expected: {selectedApplicant.expectedSalary}
+                  </p>
+
+                  {/* Languages */}
+                  <h3 className="mt-6 text-md font-semibold text-gray-700">Languages</h3>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {selectedApplicant.language.split(", ").map((lang, index) => (
+                      <span
+                        key={index}
+                        className="px-3 py-1 text-sm bg-gray-100 rounded-full"
+                      >
+                        {lang}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Resume */}
+                  <h3 className="mt-6 text-lg font-semibold text-gray-800">Resume</h3>
+                  <div className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm transition-all hover:shadow-md">
+                    <Image src={pdf} alt="pdf" width={28} height={28} />
+                    <span className="text-md text-gray-700 font-medium">
+                      {selectedApplicant.resumeFileName}
+                    </span>
+                    {/* View Icon */}
+                    <SquareArrowOutUpRight
+                      onClick={() => window.open(selectedApplicant.resumeFileUrl, "_blank")}
+                      className="ml-auto text-[#f26744] transition-transform duration-200 hover:scale-110 cursor-pointer"
+                      size={20}
+                    />
+                    {/* Download Icon */}
+                    <MdOutlineFileDownload
+                      className="text-[#f26744] transition-transform duration-200 hover:scale-110 cursor-pointer"
+                      size={24}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        downloadFile(selectedApplicant.resumeFileUrl, selectedApplicant.resumeFileName || "resume.pdf");
+                      }}
+                    />
+                  </div>
+
+                  {/* Additional Documents */}
+                  <h3 className="mt-8 text-lg font-semibold text-gray-800">Additional Documents</h3>
+                  <div className="space-y-3">
+                    {selectedApplicant.additionalDocuments.map((doc, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm transition-all hover:shadow-md"
+                      >
+                        <Image src={pdf} alt="pdf" width={28} height={28} />
+                        <span className="text-md text-gray-700 font-medium">
+                          {doc.fileName}
+                        </span>
+                        {/* View Icon */}
+                        <SquareArrowOutUpRight
+                          onClick={() => window.open(doc.fileUrl, "_blank")}
+                          className="ml-auto text-[#f26744] transition-transform duration-200 hover:scale-110 cursor-pointer"
+                          size={20}
+                        />
+                        {/* Download Icon */}
+                        <MdOutlineFileDownload
+                          className="text-[#f26744] transition-transform duration-200 hover:scale-110 cursor-pointer"
+                          size={24}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            downloadFile(doc.fileUrl, doc.fileName || "document.pdf");
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </Suspense>
         </div>
       </div>
@@ -313,4 +312,4 @@ const ApplicantsPage = () => {
   );
 };
 
-export default ApplicantsPage
+export default ApplicantsPage;

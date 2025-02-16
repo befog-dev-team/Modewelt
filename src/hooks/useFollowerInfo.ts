@@ -29,7 +29,6 @@ export default function useFollowerInfo(
     },
     initialData: initialState,
     staleTime: 1000, // 1 second
-    refetchInterval: 5000 , // Refetch every 5 seconds
   });
 
   return query;

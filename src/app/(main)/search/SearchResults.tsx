@@ -25,7 +25,7 @@ export default function SearchResults({ query }: SearchResultsProps) {
       kyInstance
         .get("/api/search", {
           searchParams: {
-            query: query,
+            q: query,
             ...(pageParam ? { cursor: pageParam } : {}),
           },
         })

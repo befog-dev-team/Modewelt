@@ -5,6 +5,9 @@ import Navbar from "@/components/Navbar";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import pdf from "../../../../../public/assets/Applicants/pdf.png";
+import { Loader2 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const applicantsData = [
   {
@@ -65,19 +68,45 @@ const applicantsData = [
 ];
 
 const ApplicantsPage = () => {
-  const { id } = useParams();
   const router = useRouter();
   const [selectedApplicant, setSelectedApplicant] = useState(applicantsData[0]);
 
-  const job = {
-    id,
-    title: "Illustration Designer",
-    company: "Befog (AEW Technology)",
-    location: "Lucknow, Uttar Pradesh, India (Hybrid)",
-    closedAgo: "2 months ago",
-    type: "Free job post",
-    views: 255,
+  // Function to fetch job data from API
+  const fetchJob = async (id) => {
+    const response = await axios.get(`/api/jobs/${id}`);
+    return response.data;
   };
+
+  const { id } = useParams(); // Get the job id from the URL
+  if (!id) notFound(); // Redirect to 404 page if id is not provided
+
+  // Using useQuery to fetch and cache job data
+  const { data: job, error, isLoading } = useQuery({
+    queryKey: ["job", id], // Cache key based on the job id
+    queryFn: () => fetchJob(id), // Fetch function
+    staleTime: 1000 * 60 * 5, // Cache the data for 5 minutes
+  });
+
+  // Loading or error state handling
+  if (isLoading) {
+    return (
+      <Loader2 className="h-screen flex justify-center mx-auto items-center text-[#f26744] size-10 animate-spin" />
+    );
+  }
+
+  // Error handling if job data fetch fails
+  if (error) {
+    return <div className="min-h-screen bg-gray-100">Error: {error.message}</div>;
+  }
+
+  const jobStatus = new Date(job.expirationDate) > new Date() ? "Active" : "Expired";
+  const formattedExpirationDate = new Date(job.expirationDate).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
+  console.log("Job Data", job);
 
   return (
     <div className="min-h-screen bg-[#a2defa]">
@@ -85,13 +114,19 @@ const ApplicantsPage = () => {
       <div className="p-6 max-w-7xl mx-auto">
         {/* Job Details Card */}
         <div className="bg-white shadow-md rounded-lg border p-6">
-          <h2 className="text-2xl font-bold">{job.title}</h2>
+          <h2 className="text-2xl font-bold">{job.jobTitle}</h2>
           <p className="text-gray-500">
             {job.company} · {job.location}
           </p>
+          <div>
+            <p className="text-sm text-gray-400">{job.salaryAmount} {job.salaryCurrency}</p>
+          </div>
           <p className="text-sm text-gray-400">
-            Closed {job.closedAgo} · {job.type} · {job.views} views
+            Expires : {formattedExpirationDate} · {job.jobType} · {job.workplaceType}
           </p>
+          <span className={`text-sm font-semibold ${jobStatus === "Active" ? "text-green-600" : "text-red-500"}`}>
+            {jobStatus}
+          </span>
           <div className="flex gap-4 mt-4 justify-end">
             {/* <button
               className="border border-[#f26744] text-[#f26744] px-4 py-2 rounded-full hover:bg-[#f26744] hover:text-white transition"
@@ -115,9 +150,8 @@ const ApplicantsPage = () => {
             {applicantsData.map((applicant) => (
               <div
                 key={applicant.id}
-                className={`flex items-center gap-4 p-3 mb-2 rounded-md cursor-pointer hover:bg-gray-100 transition ${
-                  selectedApplicant.id === applicant.id ? "bg-gray-200" : ""
-                }`}
+                className={`flex items-center gap-4 p-3 mb-2 rounded-md cursor-pointer hover:bg-gray-100 transition ${selectedApplicant.id === applicant.id ? "bg-gray-200" : ""
+                  }`}
                 onClick={() => setSelectedApplicant(applicant)}
               >
                 <Image
@@ -172,9 +206,9 @@ const ApplicantsPage = () => {
               >
                 See profile
               </button>
-              <button className="border border-[#f26744] text-[#f26744] px-4 py-2 rounded-full hover:bg-[#f26744] hover:text-white uppercase transition">
+              {/* <button className="border border-[#f26744] text-[#f26744] px-4 py-2 rounded-full hover:bg-[#f26744] hover:text-white uppercase transition">
                 Message
-              </button>
+              </button> */}
             </div>
             <h2 className="mt-8 text-md font-semibold text-[#f26744] uppercase">Insights from profile</h2>
             <h3 className="mt-6 text-md font-semibold text-gray-700">

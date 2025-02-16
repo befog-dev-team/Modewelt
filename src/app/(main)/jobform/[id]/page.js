@@ -80,12 +80,6 @@ function FileUpload({ label, description, accept, onChange }) {
     );
 }
 
-// Function to fetch job data from API
-const fetchJob = async (id) => {
-    const response = await axios.get(`/api/jobs/${id}`);
-    return response.data;
-};
-
 // Function to handle 404 error
 export default function Home() {
     const router = useRouter();
@@ -135,6 +129,12 @@ export default function Home() {
     const [errorFile, setErrorFile] = useState(null);
 
     const [submitLoading, setSubmitLoading] = useState(false);
+
+    // Function to fetch job data from API
+    const fetchJob = async (id) => {
+        const response = await axios.get(`/api/jobs/${id}`);
+        return response.data;
+    };
 
     // Using useQuery to fetch and cache job data
     const { data: job, error, isLoading } = useQuery({

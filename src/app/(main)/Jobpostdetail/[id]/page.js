@@ -8,13 +8,14 @@ import { Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { formatRelativeDate } from "@/lib/utils";
 
-// Function to fetch job data from API
-const fetchJob = async (id) => {
-  const response = await axios.get(`/api/jobs/${id}`);
-  return response.data;
-};
 
 export default function JobListing() {
+  // Function to fetch job data from API
+  const fetchJob = async (id) => {
+    const response = await axios.get(`/api/jobs/${id}`);
+    return response.data;
+  };
+
   const router = useRouter(); // ✅ Moved inside the component
 
   const { id } = useParams(); // Get the job id from the URL
@@ -45,8 +46,6 @@ export default function JobListing() {
     month: 'long',
     day: 'numeric'
   });
-
-  console.log("Job Data:", job);
 
   return (
     <div className="bg-gradient-to-b from-[#a2defa] to-[#f6f7f2] min-h-screen">

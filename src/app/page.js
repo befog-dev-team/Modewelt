@@ -2,12 +2,13 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import logo from "../../public/Images/logo.png";
+import logo from "../../public/Images/logo.svg";
+
 import Image from "next/image";
 import { useState } from "react";
 import { Menu } from "lucide-react";
 import Link from "next/link";
-// import { FaUserFriends, FaFileAlt, FaFilter } from "react-icons/fa";
+import { FaUserFriends, FaFileAlt, FaFilter } from "react-icons/fa";
 import Admin from "../../public/Images/admin.png";
 import fashionDesigner from "../../public/Images/Fashion.png";
 import Professionals from "../../public/Images/landing1.png";
@@ -56,6 +57,25 @@ const initialFeatures = [
 //     description: "Use 22+ advanced filters to fine-tune candidate searches.",
 //   },
 // ];
+const features = [
+  {
+    icon: <FaUserFriends className="text-[#f26744] text-4xl" />,
+    title: "Unlimited Profile Views",
+    description:
+      "Review endless profiles free-of-cost. Pay only when you want to contact suitable candidates",
+  },
+  {
+    icon: <FaFileAlt className="text-[#f26744] text-4xl" />,
+    title: "All Fashion Jobs in One Place",
+    description:
+      "Find top fashion jobs on ModeweltJob.com without the hassle of searching multiple sites.",
+  },
+  {
+    icon: <FaFilter className="text-[#f26744] text-4xl" />,
+    title: "Direct Access to Top Brands",
+    description: "Connect with leading fashion houses, startups, and established brands for job opportunities.",
+  },
+];
 
 const searchOptions = [
   {
@@ -410,14 +430,14 @@ export default function Navbar() {
 
   return (
     <div className="bg-[#a2defa]">
-      <nav className="shadow-md py-4 px-6 flex justify-between items-center">
+      <nav className="shadow-md py-4 px-6 flex justify-between items-center ">
         {/* Logo */}
-        <div className="text-xl font-bold">
+        <div className="text-xl font-bold lg:mx-20 md:mx-10 sm:mx-5 mx-2">
           <Image src={logo} alt="Modewelt" width={40} height={40} />
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-6">
+        <div className="hidden md:flex items-center space-x-6 lg:mx-20 md:mx-10 sm:mx-5 mx-2">
           <span className="text-gray-700">Looking for a Job</span>
           <Link
             href="/auth"
@@ -652,7 +672,7 @@ export default function Navbar() {
         </div>
 
         {/* Features Section */}
-        {/* <div className="mt-12 max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+        <div className="mt-12 max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
           {features.map((feature, index) => (
             <div key={index} className="flex flex-col items-center">
               {feature.icon}
@@ -660,7 +680,7 @@ export default function Navbar() {
               <p className="text-gray-600 text-sm">{feature.description}</p>
             </div>
           ))}
-        </div> */}
+        </div>
       </div>
 
       <div className="lg:pt-16 sm:pt-4">

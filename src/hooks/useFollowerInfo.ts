@@ -30,8 +30,8 @@ export default function useFollowerInfo(
       };
     },
     initialData: initialState, // Initial data to populate the cache
-    staleTime: 2000, // Shorter stale time (2 seconds)
-    refetchInterval: 5000, // Faster interval (5 seconds)
+    staleTime: 5000, // Shorter stale time (5 seconds)
+    refetchInterval: 10000, // Faster interval (10 seconds)
     refetchOnWindowFocus: true, // Refetch on window focus
   });
 

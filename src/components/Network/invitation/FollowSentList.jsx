@@ -49,7 +49,7 @@ export default function SentRequests({ userId }) {
                             className="w-full bg-white border border-[#E4E4E4] rounded-lg shadow-lg hover:shadow-xl p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 sm:space-x-6 transition-all duration-300 ease-in-out"
                         >
                             <div className="flex items-center space-x-4">
-                                <Link href={`/profile/${request.receiver.username}`}>
+                                <Link href={`/profile/${request.receiver.username}`} prefetch={true}>
                                     <UserAvatar
                                         avatarUrl={request.receiver.avatarUrl}
                                         className="w-12 h-12 sm:w-16 sm:h-16 rounded-full"
@@ -57,7 +57,7 @@ export default function SentRequests({ userId }) {
                                 </Link>
 
                                 <div>
-                                    <Link href={`/profile/${request.receiver.username}`}>
+                                    <Link href={`/profile/${request.receiver.username}`} prefetch={true}>
                                         <div className="font-semibold hover:underline text-sm sm:text-base text-[#181818]">
                                             {request.receiver.username}
                                         </div>
@@ -77,8 +77,8 @@ export default function SentRequests({ userId }) {
                             </div>
 
                             <div className="flex justify-center items-center space-x-2">
-                                <Link href={`/profile/${request.receiver.username}`}>
-                                    <button className="bg-gradient-to-r from-[#c166a0] to-[#A45286] text-white text-sm font-bold py-1 px-4 rounded transition-transform hover:scale-105">
+                                <Link href={`/profile/${request.receiver.username}`} prefetch={true}>
+                                    <button className="bg-gradient-to-r from-[#c166a0] to-[#text-[#f26744]] text-white text-sm font-bold py-1 px-4 rounded transition-transform hover:scale-105">
                                         View Profile
                                     </button>
                                 </Link>

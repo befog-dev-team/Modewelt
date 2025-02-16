@@ -60,7 +60,7 @@ export default function NotificationWrapper({ user, todayViews }) {
                                 { count: user.totalLikes, label: "Total likes" },
                             ].map((item, index) => (
                                 <div key={index}>
-                                    <h3 className="text-[#A45286] text-4xl font-bold">
+                                    <h3 className="text-[#f26744] text-4xl font-bold">
                                         {item.count}
                                     </h3>
                                     <p>{item.label}</p>
@@ -71,7 +71,7 @@ export default function NotificationWrapper({ user, todayViews }) {
                 </div>
 
                 {/* Right Section */}
-                <div className="flex-grow mx-4 overflow-y-auto h-[70vh]">
+                <div className="flex-grow mx-4 overflow-y-auto h-[85vh]">
                     <Box className=" h-[330px] lg:w-[900px] w-full">
                         {/* <Box className="flex justify-between items-center mb-4">
                             <Divider className="flex-grow mx-4" />

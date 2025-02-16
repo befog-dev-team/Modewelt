@@ -17,7 +17,7 @@ export default function VisitorSection({ visitors }) {
 
     return (
         <div>
-            <div className="h-[427px] mt-5 shadow-lg p-4">
+            <div className="h-[427px] bg-[#ffffff] mt-5 shadow-lg p-4">
                 <div className="flex justify-between px-3 py-3 w-full font-[Gotham] mt-2">
                     <span className="font-semibold text-sm">VISITORS</span>
                     {/* <span
@@ -33,7 +33,7 @@ export default function VisitorSection({ visitors }) {
                 <div className="flex flex-col space-y-3">
                     {visitors.map((visitor) => (
                         <div key={visitor.id} className="flex items-center w-full h-[52px] space-x-3">
-                            <Link href={`/profile/${visitor.username}`}>
+                            <Link href={`/profile/${visitor.username}`} prefetch={true}>
                                 <Image
                                     width={52}
                                     height={52}
@@ -43,7 +43,7 @@ export default function VisitorSection({ visitors }) {
                                 />
                             </Link>
                             <div className="flex flex-col space-y-1">
-                                <Link href={`/profile/${visitor.username}`}>
+                                <Link href={`/profile/${visitor.username}`} prefetch={true}>
                                     <span className="font-bold text-sm hover:underline">{visitor.displayName}</span>
                                 </Link>
                                 <p className="text-gray-700 text-[10px]">

@@ -2,11 +2,10 @@ import { validateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
 
 export async function GET(req) {
-    console.log("req", req);
     try {
         // Get the cursor from the query parameters (for pagination)
         const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
-        const pageSize = 10; // Number of jobs to fetch per page
+        const pageSize = 5; // Number of jobs to fetch per page
 
         // Validate the request to ensure the user is logged in
         const { user } = await validateRequest();

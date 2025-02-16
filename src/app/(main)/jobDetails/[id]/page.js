@@ -81,7 +81,6 @@ export default async function JobListing(props) {
     if (!id) notFound();
 
     const job = await getJobData(id);
-    console.log(job);
 
     const formatCreatedDate = (dateString) => {
         const date = new Date(dateString);
@@ -102,7 +101,7 @@ export default async function JobListing(props) {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 flex flex-col items-center ">
+        <div className="min-h-screen bg-[#a2defa] flex flex-col items-center ">
             <Navbar />
             {/* <div className="w-full h-[76px] flex justify-between items-center px-6 sm:px-8 md:px-[102px] py-6 bg-[#FFFFFF]">
                 <h1 className="w-auto h-auto font-inter font-medium text-lg sm:text-xl md:text-2xl flex items-center">
@@ -119,138 +118,140 @@ export default async function JobListing(props) {
                 </div>
             </div> */}
 
-            <div className="container px-14 bg-white shadow-md rounded-lg w-full p-6">
-                <div className="flex flex-col md:flex-row items-start md:items-center md:justify-between">
-                    <div className="flex items-center gap-4">
-                        {/* <Image src={fb} alt="Velstar" width={90} height={90} /> */}
-                        <div>
-                            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">
-                                {job.jobTitle}
-                            </h1>
-                            <p className="font-medium mt-1 text-sm sm:text-base">
-                                at {job.company}{" "}
-                                <span className="bg-[#08a12c] text-[12px] font-semibold p-[2px] text-[#fff] rounded-sm uppercase">
-                                    {job.jobType}
-                                </span>{" "}
-                                {/* <span className="bg-[#ffeded] text-[12px] font-semibold p-[2px] text-[#e05151] px-2 rounded-full">
+            {/* Job Details Section */}
+            <div className="w-full min-h-[88vh] flex justify-center items-center mt-6">
+                <div className="container mx-8 px-8 bg-white shadow-md rounded-lg w-full p-6">
+                    <div className="flex flex-col md:flex-row items-start md:items-center md:justify-between">
+                        <div className="flex items-center gap-4">
+                            {/* <Image src={fb} alt="Velstar" width={90} height={90} /> */}
+                            <div>
+                                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">
+                                    {job.jobTitle}
+                                </h1>
+                                <p className="font-medium mt-1 text-sm sm:text-base">
+                                    at {job.company}{" "}
+                                    <span className="bg-[#08a12c] text-[12px] font-semibold p-[2px] text-[#fff] rounded-sm uppercase">
+                                        {job.jobType}
+                                    </span>{" "}
+                                    {/* <span className="bg-[#ffeded] text-[12px] font-semibold p-[2px] text-[#e05151] px-2 rounded-full">
                                     Featured
                                 </span> */}
-                            </p>
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div className="flex gap-4 mt-4 md:mt-0">
-                        {/* <div className="w-10 h-10 bg-[#ffe3ef] justify-center items-center flex rounded-md">
+                        <div className="flex gap-4 mt-4 md:mt-0">
+                            {/* <div className="w-10 h-10 bg-[#ffe3ef] justify-center items-center flex rounded-md">
                             <FaRegBookmark className="text-[#a35284]" />
                         </div> */}
-                        <Link href={`/jobform/${job.id}`}>
-                            <button className="mt-4 md:mt-0 bg-[#a35284] text-white py-2 px-4 rounded-md text-xs sm:text-sm">
-                                Apply Now →
-                            </button>
-                        </Link>
-                    </div>
-                </div>
-
-                <div className="flex flex-col lg:flex-row gap-10 mt-6">
-                    <div className="w-full lg:w-2/3">
-                        {/* Job Description */}
-                        <div>
-                            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
-                                Job Description
-                            </h2>
-                            <p className="text-gray-700 mt-2 text-sm sm:text-base">
-                                {job.description}
-                            </p>
-                        </div>
-
-                        {/* Requirements */}
-                        <div className="mt-6">
-                            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
-                                Requirements
-                            </h2>
-                            <p className="text-gray-700 mt-2 text-sm sm:text-base">
-                                {job.requirements}
-                            </p>
-                        </div>
-
-                        {/* Skills */}
-                        <div className="mt-6">
-                            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
-                                Skills
-                            </h2>
-                            <ul className="list-disc list-inside text-gray-700 mt-2 space-y-2 text-sm sm:text-base">
-                                {job.skills.map((skill) => (
-                                    <li key={skill} >
-                                        {skill}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* Benefits */}
-                        <div className="mt-6">
-                            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
-                                Benefits
-                            </h2>
-                            <p className="text-gray-700 mt-2 text-sm sm:text-base">
-                                {job.benefits}
-                            </p>
+                            <Link href={`/jobform/${job.id}`} prefetch={true}>
+                                <button className="mt-4 md:mt-0 bg-[#f26744] text-white py-2 px-4 rounded-md text-xs sm:text-sm">
+                                    Apply Now →
+                                </button>
+                            </Link>
                         </div>
                     </div>
 
-                    <div className="w-full lg:w-1/3">
-                        <div className="bg-[#ffffff] shadow-md p-6 rounded-md mt-6 lg:mt-0">
-                            <div className="flex justify-between items-center mb-6">
-                                <div className="text-sm sm:text-base font-semibold">
-                                    <p className="text-[#08a12c]">Salary {job.salaryCurrency}</p>
-                                    <p className="text-[#a35284] text-lg">{job.salaryAmount}</p>
-                                    <p className="text-[#76808c]">{job.salaryType} salary</p>
-                                </div>
-                                <span className="w-[2px] h-[100px] border-[1px] border-[#E4E5E8]"></span>
-                                <div className="text-sm sm:text-base font-semibold">
-                                    <IoLocationOutline className="text-[#a35284] text-[1.8rem] mb-2" />
-                                    <p className="text-[#76808c]">Job Location</p>
-                                    <p className="font-semibold">{job.location}</p>
-                                </div>
+                    <div className="flex flex-col lg:flex-row gap-10 mt-6">
+                        <div className="w-full lg:w-2/3">
+                            {/* Job Description */}
+                            <div>
+                                <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
+                                    Job Description
+                                </h2>
+                                <p className="text-gray-700 mt-2 text-sm sm:text-base">
+                                    {job.description}
+                                </p>
                             </div>
 
-                            <div className="bg-[#faf2f5] rounded-md p-4 mb-4">
-                                <h1 className="font-bold mb-2 text-sm sm:text-base">
-                                    Job Overview
-                                </h1>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="flex flex-col items-center">
-                                        <MdOutlineCalendarToday className="text-[#a35284] text-[1.8rem]" />
-                                        <p className="text-[#76808c] text-xs sm:text-sm">
-                                            Job Posted
-                                        </p>
-                                        <p className="font-semibold">{formatCreatedDate(job.createdAt)}</p>
-                                    </div>
-                                    <div className="flex flex-col items-center">
-                                        <IoMdStopwatch className="text-[#a35284] text-[1.8rem]" />
-                                        <p className="text-[#76808c] text-xs sm:text-sm">
-                                            Expires In
-                                        </p>
-                                        <p className="font-semibold">{formatExpirationDate(job.expirationDate)}</p>
-                                    </div>
-                                    <div className="flex flex-col items-center">
-                                        <LuLayers className="text-[#a35284] text-[1.8rem]" />
-                                        <p className="text-[#76808c] text-xs sm:text-sm">
-                                            Job Level
-                                        </p>
-                                        <p className="font-semibold">{job.jobLevel} Level</p>
-                                    </div>
-                                    <div className="flex flex-col items-center">
-                                        <MdWorkOutline className="text-[#a35284] text-[1.8rem]" />
-                                        <p className="text-[#76808c] text-xs sm:text-sm">
-                                            Workplace
-                                        </p>
-                                        <p className="font-semibold">{job.workplaceType}</p>
-                                    </div>
-                                </div>
+                            {/* Requirements */}
+                            <div className="mt-6">
+                                <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
+                                    Requirements
+                                </h2>
+                                <p className="text-gray-700 mt-2 text-sm sm:text-base">
+                                    {job.requirements}
+                                </p>
                             </div>
 
-                            {/* Share Job Section */}
-                            {/* <div className="flex justify-center gap-2 mt-6">
+                            {/* Skills */}
+                            <div className="mt-6">
+                                <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
+                                    Skills
+                                </h2>
+                                <ul className="list-disc list-inside text-gray-700 mt-2 space-y-2 text-sm sm:text-base">
+                                    {job.skills.map((skill) => (
+                                        <li key={skill} >
+                                            {skill}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            {/* Benefits */}
+                            <div className="mt-6">
+                                <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
+                                    Benefits
+                                </h2>
+                                <p className="text-gray-700 mt-2 text-sm sm:text-base">
+                                    {job.benefits}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="w-full lg:w-1/3">
+                            <div className="bg-[#ffffff] shadow-md p-6 rounded-md mt-6 lg:mt-0">
+                                <div className="flex justify-between items-center mb-6">
+                                    <div className="text-sm sm:text-base font-semibold">
+                                        <p className="text-[#08a12c]">Salary {job.salaryCurrency}</p>
+                                        <p className="text-[#f26744] text-lg">{job.salaryAmount}</p>
+                                        <p className="text-[#76808c]">{job.salaryType} salary</p>
+                                    </div>
+                                    <span className="w-[2px] h-[100px] border-[1px] border-[#E4E5E8]"></span>
+                                    <div className="text-sm sm:text-base font-semibold">
+                                        <IoLocationOutline className="text-[#f26744] text-[1.8rem] mb-2" />
+                                        <p className="text-[#76808c]">Job Location</p>
+                                        <p className="font-semibold">{job.location}</p>
+                                    </div>
+                                </div>
+
+                                <div className="bg-[#faf2f5] rounded-md p-4 mb-4">
+                                    <h1 className="font-bold mb-2 text-sm sm:text-base">
+                                        Job Overview
+                                    </h1>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="flex flex-col items-center">
+                                            <MdOutlineCalendarToday className="text-[#f26744] text-[1.8rem]" />
+                                            <p className="text-[#76808c] text-xs sm:text-sm">
+                                                Job Posted
+                                            </p>
+                                            <p className="font-semibold">{formatCreatedDate(job.createdAt)}</p>
+                                        </div>
+                                        <div className="flex flex-col items-center">
+                                            <IoMdStopwatch className="text-[#f26744] text-[1.8rem]" />
+                                            <p className="text-[#76808c] text-xs sm:text-sm">
+                                                Expires In
+                                            </p>
+                                            <p className="font-semibold">{formatExpirationDate(job.expirationDate)}</p>
+                                        </div>
+                                        <div className="flex flex-col items-center">
+                                            <LuLayers className="text-[#f26744] text-[1.8rem]" />
+                                            <p className="text-[#76808c] text-xs sm:text-sm">
+                                                Job Level
+                                            </p>
+                                            <p className="font-semibold">{job.jobLevel} Level</p>
+                                        </div>
+                                        <div className="flex flex-col items-center">
+                                            <MdWorkOutline className="text-[#f26744] text-[1.8rem]" />
+                                            <p className="text-[#76808c] text-xs sm:text-sm">
+                                                Workplace
+                                            </p>
+                                            <p className="font-semibold">{job.workplaceType}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Share Job Section */}
+                                {/* <div className="flex justify-center gap-2 mt-6">
                                 <div className="flex justify-center items-center bg-[#faf2f5] p-2 rounded-sm">
                                     <RiLinkM className="text-[1.4rem] text-[#a35285]" />
                                     <p className="text-[1.2rem] text-[#a35285]">Copy Links</p>
@@ -268,10 +269,12 @@ export default async function JobListing(props) {
                                     <HiOutlineMail className="text-[1.3rem] text-[#a35285]" />
                                 </div>
                             </div> */}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             {/* <div className="mt-6 w-full py-10 shadow-lg bg-[#ffffff] rounded-lg">
                 <div className="mt-6 w-full py-10 shadow-lg bg-[#ffffff] rounded-lg">

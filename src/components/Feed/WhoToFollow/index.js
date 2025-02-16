@@ -27,11 +27,10 @@ export default async function WhoToFollow() {
             },
         },
         select: getUserDataSelect(user.id), // Pass the user-specific selection logic here
-        take: 3, // Get the top 3 users
     });
 
     return (
-        <div className="bg-white h-[300px] p-4 mb-3 rounded-[4px]">
+        <div className="bg-white min-h-[300px] p-4 mb-3 rounded-[4px]">
             {/* Heading */}
             <p className="font-[600] text-[12px] uppercase leading-[11.48px] font-[Gotham]">Who To Follow</p>
 
@@ -39,12 +38,13 @@ export default async function WhoToFollow() {
             <hr className="border-t border-[#F4F4F4] mt-4" />
 
             {/* Users to follow */}
-            <div className="w-[227px] h-[198px] mt-2">
+            <div className="h-[250px] mt-2 mx-2 overflow-y-auto no-scrollbar">
                 {usersToFollow.map((user) => (
                     <div key={user.id} className="flex items-center space-x-3 my-6">
                         <Link
                             href={`/profile/${user.username}`}
                             className="flex items-center gap-3"
+                            prefetch={true}
                         >
                             <UserAvatar avatarUrl={user.avatarUrl} size={500} className="w-[52px] h-[52px]" />
                             <div>

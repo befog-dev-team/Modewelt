@@ -39,7 +39,7 @@ export default function Connection() {
                                 className="w-full bg-white border border-[#E4E4E4] rounded-lg shadow-lg hover:shadow-lg p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 sm:space-x-6 transition-all duration-300 ease-in-out"
                             >
                                 <div className="flex items-center space-x-4">
-                                    <Link href={`/profile/${connection.username}`}>
+                                    <Link href={`/profile/${connection.username}`} prefetch={true}>
 
                                         <UserAvatar
                                             avatarUrl={connection.avatarUrl}
@@ -48,7 +48,7 @@ export default function Connection() {
                                     </Link>
 
                                     <div>
-                                        <Link href={`/profile/${connection.username}`}>
+                                        <Link href={`/profile/${connection.username}`} prefetch={true}>
                                             <p className="font-semibold hover:underline text-sm sm:text-base text-[#181818]">
                                                 {connection.username}
                                             </p>
@@ -59,7 +59,7 @@ export default function Connection() {
                                     </div>
                                 </div>
 
-                                <div className="w-[3px] h-[42px] bg-[#A45286] hidden sm:block"></div>
+                                <div className="w-[3px] h-[42px] bg-[text-[#f26744]] hidden sm:block"></div>
 
                                 <div className="flex-1 text-center sm:text-left">
                                     <p className="text-xs sm:text-sm text-[#181818bb]">
@@ -68,8 +68,8 @@ export default function Connection() {
                                 </div>
 
                                 <div className="flex space-x-2">
-                                    <Link href={`/profile/${connection.username}`}>
-                                        <button className="bg-gradient-to-r from-[#c166a0] to-[#A45286] text-white text-sm font-bold py-1 px-4 rounded transition-transform hover:scale-105">
+                                    <Link href={`/profile/${connection.username}`} prefetch={true}>
+                                        <button className="bg-gradient-to-r from-[#c166a0] to-[text-[#f26744]] text-white text-sm font-bold py-1 px-4 rounded transition-transform hover:scale-105">
                                             View Profile
                                         </button>
                                     </Link>

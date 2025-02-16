@@ -11,7 +11,7 @@ cloudinary.config({
 });
 
 // API Route: Handle POST request (Add Education)
-export async function POST(req: NextRequest) {
+export async function POST(req) {
     try {
         console.log("🔍 Received Cookies:", req.headers.get("cookie"));
 
@@ -25,17 +25,17 @@ export async function POST(req: NextRequest) {
 
         // Parse form data
         const formData = await req.formData();
-        const institution = formData.get("institution") as string;
-        const degree = formData.get("degree") as string;
-        const duration = formData.get("duration") as string;
-        const additionalInfo = formData.get("additionalInfo") as string || "";
-        const file = formData.get("file") as File | null;
+        const institution = formData.get("institution");
+        const degree = formData.get("degree");
+        const duration = formData.get("duration");
+        const additionalInfo = formData.get("additionalInfo") || "";
+        const file = formData.get("file");
 
         if (!institution || !degree || !duration) {
             return Response.json({ error: "All fields are required" }, { status: 400 });
         }
 
-        let imageUrl: string | null = null;
+        let imageUrl = null;
 
         if (file) {
             console.log("📤 Uploading to Cloudinary...");
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
                     ).end(buffer);
                 });
 
-                imageUrl = uploadResult as string;
+                imageUrl = uploadResult;
                 console.log("✅ Uploaded Image URL:", imageUrl);
             } catch (uploadError) {
                 console.error("❌ Cloudinary Upload Failed:", uploadError);
@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
             }
         }
 
-        console.log("🚀 Saving Education Data:", { institution, degree, duration, additionalInfo, imageUrl });
+        // console.log("🚀 Saving Education Data:", { institution, degree, duration, additionalInfo, imageUrl });
 
         // Save education in the database
         const newEducation = await prisma.education.create({
@@ -78,44 +78,17 @@ export async function POST(req: NextRequest) {
             },
         });
 
-        console.log("✅ Education Created:", newEducation);
+        // console.log("✅ Education Created:", newEducation);
 
         return Response.json({ success: true, education: newEducation }, { status: 201 });
     } catch (error) {
         console.error("❌ Error creating education:", error);
-        const errorMessage = error instanceof Error ? error.message : "Internal Server Error";
-        return Response.json({ error: errorMessage }, { status: 500 });
-    }
-}
-
-
-// API Route: Handle GET request to fetch education records
-export async function GET(req: NextRequest) {
-    console.log(req);
-    try {
-        console.log("📡 Fetching education records...");
-
-        // Authenticate user
-        const { user } = await validateRequest();
-        if (!user) {
-            return Response.json({ error: "Unauthorized" }, { status: 401 });
-        }
-
-        // Fetch education records from the database for the logged-in user
-        const educationRecords = await prisma.education.findMany({
-            where: { userId: user.id },
-            orderBy: { createdAt: "desc" },
-        });
-
-        return Response.json({ success: true, education: educationRecords }, { status: 200 });
-    } catch (error) {
-        console.error("❌ Error fetching education records:", error);
         return Response.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }
 
 // API Route: Handle PUT request (Edit Education)
-export async function PUT(req: NextRequest) {
+export async function PUT(req) {
     try {
         console.log("✏️ Updating education...");
 
@@ -127,12 +100,12 @@ export async function PUT(req: NextRequest) {
 
         // Parse form data
         const formData = await req.formData();
-        const educationId = formData.get("educationId") as string;
-        const institution = formData.get("institution") as string;
-        const degree = formData.get("degree") as string;
-        const duration = formData.get("duration") as string;
-        const additionalInfo = formData.get("additionalInfo") as string || "";
-        const file = formData.get("file") as File | null;
+        const educationId = formData.get("educationId");
+        const institution = formData.get("institution");
+        const degree = formData.get("degree");
+        const duration = formData.get("duration");
+        const additionalInfo = formData.get("additionalInfo") || "";
+        const file = formData.get("file");
 
         if (!educationId || !institution || !degree || !duration) {
             return Response.json({ error: "All fields are required" }, { status: 400 });
@@ -162,7 +135,7 @@ export async function PUT(req: NextRequest) {
                 ).end(buffer);
             });
 
-            imageUrl = uploadResult as string;
+            imageUrl = uploadResult;
         }
 
         // Update education in the database
@@ -179,7 +152,7 @@ export async function PUT(req: NextRequest) {
 }
 
 // API Route: Handle DELETE request (Delete Education)
-export async function DELETE(req: NextRequest) {
+export async function DELETE(req) {
     try {
         console.log("🗑️ Deleting education record...");
 

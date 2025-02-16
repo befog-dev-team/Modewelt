@@ -25,7 +25,7 @@ export default function SearchResults({ query }: SearchResultsProps) {
       kyInstance
         .get("/api/search", {
           searchParams: {
-            q: query,
+            query: query,
             ...(pageParam ? { cursor: pageParam } : {}),
           },
         })
@@ -38,7 +38,11 @@ export default function SearchResults({ query }: SearchResultsProps) {
   const posts = data?.pages.flatMap((page) => page.posts) || [];
 
   if (status === "pending") {
-    return <PostsLoadingSkeleton />;
+    return (
+      <div className="space-y-5 min-h-screen">
+        <PostsLoadingSkeleton />
+      </div>
+    )
   }
 
   if (status === "success" && !posts.length && !hasNextPage) {
@@ -59,7 +63,7 @@ export default function SearchResults({ query }: SearchResultsProps) {
 
   return (
     <InfiniteScrollContainer
-      className="space-y-5"
+      className="space-y-5 min-h-screen"
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
       {posts.map((post) => (

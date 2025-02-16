@@ -36,12 +36,16 @@ export default function UserPosts({ userId }: UserPostsProps) {
     const posts = data?.pages.flatMap((page) => page.posts) || [];
 
     if (status === "pending") {
-        return <PostsLoadingSkeleton />;
+        return (
+            <div className="space-y-5 mt-12">
+                <PostsLoadingSkeleton />
+            </div>
+        )
     }
 
     if (status === "success" && !posts.length && !hasNextPage) {
         return (
-            <p className="text-center text-muted-foreground">
+            <p className="mt-12 text-center text-muted-foreground">
                 This user hasn&apos;t posted anything yet.
             </p>
         );
@@ -49,7 +53,7 @@ export default function UserPosts({ userId }: UserPostsProps) {
 
     if (status === "error") {
         return (
-            <p className="text-center text-destructive">
+            <p className="mt-12 text-center text-destructive">
                 An error occurred while loading posts.
             </p>
         );
@@ -57,7 +61,7 @@ export default function UserPosts({ userId }: UserPostsProps) {
 
     return (
         <InfiniteScrollContainer
-            className="space-y-5"
+            className="space-y-5 mt-12"
             onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
         >
             {posts.map((post) => (

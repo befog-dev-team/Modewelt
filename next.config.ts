@@ -1,21 +1,28 @@
 /** @type {import('next').NextConfig} */
 
-// Import the necessary modules
 const nextConfig: import('next').NextConfig = {
   typescript: {
-    ignoreBuildErrors: true, // Ignore TypeScript errors during build
+    ignoreBuildErrors: true,
   },
   eslint: {
-    ignoreDuringBuilds: true, // Ignore ESLint errors during build
+    ignoreDuringBuilds: true,
   },
-  experimental: { // Enable experimental features
-    staleTimes: { // Configure the stale time for the cache
-      dynamic: 30, // Set the stale time for dynamic pages to 30 seconds
+
+  experimental: {
+    turbo: {}, // Enable Next.js Rust compiler for faster builds
+    serverActions: {},
+    staleTimes: {
+      dynamic: 30,
     },
   },
-  serverExternalPackages: ["@node-rs/argon2"], // Required for password hashing
 
-  images: { // Configure remote images
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+
+  serverExternalPackages: ["@node-rs/argon2"],
+
+  images: {
     remotePatterns: [
       { protocol: "https", hostname: "fileinfo.com" },
       { protocol: "https", hostname: "via.placeholder.com" },
@@ -27,17 +34,17 @@ const nextConfig: import('next').NextConfig = {
         pathname: `/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/*`,
       },
     ],
+    formats: ['image/avif', 'image/webp'],
   },
 
-  async rewrites() { // Define the rewrites
-    return [
+  rewrites: async () => { // Define the rewrites
+    return [ // Return an array of rewrites
       {
-        source: "/hashtag/:tag",
-        destination: "/search?q=%23:tag",
+        source: "/hashtag/:tag", // Match the hashtag route
+        destination: "/search?query=%23:tag", // Redirect to the search route with the hashtag query
       },
     ];
-  },
+  }
 };
 
-// Export the configuration
 export default nextConfig;

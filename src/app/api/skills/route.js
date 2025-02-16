@@ -1,6 +1,6 @@
 import { validateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 // GET: Fetch all skills
 export async function GET() {
@@ -21,7 +21,7 @@ export async function GET() {
 }
 
 // POST: Create a new skill
-export async function POST(req: NextRequest) {
+export async function POST(req) {
     try {
         const { user } = await validateRequest();
         if (!user) {

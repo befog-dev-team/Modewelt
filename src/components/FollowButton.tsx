@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
-import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+// import { toast } from "react-toastify";
 import useFollowerInfo from "@/hooks/useFollowerInfo";
 import { FollowerInfo } from "@/lib/types";
 import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
 import kyInstance from "@/lib/ky";
 import { useSession } from "@/app/(main)/SessionProvider";
-import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react"; // Import a loading icon
 
 interface FollowRequestButtonProps {
     userId: string;
@@ -18,17 +18,18 @@ export default function FollowRequestButton({ userId, initialState }: FollowRequ
     const queryClient = useQueryClient();
     const { data = initialState } = useFollowerInfo(userId, initialState);
     const { user } = useSession();
-    const router = useRouter();
+    const [isProcessing, setIsProcessing] = useState(false); // Local state for extra protection
 
     const queryKey: QueryKey = ["follower-info", userId];
 
     useEffect(() => {
         // Debugging: Log the current state
-        console.log("Current state:", data);
+        // console.log("Current state:", data);
     }, [data]);
 
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: async () => {
+            setIsProcessing(true); // Prevent spamming immediately
             const currentUserId = user.id;
 
             if (data.isFollowedByUser) {
@@ -63,13 +64,17 @@ export default function FollowRequestButton({ userId, initialState }: FollowRequ
         },
         onError: (error, _, context) => {
             queryClient.setQueryData(queryKey, context?.previousState);
-            console.error(error);
-            toast.error(error.message || "Something went wrong. Please try again.");
         },
+        // onError: (error, _, context) => {
+        //     queryClient.setQueryData(queryKey, context?.previousState);
+        //     console.error(error);
+        //     toast.error("Something went wrong. Please try again.");
+        // },
+        
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey });
             queryClient.refetchQueries({ queryKey }); // Force immediate refetch
-            router.refresh(); // Refresh Next.js route
+            setIsProcessing(false); // Reset processing state
         },
     });
 
@@ -80,17 +85,18 @@ export default function FollowRequestButton({ userId, initialState }: FollowRequ
             : "Follow";
 
     const buttonStyles = {
-        Follow: "bg-gradient-to-r from-[#c166a0] to-[#A45286] text-white text-sm font-bold py-1 px-4 rounded",
-        Requested: "bg-gray-300 py-1 px-4 text-sm font-semibold py-1 px-4 rounded",
-        Following: "bg-white text-[#B7B7B7] text-sm font-bold py-1 px-4 rounded border-[#E7E7E7] border-[1px]",
+        Follow: "bg-[#f26744] text-white text-sm font-bold w-full py-1 px-4 rounded flex items-center justify-center",
+        Requested: "bg-gray-300 py-1 pl-[0.55rem] pr-5 text-sm font-semibold rounded flex items-center w-full justify-center",
+        Following: "bg-white text-[#B7B7B7] text-sm font-bold py-1 px-4 rounded border-[#E7E7E7] w-full border-[1px] flex items-center justify-center",
     };
 
     return (
         <button
-            className={buttonStyles[buttonText] || "bg-primary text-white text-sm font-semibold py-1 px-4 rounded"}
-            onClick={() => mutate()}
+            className={buttonStyles[buttonText] || "bg-primary text-white text-sm font-semibold py-1 px-4 rounded flex items-center justify-center"}
+            onClick={() => !isProcessing && mutate()} // Prevent spam clicks
+            disabled={isPending || isProcessing} // Disable button during mutation
         >
-            {buttonText}
+            {isPending || isProcessing ? <Loader2 className="w-6 animate-spin mx-auto" /> : buttonText}
         </button>
     );
 }

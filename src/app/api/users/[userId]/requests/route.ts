@@ -1,12 +1,18 @@
 import prisma from "@/lib/prisma";
 
-export async function PATCH(req: Request, { params }: { params: Promise<{ userId: string }> }) {
-    const { userId } = await params;
-    const { action, currentUserId } = await req.json();
+export async function PATCH(req: Request, props: { params: Promise<{ userId: string }> }) {
+    const params = await props.params;
+    const { userId } = params;
 
-    if (!userId || !currentUserId || !action) {
-        return new Response(JSON.stringify({ error: "Missing required parameters" }), { status: 400 });
+    // Validate JSON Parsing
+    let body;
+    try {
+        body = await req.json();
+    } catch {
+        return new Response(JSON.stringify({ error: "Invalid or empty JSON body" }), { status: 400 });
     }
+
+    const { action, currentUserId } = body;
 
     try {
         switch (action) {

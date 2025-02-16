@@ -32,7 +32,7 @@ const Security = () => {
                   →
                 </button>
               </li>
-              <Link href={chat}>
+              <Link href={chat} prefetch={true}>
                 <li className="flex justify-between items-center p-2">
                   <span>Messages</span>
                   <button

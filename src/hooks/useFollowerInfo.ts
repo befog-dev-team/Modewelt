@@ -18,7 +18,7 @@ export default function useFollowerInfo(
     queryKey: ["follower-info", userId], // Query key
     queryFn: async () => { // Query function
       const response = await kyInstance.get(`/api/users/${userId}/followers`).json<FollowerInfo>(); // Fetch follower info
-      console.log("API Response for user", userId, response);
+      // console.log("API Response for user", userId, response);
       // Normalize the API response
       return {
         followers: response.followers || 0, // Followers count
@@ -30,9 +30,9 @@ export default function useFollowerInfo(
       };
     },
     initialData: initialState, // Initial data to populate the cache
-    staleTime: 1,
-    refetchInterval: 10,
-    refetchOnMount: true,
+    staleTime: 2000, // Shorter stale time (2 seconds)
+    refetchInterval: 5000, // Faster interval (5 seconds)
+    refetchOnWindowFocus: true, // Refetch on window focus
   });
 
   return query; // Return the query object

@@ -4,11 +4,10 @@ import React from "react";
 // Left Sections
 import NewJobSection from "../../../components/Jobs/NewJobSection";
 // import SortBySection from "../../../components/Jobs/SortBySection";
-import JobSection from "../../../components/Jobs/JobSection";
 // import MoreJobSection from "../../../components/Jobs/MoreJobSection";
 // Right Sections
 // import PostJobSection from "../../../components/Jobs/PostJobSection";
-import MySearchSection from "../../../components/Jobs/MySearchSection";
+// import MySearchSection from "../../../components/Jobs/MySearchSection";
 import Navbar from "@/components/Navbar";
 import JobMenu from "../../../components/Jobs/Jobmenu/page";
 // import Footer from "@/components/Footer";
@@ -18,9 +17,14 @@ import JobMenu from "../../../components/Jobs/Jobmenu/page";
 //   { title: "Product Designer", company: "Company Name" },
 // ];
 
+export const metadata = {
+  title: "Jobs",
+  description: "Jobs page for showing jobs",
+};
+
 export default function Jobs() {
   return (
-    <div>
+    <div className="bg-[#a2e0fa] min-h-screen">
       <Navbar />
       <div className="flex flex-col lg:flex-row justify-center mt-12 mb-10 space-y-10 lg:space-y-0 lg:space-x-14 px-4 lg:px-8">
         {/* Left Section */}
@@ -30,9 +34,6 @@ export default function Jobs() {
 
           {/* Sort By Section */}
           {/* <SortBySection headingText="Jobs For You" /> */}
-
-          {/* Job Section */}
-          <JobSection />
 
           {/* Sort By Section */}
           {/* <SortBySection headingText="New Jobs" /> */}
@@ -47,10 +48,10 @@ export default function Jobs() {
           {/* <PostJobSection /> */}
 
           {/* My Search Section */}
-          <MySearchSection />
+          {/* <MySearchSection /> */}
 
           {/* Job Menu Section */}
-          <JobMenu/>
+          <JobMenu />
 
           {/* Trending Job Section */}
           {/* <div className="bg-white h-[245px] shadow-lg mb-4 rounded-lg p-4">

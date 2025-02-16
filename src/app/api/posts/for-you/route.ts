@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
         const cursor = req.nextUrl.searchParams.get("cursor") || undefined; // cursor is the id of the last post on the page
 
         // The number of posts to fetch
-        const pageSize = 10;
+        const pageSize = 5;
 
         // Validate the request to ensure the user is logged in
         const { user } = await validateRequest();

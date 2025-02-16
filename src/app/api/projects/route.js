@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 import prisma from "@/lib/prisma";
 import { validateRequest } from "@/auth";
@@ -10,24 +9,14 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Interface for Cloudinary Upload Results
-interface CloudinaryUploadResult {
-    public_id: string;
-    secure_url: string;
-    bytes: number;
-    duration?: number;
-}
-
 // API Route: Handle POST request
-export async function POST(req: NextRequest) {
+export async function POST(req) {
     try {
-        console.log("🔍 Received Cookies:", req.headers.get("cookie"));
-
         // Authenticate user
         const { user } = await validateRequest();
         console.log("🔐 User:", user);
         if (!user) {
-            console.log("❌ Unauthorized: No valid session found");
+            console.log("Unauthorized: No valid session found");
             return Response.json({ error: "Unauthorized" }, { status: 401 });
         }
 
@@ -35,19 +24,19 @@ export async function POST(req: NextRequest) {
 
         // Parse form data
         const formData = await req.formData();
-        const projectName = formData.get("projectName") as string;
-        const description = formData.get("description") as string || "";
-        const file = formData.get("file") as File | null;
+        const projectName = formData.get("projectName");
+        const description = formData.get("description") || "";
+        const file = formData.get("file");
 
         if (!projectName) {
             return Response.json({ error: "Project name is required" }, { status: 400 });
         }
 
-        let mediaUploadResult: CloudinaryUploadResult | null = null;
+        let mediaUploadResult = null;
 
         // Upload media to Cloudinary (if provided)
         if (file) {
-            mediaUploadResult = await new Promise<CloudinaryUploadResult>(async (resolve, reject) => {
+            mediaUploadResult = await new Promise(async (resolve, reject) => {
                 const buffer = Buffer.from(await file.arrayBuffer());
 
                 cloudinary.uploader.upload_stream(
@@ -63,7 +52,7 @@ export async function POST(req: NextRequest) {
                             console.error("❌ Cloudinary Upload Error:", error);
                             reject(error);
                         } else {
-                            resolve(result as CloudinaryUploadResult);
+                            resolve(result);
                         }
                     }
                 ).end(buffer);
@@ -93,87 +82,45 @@ export async function POST(req: NextRequest) {
             include: { media: true },
         });
 
-        
-
-        return Response.json({ success: true, project: newProject }, { status: 201 });
+        return Response.json({ success: true, project: newProject }, { status: 200 });
     } catch (error) {
-        console.error("❌ Error creating project:", error);
+        console.error("Error creating project:", error);
         return Response.json({ error: "Internal Server Error" }, { status: 500 });
-        
-        
     }
-    
-}
-
-// API Route: Handle GET request to fetch projects
-export async function GET(req: NextRequest) {
-    console.log(req);
-  try {
-      console.log("📡 Fetching projects...");
-
-      // Authenticate user
-      const { user } = await validateRequest();
-      if (!user) {
-          console.log("❌ Unauthorized: No valid session found");
-          return Response.json({ error: "Unauthorized" }, { status: 401 });
-      }
-
-      console.log("✅ Authenticated User:", user);
-
-      // Fetch projects from the database for the logged-in user
-      const projects = await prisma.project.findMany({
-          where: { userId: user.id },
-          include: { media: true },
-          orderBy: { createdAt: "desc" }, // Sort by latest projects
-      });
-
-      return Response.json({ success: true, projects }, { status: 200 });
-  } catch (error) {
-      console.error("❌ Error fetching projects:", error);
-      return Response.json({ error: "Internal Server Error" }, { status: 500 });
-  }
 }
 
 // API Route: Handle PUT request (Edit Project)
-export async function PUT(req: NextRequest) {
+export async function PUT(req) {
     try {
         console.log("✏️ Updating project...");
-
         // Authenticate user
         const { user } = await validateRequest();
         if (!user) {
             console.log("❌ Unauthorized: No valid session found");
             return Response.json({ error: "Unauthorized" }, { status: 401 });
         }
-
         // Parse form data
         const formData = await req.formData();
-        const projectId = formData.get("projectId") as string;
-        const projectName = formData.get("projectName") as string;
-        const description = formData.get("description") as string || "";
-        const file = formData.get("file") as File | null;
-
+        const projectId = formData.get("projectId");
+        const projectName = formData.get("projectName");
+        const description = formData.get("description") || "";
+        const file = formData.get("file");
         if (!projectId || !projectName) {
             return Response.json({ error: "Project ID and name are required" }, { status: 400 });
         }
-
         // Find the project
         const project = await prisma.project.findUnique({
             where: { id: projectId, userId: user.id },
             include: { media: true },
         });
-
         if (!project) {
             return Response.json({ error: "Project not found" }, { status: 404 });
         }
-
-        let mediaUploadResult: CloudinaryUploadResult | null = null;
-
+        let mediaUploadResult = null;
         // Upload new media to Cloudinary (if provided)
         if (file) {
-            mediaUploadResult = await new Promise<CloudinaryUploadResult>(async (resolve, reject) => {
+            mediaUploadResult = await new Promise(async (resolve, reject) => {
                 const buffer = Buffer.from(await file.arrayBuffer());
-
                 cloudinary.uploader.upload_stream(
                     {
                         resource_type: file.type.startsWith("video/") ? "video" : "image",
@@ -187,18 +134,16 @@ export async function PUT(req: NextRequest) {
                             console.error("❌ Cloudinary Upload Error:", error);
                             reject(error);
                         } else {
-                            resolve(result as CloudinaryUploadResult);
+                            resolve(result);
                         }
                     }
                 ).end(buffer);
             });
-
             // Delete old media if a new one is uploaded
             if (project.media?.length > 0) {
                 await cloudinary.uploader.destroy(project.media[0].public_id);
             }
         }
-
         // Update project in the database
         const updatedProject = await prisma.project.update({
             where: { id: projectId },
@@ -230,56 +175,45 @@ export async function PUT(req: NextRequest) {
             },
             include: { media: true },
         });
-
         return Response.json({ success: true, project: updatedProject }, { status: 200 });
     } catch (error) {
         console.error("❌ Error updating project:", error);
         return Response.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }
-
-
 // API Route: Handle DELETE request (Delete Project)
-export async function DELETE(req: NextRequest) {
+export async function DELETE(req) {
     try {
         console.log("🗑️ Deleting project...");
-
         // Authenticate user
         const { user } = await validateRequest();
         if (!user) {
             console.log("❌ Unauthorized: No valid session found");
             return Response.json({ error: "Unauthorized" }, { status: 401 });
         }
-
         // Parse request body
         const { projectId } = await req.json();
-
         if (!projectId) {
             return Response.json({ error: "Project ID is required" }, { status: 400 });
         }
-
         // Find the project
         const project = await prisma.project.findUnique({
             where: { id: projectId, userId: user.id },
             include: { media: true },
         });
-
         if (!project) {
             return Response.json({ error: "Project not found" }, { status: 404 });
         }
-
         // Delete associated media from Cloudinary
         if (project.media.length > 0) {
             for (const media of project.media) {
                 await cloudinary.uploader.destroy(media.public_id);
             }
         }
-
         // Delete the project from the database
         await prisma.project.delete({
             where: { id: projectId },
         });
-
         console.log("✅ Project deleted successfully");
         return Response.json({ success: true, message: "Project deleted successfully" }, { status: 200 });
     } catch (error) {

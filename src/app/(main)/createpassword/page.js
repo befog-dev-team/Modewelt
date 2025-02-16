@@ -46,7 +46,7 @@ export default function ResetPassword() {
             {success ? (
                 <div>
                     <p className='text-green-600'>{success}</p>
-                    <Link href="/auth">Go to Login</Link>
+                    <Link href="/auth" prefetch={true}>Go to Login</Link>
                 </div>
             ) : (
                 <form onSubmit={handleSubmit} className='flex flex-col items-center'>

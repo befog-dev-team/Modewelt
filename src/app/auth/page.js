@@ -10,7 +10,7 @@ export default function Page() {
     
   return (
     <div>
-      <AuthForm />
+      <AuthForm  />
     </div>
   )
 }

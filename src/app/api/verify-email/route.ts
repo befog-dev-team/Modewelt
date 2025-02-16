@@ -52,7 +52,7 @@ export async function GET(req: NextRequest) {
         );
 
         // Redirect the user to home after successful verification
-        return NextResponse.redirect(new URL("/", req.url)); // Change to your desired redirect URL
+        return NextResponse.redirect(new URL("/auth", req.url)); // Change to your desired redirect URL
     } catch (error) {
         console.error(error); // Log the error
         return NextResponse.json({ error: "Internal server error" }, { status: 500 }); // Return an internal server error

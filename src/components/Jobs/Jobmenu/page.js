@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import { useRouter } from "next/navigation";
 
@@ -15,7 +16,7 @@ export default function JobMenu() {
     {
       icon: "ri-briefcase-line",
       text: "MANAGE YOUR JOBS",
-      action: () => router.push("/Postedjobs"),
+      action: () => router.push("/jobManagement"),
       color: "text-purple-500",
     },
   ];
@@ -31,7 +32,7 @@ export default function JobMenu() {
                 className="flex items-center w-full p-2 space-x-3 hover:bg-gray-50 rounded-md transition-colors"
                 aria-label={item.text}
               >
-                <i className={`${item.icon} ${item.color} text-lg`} />
+                <li className={`${item.icon} ${item.color} text-lg`} />
                 <span className="font-semibold text-gray-700">{item.text}</span>
               </button>
             </li>

@@ -3,16 +3,18 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { LuPlus } from "react-icons/lu";
 import { MdEdit, MdDelete } from "react-icons/md";
+import { Loader2 } from "lucide-react";
 import axios from "axios";
 import profileimg from "../../../../public/assets/profile/imgarticle.png";
 
-export default function ExperiencePage() {
+export default function ExperiencePage({ user, username, loggedinUserId }) {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [experienceList, setExperienceList] = useState([]);
     const [currentExperience, setCurrentExperience] = useState(null);
     const [file, setFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
+const [error, setError] = useState(null);
     const MAX_EXPERIENCE_LIMIT = 5;
 
     // Fetch experiences when the component loads
@@ -23,12 +25,13 @@ export default function ExperiencePage() {
     const fetchExperiences = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get("/api/experience");
+            const response = await axios.get(`/api/experience/${username}`);
             if (response.data.success) {
                 setExperienceList(response.data.experiences);
             }
         } catch (error) {
             console.error("Error fetching experiences:", error);
+setError("Failed to fetch experience data. Please try again.");
         } finally {
             setIsLoading(false);
         }
@@ -138,23 +141,20 @@ export default function ExperiencePage() {
     };
 
     return (
-        <div className="max-w-[850px] w-full min-h-fit shadow-lg mt-8 p-4">
-            <div className="flex justify-between">
-                <h1 className="font-bold">Experience</h1>
-                {/* ({experienceList.length}/5) */}
-                {experienceList.length < MAX_EXPERIENCE_LIMIT && (
-                    <div className="cursor-pointer" onClick={handleAddExperienceClick}>
-                        <LuPlus className="text-2xl" />
-                    </div>
-                )}
-            </div>
+    <div className="max-w-[850px] bg-[#ffffff] w-full min-h-fit shadow-lg mt-8 p-4">
+    <div className="flex justify-between">
+        <h1 className="font-bold p-2">Experience</h1>
+        {loggedinUserId === user?.id && experienceList.length < MAX_EXPERIENCE_LIMIT && (
+            <LuPlus className="cursor-pointer text-2xl" onClick={handleAddExperienceClick} />
+        )}
+    </div>
 
-            {isLoading ? (
-                <p className="text-center text-[#A45286]">Loading...</p>
-            ) : (
+    {isLoading && <Loader2 className="mx-auto animate-spin size-6" />}
+    {error && <p className="text-red-500">{error}</p>}
+    {!isLoading && !error && (
                 <div className="w-full h-full">
                     {experienceList.map((experience) => (
-                        <div key={experience.id} className="flex items-center justify-between p-2 rounded-lg shadow-md">
+                                           <div key={experience.id} className="flex items-center justify-between p-2 rounded-lg shadow-md relative group">
                             <div className="flex items-center space-x-4">
                                 <div className="w-[54px] h-[54px]">
                                     <Image
@@ -174,18 +174,12 @@ export default function ExperiencePage() {
                                 </div>
                             </div>
 
-                            <div className="flex space-x-3">
-                                <MdEdit
-                                    className="text-gray-600 cursor-pointer hover:text-blue-500"
-                                    size={20}
-                                    onClick={() => handleEditExperience(experience)}
-                                />
-                                <MdDelete
-                                    className="text-red-500 cursor-pointer hover:text-red-700"
-                                    size={20}
-                                    onClick={() => handleDeleteExperience(experience.id)}
-                                />
-                            </div>
+{loggedinUserId === user?.id && (
+    <div className="absolute top-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+        <MdEdit className="text-gray-600 cursor-pointer hover:text-blue-500" size={20} onClick={() => handleEditExperience(experience)} />
+        <MdDelete className="text-red-500 cursor-pointer hover:text-red-700" size={20} onClick={() => handleDeleteExperience(experience.id)} />
+    </div>
+)}
                         </div>
                     ))}
                 </div>

@@ -17,7 +17,7 @@ const Account = () => {
                 Profile information
               </h2>
               <ul className="mt-3 space-y-2">
-              <Link href={profile}>
+              <Link href={profile} prefetch={true}>
                 <li className="flex justify-between items-center p-2">
                   <span>Name, location, and industry</span>
                   
@@ -49,7 +49,7 @@ const Account = () => {
                   </button>
                 </li>
                 </Link> */}
-                <Link href={profile}>
+                <Link href={profile} prefetch={true}>
                   <li className="flex justify-between items-center p-2">
                   <span>Showing profile photos</span>
                   <button
@@ -60,7 +60,7 @@ const Account = () => {
                   </button>
                   </li>
                 </Link>
-                <Link href={feed}>
+                <Link href={feed} prefetch={true}>
                 <li className="flex justify-between items-center p-2">
                   <span>Preferred Feed View</span>
                   <button
@@ -80,7 +80,7 @@ const Account = () => {
                 Account management
               </h2>
               <ul className="mt-3 space-y-2">
-                <Link href={profile}>
+                <Link href={profile} prefetch={true}>
                 <li className="flex justify-between items-center p-2">
                   <span>Manage account</span>
                   <button

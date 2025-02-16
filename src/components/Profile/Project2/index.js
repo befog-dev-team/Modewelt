@@ -5,14 +5,16 @@ import { LuPlus } from "react-icons/lu";
 import profileimg from "../../../../public/assets/profile/imgarticle.png";
 import axios from "axios";
 import { MdEdit, MdDelete } from "react-icons/md";
+import { Loader2 } from "lucide-react";
 
-export default function EducationPage() {
+export default function EducationPage({ user, username, loggedinUserId }) {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [educationList, setEducationList] = useState([]);
     const [currentEducation, setCurrentEducation] = useState(null);
     const [file, setFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
+    const [error, setError] = useState(null); // Error handling
     const MAX_EDUCATION_LIMIT = 5; // Limit user to 5 education entries
 
     // Fetch education data when the component loads
@@ -23,12 +25,13 @@ export default function EducationPage() {
     const fetchEducationData = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get("/api/education");
+            const response = await axios.get(`/api/education/${username}`);
             if (response.data.success) {
                 setEducationList(response.data.education);
             }
         } catch (error) {
             console.error("Error fetching education data:", error);
+            setError("Failed to fetch education data. Please try again.");
         } finally {
             setIsLoading(false);
         }
@@ -139,26 +142,22 @@ export default function EducationPage() {
 
 
     return (
-        <div className="max-w-[850px] w-full min-h-fit shadow-lg mt-8 p-4">
-            <div className="flex justify-between">
-                <div className="flex p-2 space-x-5">
-                    <h1 className="font-bold">Education</h1>
-                    {/* ({educationList.length}/5) */} 
-                </div>
-                {/* Hide add button if user reaches limit */}
-                {educationList.length < MAX_EDUCATION_LIMIT && (
-                    <div className="cursor-pointer" onClick={handleAddEducationClick}>
-                        <LuPlus className="text-2xl" />
-                    </div>
-                )}
-            </div>
+        <div className="max-w-[850px] bg-[#ffffff] w-full min-h-fit shadow-lg mt-8 p-4">
+        <div className="flex justify-between">
+            <h1 className="font-bold p-2">Education</h1>
+            {loggedinUserId === user?.id && educationList.length < MAX_EDUCATION_LIMIT && (
+                <LuPlus className="cursor-pointer text-2xl" onClick={handleAddEducationClick} />
+            )}
+        </div>
 
-            {isLoading ? (
-                <p className="text-center text-[#A45286]">Loading...</p>
-            ) : (
+        {isLoading && <Loader2 className="mx-auto animate-spin size-6" />}
+{error && <p className="text-red-500">{error}</p>}
+{!isLoading && !error && (
+
                 <div className="w-full h-full">
                     {educationList.map((education) => (
-                        <div key={education.id} className="flex items-center justify-between p-2 rounded-lg shadow-md">
+                       <div key={education.id} className="flex items-center justify-between p-2 rounded-lg shadow-md relative group">
+
                             <div className="flex items-center space-x-4">
                                 <div className="w-[54px] h-[54px]">
                                     <Image
@@ -179,19 +178,21 @@ export default function EducationPage() {
                                     </div>
                                 </div>
                             </div>
-
-                            <div className="flex space-x-3">
-                                <MdEdit
-                                    className="text-gray-600 cursor-pointer hover:text-blue-500"
-                                    size={20}
-                                    onClick={() => handleEditEducation(education)}
-                                />
-                                <MdDelete
-                                    className="text-red-500 cursor-pointer hover:text-red-700"
-                                    size={20}
-                                    onClick={() => handleDeleteEducation(education.id)}
-                                />
-                            </div>
+                            
+                            {loggedinUserId === user?.id && (
+                                <div className="absolute top-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <MdEdit
+                                        className="text-gray-600 cursor-pointer hover:text-blue-500"
+                                        size={20}
+                                        onClick={() => handleEditEducation(education)}
+                                    />
+                                    <MdDelete
+                                        className="text-red-500 cursor-pointer hover:text-red-700"
+                                        size={20}
+                                        onClick={() => handleDeleteEducation(education.id)}
+                                    />
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>

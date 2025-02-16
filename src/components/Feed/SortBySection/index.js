@@ -17,7 +17,7 @@ export default function SortBySection() {
     return (
         <div className="px-4 sm:px-8">
             {/* Dropdown */}
-            <div className="flex justify-center items-center my-4 space-x-4 flex-wrap relative">
+            <div className="flex justify-center items-center space-x-4 flex-wrap relative">
                 <hr className="flex-grow border-gray-300" />
                 <div className="relative">
                     <p
@@ -25,7 +25,7 @@ export default function SortBySection() {
                         onClick={() => setIsDropdownOpen((prev) => !prev)}
                     >
                         SORT BY:{" "}
-                        <span className="font-semibold text-[#A45286]">{selectedFeed}</span>
+                        <span className="font-semibold text-[#f26744]">{selectedFeed}</span>
                     </p>
                     {isDropdownOpen && (
                         <div className="absolute left-0 right-0 mt-2 bg-white border border-gray-300 shadow-md rounded-sm z-10">

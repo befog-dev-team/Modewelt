@@ -8,13 +8,14 @@ import { FaPlus, FaTrash } from "react-icons/fa6";
 // import { BellRing } from "lucide-react";
 // import { CircleUser } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { useSession } from "../../SessionProvider";
+import { toast } from "react-toastify";
 
-
-
+// Input Field Component 
 function InputField({ label, type, placeholder, required = false, value, onChange }) {
     return (
         <div className="flex flex-col">
@@ -24,7 +25,7 @@ function InputField({ label, type, placeholder, required = false, value, onChang
             <input
                 type={type}
                 placeholder={placeholder}
-                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#a35284]"
+                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#f26744]"
                 required={required}
                 value={value}
                 onChange={onChange}
@@ -33,14 +34,17 @@ function InputField({ label, type, placeholder, required = false, value, onChang
     );
 }
 
-function SelectField({ label, options, required = false }) {
+// Select Field Component 
+function SelectField({ label, value, options, onChange, required = false }) {
     return (
         <div className="flex flex-col">
             <label className="text-gray-700 font-medium mb-1">
                 {label} {required && <span className="text-red-500">*</span>}
             </label>
             <select
-                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#a35284]"
+                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#f26744]"
+                value={value} // <-- Controlled value
+                onChange={(e) => onChange(e.target.value)} // <-- Pass value to parent
                 required={required}
             >
                 <option value="">Select an option</option>
@@ -54,12 +58,13 @@ function SelectField({ label, options, required = false }) {
     );
 }
 
+// File Upload Component
 function FileUpload({ label, description, accept, onChange }) {
     return (
-        <div className="flex flex-col items-center justify-center bg-gray-100 border border-gray-300 rounded-lg p-6 text-center">
+        <div className="flex flex-col items-center justify-center bg-white border border-gray-300 rounded-lg p-6 text-center">
             <label
                 htmlFor="fileUpload"
-                className="text-lg font-medium text-[#a35284] cursor-pointer"
+                className="text-lg font-medium text-[#f26744] cursor-pointer"
             >
                 {label}
             </label>
@@ -75,18 +80,18 @@ function FileUpload({ label, description, accept, onChange }) {
     );
 }
 
-// Function to fetch job data from API
-const fetchJob = async (id) => {
-    const response = await axios.get(`/api/jobs/${id}`);
-    return response.data;
-};
-
+// Function to handle 404 error
 export default function Home() {
+    const router = useRouter();
+    const { user } = useSession();
+
     const { id } = useParams(); // Get the job id from the URL
     if (!id) notFound(); // Redirect to 404 page if id is not provided
 
     // State variables
     const [formData, setFormData] = useState({
+        jobId: id,
+        userId: user.id,
         resumeFile: null,
         firstName: "",
         middleName: "",
@@ -95,16 +100,17 @@ export default function Home() {
         email: "",
         countryCode: "+91",
         phone: "",
+        additionalDocuments: null,
         dob: "",
-        experienceYears: "",
-        experienceMonths: "",
+        // experienceYears: "",
+        // experienceMonths: "",
         currentSalary: "",
         expectedSalary: "",
         preferredLocation: "",
         availableJoinDays: "",
         currentLocation: "",
-        notes: "",
-        previousEducation: "",
+        achievements: "",
+        portfolioUrl: "",
         language: "",
         skills: "",
         experienceList: [{ id: "", role: "", company: "" }],
@@ -122,7 +128,13 @@ export default function Home() {
     const [files, setFiles] = useState([]);
     const [errorFile, setErrorFile] = useState(null);
 
-    // const [submitLoading, setSubmitLoading] = useState(false);
+    const [submitLoading, setSubmitLoading] = useState(false);
+
+    // Function to fetch job data from API
+    const fetchJob = async (id) => {
+        const response = await axios.get(`/api/jobs/${id}`);
+        return response.data;
+    };
 
     // Using useQuery to fetch and cache job data
     const { data: job, error, isLoading } = useQuery({
@@ -144,7 +156,7 @@ export default function Home() {
     // Loading or error state handling
     if (isLoading) {
         return (
-            <Loader2 className="h-screen flex justify-center mx-auto items-center text-[#a45286] size-10 animate-spin" />
+            <Loader2 className="h-screen flex justify-center mx-auto items-center text-[#f26744] size-10 animate-spin" />
         );
     }
 
@@ -224,92 +236,112 @@ export default function Home() {
 
     // Function to handle file change
     const handleFileChange = (e) => {
-        const selectedFiles = e.target.files;
+        const selectedFiles = Array.from(e.target.files); // Convert FileList to an array
         const maxSize = 10 * 1024 * 1024; // 10MB
-        let errorMessage = null;
 
-        const fileList = [];
-        for (let i = 0; i < selectedFiles.length; i++) {
-            if (selectedFiles[i].size > maxSize) {
-                errorMessage = "File size exceeds 10MB";
-                break;
-            }
-            fileList.push(selectedFiles[i]);
-        }
+        // Filter out invalid files
+        const validFiles = selectedFiles.filter(file => file.size <= maxSize);
+        const invalidFiles = selectedFiles.filter(file => file.size > maxSize);
 
-        if (errorMessage) {
-            setErrorFile(errorMessage);
+        // Show error if any file was too large
+        if (invalidFiles.length > 0) {
+            setErrorFile("Some files exceed 10MB and were not added.");
         } else {
             setErrorFile(null);
-            setFiles(fileList);
         }
+
+        // Update files separately
+        setFiles(validFiles);
+
+        // Update formData safely using previous state
+        setFormData(prev => ({
+            ...prev,
+            additionalDocuments: validFiles,
+        }));
     };
 
     console.log("formData", formData);
 
-
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
+        // Validate form fields
+        if (!formData.resumeFile) {
+            toast.error("Please upload your resume before submitting.");
+            return;
+        }
+
+        if (!formData.firstName || !formData.lastName) {
+            toast.error("Please enter your first and last name.");
+            return;
+        }
+
+        if (!formData.gender) {
+            toast.error("Please select your gender.");
+            return;
+        }
+
+        if (!formData.email) {
+            toast.error("Please enter your email address.");
+            return;
+        }
+
+        if (!formData.phone) {
+            toast.error("Please enter your phone number.");
+            return;
+        }
+
+        if (!formData.dob) {
+            toast.error("Please enter your date of birth.");
+            return;
+        }
+
         if (!formData.checkbox) {
-            alert("You must agree to the privacy policy before submitting.");
+            toast.error("You must agree to the privacy policy before submitting.");
             return;
         }
 
         if (inputCaptcha !== captcha) {
-            alert("Invalid Captcha! Please try again.");
+            toast.error("Invalid Captcha! Please try again.");
             return;
         }
 
         const formDataToSend = new FormData();
-        formDataToSend.append("resumeFile", formData.resumeFile);
-        formDataToSend.append("firstName", formData.firstName);
-        formDataToSend.append("middleName", formData.middleName);
-        formDataToSend.append("lastName", formData.lastName);
-        formDataToSend.append("gender", formData.gender);
-        formDataToSend.append("email", formData.email);
-        formDataToSend.append("countryCode", formData.countryCode);
-        formDataToSend.append("phone", formData.phone);
-        formDataToSend.append("dob", formData.dob);
-        formDataToSend.append("experienceYears", formData.experienceYears);
-        formDataToSend.append("experienceMonths", formData.experienceMonths);
-        formDataToSend.append("currentSalary", formData.currentSalary);
-        formDataToSend.append("expectedSalary", formData.expectedSalary);
-        formDataToSend.append("preferredLocation", formData.preferredLocation);
-        formDataToSend.append("availableJoinDays", formData.availableJoinDays);
-        formDataToSend.append("currentLocation", formData.currentLocation);
-        formDataToSend.append("notes", formData.notes);
-        formDataToSend.append("previousEducation", formData.previousEducation);
-        formDataToSend.append("language", formData.language);
-        formDataToSend.append("skills", formData.skills);
 
-        experienceList.forEach((exp, index) => {
-            formDataToSend.append(`experience[${index}][role]`, exp.role);
-            formDataToSend.append(`experience[${index}][company]`, exp.company);
+        // Append normal fields
+        Object.entries(formData).forEach(([key, value]) => {
+            if (key !== "experienceList" && key !== "educationList" && key !== "additionalDocuments") {
+                formDataToSend.append(key, value);
+            }
         });
 
-        educationList.forEach((edu, index) => {
-            formDataToSend.append(`education[${index}][degree]`, edu.degree);
-            formDataToSend.append(`education[${index}][institution]`, edu.institution);
-        });
+        // Append multiple files correctly
+        if (formData.additionalDocuments && formData.additionalDocuments.length > 0) {
+            formData.additionalDocuments.forEach((file) => {
+                formDataToSend.append("additionalDocuments", file);
+            });
+        }
 
-        files.forEach((file, index) => {
-            formDataToSend.append(`additionalFiles[${index}]`, file);
-        });
+        // Append JSON-encoded experience & education
+        formDataToSend.append("experienceList", JSON.stringify(formData.experienceList));
+        formDataToSend.append("educationList", JSON.stringify(formData.educationList));
 
         console.log("formDataToSend", formDataToSend);
 
         setSubmitLoading(true);
         try {
-            const response = await axios.post("/api/apply", formDataToSend, {
-                headers: { "Content-Type": "multipart/form-data" },
+            const response = await fetch("/api/jobform", {
+                method: "POST",
+                body: formDataToSend,
             });
 
             setSubmitLoading(false);
 
             if (response.status === 200) {
-                alert("Application submitted successfully!");
+                toast.success("Application submitted successfully!");
                 setFormData({
+                    jobId: id,
+                    userId: user.id,
                     resumeFile: null,
                     firstName: "",
                     middleName: "",
@@ -318,18 +350,21 @@ export default function Home() {
                     email: "",
                     countryCode: "+91",
                     phone: "",
+                    additionalDocuments: null,
                     dob: "",
-                    experienceYears: "",
-                    experienceMonths: "",
+                    // experienceYears: "",
+                    // experienceMonths: "",
                     currentSalary: "",
                     expectedSalary: "",
                     preferredLocation: "",
                     availableJoinDays: "",
                     currentLocation: "",
-                    notes: "",
-                    previousEducation: "",
+                    achievements: "",
+                    portfolioUrl: "",
                     language: "",
                     skills: "",
+                    experienceList: [{ id: "", role: "", company: "" }],
+                    educationList: [{ id: "", degree: "", institution: "" }],
                     role: "",
                     company: "",
                     degree: "",
@@ -337,24 +372,25 @@ export default function Home() {
                     checkbox: false,
                 });
                 setFiles([]);
-                setExperienceList([]);
-                setEducationList([]);
                 setInputCaptcha("");
                 setCaptcha(regenerateCaptcha());
+                router.push("/jobs")
+                toast.success("Application submitted successfully!");
             }
         } catch (error) {
             console.error("Error submitting form:", error);
-            alert("There was an error submitting your application. Please try again later.");
+            toast.error("Error submitting application. Please try again later.");
+            setSubmitLoading(false);
         }
     };
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-[#a2defa]">
             {/* Navbar */}
             <Navbar />
 
             {/* Header Section */}
-            <header className="bg-[#a35285] text-white">
+            <header className="bg-[#f26744] text-white">
                 <div className="max-w-4xl mx-auto p-6 md:p-10">
                     <h1 className="text-2xl font-bold">{job.company} - {job.jobTitle}</h1>
                     <p className="text-sm">{job.salaryAmount} {job.salaryCurrency} | {job.location} | {job.workplaceType}</p>
@@ -362,7 +398,7 @@ export default function Home() {
             </header>
 
             {/* Form Section */}
-            <main className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 md:p-10 mt-6">
+            <main className="max-w-4xl mx-auto bg-[#a2defa] rounded-lg shadow-lg p-6 md:p-10 mt-6">
                 <form className="space-y-6" noValidate>
                     {/* /* Upload Resume  */}
                     <FileUpload
@@ -379,7 +415,7 @@ export default function Home() {
                     />
 
                     {formData.resumeFile && (
-                        <p className="text-sm text-gray-600 mt-2">Selected File: {formData.resumeFile?.name}</p>
+                        <p className="text-sm text-gray-600 mt-2 bg-white">Selected File: {formData.resumeFile?.name}</p>
                     )}
 
                     {/* Personal Information */}
@@ -413,11 +449,12 @@ export default function Home() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <SelectField
                             label="Gender"
-                            value={formData.gender}
+                            value={formData.gender} // <-- Controlled value
                             options={["Male", "Female", "Other"]}
-                            onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
+                            onChange={(value) => setFormData((prev) => ({ ...prev, gender: value }))} // <-- Update state
                             required
                         />
+
                         <InputField
                             label="Email Address"
                             value={formData.email}
@@ -437,7 +474,7 @@ export default function Home() {
                             <select
                                 value={formData.countryCode}
                                 onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
-                                className="border p-2 rounded-l focus:outline-none focus:ring-2 focus:ring-[#a35284]"
+                                className="border p-2 rounded-l focus:outline-none focus:ring-2 focus:ring-[#f26744]"
                                 required
                             >
                                 <option value="+91">+91</option>
@@ -467,45 +504,11 @@ export default function Home() {
                                 type="text"
                                 value={formData.phone}
                                 placeholder="Enter your phone number"
-                                className="border p-2 flex-1 rounded-r focus:outline-none focus:ring-2 focus:ring-[#a35284]"
+                                className="border p-2 flex-1 rounded-r focus:outline-none focus:ring-2 focus:ring-[#f26744]"
                                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                 required
                             />
                         </div>
-                    </div>
-
-                    {/* Additional Documents */}
-                    <div>
-                        <label className="text-gray-700 font-medium">Additional Documents</label>
-                        <div className="flex items-center mt-2">
-                            <label className="flex flex-col items-center justify-center w-32 h-20 border-2 border-dashed border-gray-300 rounded-md cursor-pointer text-sm text-gray-500">
-                                <CiCirclePlus className="text-3xl text-[#a35284]" />
-                                <span>Add Files</span>
-                                <input
-                                    type="file"
-                                    className="hidden"
-                                    accept=".doc,.pdf,.docx,.rtf,.odt"
-                                    multiple
-                                    onChange={handleFileChange} // ✅ No "value" attribute here
-                                />
-                            </label>
-                            <p className="ml-4 text-xs text-gray-400">
-                                Max size: 10MB (Formats: .doc, .pdf, .docx, .rtf, .odt)
-                            </p>
-                        </div>
-
-                        {errorFile && <p className="text-red-500 text-xs mt-2">{errorFile}</p>}
-
-                        {files.length > 0 && (
-                            <div className="mt-4">
-                                <h3 className="text-gray-700 font-medium">Selected Files:</h3>
-                                <ul className="list-disc ml-5">
-                                    {files.map((file, index) => (
-                                        <li key={index} className="text-sm text-gray-600">{file.name}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
                     </div>
 
                     {/* Experience */}
@@ -517,7 +520,7 @@ export default function Home() {
                             placeholder="Select Date of Birth"
                             onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
                         />
-                        <div className="grid grid-cols-2 gap-2">
+                        {/* <div className="grid grid-cols-2 gap-2">
                             <InputField
                                 label="Experience (Years)"
                                 type="number"
@@ -532,7 +535,8 @@ export default function Home() {
                                 placeholder="Months"
                                 onChange={(e) => setFormData({ ...formData, experienceMonths: e.target.value })}
                             />
-                        </div>
+                        </div> */}
+
                     </div>
 
                     {/* Expected and Current Salary */}
@@ -556,16 +560,16 @@ export default function Home() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <InputField
                             label="Preferred Location"
-                            value={formData.prefferedLocation}
+                            value={formData.preferredLocation}
                             type="text"
                             placeholder="Enter preferred location"
-                            onChange={(e) => setFormData({ ...formData, prefferedLocation: e.target.value })}
+                            onChange={(e) => setFormData({ ...formData, preferredLocation: e.target.value })}
                         />
                         <InputField
                             label="Available To Join (in days)"
                             value={formData.availableJoinDays}
                             type="text"
-                            placeholder="Enter current salary"
+                            placeholder="Enter available join days"
                             onChange={(e) => setFormData({ ...formData, availableJoinDays: e.target.value })}
                         />
                     </div>
@@ -580,33 +584,33 @@ export default function Home() {
                             onChange={(e) => setFormData({ ...formData, currentLocation: e.target.value })}
                         />
                         <InputField
-                            label="Notes"
-                            value={formData.notes}
+                            label="Language"
+                            value={formData.language}
                             type="text"
-                            placeholder="Add any additional notes"
+                            placeholder="Languages"
                             className="col-span-2"
-                            onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                            onChange={(e) => setFormData({ ...formData, language: e.target.value })}
                         />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <InputField
-                            label="Previous Education"
-                            value={formData.previousEducation}
+                            label="Achievements"
+                            value={formData.achievements}
                             type="text"
-                            placeholder="Enter your previous education"
-                            onChange={(e) => setFormData({ ...formData, previousEducation: e.target.value })}
+                            placeholder="Enter your achievements"
+                            onChange={(e) => setFormData({ ...formData, achievements: e.target.value })}
                         />
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <InputField
-                            label="Language"
-                            value={formData.language}
+                            label="Portfolio"
+                            value={formData.portfolioUrl}
                             type="text"
-                            placeholder="Enter your language"
-                            onChange={(e) => setFormData({ ...formData, language: e.target.value })}
+                            placeholder="Portfolio link"
+                            className="col-span-2"
+                            onChange={(e) => setFormData({ ...formData, portfolioUrl: e.target.value })}
                         />
                     </div>
+
                     <InputField
                         label="Skills"
                         value={formData.skills}
@@ -623,9 +627,8 @@ export default function Home() {
 
                         {/* Dynamic List of Experience */}
                         <ul className="space-y-2">
-                            {formData.experienceList.length > 0 ? (
+                            {formData.experienceList?.length > 0 ? (
                                 formData.experienceList.map((exp) => (
-                                    // Only render the list item if there is valid content for degree or institution
                                     (exp.role && exp.company) ? (
                                         <li
                                             key={exp.id}
@@ -642,7 +645,7 @@ export default function Home() {
                                                 <FaTrash />
                                             </button>
                                         </li>
-                                    ) : null // Don't render if no content for degree or institution
+                                    ) : null
                                 ))
                             ) : (
                                 <p className="text-gray-500 text-sm">No experience details added yet.</p>
@@ -671,7 +674,7 @@ export default function Home() {
                         {/* Button to Add Experience */}
                         <button
                             onClick={addExperience}
-                            className="mt-3 flex items-center gap-2 text-[#a35284] text-sm font-medium hover:text-[#892d6b] transition-all"
+                            className="mt-3 flex items-center gap-2 text-[#f26744] text-sm font-medium hover:text-[#892d6b] transition-all"
                         >
                             <FaPlus /> Add Experience Details
                         </button>
@@ -685,7 +688,7 @@ export default function Home() {
 
                         {/* Dynamic List of Education */}
                         <ul className="space-y-2">
-                            {formData.educationList.length > 0 ? (
+                            {formData.educationList?.length > 0 ? (
                                 formData.educationList.map((edu) => (
                                     // Only render the list item if there is valid content for degree or institution
                                     (edu.degree && edu.institution) ? (
@@ -732,20 +735,54 @@ export default function Home() {
                         {/* Button to Add Education */}
                         <button
                             onClick={addEducation}
-                            className="mt-3 flex items-center gap-2 text-[#a35284] text-sm font-medium hover:text-[#892d6b] transition-all"
+                            className="mt-3 flex items-center gap-2 text-[#f26744] text-sm font-medium hover:text-[#892d6b] transition-all"
                         >
                             <FaPlus /> Add Education Details
                         </button>
                     </div>
 
+                    {/* Additional Documents */}
+                    <div>
+                        <label className="text-gray-700 font-medium">Additional Documents</label>
+                        <div className="flex items-center mt-2">
+                            <label className="flex flex-col items-center justify-center w-32 h-20 border-2 border-dashed border-gray-300 rounded-md cursor-pointer text-sm text-gray-500">
+                                <CiCirclePlus className="text-3xl text-[#f26744]" />
+                                <span>Add Files</span>
+                                <input
+                                    type="file"
+                                    className="hidden"
+                                    accept=".doc,.pdf,.docx,.rtf,.odt"
+                                    multiple
+                                    onChange={handleFileChange} // ✅ No "value" attribute here
+                                />
+                            </label>
+                            <p className="ml-4 text-xs text-gray-400">
+                                Max size: 10MB (Formats: .doc, .pdf, .docx, .rtf, .odt)
+                            </p>
+                        </div>
+
+                        {errorFile && <p className="text-red-500 text-xs mt-2">{errorFile}</p>}
+
+                        {files.length > 0 && (
+                            <div className="mt-4">
+                                <h3 className="text-gray-700 font-medium">Selected Files:</h3>
+                                <ul className="list-disc ml-5">
+                                    {files.map((file, index) => (
+                                        <li key={index} className="text-sm text-gray-600">{file.name}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                    </div>
+
                     {/* Captcha */}
                     <div className="flex items-center space-x-4 w-1/2">
-                        <div className="bg-gray-100 border rounded-md p-2 flex justify-center items-center text-lg font-semibold text-[#a35284] w-24">
+                        <div className="bg-gray-100 border rounded-md p-2 flex justify-center items-center text-lg font-semibold text-[#f26744] w-24">
                             {captcha}
                         </div>
                         <button
                             type="button"
-                            className="text-[#a35284] text-sm font-medium hover:underline"
+                            className="text-[#f26744] text-sm font-medium hover:underline"
                             onClick={regenerateCaptcha}
                         >
                             <IoMdRefresh className="text-[2rem]" />
@@ -753,7 +790,7 @@ export default function Home() {
                         <input
                             type="text"
                             placeholder="Captcha"
-                            className="border rounded-md p-2 flex-1 focus:outline-none focus:ring-2 focus:ring-[#a35284]"
+                            className="border rounded-md p-2 flex-1 focus:outline-none focus:ring-2 focus:ring-[#f26744]"
                             value={inputCaptcha}
                             onChange={(e) => setInputCaptcha(e.target.value)}
                             required
@@ -774,7 +811,7 @@ export default function Home() {
                             By applying, you hereby accept the data processing terms under the {" "}
                             <a
                                 href="/Terms&Condition"
-                                className="text-[#a35284] underline hover:no-underline"
+                                className="text-[#f26744] underline hover:no-underline"
                             >
                                 Privacy Policy {" "}
                             </a>
@@ -786,11 +823,19 @@ export default function Home() {
                     {/* Submit Button */}
                     <button
                         type="submit"
+                        disabled={submitLoading}
                         onClick={handleFormSubmit}
-                        className="w-1/4 bg-[#a35284] text-white py-2 px-4 rounded-md hover:bg-[#872466] transition"
+                        className={`w-1/4 bg-[#f26744] text-white py-2 px-4 rounded-md hover:bg-[#f26744] transition ${submitLoading ? "cursor-not-allowed" : "cursor-pointer"}`}
                     >
-                        Apply Now
+                        {
+                            submitLoading ? (
+                                <Loader2 className="h-6 w-6 mx-auto animate-spin" />
+                            ) : (
+                                "Apply Now"
+                            )
+                        }
                     </button>
+
                 </form>
             </main>
         </div>

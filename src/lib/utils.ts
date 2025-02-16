@@ -2,6 +2,11 @@ import { clsx, type ClassValue } from "clsx" // Import the clsx and ClassValue t
 import { twMerge } from "tailwind-merge" // Import the twMerge function from the tailwind-merge module for merging Tailwind CSS classes
 import { format, formatDistanceToNowStrict } from "date-fns" // Import the format and formatDistanceToNowStrict functions from the date-fns module
 
+// Get the current year
+export const getCurrentYear = (): number => {
+  return new Date().getFullYear();
+};
+
 // Add the following functions to the file
 export function extractHashtags(content: string) {
   const regex = /#(\w+)/g; // regex to match hashtags

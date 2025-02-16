@@ -18,8 +18,6 @@ const Auth = () => {
   const [pending, startTransition] = useTransition(); // for transition
   const [error, setError] = useState(undefined); // for error handling
 
-  toast.error(error); // error toast
-
   // Login Form
   const {
     register: loginRegister, // register function
@@ -51,6 +49,7 @@ const Auth = () => {
       });
     } catch (err) {
       setError(err.response?.data?.message || "Login Failed"); // set error
+      toast.error(error); // error toast
     }
   };
 
@@ -93,13 +92,14 @@ const Auth = () => {
       });
     } catch (err) {
       setError(err.response?.data?.message || "Signup Failed"); // set error
+      toast.error(error); // error toast
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-[90vh] relative">
+    <div className="flex justify-center items-center bg-[#a2defa] min-h-screen relative">
       <div
-        className={`auth-container relative z-10 h-[524px] w-[957px] border-[#A45286] border-2 flex bg-background shadow-lg rounded-2xl max-w-4xl ${
+        className={`auth-container relative z-10 h-[524px] w-[957px] border-[#f26744] border-2 flex bg-background shadow-lg rounded-2xl max-w-4xl ${
           active ? "active" : ""
         }`}
       >
@@ -110,14 +110,14 @@ const Auth = () => {
         <div className="form-box Login sm:w-full md: w-full">
           <div className="relative">
             <h2
-              className="animation text-center text-[2.5rem] font-[800] text-[#A45286] mb-8 uppercase"
+              className="animation text-center text-[2.5rem] font-[800] text-[#f26744] mb-8 uppercase"
               style={{ "--D": 0, "--S": 21 }}
             >
               Login
             </h2>
             {/* Login heading underline */}
             <div
-              className="animation h-[0.4rem] w-[6rem] top-[3.7rem] md:top-[3.5rem] rounded-[10px] left-[6.15rem] md:left-[8.3rem] bg-[#A45286] absolute"
+              className="animation h-[0.4rem] w-[6rem] top-[3.7rem] md:top-[3.5rem] rounded-[10px] left-[6.15rem] md:left-[8.3rem] bg-[#f26744] absolute"
               style={{ "--D": 1, "--S": 22 }}
             ></div>
           </div>
@@ -144,12 +144,13 @@ const Auth = () => {
               className="animation flex justify-between text-sm mt-2 text-blue-500 uppercase"
               style={{ "--D": 4, "--S": 25 }}
             >
-              <Link href="/forgetpassword">Forgot Password</Link>
+              {/* <Link href="/forgetpassword" prefetch={true}>Forgot Password</Link> */}
+              <Link href="/forgetpassword" prefetch={true}></Link>
               <p
                 className="SignUpLink cursor-pointer"
                 onClick={() => setActive(true)}
               >
-                Create Account
+                {/* Create Account */}
               </p>
             </div>
 
@@ -162,8 +163,8 @@ const Auth = () => {
                 disabled={isLoginSubmitting}
                 className={`uppercase w-full ${
                   pending
-                    ? "bg-primarybtn hover:bg-[#A45286] cursor-not-allowed"
-                    : "bg-primarybtn hover:bg-[#A45286"
+                    ? "bg-[#f26744] hover:bg-[#f26744] cursor-not-allowed"
+                    : "bg-[#f26744] hover:bg-[#f26744]"
                 } text-white py-3 px-4 rounded-full transition duration-300`}
               >
                 {pending ? (
@@ -183,7 +184,7 @@ const Auth = () => {
                 Don&apos;t have an account?{" "}
                 <a
                   href="#"
-                  className="SignUpLink text-[#A45286] font-bold"
+                  className="SignUpLink text-[#f26744] font-bold"
                   onClick={() => setActive(true)}
                 >
                   Sign Up
@@ -207,17 +208,17 @@ const Auth = () => {
         </div>
 
         {/* REGISTRATION FORM */}
-        <div className="form-box Register">
+        <div className="form-box Register sm:w-full md:w-full">
           <div className="relative">
             <h2
-              className="animation text-center text-[2.5rem] font-[800] text-[#A45286] uppercase"
+              className="animation text-center text-[2.5rem] font-[800] text-[#f26744] uppercase"
               style={{ "--li": 17, "--S": 0 }}
             >
               Sign Up
             </h2>
             {/* Signup heading underline */}
             <div
-              className="animation h-[0.4rem] w-[6rem] top-[3.5rem] rounded-[10px] left-[7.25rem] bg-[#A45286] absolute"
+              className="animation h-[0.4rem] w-[6rem] top-[3.5rem] rounded-[10px] left-[7.25rem] bg-[#f26744] absolute"
               style={{ "--li": 18, "--S": 1 }}
             ></div>
           </div>
@@ -278,8 +279,8 @@ const Auth = () => {
                 disabled={isSignupSubmitting}
                 className={`uppercase w-full ${
                   pending
-                    ? "bg-primarybtn hover:bg-[#A45286] cursor-not-allowed"
-                    : "bg-primarybtn hover:bg-primary"
+                    ? "bg-[#f26744] hover:bg-[#f26744] cursor-not-allowed"
+                    : "bg-[#f26744] hover:bg-[#f26744"
                 } text-white py-3 px-4 rounded-full transition duration-300`}
               >
                 {pending ? (
@@ -299,7 +300,7 @@ const Auth = () => {
                 Already have an account?{" "}
                 <a
                   href="#"
-                  className="SignInLink text-[#A45286] font-bold hover:underline"
+                  className="SignInLink text-[#f26744] font-bold hover:underline"
                   onClick={() => setActive(false)}
                 >
                   Login

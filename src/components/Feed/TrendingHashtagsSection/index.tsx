@@ -32,7 +32,7 @@ export default async function Index() {
 
     return (
         (<div>
-            <div className="bg-white h-[265px] p-4 mb-3 rounded-[4px]">
+            <div className="bg-white min-h-[265px] p-4 mb-3 rounded-[4px]">
                 <p className="font-[600] text-[12px] uppercase leading-[11.48px] font-[Gotham]">Trending Hashtags</p>
 
                 {/* Divider */}
@@ -43,10 +43,10 @@ export default async function Index() {
 
                         return (
                             // Link to the hashtag page
-                            (<Link key={title} href={`/hashtag/${title}`} className="block">
+                            (<Link key={title} href={`/hashtag/${title}`} className="block" prefetch={true}>
                                 <div
                                     title={`${formatNumber(count)} ${count === 1 ? "post" : "posts"}`}
-                                    className="bg-[#FFE3EF] min-w-[64px] h-[32px] flex justify-center rounded-[4px] items-center my-[0.1rem] text-[12px] px-2 font-[Gotham] leading-[18px]"
+                                    className="bg-[#fadf57] min-w-[64px] h-[32px] flex justify-center rounded-[4px] items-center my-[0.1rem] text-[12px] px-2 font-[Gotham] leading-[18px]"
                                 >
                                     {hashtag}
                                 </div>

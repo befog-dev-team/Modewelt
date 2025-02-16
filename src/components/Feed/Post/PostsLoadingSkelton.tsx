@@ -8,11 +8,6 @@ export default function PostsLoadingSkelton() {
         <PostLoadingSkelton />
         <PostLoadingSkelton />
         <PostLoadingSkelton />
-        <PostLoadingSkelton />
-        <PostLoadingSkelton />
-        <PostLoadingSkelton />
-        <PostLoadingSkelton />
-        <PostLoadingSkelton />
     </div>
 }
 

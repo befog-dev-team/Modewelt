@@ -25,7 +25,7 @@ function OtherModal({ isModalOpen, closeModal }) {
         try {
             await logout();
             queryClient.clear();
-            router.push("/auth"); // Redirect after logout
+            router.push("/"); // Redirect after logout
         } catch (error) {
             console.error("Logout failed:", error);
         } finally {
@@ -56,7 +56,7 @@ function OtherModal({ isModalOpen, closeModal }) {
                     <div className="text-center space-y-4">
                         <div className="flex items-center space-x-4">
                             {/* User Avatar */}
-                            <Link href={`/profile/${user.username}`}>
+                            <Link href={`/profile/${user.username}`} prefetch={true}>
                                 <UserAvatar avatarUrl={user.avatarUrl} size={500} className="rounded-full h-20 w-20 object-cover" />
                             </Link>
                             <div className="text-left">
@@ -71,7 +71,7 @@ function OtherModal({ isModalOpen, closeModal }) {
                         <button
                             type="button"
                             style={{
-                                background: 'linear-gradient(180deg, #D675B2 0%, #A45286 100%)',
+                                background: '#f26744',
                             }}
                             className="text-white w-full h-[37px] font-medium rounded-lg text-sm inline-flex items-center justify-center px-5 py-2"
                             onClick={() => {
@@ -94,10 +94,10 @@ function OtherModal({ isModalOpen, closeModal }) {
                                 {/* <Link href={"/setting"}>
                                     <p className="text-[11px] cursor-pointer">Setting</p>
                                 </Link> */}
-                                <Link href={"/Help"}>
+                                <Link href={"/Help"} prefetch={true}>
                                     <p className="text-[11px] cursor-pointer">Help</p>
                                 </Link>
-                                <Link href={"/Terms&Condition"}>
+                                <Link href={"/Terms&Condition"} prefetch={true}>
                                     <p className="text-[11px] cursor-pointer">Terms and Conditions</p>
                                 </Link>
                             </div>
@@ -105,10 +105,10 @@ function OtherModal({ isModalOpen, closeModal }) {
                             <div className="space-y-2">
                                 <h1 className="font-medium text-[14px] cursor-pointer">Manage</h1>
                                 <div className="space-y-1">
-                                    <Link href={"/feed"}>
+                                    <Link href={"/feed"} prefetch={true}>
                                         <p className="text-[11px] cursor-pointer">Posts & Activities</p>
                                     </Link>
-                                    <Link href={"/jobs"}>
+                                    <Link href={"/jobs"} prefetch={true}>
                                         <p className="text-[11px] cursor-pointer">Job post account</p>
                                     </Link>
                                 </div>
@@ -120,7 +120,7 @@ function OtherModal({ isModalOpen, closeModal }) {
                                 onClick={handleLogout}
                                 type="button"
                                 disabled={loading} // Disable when loading
-                                style={{ background: 'linear-gradient(180deg, #D675B2 0%, #A45286 100%)' }}
+                                style={{ background: ' #f26744 ' }}
                                 className="text-white w-[111px] h-[32px] text-[12px] font-medium rounded-lg flex items-center justify-center"
                             >
                                 {loading ?

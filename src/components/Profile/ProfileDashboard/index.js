@@ -4,7 +4,7 @@ import { formatNumber } from '@/lib/utils'
 export default function ProfileDashboard({ user, totalLikesReceived, totalCommentsReceived }) {
     return (
         <div>
-            <div className="h-[360px] shadow-lg">
+            <div className="h-[360px] bg-[#ffffff] shadow-lg">
                 <div className="flex justify-between max-w-[230px] w-full ml-5">
                     <span className="font-semibold">Your Dashboard</span>
                     {/* <Link href="/stats">
@@ -18,7 +18,7 @@ export default function ProfileDashboard({ user, totalLikesReceived, totalCommen
                 <hr className="max-w-[230px] w-full mx-auto mt-4" />
                 <div className="flex flex-col md:flex-row md:flex-wrap gap-6 m-4 mt-4">
                     <div className="flex flex-col w-full md:max-w-[200px] h-auto mb-2">
-                        <span className="text-[#A45286] rounded-md font-arial font-bold text-[36px] md:text-[45px] leading-tight md:leading-[51.75px] text-left">
+                        <span className="text-[#f26744] rounded-md font-arial font-bold text-[36px] md:text-[45px] leading-tight md:leading-[51.75px] text-left">
                             {formatNumber(user.totalProfileViews)}
                         </span>
                         <span className="text-[14px] md:text-[16px] text-gray-700">
@@ -27,7 +27,7 @@ export default function ProfileDashboard({ user, totalLikesReceived, totalCommen
                     </div>
 
                     <div className="flex flex-col w-full md:max-w-[200px] h-auto mb-2">
-                        <span className="text-[#A45286] rounded-md font-arial font-bold text-[36px] md:text-[45px] leading-tight md:leading-[51.75px] text-left">
+                        <span className="text-[#f26744] rounded-md font-arial font-bold text-[36px] md:text-[45px] leading-tight md:leading-[51.75px] text-left">
                             {formatNumber(totalLikesReceived)}
                         </span>
                         <span className="text-[14px] md:text-[16px] text-gray-700">
@@ -36,7 +36,7 @@ export default function ProfileDashboard({ user, totalLikesReceived, totalCommen
                     </div>
 
                     <div className="flex flex-col w-full md:max-w-[200px] h-auto mb-2">
-                        <span className="text-[#A45286] rounded-md font-arial font-bold text-[36px] md:text-[45px] leading-tight md:leading-[51.75px] text-left">
+                        <span className="text-[#f26744] rounded-md font-arial font-bold text-[36px] md:text-[45px] leading-tight md:leading-[51.75px] text-left">
                             {formatNumber(totalCommentsReceived)}
                         </span>
                         <span className="text-[14px] md:text-[16px] text-gray-700">

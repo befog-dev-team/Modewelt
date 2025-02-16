@@ -2,7 +2,7 @@
 
 import { PostData } from "@/lib/types"; // Import PostData type
 import Image from "next/image"; // Import Image component
-import { FaEllipsisH, FaShareAlt } from "react-icons/fa"; // Import icons
+import { FaEllipsisH } from "react-icons/fa"; // Import icons
 // import { BiLike } from "react-icons/bi"; // Import icons
 import Modal from "../Sharepopup/Model"; // Import Modal component
 import { useState } from "react"; // Import useState hook
@@ -16,6 +16,8 @@ import { filesize } from "filesize"; // Import filesize function
 import { MessageSquare } from "lucide-react";
 import Commentss from "@/components/Feed/comments/Commentss";
 import LikeButton from "./LikeButton";
+import FollowButton from "@/components/FollowButton";
+import ShareButton from './ShareButton';
 
 // PostProps interface
 interface PostProps {
@@ -56,15 +58,23 @@ export default function Post({ post }: PostProps) {
     <div className="bg-white mx-auto my-4 rounded-md shadow-md w-full max-w-4xl">
       {/* Header */}
       <div className="flex justify-between items-center px-4 py-2">
-        <Link
+        {/* <Link
           href={`/posts/${post.id}`}
           className="block text-sm text-muted-foreground hover:underline"
+          prefetch={true}
           suppressHydrationWarning
         >
           <p className="leading-[15px] text-xs font-[Gotham] text-[#181818]">
             Post created by <span className="text-primary">{post.user.displayName}</span> <span className="text-primary">{formatRelativeDate(post.createdAt)}</span>
           </p>
-        </Link>
+        </Link> */}
+
+        <div>
+          <p className="leading-[15px] text-xs font-[Gotham] text-[#181818]">
+            Post created by <span className="text-primary">{post.user.displayName}</span> <span className="text-primary">{formatRelativeDate(post.createdAt)}</span>
+          </p>
+        </div>
+
         <div className="relative">
           <FaEllipsisH
             className="text-[#181818] hover:text-primary cursor-pointer w-[20px] h-[24px]"
@@ -84,9 +94,23 @@ export default function Post({ post }: PostProps) {
                 onClose={handleCloseDialog} // Pass the handleCloseDialog function to the DeletePostDialog component
               />
 
-              <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Report Post</button>
+              {user.id !== post.user.id && (
+                <FollowButton
+                  userId={post.user.id}
+                  initialState={{
+                    followers: post.user._count.followers,
+                    following: post.user._count.following,
+                    hasPendingRequest: false,
+                    isFollowedByUser: false,
+                    followingId: "",
+                    sentRequests: [],
+                    receivedRequests: []
+                  }}
+                />
+              )}
+              {/* <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Report Post</button>
               <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Connect</button>
-              <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Not Interested</button>
+              <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Not Interested</button> */}
             </div>
           )}
         </div>
@@ -96,11 +120,11 @@ export default function Post({ post }: PostProps) {
 
       {/* User Info */}
       <div className="flex items-center mt-3 space-x-4 px-8">
-        <Link href={`/profile/${post.user.username}`}>
+        <Link href={`/profile/${post.user.username}`} prefetch={true}>
           <UserAvatar avatarUrl={post.user.avatarUrl} size={500} />
         </Link>
         <div className="flex flex-col">
-          <Link href={`/profile/${post.user.username}`}>
+          <Link href={`/profile/${post.user.username}`} prefetch={true}>
             <h1 className="text-sm font-bold line-clamp-1 break-all hover:underline">{post.user.displayName}</h1>
           </Link>
           <span className="text-xs font-light">{post.user.profileHeadline}</span>
@@ -139,22 +163,25 @@ export default function Post({ post }: PostProps) {
       <div className="flex justify-between items-center pb-[16px] px-8 mb-4 mt-4">
         <div className="flex gap-12">
           <div className="flex items-center space-x-2">
-          <div className="hover:text-[#a35285]">
-            <LikeButton  postId={post.id} initialState={{
-            likes: post._count.likes,
-            isLikedByUser: post.likes.some((like) => like.userId === user.id),
-          }} />
+            <div className="hover:text-[#a35285]">
+              <LikeButton postId={post.id} initialState={{
+                likes: post._count.likes,
+                isLikedByUser: post.likes.some((like) => like.userId === user.id),
+              }} />
             </div>
-         <div className="hover:text-[#a35285]">
-          <CommentButton  post={post} onClick={() => setShowComments(!showComments)} />
+            <div className="hover:text-[#a35285]">
+              <CommentButton post={post} onClick={() => setShowComments(!showComments)} />
+            </div>
           </div>
-       </div>
         </div>
 
-        <div className="flex items-center space-x-2 cursor-pointer" onClick={() => setIsModalOpen(true)}>
+        {/* Share Button */}
+        <ShareButton shareUrl={`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${post.id}`} />
+
+        {/* <div className="flex items-center space-x-2 cursor-pointer" onClick={() => setIsModalOpen(true)}>
           <FaShareAlt className="text-primary text-lg" />
           <span className="text-sm font-semibold text-gray-800">SHARE</span>
-        </div>
+        </div> */}
       </div>
 
       {/* Comments Section */}
@@ -195,7 +222,7 @@ function MediaPreview({ media }: MediaPreviewProps) {
   // Add support for image attachments
   if (media.type === "IMAGE") {
     return (
-      <Link href={media.url} target="_blank">
+      <Link href={media.url} target="_blank" prefetch={true}>
         <Image
           src={media.url}
           alt="Attachment"
@@ -230,7 +257,7 @@ function MediaPreview({ media }: MediaPreviewProps) {
             <span>{filesize(media.fileSize)}</span>
           </div>
         </div>
-        <Link href={media.url} target="_blank">
+        <Link href={media.url} target="_blank" prefetch={true}>
           <Image width={24} height={24} src="/assets/feed/download.png" alt="Download" />
         </Link>
       </div>

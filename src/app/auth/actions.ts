@@ -26,6 +26,6 @@ export async function logout() {
     sessionCookie.attributes, // the session cookie attributes
   );
 
-  // Redirect the user to the login page
-  return redirect("/auth");
+  // Redirect the user to the home page
+  return redirect("/");
 }

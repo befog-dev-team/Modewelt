@@ -25,7 +25,7 @@ function OtherModal({ isModalOpen, closeModal }) {
         try {
             await logout();
             queryClient.clear();
-            router.push("/auth"); // Redirect after logout
+            router.push("/"); // Redirect after logout
         } catch (error) {
             console.error("Logout failed:", error);
         } finally {

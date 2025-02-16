@@ -18,6 +18,7 @@ const geistSans = localFont({ // Create a local font for Geist Sans
   weight: "100 900",
   display: "swap", // Ensures faster font rendering
 });
+
 const geistMono = localFont({ // Create a local font for Geist Mono
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",

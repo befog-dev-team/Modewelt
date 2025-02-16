@@ -50,7 +50,7 @@ export default async function Layout({
         (session.session as unknown as { fresh: boolean }).fresh = true; // Set the session as fresh
     }
 
-    // If the user is not logged in, redirect to the auth page
+    // If the user is not logged in, redirect to the home page
     if (!session.user) redirect("/");
 
     return (

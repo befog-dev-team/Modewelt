@@ -1,12 +1,29 @@
-"use client";
 
-import { useSearchParams } from "next/navigation";
+import { Metadata } from "next";
 import SearchResults from "./SearchResults";
 import Navbar from "@/components/Navbar";
 
-export default function Page() {
-  const searchParams = useSearchParams();
-  const query = searchParams.get("q") || "";
+// Page properties
+interface PageProps {
+  searchParams: Promise<{ query: string }>;
+}
+
+// Generate the page metadata
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const searchParams = await props.searchParams;
+
+  const { query } = searchParams;
+
+  return {
+    title: `Search results for "${query}"`, // Set the page title
+  };
+}
+
+// Get the search query from the query string
+export default async function Page(props: PageProps) {
+  const searchParams = await props.searchParams;
+
+  const { query } = searchParams;
 
   return (
     <div className="bg-[#a2defa] min-h-screen">

@@ -144,12 +144,13 @@ const Auth = () => {
               className="animation flex justify-between text-sm mt-2 text-blue-500 uppercase"
               style={{ "--D": 4, "--S": 25 }}
             >
-              <Link href="/forgetpassword" prefetch={true}>Forgot Password</Link>
+              {/* <Link href="/forgetpassword" prefetch={true}>Forgot Password</Link> */}
+              <Link href="/forgetpassword" prefetch={true}></Link>
               <p
                 className="SignUpLink cursor-pointer"
                 onClick={() => setActive(true)}
               >
-                Create Account
+                {/* Create Account */}
               </p>
             </div>
 

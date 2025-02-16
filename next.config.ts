@@ -37,15 +37,14 @@ const nextConfig: import('next').NextConfig = {
     formats: ['image/avif', 'image/webp'],
   },
 
-  async rewrites() {
-    return [
+  rewrites: async () => { // Define the rewrites
+    return [ // Return an array of rewrites
       {
-        source: "/hashtag/:tag",
-        destination: "/search?q=%23:tag",
+        source: "/hashtag/:tag", // Match the hashtag route
+        destination: "/search?query=%23:tag", // Redirect to the search route with the hashtag query
       },
     ];
-  },
-  output: 'standalone',
+  }
 };
 
 export default nextConfig;

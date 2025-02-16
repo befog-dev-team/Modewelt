@@ -1,26 +1,30 @@
 "use client";
+
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import logo from "../../../public/Images/logo.svg";
+
+import logo from "../../public/Images/logo.svg";
+
 import Image from "next/image";
 import { useState } from "react";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { FaUserFriends, FaFileAlt, FaFilter } from "react-icons/fa";
-import Admin from "../../../public/Images/admin.png";
-import fashionDesigner from "../../../public/Images/Fashion.png";
-import Professionals from "../../../public/Images/landing1.png";
-import Landing from "../../../public/Images/landingsec.png";
-import img1 from "../../../public/Images/l1.png";
-import img2 from "../../../public/Images/l2.png";
-import img3 from "../../../public/Images/l3.png";
-import img4 from "../../../public/Images/l4.png";
-import img5 from "../../../public/Images/l5.png";
-import img6 from "../../../public/Images/l6.png";
-import img7 from "../../../public/Images/l7.png";
-import img8 from "../../../public/Images/l8.webp";
-import img9 from "../../../public/Images/l9.webp";
-import img10 from "../../../public/Images/l10.png";
+import Admin from "../../public/Images/admin.png";
+import fashionDesigner from "../../public/Images/Fashion.png";
+import Professionals from "../../public/Images/landing1.png";
+import Landing from "../../public/Images/landingsec.png";
+import img1 from "../../public/Images/l1.png";
+import img2 from "../../public/Images/l2.png";
+import img3 from "../../public/Images/l3.png";
+import img4 from "../../public/Images/l4.png";
+import img5 from "../../public/Images/l5.png";
+import img6 from "../../public/Images/l6.png";
+import img7 from "../../public/Images/l7.png";
+import img8 from "../../public/Images/l8.webp";
+import img9 from "../../public/Images/l9.webp";
+import img10 from "../../public/Images/l10.png";
+import { getCurrentYear } from "@/lib/utils";
 
 const initialFeatures = [
   { title: "Exclusive for Fashion Industry", img: img1 },
@@ -35,6 +39,25 @@ const initialFeatures = [
   { title: "Access to Exclusive Fashion Events", img: img10 },
 ];
 
+// const features = [
+//   {
+//     icon: <FaUserFriends className="text-[#f26744] text-4xl" />,
+//     title: "Unlimited Profile Views",
+//     description:
+//       "Review endless profiles free-of-cost. Pay only when you want to contact suitable candidates",
+//   },
+//   {
+//     icon: <FaFileAlt className="text-[#f26744] text-4xl" />,
+//     title: "Auto Generated Resumes",
+//     description:
+//       "Effortlessly generate downloadable resumes from apna profiles for seamless candidate review.",
+//   },
+//   {
+//     icon: <FaFilter className="text-[#f26744] text-4xl" />,
+//     title: "Precision Filtering",
+//     description: "Use 22+ advanced filters to fine-tune candidate searches.",
+//   },
+// ];
 const features = [
   {
     icon: <FaUserFriends className="text-[#f26744] text-4xl" />,
@@ -84,28 +107,32 @@ export default function Navbar() {
 
   const faqs = [
     {
-      question: "Why should I use Modeweltjob over others?",
-      answer: "Modeweltjob offers the best features for hiring efficiently.",
+      question: "What is ModeweltJob.com?",
+      answer: "ModeweltJob.com is a dedicated platform that consolidates all top fashion job listings in one place, saving professionals time and effort from searching across multiple websites.",
       isOpen: false,
     },
     {
-      question: "What happens if I don't receive enough candidates?",
-      answer:
-        "We ensure a continuous stream of candidates to match your requirements.",
+      question: "How does ModeweltJob.com help job seekers?",
+      answer: "The platform provides direct access to leading fashion brands, including major fashion houses, startups, and established companies, making it easier to secure interviews and job offers.",
       isOpen: false,
     },
     {
-      question: "In which cities can I hire via modeweltjob?",
-      answer: "Modeweltjob operates in multiple cities nationwide.",
+      question: "What types of job opportunities are available?",
+      answer: "ModeweltJob.com offers both freelance and full-time job opportunities, catering to different career preferences.",
       isOpen: false,
     },
     {
-      question:
-        "I want to hire more than 10 candidates, do you have any bulk-hiring plans?",
-      answer: "Yes, we offer bulk-hiring solutions tailored to your needs.",
+      question: "Does the platform provide job alerts?",
+      answer: "Yes, job seekers receive real-time notifications about new job openings, exclusive internships, and the latest fashion industry trends.",
+      isOpen: false,
+    },
+    {
+      question: "How does ModeweltJob.com improve the hiring process?",
+      answer: "The platform speeds up recruitment by ensuring quick responses from employers, reducing long waiting times, and making hiring more efficient.",
       isOpen: false,
     },
   ];
+
   const jobCategories = [
     {
       title: "Fashion Design",
@@ -511,11 +538,10 @@ export default function Navbar() {
             {jobCategories.map((category, index) => (
               <div
                 key={index}
-                className={`max-w-[274px] w-full h-[214px] p-6 rounded-lg shadow-md transition-all duration-300 cursor-pointer flex flex-col items-center text-center ${
-                  category.highlighted
-                    ? "bg-orange-500 text-white"
-                    : "bg-white text-gray-800"
-                } hover:shadow-xl hover:-translate-y-1`}
+                className={`max-w-[274px] w-full h-[214px] p-6 rounded-lg shadow-md transition-all duration-300 cursor-pointer flex flex-col items-center text-center ${category.highlighted
+                  ? "bg-orange-500 text-white"
+                  : "bg-white text-gray-800"
+                  } hover:shadow-xl hover:-translate-y-1`}
               >
                 <span className="text-4xl">{category.icon}</span>
                 <h3 className="mt-4 text-lg font-semibold">{category.title}</h3>
@@ -600,7 +626,7 @@ export default function Navbar() {
         </div>
       </section>
 
-      <div className="p-6 md:p-12 min-h-screen rounded-xl bg-[#f4f2ff] flex flex-col items-center">
+      <div className="p-6 md:p-12 min-h-[50vh] rounded-xl bg-[#f4f2ff] flex flex-col items-center">
         {/* Main Grid Section */}
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Image Section */}
@@ -667,9 +693,9 @@ export default function Navbar() {
             </h1>
             <p className="text-lg mb-6">Start posting jobs for only Free.</p>
             <button className="bg-white text-blue-600 px-6 py-3 rounded-md font-semibold hover:bg-gray-200 transition">
-            <Link href="/auth" prefetch={true}>
-              Sign Up For Free
-            </Link>
+              <Link href="/auth" prefetch={true}>
+                Sign Up For Free
+              </Link>
             </button>
           </div>
 
@@ -730,9 +756,9 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <footer className="w-full bg-gray-900 text-gray-400 mt-16 py-8">
-        <div className="max-w-6xl mx-auto px-6 md:flex md:justify-between">
-          {/* <div className="mb-6 md:mb-0">
+      <footer className="w-full flex justify-center items-center bg-gray-900 text-gray-400 mt-16 py-8">
+        {/* <div className="max-w-6xl mx-auto px-6 md:flex md:justify-between">
+          <div className="mb-6 md:mb-0">
             <div className="bg-gray-700 h-12 w-12 rounded-md"></div>
             <div className="flex space-x-4 mt-4">
               <span className="bg-gray-700 h-6 w-6 rounded-full"></span>
@@ -740,8 +766,8 @@ export default function Navbar() {
               <span className="bg-gray-700 h-6 w-6 rounded-full"></span>
               <span className="bg-gray-700 h-6 w-6 rounded-full"></span>
             </div>
-          </div> */}
-          {/* <div className="grid grid-cols-2 md:grid-cols-3 gap-20">
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-20">
             <div>
               <h4 className="text-white font-semibold mb-2">PRODUCT</h4>
               <ul className="space-y-1">
@@ -768,10 +794,10 @@ export default function Navbar() {
                 <li>Blogs</li>
               </ul>
             </div>
-          </div> */}
-        </div>
-        <div className="border-t border-gray-700 mt-6 pt-4 text-center text-sm">
-          <p>© 2025 Modeweltjob | All rights reserved.</p>
+          </div>
+        </div> */}
+        <div className="border-gray-700 text-sm">
+          <p>© {getCurrentYear()} Modeweltjob | All rights reserved.</p>
         </div>
       </footer>
     </div>

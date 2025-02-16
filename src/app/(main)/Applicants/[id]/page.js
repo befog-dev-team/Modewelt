@@ -1,7 +1,7 @@
 "use client";
 
 import { MdOutlineFileDownload } from "react-icons/md";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
@@ -41,6 +41,13 @@ const ApplicantsPage = () => {
     },
   });
 
+  // Set default applicant when data is fetched
+  useEffect(() => {
+    if (applicantsData && applicantsData.length > 0 && !selectedApplicant) {
+      setSelectedApplicant(applicantsData[0]);
+    }
+  }, [applicantsData, selectedApplicant]);
+
   // Loading or error state handling
   if (isLoading) {
     return (
@@ -51,11 +58,6 @@ const ApplicantsPage = () => {
   // Error handling if job data fetch fails
   if (error) {
     return <div className="min-h-screen bg-gray-100">Error: {error.message}</div>;
-  }
-
-  // Set the first applicant as selected by default
-  if (applicantsData && applicantsData.length > 0 && !selectedApplicant) {
-    setSelectedApplicant(applicantsData[0]);
   }
 
   // Job status and formatted expiration date
@@ -115,42 +117,36 @@ const ApplicantsPage = () => {
           <Suspense fallback={<Loader2 className="mx-auto" />}>
             <div className="bg-white shadow-md rounded-lg p-4 overflow-y-auto h-[500px]">
               <h2 className="text-lg font-semibold text-[#f26744] mb-4">Applicants</h2>
-              {applicantsData && applicantsData.length > 0 ? (
-                applicantsData.map((applicant) => (
-                  <div
-                    key={applicant.id}
-                    className={`flex items-center gap-4 p-3 mb-2 rounded-md cursor-pointer hover:bg-gray-100 transition ${selectedApplicant?.id === applicant.id ? "bg-gray-200" : ""
-                      }`}
-                    onClick={() => setSelectedApplicant(applicant)}
-                  >
-                    <UserAvatar
-                      avatarUrl={applicant.user.avatarUrl}
-                      size={1000}
-                    />
-                    <div>
-                      <h3 className="text-sm font-medium">
-                        {applicant.firstName} {applicant.lastName}
-                      </h3>
-                      <p className="text-xs text-gray-500 truncate w-48">
-                        {applicant.email}
-                      </p>
-                      <span className="text-xs text-gray-400">
-                        Applied on: {formatRelativeDate(applicant.createdAt)}
-                      </span>
-                    </div>
+              {Array.isArray(applicantsData) && applicantsData.map((applicant) => (
+                <div
+                  key={applicant.id}
+                  className={`flex items-center gap-4 p-3 mb-2 rounded-md cursor-pointer hover:bg-gray-100 transition ${selectedApplicant?.id === applicant.id ? "bg-gray-200" : ""
+                    }`}
+                  onClick={() => setSelectedApplicant(applicant)}
+                >
+                  <UserAvatar
+                    avatarUrl={applicant.user.avatarUrl}
+                    size={1000}
+                  />
+                  <div>
+                    <h3 className="text-sm font-medium">
+                      {applicant.firstName} {applicant.lastName}
+                    </h3>
+                    <p className="text-xs text-gray-500 truncate w-48">
+                      {applicant.email}
+                    </p>
+                    <span className="text-xs text-gray-400">
+                      Applied on: {formatRelativeDate(applicant.createdAt)}
+                    </span>
                   </div>
-                ))
-              ) : (
-                <div className="text-center text-gray-500 py-6">
-                  No applicants found for this job.
                 </div>
-              )}
+              ))}
             </div>
           </Suspense>
 
           {/* Applicant Details */}
           <Suspense fallback={<Loader2 className="mx-auto" />}>
-            {selectedApplicant ? (
+            {selectedApplicant && (
               <div className="col-span-2 bg-white shadow-md rounded-lg p-6 overflow-y-auto h-[500px]">
                 {/* Header Section */}
                 <div className="flex items-center gap-4">
@@ -309,10 +305,6 @@ const ApplicantsPage = () => {
                   ))}
                 </div>
               </div>
-            ) : (
-              <div className="col-span-2 bg-white shadow-md rounded-lg p-6 overflow-y-auto h-[500px] flex items-center justify-center">
-                <p className="text-gray-500 text-lg">No applicant selected.</p>
-              </div>
             )}
           </Suspense>
         </div>
@@ -321,4 +313,4 @@ const ApplicantsPage = () => {
   );
 };
 
-export default ApplicantsPage;
+export default ApplicantsPage

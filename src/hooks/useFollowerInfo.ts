@@ -19,19 +19,17 @@ export default function useFollowerInfo(
     queryFn: async () => {
       const response = await kyInstance.get(`/api/users/${userId}/followers`).json<FollowerInfo>();
       return {
-        followers: response.followers ?? 0,
-        following: response.following ?? 0,
-        isFollowedByUser: response.isFollowedByUser ?? false,
-        hasPendingRequest: response.hasPendingRequest ?? false,
-        sentRequests: response.sentRequests ?? [],
-        receivedRequests: response.receivedRequests ?? [],
+        followers: response.followers || 0,
+        following: response.following || 0,
+        isFollowedByUser: response.isFollowedByUser,
+        hasPendingRequest: response.hasPendingRequest,
+        sentRequests: response.sentRequests || [],
+        receivedRequests: response.receivedRequests || [],
       };
     },
     initialData: initialState,
-    staleTime: 1, // Immediate stale
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: true,
-    enabled: !!loggedInUser && !!userId,
+    staleTime: 1000, // 1 second
+    refetchInterval: 5000 , // Refetch every 5 seconds
   });
 
   return query;

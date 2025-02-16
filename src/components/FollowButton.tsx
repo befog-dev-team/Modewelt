@@ -1,4 +1,3 @@
-// components/FollowRequestButton.tsx
 "use client";
 
 import { useState } from "react";
@@ -23,7 +22,7 @@ export default function FollowRequestButton({
     const { user } = useSession();
     const [isProcessing, setIsProcessing] = useState(false);
 
-    const queryKey: QueryKey = ["follower-info", user?.id, userId];
+    const queryKey: QueryKey = ["follower-info", userId];
 
     const { mutate, isPending } = useMutation({
         mutationFn: async () => {
@@ -42,46 +41,57 @@ export default function FollowRequestButton({
                 });
             }
         },
+
+        // ✅ Optimistic Update
         onMutate: async () => {
             await queryClient.cancelQueries({ queryKey });
+
             const previousState = queryClient.getQueryData<FollowerInfo>(queryKey);
 
-            queryClient.setQueryData(queryKey, (prev: FollowerInfo) => {
+            // Optimistically update
+            queryClient.setQueryData(queryKey, (prev: FollowerInfo | undefined) => {
                 if (!prev) return previousState;
-                if (prev.isFollowedByUser) {
-                    return { ...prev, isFollowedByUser: false, hasPendingRequest: false };
-                } else if (prev.hasPendingRequest) {
-                    return { ...prev, hasPendingRequest: false };
-                } else {
-                    return { ...prev, hasPendingRequest: true };
-                }
+
+                const isFollowing = prev.isFollowedByUser;
+                return {
+                    ...prev,
+                    isFollowedByUser: !isFollowing,
+                    hasPendingRequest: isFollowing ? false : !prev.hasPendingRequest,
+                    followers: isFollowing ? prev.followers - 1 : prev.followers + 1,
+                };
             });
 
             return { previousState };
         },
+
+        // ✅ Rollback on Error
         onError: (_, __, context) => {
             if (context?.previousState) {
                 queryClient.setQueryData(queryKey, context.previousState);
             }
             setIsProcessing(false);
         },
+
+        // ✅ Update on Success
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey });
-            queryClient.refetchQueries({ queryKey });
-            setIsProcessing(false);
         },
+
+        // ✅ Final State Sync
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey });
             setIsProcessing(false);
         },
     });
 
+    // Button Text
     const buttonText = data.isFollowedByUser
         ? "Following"
         : data.hasPendingRequest
             ? "Requested"
             : "Follow";
 
+    // Button Styles
     const buttonStyles = {
         Follow:
             "bg-[#f26744] text-white text-sm font-bold w-full py-1 px-4 rounded flex items-center justify-center",

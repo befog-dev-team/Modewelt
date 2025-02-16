@@ -10,6 +10,7 @@ import { Loader2, SquareArrowOutUpRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { formatRelativeDate } from "@/lib/utils";
+import UserAvatar from "@/components/UserAvatar";
 
 const ApplicantsPage = () => {
   const router = useRouter();
@@ -121,11 +122,10 @@ const ApplicantsPage = () => {
                     }`}
                   onClick={() => setSelectedApplicant(applicant)}
                 >
-                  <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
-                    <span className="text-lg font-semibold text-gray-600">
-                      {applicant.firstName[0]}
-                    </span>
-                  </div>
+                  <UserAvatar
+                    avatarUrl={applicant.user.avatarUrl}
+                    size={1000}
+                  />
                   <div>
                     <h3 className="text-sm font-medium">
                       {applicant.firstName} {applicant.lastName}
@@ -148,11 +148,11 @@ const ApplicantsPage = () => {
               <div className="col-span-2 bg-white shadow-md rounded-lg p-6 overflow-y-auto h-[500px]">
                 {/* Header Section */}
                 <div className="flex items-center gap-4">
-                  <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
-                    <span className="text-2xl font-semibold text-gray-600">
-                      {selectedApplicant.firstName[0]}
-                    </span>
-                  </div>
+                  <UserAvatar
+                    className="w-20 h-20"
+                    avatarUrl={selectedApplicant.user.avatarUrl}
+                    size={1000}
+                  />
                   <div>
                     <h2 className="text-lg font-semibold">
                       {selectedApplicant.firstName} {selectedApplicant.lastName}
@@ -168,7 +168,7 @@ const ApplicantsPage = () => {
                 <div className="flex gap-4 mt-4">
                   <button
                     className="border border-[#f26744] uppercase text-[#f26744] px-4 py-2 rounded-full hover:bg-[#f26744] hover:text-white transition"
-                    onClick={() => router.push(`/profile/${selectedApplicant.username}`)}
+                    onClick={() => router.push(`/profile/${selectedApplicant.user.username}`)}
                   >
                     See profile
                   </button>

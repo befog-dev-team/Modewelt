@@ -334,11 +334,10 @@ export default function Home() {
                 method: "POST",
                 body: formDataToSend,
             });
-
             setSubmitLoading(false);
-
+            toast.success("Application submitted successfully!");
+            router.push("/jobs")
             if (response.status === 200) {
-                toast.success("Application submitted successfully!");
                 setFormData({
                     jobId: id,
                     userId: user.id,
@@ -374,8 +373,6 @@ export default function Home() {
                 setFiles([]);
                 setInputCaptcha("");
                 setCaptcha(regenerateCaptcha());
-                router.push("/jobs")
-                toast.success("Application submitted successfully!");
             }
         } catch (error) {
             console.error("Error submitting form:", error);

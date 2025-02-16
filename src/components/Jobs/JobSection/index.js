@@ -6,7 +6,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import JobPost from "./JobPost";
 
-export default function ForYouJobFeed({ searchQuery }) {
+export default function JobSection({ searchQuery }) {
   // const [filteredJobs, setFilteredJobs] = useState([]);
 
   const {

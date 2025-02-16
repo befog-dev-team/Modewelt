@@ -13,12 +13,12 @@ export default function JobMenu() {
       action: () => router.push("/postJob"),
       color: "text-blue-500",
     },
-    // {
-    //   icon: "ri-briefcase-line",
-    //   text: "MANAGE YOUR JOBS",
-    //   action: () => router.push("/jobManagement"),
-    //   color: "text-purple-500",
-    // },
+    {
+      icon: "ri-briefcase-line",
+      text: "MANAGE YOUR JOBS",
+      action: () => router.push("/jobManagement"),
+      color: "text-purple-500",
+    },
   ];
 
   return (
@@ -32,7 +32,7 @@ export default function JobMenu() {
                 className="flex items-center w-full p-2 space-x-3 hover:bg-gray-50 rounded-md transition-colors"
                 aria-label={item.text}
               >
-                <i className={`${item.icon} ${item.color} text-lg`} />
+                <li className={`${item.icon} ${item.color} text-lg`} />
                 <span className="font-semibold text-gray-700">{item.text}</span>
               </button>
             </li>

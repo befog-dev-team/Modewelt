@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
-import ForYouJobFeed from "@/components/Jobs/JobSection/index.js";
+import JobSection from "@/components/Jobs/JobSection/index.js";
 
 export default function Index() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -33,8 +33,8 @@ export default function Index() {
         </div>
       </div>
 
-      {/* Pass searchQuery to ForYouJobFeed */}
-      <ForYouJobFeed searchQuery={searchQuery} />
+      {/* Pass searchQuery to JobSection */}
+      <JobSection searchQuery={searchQuery} />
     </div>
   );
 }

@@ -1,13 +1,14 @@
 import { validateRequest } from "@/auth";
 import prisma from "@/lib/prisma"; // Import the Prisma client
 import { getPostDataInclude } from "@/lib/types";
-import { notFound } from "next/navigation";
-import React, { cache, Suspense } from 'react'
+import { notFound, redirect } from "next/navigation";
+import { cache, Suspense } from 'react'
 import Post from "@/components/Feed/Post"
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import UserAvatar from "@/components/UserAvatar";
 import Navbar from "@/components/Navbar";
+import FollowButton from "@/components/FollowButton";
 
 // getPost is a function that gets a post with the given ID and the user who posted it.
 const getPost = cache(async (postId, loggedInUserId) => {
@@ -36,7 +37,9 @@ export async function generateMetadata(props) {
   const { user } = await validateRequest();
 
   // If the user is not authenticated, return an empty object
-  if (!user) return {};
+  if (!user) {
+    redirect("/auth");
+  };
 
   // Get the post with the given ID and the user who posted it
   const post = await getPost(postId, user.id);
@@ -63,6 +66,10 @@ export default async function Page(props) {
         You&apos;re not authorized to view this page.
       </p>
     );
+  }
+
+  if(!user){
+    redirect("/auth");
   }
 
   // Get the post with the given ID and the user who posted it

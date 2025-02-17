@@ -84,12 +84,13 @@ export default function FollowButton({
 
     const buttonStyles = {
         Follow:
-            "bg-[#f26744] text-white text-sm font-bold w-full py-1 px-4 rounded flex items-center justify-center",
+            "bg-[#f26744] text-white text-sm w-full px-4 py-2 hover:font-bold rounded flex items-center justify-center",
         Requested:
-            "bg-gray-300 py-1 px-4 text-sm font-semibold rounded flex items-center w-full justify-center",
+            "bg-gray-300 text-sm w-full px-4 py-2 hover:font-bold rounded flex items-center justify-center",
         Following:
-            "bg-white text-[#B7B7B7] text-sm font-bold py-1 px-4 rounded border border-[#E7E7E7] w-full flex items-center justify-center",
+            "bg-white text-[#B7B7B7] text-sm w-full px-4 py-2 hover:font-bold rounded border border-[#E7E7E7] flex items-center justify-center",
     };
+
 
     return (
         <button

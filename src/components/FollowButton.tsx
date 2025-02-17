@@ -1,35 +1,33 @@
+// components/FollowRequestButton.tsx
 "use client";
 
-import { useEffect, useState } from "react";
-// import { toast } from "react-toastify";
+import { useState } from "react";
 import useFollowerInfo from "@/hooks/useFollowerInfo";
 import { FollowerInfo } from "@/lib/types";
 import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
 import kyInstance from "@/lib/ky";
 import { useSession } from "@/app/(main)/SessionProvider";
-import { Loader2 } from "lucide-react"; // Import a loading icon
+import { Loader2 } from "lucide-react";
 
-interface FollowRequestButtonProps {
+interface FollowButtonProps {
     userId: string;
     initialState: FollowerInfo;
 }
 
-export default function FollowRequestButton({ userId, initialState }: FollowRequestButtonProps) {
+export default function FollowButton({
+    userId,
+    initialState,
+}: FollowButtonProps) {
     const queryClient = useQueryClient();
     const { data = initialState } = useFollowerInfo(userId, initialState);
     const { user } = useSession();
-    const [isProcessing, setIsProcessing] = useState(false); // Local state for extra protection
+    const [isProcessing, setIsProcessing] = useState(false);
 
-    const queryKey: QueryKey = ["follower-info", userId];
-
-    useEffect(() => {
-        // Debugging: Log the current state
-        // console.log("Current state:", data);
-    }, [data]);
+    const queryKey: QueryKey = ["follower-info", user?.id, userId];
 
     const { mutate, isPending } = useMutation({
         mutationFn: async () => {
-            setIsProcessing(true); // Prevent spamming immediately
+            setIsProcessing(true);
             const currentUserId = user.id;
 
             if (data.isFollowedByUser) {
@@ -50,7 +48,6 @@ export default function FollowRequestButton({ userId, initialState }: FollowRequ
 
             queryClient.setQueryData(queryKey, (prev: FollowerInfo) => {
                 if (!prev) return previousState;
-
                 if (prev.isFollowedByUser) {
                     return { ...prev, isFollowedByUser: false, hasPendingRequest: false };
                 } else if (prev.hasPendingRequest) {
@@ -62,19 +59,20 @@ export default function FollowRequestButton({ userId, initialState }: FollowRequ
 
             return { previousState };
         },
-        onError: (error, _, context) => {
-            queryClient.setQueryData(queryKey, context?.previousState);
+        onError: (_, __, context) => {
+            if (context?.previousState) {
+                queryClient.setQueryData(queryKey, context.previousState);
+            }
+            setIsProcessing(false);
         },
-        // onError: (error, _, context) => {
-        //     queryClient.setQueryData(queryKey, context?.previousState);
-        //     console.error(error);
-        //     toast.error("Something went wrong. Please try again.");
-        // },
-        
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey });
+            queryClient.refetchQueries({ queryKey });
+            setIsProcessing(false);
+        },
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey });
-            queryClient.refetchQueries({ queryKey }); // Force immediate refetch
-            setIsProcessing(false); // Reset processing state
+            setIsProcessing(false);
         },
     });
 
@@ -85,18 +83,25 @@ export default function FollowRequestButton({ userId, initialState }: FollowRequ
             : "Follow";
 
     const buttonStyles = {
-        Follow: "bg-[#f26744] text-white text-sm font-bold w-full py-1 px-4 rounded flex items-center justify-center",
-        Requested: "bg-gray-300 py-1 pl-[0.55rem] pr-5 text-sm font-semibold rounded flex items-center w-full justify-center",
-        Following: "bg-white text-[#B7B7B7] text-sm font-bold py-1 px-4 rounded border-[#E7E7E7] w-full border-[1px] flex items-center justify-center",
+        Follow:
+            "flex items-center justify-center w-full py-1 px-4 text-sm bg-[#f26744] text-white text-sm font-bold rounded",
+        Requested:
+            "flex items-center justify-center w-full py-1 px-4 text-sm bg-gray-300 text-sm font-semibold rounded",
+        Following:
+            "flex items-center justify-center w-full py-1 px-4 text-sm bg-white text-[#B7B7B7] text-sm font-bold rounded border border-[#E7E7E7]",
     };
 
     return (
         <button
-            className={buttonStyles[buttonText] || "bg-primary text-white text-sm font-semibold py-1 px-4 rounded flex items-center justify-center"}
-            onClick={() => !isProcessing && mutate()} // Prevent spam clicks
-            disabled={isPending || isProcessing} // Disable button during mutation
+            className={buttonStyles[buttonText] || buttonStyles.Follow}
+            onClick={() => !isProcessing && mutate()}
+            disabled={isPending || isProcessing}
         >
-            {isPending || isProcessing ? <Loader2 className="w-6 animate-spin mx-auto" /> : buttonText}
+            {isPending || isProcessing ? (
+                <Loader2 className="w-4 h-4 animate-spin mx-auto" />
+            ) : (
+                buttonText
+            )}
         </button>
     );
 }

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-
 import logo from "../../public/Images/logo.svg";
 
 import Image from "next/image";
@@ -74,7 +73,8 @@ const features = [
   {
     icon: <FaFilter className="text-[#f26744] text-4xl" />,
     title: "Direct Access to Top Brands",
-    description: "Connect with leading fashion houses, startups, and established brands for job opportunities.",
+    description:
+      "Connect with leading fashion houses, startups, and established brands for job opportunities.",
   },
 ];
 
@@ -93,7 +93,8 @@ const searchOptions = [
   {
     id: 3,
     title: "Tailored for Fashion Enthusiasts",
-    description: "Unlike general job portals, ModeweltJob.com focuses exclusively on the fashion industry, providing highly relevant opportunities.",
+    description:
+      "Unlike general job portals, ModeweltJob.com focuses exclusively on the fashion industry, providing highly relevant opportunities.",
   },
 ];
 export default function Navbar() {
@@ -108,27 +109,32 @@ export default function Navbar() {
   const faqs = [
     {
       question: "What is ModeweltJob.com?",
-      answer: "ModeweltJob.com is a dedicated platform that consolidates all top fashion job listings in one place, saving professionals time and effort from searching across multiple websites.",
+      answer:
+        "ModeweltJob.com is a dedicated platform that consolidates all top fashion job listings in one place, saving professionals time and effort from searching across multiple websites.",
       isOpen: false,
     },
     {
       question: "How does ModeweltJob.com help job seekers?",
-      answer: "The platform provides direct access to leading fashion brands, including major fashion houses, startups, and established companies, making it easier to secure interviews and job offers.",
+      answer:
+        "The platform provides direct access to leading fashion brands, including major fashion houses, startups, and established companies, making it easier to secure interviews and job offers.",
       isOpen: false,
     },
     {
       question: "What types of job opportunities are available?",
-      answer: "ModeweltJob.com offers both freelance and full-time job opportunities, catering to different career preferences.",
+      answer:
+        "ModeweltJob.com offers both freelance and full-time job opportunities, catering to different career preferences.",
       isOpen: false,
     },
     {
       question: "Does the platform provide job alerts?",
-      answer: "Yes, job seekers receive real-time notifications about new job openings, exclusive internships, and the latest fashion industry trends.",
+      answer:
+        "Yes, job seekers receive real-time notifications about new job openings, exclusive internships, and the latest fashion industry trends.",
       isOpen: false,
     },
     {
       question: "How does ModeweltJob.com improve the hiring process?",
-      answer: "The platform speeds up recruitment by ensuring quick responses from employers, reducing long waiting times, and making hiring more efficient.",
+      answer:
+        "The platform speeds up recruitment by ensuring quick responses from employers, reducing long waiting times, and making hiring more efficient.",
       isOpen: false,
     },
   ];
@@ -266,7 +272,7 @@ export default function Navbar() {
         >
           <path
             d="M21.9999 11.764V38.48C21.9993 39.3089 21.7062 40.1111 21.1722 40.7451C20.6382 41.3791 19.8976 41.8043 19.0808 41.9458C18.2641 42.0873 17.4236 41.936 16.7074 41.5186C15.9912 41.1012 15.4453 40.4444 15.1659 39.664L10.8719 27.364M35.9999 26C37.5912 26 39.1174 25.3679 40.2426 24.2426C41.3678 23.1174 41.9999 21.5913 41.9999 20C41.9999 18.4087 41.3678 16.8826 40.2426 15.7574C39.1174 14.6321 37.5912 14 35.9999 14V26ZM10.8719 27.366C9.17437 26.6442 7.7783 25.3581 6.91999 23.7253C6.06168 22.0925 5.79385 20.2134 6.16181 18.4058C6.52976 16.5982 7.51092 14.9733 8.93924 13.806C10.3676 12.6387 12.1553 12.0007 13.9999 12H17.6639C25.8639 12 32.9139 9.532 35.9999 6V34C32.9139 30.468 25.8659 28 17.6639 28H13.9999C12.9252 28.0016 11.8612 27.7859 10.8719 27.366Z"
-            stroke="white"
+            stroke="#F26643"
             strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -478,7 +484,7 @@ export default function Navbar() {
             An Exclusive Platform for Fashion Designers
           </p>
           <div className="lg:w-3/4 sm:w-full h-[1px] bg-gray-500"></div>
-          <button className="border border-[#f26744] text-[#f26744] px-6 py-2 rounded-lg hover:bg-[#f26744] hover:text-white transition">
+          <button className="border border-[#f26744] text-[#f26744] font-bold px-6 py-2 rounded-lg hover:bg-[#f26744] hover:text-white transition">
             <Link href="/auth" className="mt-4" prefetch={true}>
               Registered Now
             </Link>
@@ -538,17 +544,17 @@ export default function Navbar() {
             {jobCategories.map((category, index) => (
               <div
                 key={index}
-                className={`max-w-[274px] w-full h-[214px] p-6 rounded-lg shadow-md transition-all duration-300 cursor-pointer flex flex-col items-center text-center ${category.highlighted
-                  ? "bg-orange-500 text-white"
-                  : "bg-white text-gray-800"
-                  } hover:shadow-xl hover:-translate-y-1`}
+                className="group max-w-[274px] w-full h-[214px] p-6 rounded-lg shadow-md cursor-pointer flex flex-col items-center text-center bg-white text-gray-800 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
-                <span className="text-4xl">{category.icon}</span>
+                <span className="text-4xl transition-all duration-300 group-hover:text-white">
+                  {category.icon}
+                </span>
                 <h3 className="mt-4 text-lg font-semibold">{category.title}</h3>
-                <p className="text-sm mt-2">{category.jobs} jobs available</p>
+                <p className="text-sm mt-2">jobs available</p>
               </div>
             ))}
           </div>
+
           {/* <a
             href="#"
             className="inline-block mt-6 text-blue-700 font-semibold hover:underline"
@@ -564,7 +570,7 @@ export default function Navbar() {
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
             The Ultimate Career Platform for Fashion Professionals
           </h1>
-          <p className="mt-2 text-lg text-gray-700">
+          <p className="mt-2 text-lg text-gray-700 font-bold">
             Build Your Fashion Career with Modeweltjob
           </p>
         </div>
@@ -588,11 +594,11 @@ export default function Navbar() {
               Are you a fashion designer, stylist, photographer, or industry
               expert looking for the right opportunities? Modewelt is here to
               connect you with top brands, recruiters, and creative
-              professionals worldwide. Whether you&apos;re starting your journey or
-              leveling up your career, Modewelt makes it easier for you to
+              professionals worldwide. Whether you&apos;re starting your journey
+              or leveling up your career, Modewelt makes it easier for you to
               showcase your talent and get hired.
             </p>
-            <button className="mt-6 bg-[#f26744] text-white px-6 py-2 rounded-md shadow-md hover:bg-[#f26744] transition-all duration-300">
+            <button className="mt-6 bg-[#f26744] font-bold text-white px-6 py-2 rounded-md shadow-md hover:bg-[#f26744] transition-all duration-300">
               <Link href="/auth" className="mt-4" prefetch={true}>
                 Registered Now
               </Link>
@@ -640,7 +646,7 @@ export default function Navbar() {
 
           {/* Content Section */}
           <div className="space-y-6">
-            <p className="text-[#f26744] font-semibold uppercase text-sm tracking-wider">
+            <p className="text-[#f26744] uppercase text-sm font-bold tracking-wider">
               Modewelt Database
             </p>
             <h2 className="text-2xl md:text-3xl font-bold leading-snug">
@@ -748,7 +754,9 @@ export default function Navbar() {
           </p>
           <div className="mt-6 grid lg:grid-cols-2 sm:grid-cols-1 gap-4 justify-center sm:justify-start">
             <button className="px-6 py-3 bg-[#f26744] text-white font-semibold rounded-lg shadow-md hover:bg-[#f26744] transition w-full sm:w-auto">
-              <Link href="/auth" prefetch={true}>Login/Sign up</Link>
+              <Link href="/auth" prefetch={true}>
+                Login/Sign up
+              </Link>
             </button>
             <button className="px-6 py-3 border border-[#f26744] text-[#f26744] font-semibold rounded-lg hover:bg-gray-100 transition w-full sm:w-auto">
               <a href="mailto:contact.us@befog.in">Contact us</a>

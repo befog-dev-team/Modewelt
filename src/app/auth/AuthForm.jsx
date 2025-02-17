@@ -112,7 +112,7 @@ const Auth = () => {
         <div className="curved-shape2 hidden md:block"></div>
 
         {/* LOGIN FORM */}
-        <div className="form-box Login sm:w-full md: w-full">
+        <div className="form-box Login sm:w-full md:w-full">
           <div className="relative">
             <h2
               className="animation text-center text-[2.5rem] font-[800] text-[#f26744] mb-8 uppercase"

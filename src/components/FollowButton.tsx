@@ -9,15 +9,15 @@ import kyInstance from "@/lib/ky";
 import { useSession } from "@/app/(main)/SessionProvider";
 import { Loader2 } from "lucide-react";
 
-interface FollowRequestButtonProps {
+interface FollowButtonProps {
     userId: string;
     initialState: FollowerInfo;
 }
 
-export default function FollowRequestButton({
+export default function FollowButton({
     userId,
     initialState,
-}: FollowRequestButtonProps) {
+}: FollowButtonProps) {
     const queryClient = useQueryClient();
     const { data = initialState } = useFollowerInfo(userId, initialState);
     const { user } = useSession();

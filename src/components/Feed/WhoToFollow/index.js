@@ -38,7 +38,7 @@ export default async function WhoToFollow() {
             <hr className="border-t border-[#F4F4F4] mt-4" />
 
             {/* Users to follow */}
-            <div className="h-[250px] mt-2 mx-2 overflow-y-auto no-scrollbar">
+            <div className="h-[250px] mt-2 overflow-y-auto no-scrollbar">
                 {usersToFollow.map((user) => (
                     <div key={user.id} className="flex items-center space-x-3 my-6">
                         <Link

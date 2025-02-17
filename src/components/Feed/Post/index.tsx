@@ -84,7 +84,7 @@ export default function Post({ post }: PostProps) {
           {isPopupOpen && ( // Display the popup if isPopupOpen is true
             <div className="absolute right-0 mt-2 w-[200px] bg-white border border-gray-300 shadow-lg rounded-lg z-10">
               {post.user.id === user.id && ( // Check if the post user ID matches the current user ID
-                <button onClick={handleDeleteClick} className="flex items-center justify-center w-full px-4 py-2 text-sm hover:text-white hover:font-bold hover:bg-red-500">Delete</button>
+                <button onClick={handleDeleteClick} className="flex items-center justify-center w-full py-1 px-4 text-sm rounded hover:text-white hover:font-bold hover:bg-red-500">Delete</button>
               )}
 
               {/* Render DeletePostDialog */}

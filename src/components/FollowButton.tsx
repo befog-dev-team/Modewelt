@@ -86,9 +86,9 @@ export default function FollowButton({
         Follow:
             "bg-[#f26744] text-white text-sm font-bold w-full py-1 px-4 rounded flex items-center justify-center",
         Requested:
-            "bg-gray-300 py-1 px-4 text-sm font-semibold rounded flex items-center w-full justify-center",
+            "bg-gray-300 py-1 text-sm font-semibold rounded flex items-center w-full justify-center",
         Following:
-            "bg-white text-[#B7B7B7] text-sm font-bold py-1 px-4 rounded border border-[#E7E7E7] w-full flex items-center justify-center",
+            "bg-white text-[#B7B7B7] text-sm font-bold py-1 rounded border border-[#E7E7E7] w-full flex items-center justify-center",
     };
 
     return (

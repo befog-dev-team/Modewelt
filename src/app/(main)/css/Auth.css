@@ -71,13 +71,14 @@
 
 .auth-container.active .form-box.Login .animation {
     transform: translateX(-120%);
+    transition: .2s;
     opacity: 0;
     transition-delay: calc(.05s * var(--D));
 }
 
 .form-box.Register {
     right: 0;
-    padding: 0 60px;
+    padding: 0 40px;
 }
 
 .form-box.Register .animation {

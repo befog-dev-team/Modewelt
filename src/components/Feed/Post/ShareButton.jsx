@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
     FacebookIcon, FacebookShareButton,
-    TwitterIcon, TwitterShareButton,
+    XIcon, TwitterShareButton,
     LinkedinIcon, LinkedinShareButton,
     WhatsappIcon, WhatsappShareButton,
 } from "react-share";
@@ -62,22 +62,22 @@ export default function ShareButton({ shareUrl }) {
                         </button>
 
                         {/* Facebook Share */}
-                        <FacebookShareButton suppressHydrationWarning data-networkname="facebook" url={shareUrl} quote="Check this out!" hashtag="#fashion">
+                        <FacebookShareButton suppressHydrationWarning url={shareUrl} quote="Check this out!" hashtag="#fashion">
                             <FacebookIcon size={40} className="rounded-full" />
                         </FacebookShareButton>
 
                         {/* Twitter Share */}
-                        <TwitterShareButton suppressHydrationWarning data-networkname="twitter" url={shareUrl} title="Check out this post!" hashtags={["fashion", "style"]}>
-                            <TwitterIcon size={40} className="rounded-full" />
+                        <TwitterShareButton suppressHydrationWarning url={shareUrl} title="Check out this post!" hashtags={["fashion", "style"]}>
+                            <XIcon size={40} className="rounded-full" />
                         </TwitterShareButton>
 
                         {/* LinkedIn Share */}
-                        <LinkedinShareButton suppressHydrationWarning data-networkname="linkedin" url={shareUrl} title="Check this out!" summary="A cool fashion post" source="FashionApp">
+                        <LinkedinShareButton suppressHydrationWarning url={shareUrl} title="Check this out!" summary="A cool fashion post" source="FashionApp">
                             <LinkedinIcon size={40} className="rounded-full" />
                         </LinkedinShareButton>
 
                         {/* WhatsApp Share */}
-                        <WhatsappShareButton suppressHydrationWarning data-networkname="whatsapp" url={shareUrl} title="Check out this fashion post!" separator=":: ">
+                        <WhatsappShareButton suppressHydrationWarning url={shareUrl} title="Check out this fashion post!" separator=":: ">
                             <WhatsappIcon size={40} className="rounded-full" />
                         </WhatsappShareButton>
                     </motion.div>

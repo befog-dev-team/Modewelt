@@ -94,6 +94,7 @@ export default function Post({ post }: PostProps) {
                 onClose={handleCloseDialog} // Pass the handleCloseDialog function to the DeletePostDialog component
               />
 
+              {/* FollowButton */}
               {user.id !== post.user.id && (
                 <FollowButton
                   userId={post.user.id}
@@ -108,6 +109,14 @@ export default function Post({ post }: PostProps) {
                   }}
                 />
               )}
+
+              {/* View Profile Button */}
+              {user.id !== post.user.id && (
+                <Link href={`/profile/${post.user.username}`} prefetch={true}>
+                  <button className="flex items-center justify-center w-full py-1 px-4 text-sm rounded hover:text-red hover:font-semibold">View Profile</button>
+                </Link>
+              )}
+
               {/* <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Report Post</button>
               <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Connect</button>
               <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Not Interested</button> */}
@@ -189,7 +198,7 @@ export default function Post({ post }: PostProps) {
 
       {/* Share Modal */}
       <Modal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
-    </div>
+    </div >
   );
 }
 

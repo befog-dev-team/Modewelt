@@ -72,7 +72,7 @@ export default async function Page(props) {
     <div>
       <Navbar />
       <main className="flex w-full justify-center min-w-0 gap-5">
-        <div className="space-y-5">
+        <div className="space-y-5 w-[50vw]">
           <Post post={post} />
         </div>
         <div className="sticky top-[5.25rem] hidden h-fit w-80 flex-none lg:block">

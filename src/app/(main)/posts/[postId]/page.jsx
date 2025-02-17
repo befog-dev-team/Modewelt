@@ -96,7 +96,7 @@ async function UserInfoSidebar({ user }) {
       <div className="text-xl font-bold">About this user</div>
       <div>
         <Link
-          href={`/users/${user.username}`}
+          href={`/profile/${user.username}`}
           className="flex items-center gap-3"
         >
           <UserAvatar avatarUrl={user.avatarUrl} className="flex-none" />

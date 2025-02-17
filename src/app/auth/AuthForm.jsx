@@ -41,7 +41,10 @@ const Auth = () => {
       // Start transition
       startTransition(async () => {
         const { error } = await login(data); // login action
-        if (error) setError(error); // set error
+        if (error) {
+          setError(error); // set error
+          toast.error(error); // error toast
+        }
         else {
           toast.success("Login Successful"); // success message
           router.push("/welcome"); // navigate to home page
@@ -49,7 +52,7 @@ const Auth = () => {
       });
     } catch (err) {
       setError(err.response?.data?.message || "Login Failed"); // set error
-      toast.error(error); // error toast
+      toast.error("Login Failed"); // error toast
     }
   };
 
@@ -83,7 +86,10 @@ const Auth = () => {
       // Start transition
       startTransition(async () => {
         const { error } = await signUp(data); // signup action
-        if (error) setError(error); // set error
+        if (error) {
+          setError(error); // set error
+          toast.error(error); // error toast
+        }
         else {
           toast.success(
             "Signup successful! Please check your email for verification."
@@ -92,16 +98,15 @@ const Auth = () => {
       });
     } catch (err) {
       setError(err.response?.data?.message || "Signup Failed"); // set error
-      toast.error(error); // error toast
+      toast.error("Signup Failed"); // error toast
     }
   };
 
   return (
     <div className="flex justify-center items-center bg-[#a2defa] min-h-screen relative">
       <div
-        className={`auth-container relative z-10 h-[524px] w-[957px] border-[#f26744] border-2 flex bg-background shadow-lg rounded-2xl max-w-4xl ${
-          active ? "active" : ""
-        }`}
+        className={`auth-container relative z-10 h-[524px] w-[957px] border-[#f26744] border-2 flex bg-background shadow-lg rounded-2xl max-w-4xl ${active ? "active" : ""
+          }`}
       >
         <div className="curved-shape1 hidden md:block"></div>
         <div className="curved-shape2 hidden md:block"></div>
@@ -161,11 +166,10 @@ const Auth = () => {
               <button
                 type="submit"
                 disabled={isLoginSubmitting}
-                className={`uppercase w-full ${
-                  pending
-                    ? "bg-[#f26744] hover:bg-[#f26744] cursor-not-allowed"
-                    : "bg-[#f26744] hover:bg-[#f26744]"
-                } text-white py-3 px-4 rounded-full transition duration-300`}
+                className={`uppercase w-full ${pending
+                  ? "bg-[#f26744] hover:bg-[#f26744] cursor-not-allowed"
+                  : "bg-[#f26744] hover:bg-[#f26744]"
+                  } text-white py-3 px-4 rounded-full transition duration-300`}
               >
                 {pending ? (
                   <Loader2 className="mx-auto animate-spin" />
@@ -203,7 +207,7 @@ const Auth = () => {
             WELCOME BACK !
           </h2>
           <p className="animation text-sm hidden md:block" style={{ "--D": 1, "--S": 21 }}>
-          Sign up and gain access to the latest fashion job openings, networking opportunities, and industry insights. Whether you&apos;re a creative visionary or a strategic marketer, your dream role is waiting!
+            Sign up and gain access to the latest fashion job openings, networking opportunities, and industry insights. Whether you&apos;re a creative visionary or a strategic marketer, your dream role is waiting!
           </p>
         </div>
 
@@ -277,11 +281,10 @@ const Auth = () => {
               <button
                 type="submit"
                 disabled={isSignupSubmitting}
-                className={`uppercase w-full ${
-                  pending
-                    ? "bg-[#f26744] hover:bg-[#f26744] cursor-not-allowed"
-                    : "bg-[#f26744] hover:bg-[#f26744"
-                } text-white py-3 px-4 rounded-full transition duration-300`}
+                className={`uppercase w-full ${pending
+                  ? "bg-[#f26744] hover:bg-[#f26744] cursor-not-allowed"
+                  : "bg-[#f26744] hover:bg-[#f26744"
+                  } text-white py-3 px-4 rounded-full transition duration-300`}
               >
                 {pending ? (
                   <Loader2 className="mx-auto animate-spin" />

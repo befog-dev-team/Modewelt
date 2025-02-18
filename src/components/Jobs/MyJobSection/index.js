@@ -5,6 +5,8 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { useSession } from "@/app/(main)/SessionProvider";
 import MyJobPost from "./MyJobPost";
+import Bg from "../../../../public/assets/jobmenu/image.png";
+import Image from "next/image";
 
 export default function MyJobSection() {
     const { user } = useSession();
@@ -40,17 +42,27 @@ export default function MyJobSection() {
     if (status === "error") {
         return (
             <p className="text-center text-destructive">
-              Something went wrong. Please try again later.
+                Something went wrong. Please try again later.
             </p>
         );
     }
 
     if (status === "success" && jobs.length === 0) {
         return (
-            <p className="text-center text-muted-foreground">
-                No jobs found matching your search.
-            </p>
-        );
+            <div className="flex flex-col items-center justify-center w-full bg-white p-6 rounded-lg mb-6">
+                <Image src={Bg} alt="No jobs found" />
+                <h2 className="mt-4 text-lg font-semibold text-gray-700">
+                    No Recent Job Activity
+                </h2>
+                {/* <p className="text-gray-500 text-center px-4">
+                    Find new opportunities and manage your job search progress here.
+                </p> */}
+                {/* Job Search */}
+                {/* <button className="mt-4 bg-[#ba669d] text-white px-6 py-2 rounded-full hover:bg-[#9d4f80]">
+                    SEARCH JOB
+                </button> */}
+            </div>
+        )
     }
 
     return (

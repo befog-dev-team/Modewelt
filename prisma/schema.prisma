@@ -58,7 +58,8 @@ model User {
   skills                 Skill[]
   endorsements           Endorsement[]
 
-  createdAt DateTime @default(now()) // @default sets a default value for a field
+  lastLogin DateTime? // ? means that the field is optional
+  createdAt DateTime  @default(now()) // @default sets a default value for a field
 
   @@map("users") // @@map allows you to set the name of the table in the database
 }

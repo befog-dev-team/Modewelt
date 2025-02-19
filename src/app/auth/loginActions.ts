@@ -47,6 +47,12 @@ export async function login(
             return { error: "Invalid username or password" };
         }
 
+        // Update `lastLogin` field
+        await prisma.user.update({
+            where: { email },
+            data: { lastLogin: new Date() },
+        });
+
         // Create a new session
         const session = await lucia.createSession(existingUser.id, {});
 

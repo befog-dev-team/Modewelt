@@ -1,13 +1,51 @@
 "use client";
 
+import { useEffect, useState } from 'react';
 import PieChart from "@/app/ui/dashboard/dashboard/piechart";
 import GrowthChart from "@/app/ui/dashboard/dashboard/growthchart";
 import RevenueChart from "@/app/ui/dashboard/dashboard/revenuechart";
 import UserMapChart from "../ui/dashboard/dashboard/usermapchart";
 import { FiCalendar } from "react-icons/fi";
 import { IoIosArrowDown } from "react-icons/io";
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { Loader2 } from 'lucide-react';
 
 export default function Dashboard({ admin }) {
+    // Fetch and cache stats using useQuery
+    const { data, isLoading, error } = useQuery({
+        queryKey: ["admin-dashboard-stats", admin?.id], // Cache key includes admin ID
+        queryFn: async () => {
+            const res = await axios.get("/api/admin/dashboard");
+            return res.data;
+        },
+        enabled: !!admin?.id, // Ensures the query only runs if admin ID exists
+    });
+
+    // Default values to prevent undefined errors
+    const stats = data || {
+        newRegistrations: 0,
+        companies: 0,
+        activeUsers: 0,
+        totalUsers: 0,
+    };
+
+    console.log("data", data);
+
+    // Loading state
+    if (isLoading) {
+        return (
+            <div className="h-screen flex justify-center items-center">
+                <Loader2 className="text-[#f26744] size-10 animate-spin" />
+            </div>
+        );
+    }
+
+    // Error state
+    if (error) {
+        return <div className="min-h-screen bg-gray-100">Error: {error.message}</div>;
+    }
+
     return (
         <div className="flex bg-gray-50 min-h-fit">
             <div className="flex-1 flex flex-col">
@@ -39,12 +77,12 @@ export default function Dashboard({ admin }) {
                         </div>
                     </header>
 
-                    {/* Stats Cards */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+                     {/* Stats Cards */}
+                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
                         {[
                             {
                                 title: "New Registration",
-                                value: "500k",
+                                value: stats.newRegistrations,
                                 img: (
                                     <svg
                                         width="59"
@@ -111,7 +149,7 @@ export default function Dashboard({ admin }) {
                             },
                             {
                                 title: "Company",
-                                value: "1800",
+                                value: stats.companies,
                                 img: (
                                     <svg
                                         width="59"
@@ -178,7 +216,7 @@ export default function Dashboard({ admin }) {
                             },
                             {
                                 title: "Active User",
-                                value: "1.2M",
+                                value: stats.activeUsers,
                                 img: (
                                     <svg
                                         width="60"
@@ -251,7 +289,7 @@ export default function Dashboard({ admin }) {
                             },
                             {
                                 title: "Total User",
-                                value: "2.3M",
+                                value: stats.totalUsers,
                                 img: (
                                     <svg
                                         width="63"

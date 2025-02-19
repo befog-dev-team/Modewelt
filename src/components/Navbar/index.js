@@ -10,6 +10,7 @@ import { GoPeople } from "react-icons/go";
 import { FiBriefcase } from "react-icons/fi";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { FaEllipsisH } from "react-icons/fa";
+import { RiAdminLine } from "react-icons/ri";
 import OtherModal from "../Other/index";
 import { useSession } from "@/app/(main)/SessionProvider";
 import UserAvatar from "../UserAvatar";
@@ -33,6 +34,8 @@ function Navbar({ unreadNotificationCount }) {
     { href: "/chat", icon: IoChatbubbleEllipsesOutline, label: "Messages" },
   ];
 
+  const adminNavItem = { href: "/admin", icon: RiAdminLine, label: "Admin" };
+
   return (
     <div className="bg-[#a2defa] w-full h-16 flex flex-col lg:flex-row items-center text-sm text-gray-600 shadow-sm">
       <div className="container mx-auto flex items-center px-2 lg:px-6">
@@ -40,6 +43,7 @@ function Navbar({ unreadNotificationCount }) {
           <Image src={logo} alt="Company Logo" className="h-10 w-10 lg:mx-10 sm:mx-1" />
         </Link>
 
+        {/* Desktop View */}
         <div className="hidden lg:flex flex-grow items-center space-x-6">
           {navItems.map(({ href, icon: Icon, label }) => (
             <Link key={href} href={href} className="flex flex-col items-center relative" prefetch>
@@ -49,9 +53,25 @@ function Navbar({ unreadNotificationCount }) {
             </Link>
           ))}
 
-          <Link href="/notifications" className="flex flex-col items-center" prefetch>
+          <Link
+            href="/notifications"
+            className={`flex flex-col items-center relative text-gray-600`}
+            prefetch
+          >
             <NotificationsButton initialState={{ unreadCount: unreadNotificationCount }} />
+            <span className="text-xs">Notifications</span>
+            {pathname === "/notifications" && (
+              <div className="absolute bottom-[-4px] w-full h-1 bg-[#f26744] rounded-full" />
+            )}
           </Link>
+
+          {user.role === "ADMIN" && (
+            <Link href={adminNavItem.href} className="flex flex-col items-center relative" prefetch>
+              <adminNavItem.icon className={`h-6 w-6  text-gray-600`} />
+              <span className="text-xs">{adminNavItem.label}</span>
+              {pathname === adminNavItem.href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#f26744] rounded-full" />}
+            </Link>
+          )}
         </div>
 
         <div className="flex flex-grow items-center relative mx-4">
@@ -76,6 +96,7 @@ function Navbar({ unreadNotificationCount }) {
         </div>
       </div>
 
+      {/* Mobile View */}
       <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 flex justify-around items-center py-2 lg:hidden z-10">
         {navItems.map(({ href, icon: Icon, label }) => (
           <Link key={href} href={href} className="flex flex-col items-center relative" prefetch>
@@ -84,9 +105,26 @@ function Navbar({ unreadNotificationCount }) {
             {pathname === href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#f26744] rounded-full" />}
           </Link>
         ))}
-        <Link href="/notifications" className="flex flex-col items-center" prefetch>
+
+        <Link
+          href="/notifications"
+          className={`flex flex-col items-center relative text-gray-600`}
+          prefetch
+        >
           <NotificationsButton initialState={{ unreadCount: unreadNotificationCount }} />
+          <span className="text-xs">Notifications</span>
+          {pathname === "/notifications" && (
+            <div className="absolute bottom-[-4px] w-full h-1 bg-[#f26744] rounded-full" />
+          )}
         </Link>
+
+        {user.role === "ADMIN" && (
+          <Link href={adminNavItem.href} className="flex flex-col items-center relative" prefetch>
+            <adminNavItem.icon className={`h-6 w-6  text-gray-600`} />
+            <span className="text-xs">{adminNavItem.label}</span>
+            {pathname === adminNavItem.href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#f26744] rounded-full" />}
+          </Link>
+        )}
       </div>
     </div>
   );

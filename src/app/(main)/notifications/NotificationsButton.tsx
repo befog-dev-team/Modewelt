@@ -30,7 +30,6 @@ export default function NotificationsButton({
     return (
         <div className="flex flex-col justify-center items-center relative">
             <IoNotificationsOutline className="h-6 w-6" />
-            <span className="text-xs">Notification</span>
             {!!data.unreadCount && ( // If there are unread notifications, show the unread count
                 <span className="absolute -right-1 -top-1 rounded-full bg-primarybtn px-1 text-xs font-medium tabular-nums text-primary-foreground">
                     {formatNumber(data.unreadCount)}

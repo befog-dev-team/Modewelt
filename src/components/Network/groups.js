@@ -47,7 +47,7 @@ export default function Invitation() {
               className={`w-full sm:w-[240px] flex justify-center items-center font-semibold text-sm sm:text-[12px] ${
                 activeTab === "request"
                   ? "bg-[#fff] text-[#000] h-[40px] cursor-pointer"
-                  : "h-[50px] bg-gradient-to-r from-[#c166a0] via-[#A45286] to-[#c166a0] text-white rounded-t-[4px]"
+                  : "h-[50px] bg-[#f26744] text-white rounded-t-[4px]"
               } transition-all duration-300 uppercase`}
               onClick={handleYourGroup}
             >
@@ -59,7 +59,7 @@ export default function Invitation() {
               className={`w-full sm:w-[240px] flex justify-center items-center font-semibold text-sm sm:text-[12px] ${
                 activeTab === "your-group"
                   ? "bg-[#fff] text-[#000] h-[40px] cursor-pointer"
-                  : "h-[50px] bg-gradient-to-r from-[#c166a0] via-[#A45286] to-[#c166a0] text-white rounded-t-[4px]"
+                  : "h-[50px] bg-[#f26744] text-white rounded-t-[4px]"
               } transition-all duration-300 uppercase`}
               onClick={handleRequest}
             >
@@ -69,7 +69,7 @@ export default function Invitation() {
 
           {/* Create Group Button */}
           <button
-            className="w-[141px] h-[32px] flex justify-center items-center ml-auto bg-gradient-to-r from-[#c166a0] via-[#A45286] to-[#c166a0] rounded-[4px] transition-all hover:bg-[#9a4e79]"
+            className="w-[141px] h-[32px] flex justify-center items-center ml-auto bg-[#f26744] rounded-[4px] transition-all hover:bg-[#9a4e79]"
             onClick={handleOpenModal}
           >
             <span className="font-[Arial] font-semibold text-[12px] text-white uppercase">

@@ -83,7 +83,7 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
                 {/* <button
                     onClick={() => setActiveSection("activities")}
                     className={`flex-1 min-w-[100px] flex justify-center items-center font-[Arial] text-[14px] md:text-[16px] font-semibold transition-all duration-300 leading-[13.8px] ${activeSection === "activities"
-                        ? "h-[50px] bg-gradient-to-r from-[#c166a0] via-[#A45286] to-[#c166a0] text-white rounded-t-[4px] cursor-pointer"
+                        ? "h-[50px] bg-[#f26744] text-white rounded-t-[4px] cursor-pointer"
                         : "bg-white text-black h-[40px] cursor-pointer"
                         }`}
                 >
@@ -103,7 +103,7 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
                 {/* <button
                     onClick={() => setActiveSection("articles")}
                     className={`flex-1 min-w-[100px] flex justify-center items-center font-[Arial] text-[14px] md:text-[16px] font-semibold transition-all duration-300 leading-[13.8px] ${activeSection === "articles"
-                        ? "h-[50px] bg-gradient-to-r from-[#c166a0] via-[#A45286] to-[#c166a0] text-white rounded-t-[4px] cursor-pointer"
+                        ? "h-[50px] bg-[#f26744] text-white rounded-t-[4px] cursor-pointer"
                         : "bg-white text-black h-[40px] cursor-pointer"
                         }`}
                 >

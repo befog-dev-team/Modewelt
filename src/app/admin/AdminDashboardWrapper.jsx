@@ -337,7 +337,7 @@ export default function Dashboard({ admin }) {
                             inactiveUsers={data.inactiveUsers}
                             newRegistrations={data.newRegistrations}
                         />
-                        <GrowthChart />
+                        <GrowthChart data={data.formattedData} />
                     </div>
 
                     {/* Graphs Section */}

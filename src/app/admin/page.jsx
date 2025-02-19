@@ -1,19 +1,16 @@
 import { requireAdmin } from "@/lib/auth";
+import AdminDashboardWrapper from "./AdminDashboardWrapper"
 
-export default async function AdminDashboard() {
-    const admin = await requireAdmin(); // Pass the current page URL
+export const metadata = {
+    title: "Admin Dashboard",
+    description: "Admin dashboard page for managing the app.",
+};
+
+export default async function AdminPage() {
+    const admin = await requireAdmin();
+    console.log("Admin data:", admin);
 
     return (
-        <div>
-            <h1>Welcome, Admin {admin.displayName}!</h1>
-            <p>This is your admin dashboard.</p>
-        </div>
+        <AdminDashboardWrapper admin={admin} />
     );
-}
-
-export async function generateMetaData (){
-    return {
-        title: "Admin Dashboard",
-        description: "Admin dashboard page for managing the app.",
-    };
 }

@@ -40,10 +40,10 @@ export async function signUp(
 
     // Hash the password
     const passwordHash = await hash(password, {
-      memoryCost: 19456,
-      timeCost: 2,
-      outputLen: 32,
-      parallelism: 1,
+      memoryCost: 19456, // 128MB
+      timeCost: 2, // 2 iterations
+      outputLen: 32, // 32 bytes
+      parallelism: 1, // 1 thread
     });
 
     // Generate a unique user ID
@@ -60,7 +60,7 @@ export async function signUp(
     // Generate a verification token
     const verificationToken = crypto.randomBytes(32).toString("hex");
     const tokenExpiry = new Date();
-    tokenExpiry.setHours(tokenExpiry.getHours() + 1); // 1 hour expiry time
+    tokenExpiry.setDate(tokenExpiry.getDate() + 7); // 7 days expiry time
 
     // Explicitly typing `tx` as `Prisma.TransactionClient`
     await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
@@ -103,7 +103,7 @@ export async function signUp(
         <h1>Welcome to Our Platform!</h1>
         <p>Click the link below to verify your email address:</p>
         <a href="${verificationUrl}">${verificationUrl}</a>
-        <p>This link will expire in 1 hour.</p>
+        <p>This link will expire in 7 days.</p>
       `,
     });
 

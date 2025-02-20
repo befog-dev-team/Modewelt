@@ -20,6 +20,9 @@ export async function GET() {
         // Extract total companies count
         const companies = companyCount.length; // Number of unique companies
 
+        // Fetch total users
+        const totalUsers = await prisma.user.count();
+
         // Fetch active users (users who have logged in recently)
         const activeUsers = await prisma.user.count({
             where: {
@@ -29,10 +32,22 @@ export async function GET() {
             },
         });
 
-        // Fetch total users
-        const totalUsers = await prisma.user.count();
+        // Calculate inactive users
+        const inactiveUsers = totalUsers - activeUsers;
 
-        return Response.json({ newRegistrations, companies, activeUsers, totalUsers });
+        // For Growth Chart
+        const users = await prisma.user.groupBy({
+            by: ["createdAt"],
+            _count: { _all: true },
+            orderBy: { createdAt: "asc" },
+          });
+      
+          const formattedData = users.map((user) => ({
+            date: user.createdAt.toISOString().split("T")[0], // Format as YYYY-MM-DD
+            count: user._count._all,
+          }));
+
+        return Response.json({ newRegistrations, companies, activeUsers, totalUsers, activeUsers, inactiveUsers, formattedData });
     } catch (error) {
         console.error("❌ Error:", error);
         return Response.json({ error: "Internal Server Error" }, { status: 500 });

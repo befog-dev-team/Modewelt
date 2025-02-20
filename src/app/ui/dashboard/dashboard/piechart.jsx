@@ -11,23 +11,27 @@ import { useState } from "react";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieChartSection = () => {
+const PieChartSection = ({ totalUsers, activeUsers, inactiveUsers, newRegistrations }) => {
   const [showValue, setShowValue] = useState(true);
+
+  // Prevent division by zero
+  const getPercentage = (value) =>
+    totalUsers > 0 ? ((value / totalUsers) * 100).toFixed(1) : "0.0";
 
   const data = [
     {
-      label: "Total User",
-      value: 81,
+      label: "New Registrations",
+      value: getPercentage(newRegistrations),
       color: "#F87171", // Red
     },
     {
       label: "Active",
-      value: 22,
+      value: getPercentage(activeUsers),
       color: "#34D399", // Green
     },
     {
       label: "Inactive",
-      value: 62,
+      value: getPercentage(inactiveUsers),
       color: "#C084FC", // Purple
     },
   ];

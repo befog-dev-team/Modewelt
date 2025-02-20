@@ -77,8 +77,8 @@ export default function Dashboard({ admin }) {
                         </div>
                     </header>
 
-                     {/* Stats Cards */}
-                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+                    {/* Stats Cards */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
                         {[
                             {
                                 title: "New Registration",
@@ -331,9 +331,13 @@ export default function Dashboard({ admin }) {
 
                     {/* Charts Section */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                        <PieChart />
-
-                        <GrowthChart />
+                        <PieChart
+                            totalUsers={data.totalUsers}
+                            activeUsers={data.activeUsers}
+                            inactiveUsers={data.inactiveUsers}
+                            newRegistrations={data.newRegistrations}
+                        />
+                        <GrowthChart data={data.formattedData} />
                     </div>
 
                     {/* Graphs Section */}

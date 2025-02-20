@@ -10,11 +10,11 @@ import { useState } from "react";
 import { FaChevronRight } from "react-icons/fa";
 
 const pagesContent = {
-  "General Settings": <GeneralSettings />,
+  // "General Settings": <GeneralSettings />,
   "Profile Settings": <ProfileSetting />,
   "Notification Settings": <NotificationSettings/>,
   "Security Settings": <SecuritySettings/>,
-  "Privacy Settings": <PrivacySettings/>,
+  // "Privacy Settings": <PrivacySettings/>,
   "Connected Accounts": <ConnectedAccount/>,
   "Backup and Data Management": <AppearanceSettings/>,
 };

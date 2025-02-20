@@ -69,32 +69,32 @@ const Analytics = () => {
         </div>
 
         {/* Monthly Revenue Chart */}
-        <div className="shadow-sm rounded-lg p-4">
+        {/* <div className="shadow-sm rounded-lg p-4">
           <h2 className="text-lg font-semibold text-gray-700">
             Monthly Revenue
           </h2>
           <MonthlyRevenueChart />
-        </div>
+        </div> */}
 
         {/* Reviews Chart */}
-        <div className="bg-white shadow-sm rounded-lg p-4">
+        {/* <div className="bg-white shadow-sm rounded-lg p-4">
           <h2 className="text-lg font-semibold text-gray-700">Reviews</h2>
           <ReviewsChart />
-        </div>
+        </div> */}
 
         {/* Trends Table */}
-        <div className="bg-white shadow-sm rounded-lg p-4">
-          <h2 className="text-lg font-semibold text-gray-700">Trends</h2>
+        <div className="mt-4 sm:mt-0 bg-[#f3f2f7] shadow-sm rounded-lg p-4 items-center space-x-2">
+          <h2 className="text-lg font-semibold text-gray-700 lg:mb-12 sm:mb-4">Trends</h2>
           <TrendsTable />
         </div>
       </div>
 
       {/* Download Report Button */}
-      <div className="mt-6 flex justify-center">
+      {/* <div className="mt-6 flex justify-center">
         <button className="bg-[#a65386] text-white px-6 py-3 rounded-lg shadow hover:bg-[#914272] transition">
           Download Report
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

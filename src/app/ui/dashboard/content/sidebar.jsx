@@ -14,13 +14,13 @@ const Sidebar = () => {
     "Job Listing": 24532,
   };
 
-  const moderationActions = [
-    "Approve Content",
-    "Reject/Remove Content",
-    "Edit Content",
-    "Warn Uploader",
-    "Suspend Uploader",
-  ];
+  // const moderationActions = [
+  //   "Approve Content",
+  //   "Reject/Remove Content",
+  //   "Edit Content",
+  //   "Warn Uploader",
+  //   "Suspend Uploader",
+  // ];
 
   return (
     <div className="flex flex-col sm:flex-row h-fit">
@@ -58,7 +58,7 @@ const Sidebar = () => {
         </div>
 
         {/* Moderation Actions */}
-        <div>
+        {/* <div>
           <h2 className="font-semibold text-gray-700 mb-2">Moderation Action</h2>
           <ul>
             {moderationActions.map((action) => (
@@ -71,7 +71,7 @@ const Sidebar = () => {
               </li>
             ))}
           </ul>
-        </div>
+        </div> */}
       </div>
 
       {/* Main Content Section */}

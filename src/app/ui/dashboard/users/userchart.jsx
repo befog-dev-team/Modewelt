@@ -18,26 +18,15 @@ ChartJS.register(
   Filler
 );
 
-export default function Home() {
+export default function Home({ chartdata }) {
+  console.log("chartdata", chartdata);
+
   const data = {
-    labels: [
-      "5k",
-      "10k",
-      "15k",
-      "20k",
-      "25k",
-      "30k",
-      "35k",
-      "40k",
-      "45k",
-      "50k",
-      "55k",
-      "60k",
-    ],
+    labels: chartdata.labels, // Use the labels from your data
     datasets: [
       {
         label: "Users",
-        data: [20, 30, 40, 100, 60, 50, 70, 30, 50, 80, 40, 60],
+        data: chartdata.userCounts, // Use the userCounts from your data
         fill: true,
         backgroundColor: "rgba(156, 39, 176, 0.2)", // Light purple background
         borderColor: "rgba(156, 39, 176, 1)", // Purple border
@@ -66,6 +55,9 @@ export default function Home() {
         },
       },
     },
+    onHover: (event, chartElement) => {
+      event.native.target.style.cursor = chartElement.length ? 'pointer' : 'default';
+    },
   };
 
   return (
@@ -75,11 +67,11 @@ export default function Home() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
           <h2 className="text-lg font-semibold text-gray-700">Users</h2>
           {/* Dropdown */}
-          <select className="mt-3 sm:mt-0 text-gray-600 bg-gray-100 p-2 rounded border">
+          {/* <select className="mt-3 sm:mt-0 text-gray-600 bg-gray-100 p-2 rounded border">
             <option>October</option>
             <option>September</option>
             <option>August</option>
-          </select>
+          </select> */}
         </div>
 
         {/* Chart */}

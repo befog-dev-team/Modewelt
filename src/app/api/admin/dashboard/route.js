@@ -40,14 +40,14 @@ export async function GET() {
             by: ["createdAt"],
             _count: { _all: true },
             orderBy: { createdAt: "asc" },
-          });
-      
-          const formattedData = users.map((user) => ({
+        });
+
+        const formattedData = users.map((user) => ({
             date: user.createdAt.toISOString().split("T")[0], // Format as YYYY-MM-DD
             count: user._count._all,
-          }));
+        }));
 
-        return Response.json({ newRegistrations, companies, activeUsers, totalUsers, activeUsers, inactiveUsers, formattedData });
+        return Response.json({ newRegistrations, companies, totalUsers, activeUsers, inactiveUsers, formattedData });
     } catch (error) {
         console.error("❌ Error:", error);
         return Response.json({ error: "Internal Server Error" }, { status: 500 });

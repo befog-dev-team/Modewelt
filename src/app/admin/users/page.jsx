@@ -38,7 +38,7 @@ const User = () => {
         </header>
 
         {/* Stats Section */}
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {/* Total User Card */}
           <div className="bg-white shadow-sm rounded-lg p-4">
             <h2 className="text-gray-600 text-sm">Total Users</h2>
@@ -58,13 +58,13 @@ const User = () => {
           </div>
 
           {/* Total Pending Card */}
-          <div className="bg-white shadow-sm rounded-lg p-4">
+          {/* <div className="bg-white shadow-sm rounded-lg p-4">
             <h2 className="text-gray-600 text-sm">Total Pending</h2>
             <p className="text-3xl font-bold text-gray-800">2,040</p>
             <p className="text-sm text-green-600 mt-2">
               ▲ 1.8% Up from yesterday
             </p>
-          </div>
+          </div> */}
 
           {/* Total New Users Card */}
           <div className="bg-white shadow-sm rounded-lg p-4">

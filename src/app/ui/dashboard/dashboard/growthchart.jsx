@@ -67,10 +67,10 @@ const GrowthChart = () => {
           <h2 className="text-lg font-semibold text-gray-800">Growth</h2>
           <p className="text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adip</p>
         </div>
-        <button className="flex items-center px-4 py-2 bg-purple-100 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-200">
+        {/* <button className="flex items-center px-4 py-2 bg-purple-100 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-200">
           <FaDownload className="mr-2" />
           Save Report
-        </button>
+        </button> */}
       </div>
 
       {/* Chart */}

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { FiCalendar } from "react-icons/fi";
 import { IoIosArrowDown } from "react-icons/io";
-// import JobStatistics from "@/app/ui/dashboard/job/JobStatistics";
+import JobStatistics from "@/app/ui/dashboard/job/JobStatistics";
 import JobListings from "@/app/ui/dashboard/job/JobListings";
 import Id from "@/app/ui/dashboard/job/id"
 
@@ -83,8 +83,8 @@ const Jobs = () => {
 
         {/* Job Statistics Section */}
         <div className="mb-6">
-          {/* <JobStatistics /> */}
-          <Id/>
+          <JobStatistics />
+          {/* <Id/> */}
         </div>
 
         {/* All Jobs Section */}

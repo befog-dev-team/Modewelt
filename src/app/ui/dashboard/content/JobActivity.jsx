@@ -50,7 +50,7 @@ export default function JobActivity() {
         </div>
       </div>
 
-      <h2 className="text-xl font-bold text-gray-800 mt-6">Job Reports</h2>
+      {/* <h2 className="text-xl font-bold text-gray-800 mt-6">Job Reports</h2>
       <div className="w-full max-w-md bg-white p-4 rounded-xl shadow-md mt-2">
         <table className="w-full text-left">
           <thead>
@@ -68,7 +68,7 @@ export default function JobActivity() {
             ))}
           </tbody>
         </table>
-      </div>
+      </div> */}
     </div>
   );
 }

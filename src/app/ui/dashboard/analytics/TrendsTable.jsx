@@ -7,6 +7,10 @@ export default function TrendsTable() {
     { id: 3, name: 'lorem', description: 'lorem the ghtou asdfiadsuj', view: 'View', color: 'text-red-500' },
     { id: 4, name: 'lorem', description: 'lorem the ghtou asdfiadsuj', view: 'View', color: 'text-green-500' },
     { id: 5, name: 'lorem', description: 'lorem the ghtou asdfiadsuj', view: 'View', color: 'text-red-500' },
+    { id: 6, name: 'lorem', description: 'lorem the ghtou asdfiadsuj', view: 'View', color: 'text-green-500' },
+    { id: 7, name: 'lorem', description: 'lorem the ghtou asdfiadsuj', view: 'view', color: 'text-green-500' },
+    { id: 8, name: 'lorem', description: 'lorem the ghtou asdfiadsuj', view: 'View', color: 'text-red-500' },
+    { id: 9, name: 'lorem', description: 'lorem the ghtou asdfiadsuj', view: 'View', color: 'text-green-500' },
   ];
 
   return (

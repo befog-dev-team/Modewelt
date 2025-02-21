@@ -2,6 +2,8 @@ import { CiSearch } from "react-icons/ci";
 import { BiBell } from "react-icons/bi";
 import { requireAdmin } from "@/lib/auth";
 import UserAvatar from "@/components/UserAvatar";
+import Link from "next/link";
+import profile from "@/app/admin/profile/page";
 
 export default async function TopNav() {
   const admin = await requireAdmin();
@@ -35,11 +37,15 @@ export default async function TopNav() {
 
         <div className="flex items-center space-x-2">
           <span className="text-sm font-medium text-gray-800">Hello,</span>
-          <span className="text-sm text-gray-800 font-bold">{admin.displayName}</span>
-          <UserAvatar
-            avatarUrl={admin.avatarUrl}
-            className="w-10 h-10 rounded-full border border-gray-300"
-          />
+          <span className="text-sm text-gray-800 font-bold">
+            {admin.displayName}
+          </span>
+          <Link href="/admin/profile">
+            <UserAvatar
+              avatarUrl={admin.avatarUrl}
+              className="w-10 h-10 rounded-full border border-gray-300"
+            />
+          </Link>
         </div>
       </div>
     </header>

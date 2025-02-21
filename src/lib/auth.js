@@ -3,15 +3,17 @@ import { headers } from "next/headers";
 import { validateRequest } from "@/auth";
 
 export const requireAdmin = async () => {
-    const requestHeaders = await headers();
-    const referer = requestHeaders.get("referer") || "/feed"; 
+  "use server"; // Ensures this function is treated as a server function
 
-    const { user } = await validateRequest();
+  const requestHeaders = headers(); // `headers` is already async-capable, no need for `await`
+  const referer = requestHeaders.get("referer") || "/feed"; 
 
-    if (!user || user.role !== "ADMIN") {
-      console.error("You're not an admin! Redirecting to:", referer);
-      redirect(referer); // Redirect back to previous page
-    }
+  const { user } = await validateRequest();
 
-    return user; // Return user data if authorized
+  if (!user || user.role !== "ADMIN") {
+    console.warn("Unauthorized access attempt. Redirecting to:", referer);
+    redirect(referer); // Redirect back to the referring page
+  }
+
+  return user; // Return user data if authorized
 };

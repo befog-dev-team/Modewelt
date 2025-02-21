@@ -1,22 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function Profile() {
-  const [user, setUser] = useState({
-    name: "Aditya Kumar Kanaujiya",
-    email: "abc@gmail.com",
-    phone: "+91 0000 000000",
-  });
+  const [user, setUser] = useState({ name: "", email: "", phone: "" });
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await fetch("/api/admin/profile");
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data);
+      }
+    };
+    fetchUser();
+  }, []);
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
-    console.log("Updated Profile:", user);
-    alert("Profile Updated Successfully!");
+  const handleSubmit = async () => {
+    const res = await fetch("/api/profile", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    });
+
+    if (res.ok) {
+      alert("Profile Updated Successfully!");
+    } else {
+      alert("Error updating profile");
+    }
   };
 
   return (
@@ -26,7 +42,7 @@ export default function Profile() {
         <div className="flex flex-col items-center">
           <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gray-300">
             <Image
-              src="/profile.jpg" // Replace with your image path
+              src="/profile.jpg"
               alt="Profile"
               width={128}
               height={128}
@@ -55,8 +71,8 @@ export default function Profile() {
             type="email"
             name="email"
             value={user.email}
-            onChange={handleChange}
-            className="w-full p-2 mt-1 border border-gray-300 rounded-md"
+            disabled
+            className="w-full p-2 mt-1 border border-gray-300 rounded-md bg-gray-200"
           />
         </div>
 

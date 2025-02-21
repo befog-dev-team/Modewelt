@@ -1,12 +1,13 @@
 // import Image from "next/image";
 import Link from "next/link";
-
-import React from 'react'
+import React from "react";
 
 export default function JobPost({ jobs }) {
+    const maxDescriptionLength = 100; // Set a character limit
+
     return (
         <div
-            className="w-full h-auto flex flex-col sm:flex-row items-center justify-between px-6 py-4 bg-white rounded-lg shadow-lg space-y-4 sm:space-y-0 sm:space-x-6 "
+            className="w-full h-auto flex flex-col sm:flex-row items-center justify-between px-6 py-4 bg-white rounded-lg shadow-lg space-y-4 sm:space-y-0 sm:space-x-6"
         >
             {/* Image and Text Section */}
             <div className="flex items-center space-x-4 w-full sm:w-auto">
@@ -28,7 +29,9 @@ export default function JobPost({ jobs }) {
                         <div className="font-[Arial] text-[#181818]">{jobs.location}</div>
                     </div>
                     <span className="font-[Gotham] text-[#181818] text-[12px] sm:text-[14px] leading-[20px] mt-2 w-full sm:w-[350px]">
-                        {jobs.description}
+                        {jobs.description.length > maxDescriptionLength
+                            ? `${jobs.description.slice(0, maxDescriptionLength)}...`
+                            : jobs.description}
                     </span>
                 </div>
             </div>
@@ -44,5 +47,5 @@ export default function JobPost({ jobs }) {
                 </Link>
             </div>
         </div>
-    )
+    );
 }

@@ -7,7 +7,6 @@ import { Loader2 } from "lucide-react";
 import JobPost from "./JobPost";
 
 export default function JobSection({ searchQuery }) {
-  // const [filteredJobs, setFilteredJobs] = useState([]);
 
   const {
     data,

@@ -17,7 +17,7 @@ export default function VisitorSection({ visitors }) {
 
     return (
         <div>
-            <div className="h-[427px] bg-[#ffffff] mt-5 shadow-lg p-4">
+            <div className="min-h-[300px] bg-[#ffffff] mt-5 shadow-lg p-4">
                 <div className="flex justify-between px-3 py-3 w-full font-[Gotham] mt-2">
                     <span className="font-semibold text-sm">VISITORS</span>
                     {/* <span
@@ -30,7 +30,7 @@ export default function VisitorSection({ visitors }) {
                 <hr className="w-full mx-auto my-2 border-t border-gray-300" />
 
                 {/* Visitor List */}
-                <div className="flex flex-col space-y-3">
+                <div className="h-[250px] mt-2 overflow-y-auto no-scrollbar flex flex-col space-y-3">
                     {visitors.map((visitor) => (
                         <div key={visitor.id} className="flex items-center w-full h-[52px] space-x-3">
                             <Link href={`/profile/${visitor.username}`} prefetch={true}>

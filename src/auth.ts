@@ -4,6 +4,7 @@ import { Lucia, Session, User } from "lucia";
 import { cookies } from "next/headers";
 import { cache } from "react";
 import prisma from "./lib/prisma";
+import { Role } from "@prisma/client";
 
 // Create a new Prisma adapter
 const adapter = new PrismaAdapter(prisma.session, prisma.user);
@@ -19,7 +20,6 @@ export const lucia = new Lucia(adapter, {
 
   // Get the user attributes from the database user attributes
   getUserAttributes(databaseUserAttributes) {
-    // console.log("Database User Attributes:", databaseUserAttributes); // log the database user attributes
     return { // return the user attributes
       id: databaseUserAttributes.id, // user id
       username: databaseUserAttributes.username, // username
@@ -40,6 +40,7 @@ export const lucia = new Lucia(adapter, {
       totalFollowing: databaseUserAttributes.totalFollowing, // total following
       totalPosts: databaseUserAttributes.totalPosts, // total posts
       totalSearchAppearances: databaseUserAttributes.totalSearchAppearances, // total search appearances
+      role: databaseUserAttributes.role, // role
     };
   },
 });
@@ -73,6 +74,7 @@ interface DatabaseUserAttributes {
   totalShares: number; // total shares
   totalPosts: number; // total posts
   totalSearchAppearances: number; // total search appearances
+  role: Role; // role
 }
 
 // Google OAuth configuration
@@ -83,46 +85,41 @@ export const google = new Google( // create a new Google instance
 );
 
 // Validate the request
-export const validateRequest = cache( // cache the validateRequest function
-  async (): Promise< // return a promise
-    { user: User; session: Session } | { user: null; session: null } // return the user and session or null
-  > => {
-    // Get the session ID from the session cookie
-    const sessionId = (await cookies()).get(lucia.sessionCookieName)?.value ?? null;
-    // console.log("Session ID:", sessionId);
+export const validateRequest = cache(async (): Promise<
+  { user: User & { role: Role }; session: Session } | { user: null; session: null }
+> => {
+  const sessionId = (await cookies()).get(lucia.sessionCookieName)?.value ?? null;
 
-    // If the session ID does not exist
-    if (!sessionId) {
-      return { // return the user and session as null
-        user: null, // user is null
-        session: null, // session is null
-      };
+  if (!sessionId) {
+    return { user: null, session: null };
+  }
+
+  const result = await lucia.validateSession(sessionId);
+
+  try {
+    if (result.session && result.session.fresh) {
+      const sessionCookie = lucia.createSessionCookie(result.session.id);
+      (await cookies()).set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
     }
+    if (!result.session) {
+      const sessionCookie = lucia.createBlankSessionCookie();
+      (await cookies()).set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+    }
+  } catch { }
 
-    // Validate the session
-    const result = await lucia.validateSession(sessionId);
+  if (result.user) {
+    const user = await prisma.user.findUnique({
+      where: { id: result.user.id },
+      select: { role: true }, // Fetch the role
+    });
 
-    // If the session is invalid
-    try {
-      if (result.session && result.session.fresh) { // if the session is fresh and exists
-        const sessionCookie = lucia.createSessionCookie(result.session.id); // create a new session cookie
-        (await cookies()).set( // set the session cookie
-          sessionCookie.name, // session cookie name
-          sessionCookie.value, // session cookie value
-          sessionCookie.attributes, // session cookie attributes
-        );
-      }
-      if (!result.session) { // if the session does not exist
-        const sessionCookie = lucia.createBlankSessionCookie(); // create a blank session cookie
-        (await cookies()).set( // set the session cookie
-          sessionCookie.name, // session cookie name
-          sessionCookie.value, // session cookie value
-          sessionCookie.attributes, // session cookie attributes
-        );
-      }
-    } catch { } // catch any errors
+    if (!user) return { user: null, session: null };
 
-    // Return the result
-    return result;
-  },
-);
+    return {
+      user: { ...result.user, role: user.role }, // Include the role
+      session: result.session,
+    };
+  }
+
+  return result;
+});

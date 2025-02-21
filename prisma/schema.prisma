@@ -33,9 +33,9 @@ model User {
   totalShares            Int                      @default(0) // @default sets a default value for a field
   totalSearchAppearances Int                      @default(0) // @default sets a default value for a field
   isVerified             Boolean                  @default(false) // @default sets a default value for a field
-  isAdmin                Boolean                  @default(false) // @default sets a default value for a field
   isBanned               Boolean                  @default(false) // @default sets a default value for a field
   isDeleted              Boolean                  @default(false) // @default sets a default value for a field
+  role                   Role                     @default(USER) // @default sets a default value for a field
   Session                Session[] // @relation links the User to the Session model
   emailTokens            EmailVerificationToken[] // @relation links the User to the EmailVerificationToken model
   posts                  Post[] // @relation links the User to the Post model
@@ -58,9 +58,15 @@ model User {
   skills                 Skill[]
   endorsements           Endorsement[]
 
-  createdAt DateTime @default(now()) // @default sets a default value for a field
+  lastLogin DateTime? // ? means that the field is optional
+  createdAt DateTime  @default(now()) // @default sets a default value for a field
 
   @@map("users") // @@map allows you to set the name of the table in the database
+}
+
+enum Role {
+  USER // USER is a value of the enum
+  ADMIN // ADMIN is a value of the enum
 }
 
 // Session model is used to define the structure of the Session table in the database

@@ -47,7 +47,7 @@ const Auth = () => {
         }
         else {
           toast.success("Login Successful"); // success message
-          router.push("/welcome"); // navigate to home page
+          router.push("/feed"); // navigate to home page
         }
       });
     } catch (err) {

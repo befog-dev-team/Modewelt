@@ -69,7 +69,7 @@ export default function Connection() {
 
                                 <div className="flex space-x-2">
                                     <Link href={`/profile/${connection.username}`} prefetch={true}>
-                                        <button className="bg-gradient-to-r from-[#c166a0] to-[text-[#f26744]] text-white text-sm font-bold py-1 px-4 rounded transition-transform hover:scale-105">
+                                        <button className="bg-[#f26744] text-white text-sm font-bold py-1 px-4 rounded transition-transform hover:scale-105">
                                             View Profile
                                         </button>
                                     </Link>

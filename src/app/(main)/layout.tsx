@@ -17,8 +17,8 @@ import { Metadata } from "next";
 // Define the metadata object
 export const metadata: Metadata = { // Define the metadata object
     title: { // Define the title object
-        template: "Modewelt | %s", // Define the title template
-        default: "Modewelt", // Define the default title
+        template: "Modeweltjob | %s", // Define the title template
+        default: "Modeweltjob", // Define the default title
     },
     description: "Connect to the world of fashion and style", // Define the description
     keywords: ["fashion", "style", "clothing", "apparel", "fashion careers", "fashion jobs",

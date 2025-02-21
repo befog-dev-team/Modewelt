@@ -1,88 +1,52 @@
 "use client";
+
 import { useState } from "react";
 import Image from "next/image";
 import profileimg from "../../../public/assets/profile/backgroundImageBackrgound.png";
 
 export default function ProjectPage() {
   // const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [projects] = useState([
-    {
-      id: 1,
-      name: "Project Name 1",
-      description: "Fashion design, 15.07.2019",
-      media: profileimg, // Default image
-      mediaType: "image", // media type (image or video)
-    },
-    {
-      id: 2,
-      name: "Project Name 2",
-      description: "Fashion design, 15.07.2019",
-      media: profileimg,
-      mediaType: "image",
-    },
-    {
-      id: 3,
-      name: "Project Name 3",
-      description: "Fashion design, 15.07.2019",
-      media: profileimg,
-      mediaType: "image",
-    },
-    {
-      id: 4,
-      name: "Project Name 4",
-      description: "Fashion design, 16.07.2020",
-      media: profileimg,
-      mediaType: "image",
-    },
-    {
-      id: 5,
-      name: "Project Name 5",
-      description: "Fashion design, 17.07.2021",
-      media: profileimg,
-      mediaType: "image",
-    },
-  ]);
   const [, setCurrentProject] = useState(null);
 
   // State for controlling how many projects are visible
   const [visibleProjects, setVisibleProjects] = useState(3);
 
-  // const handleEditClick = () => {
-  //   setCurrentProject(null); // Open the popup to add a new project if necessary
-  //   setIsPopupOpen(true);
-  // };
+  const handleEditClick = () => {
+    setCurrentProject(null); // Open the popup to add a new project if necessary
+    setIsPopupOpen(true);
+  };
 
   const handleEditProject = (project) => {
     setCurrentProject(project); // Open the popup to edit the existing project
     setIsPopupOpen(true);
   };
 
-  // const handleSave = () => {
-  //   if (currentProject) {
-  //     setProjects((prevProjects) =>
-  //       prevProjects.map((project) =>
-  //         project.id === currentProject.id ? currentProject : project
-  //       )
-  //     );
-  //   }
-  //   setIsPopupOpen(false);
-  // };
+  const handleSave = () => {
+    if (currentProject) {
+      setProjects((prevProjects) =>
+        prevProjects.map((project) =>
+          project.id === currentProject.id ? currentProject : project
+        )
+      );
+    }
+    setIsPopupOpen(false);
+  };
 
-  // const handleCancel = () => {
-  //   setIsPopupOpen(false);
-  // };
+  const handleCancel = () => {
+    setIsPopupOpen(false);
+  };
 
-  // const handleMediaChange = (e) => {
-  //   const file = e.target.files[0];
-  //   const mediaUrl = URL.createObjectURL(file);
-  //   const mediaType = file.type.startsWith("image") ? "image" : "video";
+  const handleMediaChange = (e) => {
+    const file = e.target.files[0];
+    const mediaUrl = URL.createObjectURL(file);
+    const mediaType = file.type.startsWith("image") ? "image" : "video";
 
-  //   setCurrentProject({
-  //     ...currentProject,
-  //     media: mediaUrl,
-  //     mediaType: mediaType,
-  //   });
-  // };
+    setCurrentProject({
+      ...currentProject,
+      media: mediaUrl,
+      mediaType: mediaType,
+    });
+  };
 
   const handleSeeMoreLess = () => {
     if (visibleProjects < projects.length) {
@@ -93,7 +57,7 @@ export default function ProjectPage() {
   };
 
   return (
-    <div className="mt-12 h-auto max-w-[850px] w-full shadow-lg p-6">
+    <div className="bg-white mt-12 h-auto max-w-[850px] w-full shadow-lg p-6">
       {/* Header Section */}
       <div className="flex justify-between">
         <div className="flex items-center mb-3 space-x-5">

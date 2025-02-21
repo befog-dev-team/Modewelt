@@ -1,4 +1,5 @@
 "use client";
+
 // Client-side component for project management
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -239,7 +240,7 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
   );
 
   return (
-    <div className="mt-12 h-auto max-w-[850px] w-full shadow-lg p-6">
+    <div className="bg-white mt-12 h-auto max-w-[850px] w-full shadow-lg p-6">
       {/* Header section */}
       <div className="flex justify-between">
         <div className="flex items-center mb-3 space-x-5">

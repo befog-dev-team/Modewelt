@@ -51,8 +51,8 @@ export async function GET(req: NextRequest) {
             sessionCookie.attributes // Set the session cookie attributes
         );
 
-        // Redirect the user to home after successful verification
-        return NextResponse.redirect(new URL("/auth", req.url)); // Change to your desired redirect URL
+        // Redirect the user to the welcome page after successful verification
+        return NextResponse.redirect(new URL("/welcome", req.url)); // Redirect to the welcome page
     } catch (error) {
         console.error(error); // Log the error
         return NextResponse.json({ error: "Internal server error" }, { status: 500 }); // Return an internal server error

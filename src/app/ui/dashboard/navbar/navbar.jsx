@@ -3,7 +3,6 @@ import { BiBell } from "react-icons/bi";
 import { requireAdmin } from "@/lib/auth";
 import UserAvatar from "@/components/UserAvatar";
 import Link from "next/link";
-import profile from "@/app/admin/profile/page";
 
 export default async function TopNav() {
   const admin = await requireAdmin();

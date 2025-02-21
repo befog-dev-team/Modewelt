@@ -4,7 +4,6 @@ import { FiCalendar } from "react-icons/fi";
 import { IoIosArrowDown } from "react-icons/io";
 import JobStatistics from "@/app/ui/dashboard/job/JobStatistics";
 import JobListings from "@/app/ui/dashboard/job/JobListings";
-import Id from "@/app/ui/dashboard/job/id"
 
 // Filter Component
 const Filter = ({ filterOpen, toggleFilter }) => (

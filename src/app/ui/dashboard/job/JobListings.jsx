@@ -19,13 +19,14 @@ const JobListings = () => {
 
   return (
     <div className="min-h-screen p-4">
+      {/* Job Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
         {displayedJobs.map((job, index) => (
           <div
-            key={`${job}-${index}`}
+            key={index}
             className="h-30 cursor-pointer"
             onClick={() =>
-              router.push(`/ui/dashboard/job/${(currentPage - 1) * itemsPerPage + index + 1}`)
+              router.push(`/admin/jobs/${(currentPage - 1) * itemsPerPage + index + 1}`)
             }
           >
             <div className="bg-gray-300 w-full h-40 flex items-center justify-center rounded-lg"></div>
@@ -34,32 +35,39 @@ const JobListings = () => {
         ))}
       </div>
 
+      {/* Pagination */}
       <div className="flex justify-end items-center mt-6 space-x-2">
         <button
-          onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
-          className="px-4 py-2 flex rounded-md text-[#a35285] disabled:opacity-50"
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          className="px-4 py-2 flex items-center rounded-md text-[#a35285] disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={currentPage === 1}
+          aria-label="Previous Page"
         >
           <IoIosArrowBack className="mt-1" />
           Previous
         </button>
 
-        {[...Array(totalPages)].map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentPage(index + 1)}
-            className={`px-4 py-2 rounded-md ${
-              currentPage === index + 1 ? "bg-[#a35285] text-white" : "bg-gray-300"
-            }`}
-          >
-            {index + 1}
-          </button>
-        ))}
+        {Array.from({ length: Math.min(totalPages, 5) }, (_, index) => {
+          const pageNumber = currentPage - 2 + index;
+          if (pageNumber < 1 || pageNumber > totalPages) return null;
+          return (
+            <button
+              key={pageNumber}
+              onClick={() => setCurrentPage(pageNumber)}
+              className={`px-4 py-2 rounded-md ${
+                currentPage === pageNumber ? "bg-[#a35285] text-white" : "bg-gray-300"
+              } focus:ring-2`}
+            >
+              {pageNumber}
+            </button>
+          );
+        })}
 
         <button
-          onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
-          className="px-4 py-2 rounded-md flex text-[#a35285] disabled:opacity-50"
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          className="px-4 py-2 rounded-md flex items-center text-[#a35285] disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={currentPage === totalPages}
+          aria-label="Next Page"
         >
           Next
           <IoIosArrowForward className="mt-1" />

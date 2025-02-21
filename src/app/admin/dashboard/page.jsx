@@ -2,8 +2,8 @@
 import { useState } from "react";
 import PieChart from "@/app/ui/dashboard/dashboard/piechart";
 import GrowthChart from "@/app/ui/dashboard/dashboard/growthchart";
-import RevenueChart from "@/app/ui/dashboard/dashboard/revenuechart";
-import UserMapChart from "../ui/dashboard/dashboard/usermapchart";
+// import RevenueChart from "@/app/ui/dashboard/dashboard/revenuechart";
+// import UserMapChart from "../ui/dashboard/dashboard/usermapchart";
 import { FiCalendar } from "react-icons/fi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 

@@ -1,12 +1,28 @@
 "use client";
+import { useState } from "react";
 import PieChart from "@/app/ui/dashboard/dashboard/piechart";
 import GrowthChart from "@/app/ui/dashboard/dashboard/growthchart";
 import RevenueChart from "@/app/ui/dashboard/dashboard/revenuechart";
 import UserMapChart from "../ui/dashboard/dashboard/usermapchart";
 import { FiCalendar } from "react-icons/fi";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 export default function Dashboard() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedPeriod, setSelectedPeriod] = useState({
+    start: "17 April 2020",
+    end: "21 May 2020",
+  });
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleDateChange = (start, end) => {
+    setSelectedPeriod({ start, end });
+    setIsOpen(false);
+  };
+
   return (
     <div className="flex bg-gray-50 min-h-fit">
       <div className="flex-1 flex flex-col">
@@ -21,19 +37,45 @@ export default function Dashboard() {
                 </p>
               </div>
               {/* Filter Period Section */}
-              <div className="mt-4 sm:mt-0 bg-white shadow-sm rounded-lg p-4 flex items-center space-x-2">
-                <div className="text-[#a65386] text-2xl bg-[#ead6ff] rounded-[0.5rem] p-2">
-                  <FiCalendar />
+              <div className="relative">
+                <div
+                  className="mt-4 sm:mt-0 bg-white shadow-sm rounded-lg p-4 flex items-center space-x-2 cursor-pointer"
+                  onClick={toggleDropdown}
+                >
+                  <div className="text-[#a65386] text-2xl bg-[#ead6ff] rounded-[0.5rem] p-2">
+                    <FiCalendar />
+                  </div>
+                  <div>
+                    <p className="text-gray-600 text-lg">Filter Period</p>
+                    <p className="text-gray-800 font-sm text-[8px]">
+                      {selectedPeriod.start} - {selectedPeriod.end}
+                    </p>
+                  </div>
+                  <div className="text-[#b9babd] text-2xl">
+                    {isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+                  </div>
                 </div>
-                <div>
-                  <p className="text-gray-600 text-lg">Filter Period</p>
-                  <p className="text-gray-800 font-sm text-[8px]">
-                    17 April 2020 - 21 May 2020
-                  </p>
-                </div>
-                <div className="text-[#b9babd] text-2xl">
-                  <IoIosArrowDown />
-                </div>
+
+                {isOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-64 bg-white shadow-lg rounded-lg p-4">
+                    <button
+                      className="block w-full text-left text-gray-800 hover:bg-gray-100 p-2 rounded-md"
+                      onClick={() =>
+                        handleDateChange("01 June 2021", "15 July 2021")
+                      }
+                    >
+                      01 June 2021 - 15 July 2021
+                    </button>
+                    <button
+                      className="block w-full text-left text-gray-800 hover:bg-gray-100 p-2 rounded-md"
+                      onClick={() =>
+                        handleDateChange("10 Aug 2022", "25 Sep 2022")
+                      }
+                    >
+                      10 Aug 2022 - 25 Sep 2022
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </header>

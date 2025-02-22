@@ -1,11 +1,36 @@
+"use client"
+
 import { CiSearch } from "react-icons/ci";
 import { BiBell } from "react-icons/bi";
-import { requireAdmin } from "@/lib/auth";
 import UserAvatar from "@/components/UserAvatar";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
 
-export default async function TopNav() {
-  const admin = await requireAdmin();
+export default function TopNav() {
+  const { data: admin, isLoading, error } = useQuery({
+    queryKey: ["adminProfile"],
+    queryFn: async () => {
+      const res = await fetch("/api/admin/profile");
+      if (!res.ok) throw new Error("Failed to fetch profile");
+      return res.json();
+    },
+    staleTime: 2000, // 2 seconds
+  });
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <Loader2 className="text-[#f26744] size-10 animate-spin" />
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return <div className="min-h-screen bg-gray-100">Error: {error.message}</div>;
+  }
 
   return (
     <header className="bg-white shadow-md p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between">

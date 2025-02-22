@@ -1,17 +1,19 @@
+"use server" // Ensures this function is treated as a server function
+
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { validateRequest } from "@/auth";
 
 export const requireAdmin = async () => {
-    const requestHeaders = await headers();
-    const referer = requestHeaders.get("referer") || "/feed"; 
+  const requestHeaders = await headers();
+  const referer = requestHeaders.get("referer") || "/feed";
 
-    const { user } = await validateRequest();
+  const { user } = await validateRequest();
 
-    if (!user || user.role !== "ADMIN") {
-      console.error("You're not an admin! Redirecting to:", referer);
-      redirect(referer); // Redirect back to previous page
-    }
+  if (!user || user.role !== "ADMIN") {
+    console.warn("Unauthorized access attempt. Redirecting to:", referer);
+    redirect(referer); // Redirect back to the referring page
+  }
 
-    return user; // Return user data if authorized
+  return user; // Return user data if authorized
 };

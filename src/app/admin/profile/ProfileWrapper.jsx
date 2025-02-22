@@ -19,6 +19,20 @@ export default function Profile() {
     staleTime: 2000, // 2 seconds
   });
 
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <Loader2 className="text-[#f26744] size-10 animate-spin" />
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return <div className="min-h-screen bg-gray-100">Error: {error.message}</div>;
+  }
+
   const [user, setUser] = useState({ name: "", phone: "" });
 
   // Update user state when admin data is available
@@ -45,20 +59,6 @@ export default function Profile() {
       setLoading(false);
     }
   };
-
-  // Loading state
-  if (isLoading) {
-    return (
-      <div className="h-screen flex justify-center items-center">
-        <Loader2 className="text-[#f26744] size-10 animate-spin" />
-      </div>
-    );
-  }
-
-  // Error state
-  if (error) {
-    return <div className="min-h-screen bg-gray-100">Error: {error.message}</div>;
-  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4">

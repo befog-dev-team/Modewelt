@@ -5,9 +5,8 @@ import { headers } from "next/headers";
 import { validateRequest } from "@/auth";
 
 export const requireAdmin = async () => {
-
-  const requestHeaders = headers(); // `headers` is already async-capable, no need for `await`
-  const referer = requestHeaders.get("referer") || "/feed"; 
+  const requestHeaders = await headers();
+  const referer = requestHeaders.get("referer") || "/feed";
 
   const { user } = await validateRequest();
 

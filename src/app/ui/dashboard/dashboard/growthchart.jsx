@@ -14,6 +14,7 @@ import {
 ChartJS.register(LineElement, PointElement, LinearScale, Tooltip, CategoryScale);
 
 const GrowthChart = ({ data }) => {
+  data = data || [];
 
   // Format date to a more readable format
   const formatDate = (dateString) => {

@@ -16,20 +16,6 @@ export default function UserManagement({ admin }) {
         queryFn: async () => await ky.get("/api/admin/user-management").json(),
     });
 
-    // Loading state
-    if (isLoading) {
-        return (
-            <div className="h-screen flex justify-center items-center">
-                <Loader2 className="text-[#f26744] size-10 animate-spin" />
-            </div>
-        );
-    }
-
-    // Error state
-    if (error) {
-        return <div className="min-h-screen flex justify-center items-center text-red-600">Error: {error.message}</div>;
-    }
-
     const [isOpen, setIsOpen] = useState(false);
     const [selectedPeriod, setSelectedPeriod] = useState({
         start: "17 April 2020",
@@ -52,6 +38,20 @@ export default function UserManagement({ admin }) {
         setSelectedPeriod({ start, end });
         setIsOpen(false);
     };
+
+    // Loading state
+    if (isLoading) {
+        return (
+            <div className="h-screen flex justify-center items-center">
+                <Loader2 className="text-[#f26744] size-10 animate-spin" />
+            </div>
+        );
+    }
+
+    // Error state
+    if (error) {
+        return <div className="min-h-screen flex justify-center items-center text-red-600">Error: {error.message}</div>;
+    }
 
     const {
         newRegistrations,

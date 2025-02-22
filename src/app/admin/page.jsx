@@ -7,8 +7,13 @@ export const metadata = {
 };
 
 export default async function AdminPage() {
-    const admin = await requireAdmin();
-    console.log("Admin data:", admin);
+    let admin;
+    try {
+        admin = await requireAdmin();
+    } catch (error) {
+        console.error("Failed to fetch admin data:", error);
+        return <div>Error loading admin data</div>;
+    }
 
     return (
         <AdminDashboardWrapper admin={admin} />

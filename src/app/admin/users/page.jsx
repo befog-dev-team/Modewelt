@@ -6,8 +6,14 @@ export const metadata = {
     description: "User Management Dashboard for Admins",
 };
 
-export default async function AdminPage() {
-    const admin = await requireAdmin();
+export default async function UserManagementPage() {
+    let admin;
+    try {
+        admin = await requireAdmin();
+    } catch (error) {
+        console.error("Failed to fetch admin data:", error);
+        return <div>Error loading admin data</div>;
+    }
 
     return (
         <UserManagement admin={admin} />

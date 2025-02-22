@@ -7,7 +7,13 @@ export const metadata = {
 };
 
 export default async function AnalyticsPage() {
-  const admin = await requireAdmin();
+  let admin;
+  try {
+    admin = await requireAdmin();
+  } catch (error) {
+    console.error("Failed to fetch admin data:", error);
+    return <div>Error loading admin data</div>;
+  }
 
   return (
     <AnalyticsWrapper admin={admin} />

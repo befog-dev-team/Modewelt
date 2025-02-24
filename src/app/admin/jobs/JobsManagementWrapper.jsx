@@ -91,9 +91,7 @@ export default function JobsManagementWrapper() {
             </div>
         );
     }
-
-    console.log("jobs", jobs);
-
+    
     return (
         <div className="min-h-screen bg-[#f3f2f7] p-4 sm:p-6">
             <div className="max-w-7xl mx-auto">

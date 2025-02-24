@@ -2,15 +2,14 @@ import prisma from "@/lib/prisma";
 export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const jobId = searchParams.get("jobId");
-    console.log("jobId", jobId);
 
-    if(!jobId) {
+    if (!jobId) {
         return Response.json({ error: "Invalid Job ID" }, { status: 400 });
     }
 
     try {
         const applications = await prisma.jobApplication.findMany({
-            where: { jobId: jobId ?? undefined },
+            where: { jobId: jobId },
             include: {
                 user: {
                     select: {

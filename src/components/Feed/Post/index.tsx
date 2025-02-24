@@ -17,7 +17,8 @@ import { MessageSquare } from "lucide-react";
 import Commentss from "@/components/Feed/comments/Commentss";
 import LikeButton from "./LikeButton";
 import FollowButton from "@/components/FollowButton";
-import ShareButton from './ShareButton';
+import ShareButton from "./ShareButton";
+import { ReportPostModal } from "../Post/ReportPostModal";
 
 // PostProps interface
 interface PostProps {
@@ -26,7 +27,6 @@ interface PostProps {
 
 // Post component
 export default function Post({ post }: PostProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
   const [expanded, setExpanded] = useState(false); // Expanded state
   const [showComments, setShowComments] = useState(false); // Show comments state
   const [isPopupOpen, setIsPopupOpen] = useState(false); // Popup state
@@ -38,10 +38,10 @@ export default function Post({ post }: PostProps) {
   const togglePopup = () => setIsPopupOpen(!isPopupOpen);
 
   // text trimming
-  const text = `${post.content}`
+  const text = `${post.content}`;
   const trimmedText = text.substring(0, 340);
 
-  // For Open Delete Post Dialog 
+  // For Open Delete Post Dialog
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   // Handle Delete Click
@@ -52,6 +52,50 @@ export default function Post({ post }: PostProps) {
   // Handle Close Dialog
   const handleCloseDialog = () => {
     setIsDialogOpen(false); // Close the dialog
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [reportedPosts, setReportedPosts] = useState<
+    { postId: number; reason: string }[]
+  >([]);
+
+  const reasonsList = [
+    {
+      id: "false-info",
+      label: "False Information",
+      description: "Spreading misleading information?",
+    },
+    {
+      id: "harassment",
+      label: "Harassment or Abuse",
+      description: "Targeting or abusing someone?",
+    },
+    {
+      id: "hate-speech",
+      label: "Hate Speech",
+      description: "Promoting hate based on identity?",
+    },
+    {
+      id: "violence",
+      label: "Violence or Threats",
+      description: "Threats or promoting violence?",
+    },
+    {
+      id: "spam",
+      label: "Spam or Scam",
+      description: "Fraud, phishing, or spam?",
+    },
+    {
+      id: "inappropriate",
+      label: "Inappropriate Content",
+      description: "Vulgar or offensive material?",
+    },
+    { id: "other", label: "Other", description: "" },
+  ];
+
+  const handleReport = (postId: number, reason: string) => {
+    console.log(`Post ${postId} reported for:`, reason);
+    setReportedPosts([...reportedPosts, { postId, reason }]);
   };
 
   return (
@@ -71,7 +115,11 @@ export default function Post({ post }: PostProps) {
 
         <div>
           <p className="leading-[15px] text-xs font-[Gotham] text-[#181818]">
-            Post created by <span className="text-primary">{post.user.displayName}</span> <span className="text-primary">{formatRelativeDate(post.createdAt)}</span>
+            Post created by{" "}
+            <span className="text-primary">{post.user.displayName}</span>{" "}
+            <span className="text-primary">
+              {formatRelativeDate(post.createdAt)}
+            </span>
           </p>
         </div>
 
@@ -84,7 +132,12 @@ export default function Post({ post }: PostProps) {
           {isPopupOpen && ( // Display the popup if isPopupOpen is true
             <div className="absolute right-0 mt-2 w-[200px] bg-white border border-gray-300 shadow-lg rounded-lg z-10">
               {post.user.id === user.id && ( // Check if the post user ID matches the current user ID
-                <button onClick={handleDeleteClick} className="flex items-center justify-center w-full py-1 px-4 text-sm rounded hover:text-white hover:font-bold hover:bg-red-500">Delete</button>
+                <button
+                  onClick={handleDeleteClick}
+                  className="flex items-center justify-center w-full py-1 px-4 text-sm rounded hover:text-white hover:font-bold hover:bg-red-500"
+                >
+                  Delete
+                </button>
               )}
 
               {/* Render DeletePostDialog */}
@@ -105,7 +158,7 @@ export default function Post({ post }: PostProps) {
                     isFollowedByUser: false,
                     followingId: "",
                     sentRequests: [],
-                    receivedRequests: []
+                    receivedRequests: [],
                   }}
                 />
               )}
@@ -113,12 +166,33 @@ export default function Post({ post }: PostProps) {
               {/* View Profile Button */}
               {user.id !== post.user.id && (
                 <Link href={`/profile/${post.user.username}`} prefetch={true}>
-                  <button className="flex items-center justify-center w-full py-1 px-4 text-sm rounded hover:text-red hover:font-semibold">View Profile</button>
+                  <button className="flex items-center justify-center w-full py-1 px-4 text-sm rounded hover:text-red hover:font-semibold">
+                    View Profile
+                  </button>
                 </Link>
               )}
+              <div className="p-6">
+                <div className="border p-4 rounded-lg shadow-md">
+                  <p>This is a sample post content...</p>
+                  <button
+                    className="mt-3 px-4 py-2 text-sm text-white bg-red-600 hover:bg-red-700 rounded-lg"
+                    onClick={() => setIsModalOpen(true)}
+                  >
+                    Report Post
+                  </button>
+                </div>
 
-              {/* <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Report Post</button>
-              <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Connect</button>
+                {/* Report Post Modal */}
+                <ReportPostModal
+                  isOpen={isModalOpen}
+                  onClose={() => setIsModalOpen(false)}
+                  onReport={handleReport}
+                  postId={1}
+                  reasonsList={reasonsList}
+                />
+              </div>
+
+              {/* <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Connect</button>
               <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Not Interested</button> */}
             </div>
           )}
@@ -134,9 +208,13 @@ export default function Post({ post }: PostProps) {
         </Link>
         <div className="flex flex-col">
           <Link href={`/profile/${post.user.username}`} prefetch={true}>
-            <h1 className="text-sm font-bold line-clamp-1 break-all hover:underline">{post.user.displayName}</h1>
+            <h1 className="text-sm font-bold line-clamp-1 break-all hover:underline">
+              {post.user.displayName}
+            </h1>
           </Link>
-          <span className="text-xs font-light">{post.user.profileHeadline}</span>
+          <span className="text-xs font-light">
+            {post.user.profileHeadline}
+          </span>
         </div>
       </div>
 
@@ -145,8 +223,9 @@ export default function Post({ post }: PostProps) {
         {post.content.trim() && (
           <div>
             <div
-              className={`px-8 mt-4 text-sm transition-all duration-500 ease-in-out overflow-hidden whitespace-pre-line break-words ${expanded ? "max-h-[1000px]" : "max-h-[100px]"
-                }`}
+              className={`px-8 mt-4 text-sm transition-all duration-500 ease-in-out overflow-hidden whitespace-pre-line break-words ${
+                expanded ? "max-h-[1000px]" : "max-h-[100px]"
+              }`}
             >
               {expanded ? text : trimmedText + "..."}
             </div>
@@ -173,19 +252,29 @@ export default function Post({ post }: PostProps) {
         <div className="flex gap-12">
           <div className="flex items-center space-x-2">
             <div className="hover:text-[#a35285]">
-              <LikeButton postId={post.id} initialState={{
-                likes: post._count.likes,
-                isLikedByUser: post.likes.some((like) => like.userId === user.id),
-              }} />
+              <LikeButton
+                postId={post.id}
+                initialState={{
+                  likes: post._count.likes,
+                  isLikedByUser: post.likes.some(
+                    (like) => like.userId === user.id
+                  ),
+                }}
+              />
             </div>
             <div className="hover:text-[#a35285]">
-              <CommentButton post={post} onClick={() => setShowComments(!showComments)} />
+              <CommentButton
+                post={post}
+                onClick={() => setShowComments(!showComments)}
+              />
             </div>
           </div>
         </div>
 
         {/* Share Button */}
-        <ShareButton shareUrl={`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${post.id}`} />
+        <ShareButton
+          shareUrl={`${process.env.NEXT_PUBLIC_BASE_URL}/posts/${post.id}`}
+        />
 
         {/* <div className="flex items-center space-x-2 cursor-pointer" onClick={() => setIsModalOpen(true)}>
           <FaShareAlt className="text-primary text-lg" />
@@ -198,7 +287,7 @@ export default function Post({ post }: PostProps) {
 
       {/* Share Modal */}
       <Modal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
-    </div >
+    </div>
   );
 }
 
@@ -209,9 +298,10 @@ interface MediaPreviewsProps {
 function MediaPreviews({ attachments }: MediaPreviewsProps) {
   return (
     <div
-      className={cn( // cn is a utility function to conditionally join class names
+      className={cn(
+        // cn is a utility function to conditionally join class names
         "flex flex-col gap-2 mx-4",
-        attachments.length > 1 && "sm:grid sm:grid-cols-1",
+        attachments.length > 1 && "sm:grid sm:grid-cols-1"
       )}
     >
       {attachments.map((m) => (
@@ -260,20 +350,35 @@ function MediaPreview({ media }: MediaPreviewProps) {
     return (
       <div className="flex items-center justify-between bg-[#FFE3EF] p-4 mt-2 rounded mb-2 border">
         <div className="flex">
-          <Image width={100} height={100} src="/assets/feed/document.png" alt="Document" className="w-16 h-16" />
+          <Image
+            width={100}
+            height={100}
+            src="/assets/feed/document.png"
+            alt="Document"
+            className="w-16 h-16"
+          />
           <div className="ml-4">
             <p>{media.fileName}</p>
             <span>{filesize(media.fileSize)}</span>
           </div>
         </div>
         <Link href={media.url} target="_blank" prefetch={true}>
-          <Image width={24} height={24} src="/assets/feed/download.png" alt="Download" />
+          <Image
+            width={24}
+            height={24}
+            src="/assets/feed/download.png"
+            alt="Download"
+          />
         </Link>
       </div>
-    )
+    );
   }
 
-  return <p className="text-destructive flex justify-center items-center text-center">Unsupported media type</p>;
+  return (
+    <p className="text-destructive flex justify-center items-center text-center">
+      Unsupported media type
+    </p>
+  );
 }
 
 interface CommentButtonProps {

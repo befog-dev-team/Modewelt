@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2, SquareArrowOutUpRight } from "lucide-react";
 import ky from "ky";
@@ -14,6 +14,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function ApplicantsDetails() {
+  const router = useRouter();
+
   const { id } = useParams(); // Get the job id from the URL
 
   // Fetch job data
@@ -156,9 +158,10 @@ export default function ApplicantsDetails() {
                 alt={`${selectedApplicant.firstName} ${selectedApplicant.lastName}`}
                 width={120}
                 height={120}
-                className="rounded-full w-32 h-32"
+                className="rounded-full w-32 h-32 cursor-pointer"
+                onClick={() => router.push(`/profile/${selectedApplicant.user.username}`)}
               />
-              <h3 className="text-xl text-[#303940] font-semibold">
+              <h3 className="text-xl text-[#303940] font-semibold hover:underline cursor-pointer" onClick={() => router.push(`/profile/${selectedApplicant.user.username}`)}>
                 {selectedApplicant.firstName} {selectedApplicant.lastName}
               </h3>
               <p className="text-gray-500">
@@ -394,6 +397,12 @@ export default function ApplicantsDetails() {
             <strong>Expiration Date:</strong>{" "}
             {new Date(job?.expirationDate).toLocaleDateString()}
           </p>
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:outline hover:text-black hover:bg-transparent transition-colors duration-200"
+            onClick={() => router.push(`/jobDetails/${job?.id}`)}
+          >
+            View Job
+          </button>
         </div>
 
         {/* Divider */}

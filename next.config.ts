@@ -8,13 +8,13 @@ const nextConfig: import('next').NextConfig = {
     ignoreDuringBuilds: true,
   },
 
-  experimental: {
-    turbo: {}, // Enable Next.js Rust compiler for faster builds
-    serverActions: {},
-    staleTimes: {
-      dynamic: 30,
-    },
-  },
+  // experimental: {
+  //   turbo: {}, // Enable Next.js Rust compiler for faster builds
+  //   serverActions: {},
+  //   staleTimes: {
+  //     dynamic: 30,
+  //   },
+  // },
 
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',

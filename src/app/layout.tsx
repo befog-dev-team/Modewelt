@@ -3,6 +3,7 @@ import localFont from "next/font/local"; // Import the localFont function from t
 import "./globals.css"; // Import the global styles
 import useLenis from "../components/Hooks/index"; // Import the custom Lenis hook
 import ReactQueryProvider from "./ReactQueryProvider"; // Import the ReactQueryProvider component
+import Head from "next/head";
 
 // Uploadthing
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin"; // Import the NextSSRPlugin component from the @uploadthing/react/next-ssr-plugin package
@@ -60,7 +61,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
+      <Head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content={metadata.description ?? undefined} />
@@ -89,7 +90,7 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-      </head>
+      </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[--background-color] overflow-x-hidden`} // Define the body element with the classes for the Geist Sans and Geist Mono fonts, antialiased text rendering, the background color, and the overflow-x-hidden property
       >

@@ -10,6 +10,7 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
+import AdminDatePicker from "../ui/common/AdminDatePicker";
 
 export default function Dashboard({ admin }) {
   const dropdownRef = useRef(null);
@@ -120,6 +121,8 @@ export default function Dashboard({ admin }) {
                     ))}
                   </div>
                 )}
+
+                <AdminDatePicker />
               </div>
             </div>
           </header>

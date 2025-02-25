@@ -12,13 +12,18 @@ import { Loader2 } from "lucide-react";
 import ky from "ky";
 
 const Analytics = ({ admin }) => {
-    const { data, isLoading, error } = useQuery({
+    const { data: userData, isLoading: userLoading, error: userError } = useQuery({
         queryKey: ["user-management-stats"],
         queryFn: async () => await ky.get("/api/admin/user-management").json(),
     });
 
+    const { data: jobStats, isLoading: jobLoading, error: jobError } = useQuery({
+        queryKey: ["admin-jobStats"],
+        queryFn: async () => await ky.get("/api/admin/analytics").json(),
+    });
+
     // Loading state
-    if (isLoading) {
+    if (userLoading || jobLoading) {
         return (
             <div className="h-screen flex justify-center items-center">
                 <Loader2 className="text-[#f26744] size-10 animate-spin" />
@@ -27,10 +32,14 @@ const Analytics = ({ admin }) => {
     }
 
     // Error state
-    if (error) {
-        return <div className="min-h-screen flex justify-center items-center text-red-600">Error: {error.message}</div>;
+    if (userError || jobError) {
+        return (
+            <div className="min-h-screen flex justify-center items-center text-red-600">
+                Error: {userError?.message || jobError?.message}
+            </div>
+        );
     }
-    
+
     return (
         <div className="min-h-screen bg-[#f3f2f7] p-4 sm:p-6">
             <div className="max-w-7xl mx-auto">
@@ -61,7 +70,7 @@ const Analytics = ({ admin }) => {
                 </header>
                 <section className="mt-8">
                     <div className="bg-white shadow-sm rounded-lg overflow-hidden">
-                        <UserChart chartdata={data} />
+                        <UserChart chartdata={userData} />
                     </div>
                 </section>
             </div>
@@ -87,7 +96,7 @@ const Analytics = ({ admin }) => {
                             </div>
                         </button>
                     </div>
-                    <JobPostingChart />
+                    <JobPostingChart jobStats={jobStats} />
                 </div>
 
                 {/* Monthly Revenue Chart */}

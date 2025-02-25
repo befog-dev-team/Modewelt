@@ -19,8 +19,6 @@ ChartJS.register(
 );
 
 export default function Home({ chartdata }) {
-  console.log("chartdata", chartdata);
-
   const data = {
     labels: chartdata.labels, // Use the labels from your data
     datasets: [

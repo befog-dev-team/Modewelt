@@ -173,7 +173,6 @@ export default function Post({ post }: PostProps) {
               )}
               <div className="p-6">
                 <div className="border p-4 rounded-lg shadow-md">
-                  <p>This is a sample post content...</p>
                   <button
                     className="mt-3 px-4 py-2 text-sm text-white bg-red-600 hover:bg-red-700 rounded-lg"
                     onClick={() => setIsModalOpen(true)}

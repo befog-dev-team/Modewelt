@@ -12,6 +12,7 @@ import pdf from "../../../../../public/assets/Applicants/pdf.png";
 import dayjs from "dayjs";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
 
 export default function ApplicantsDetails() {
   const router = useRouter();
@@ -152,21 +153,30 @@ export default function ApplicantsDetails() {
         {selectedApplicant ? (
           <div className="space-y-6">
             {/* Profile Section */}
-            <div className="flex flex-col items-center gap-4">
-              <UserAvatar
-                src={selectedApplicant?.user?.avatarUrl}
-                alt={`${selectedApplicant.firstName} ${selectedApplicant.lastName}`}
-                width={120}
-                height={120}
-                className="rounded-full w-32 h-32 cursor-pointer"
-                onClick={() => router.push(`/profile/${selectedApplicant.user.username}`)}
-              />
-              <h3 className="text-xl text-[#303940] font-semibold hover:underline cursor-pointer" onClick={() => router.push(`/profile/${selectedApplicant.user.username}`)}>
-                {selectedApplicant.firstName} {selectedApplicant.lastName}
-              </h3>
+            <div className="flex flex-col items-center gap-2">
+              <Link href={`/profile/${selectedApplicant.user.username}`}>
+                <UserAvatar
+                  src={selectedApplicant?.user?.avatarUrl}
+                  alt={`${selectedApplicant.firstName} ${selectedApplicant.lastName}`}
+                  width={120}
+                  height={120}
+                  className="rounded-full w-32 h-32 "
+                />
+              </Link>
+              <Link href={`/profile/${selectedApplicant.user.username}`}>
+                <h3 className="text-xl text-[#303940] font-semibold hover:underline">
+                  {selectedApplicant.firstName} {selectedApplicant.lastName}
+                </h3>
+              </Link>
               <p className="text-gray-500">
-                {selectedApplicant?.user?.username}
+                @{selectedApplicant?.user?.username}
               </p>
+              <button
+                className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:outline hover:text-black hover:bg-transparent transition-colors duration-200"
+                onClick={() => router.push(`/profile/${selectedApplicant.user.username}`)}
+              >
+                View Profile
+              </button>
             </div>
 
             {/* Personal Information */}

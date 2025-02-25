@@ -84,18 +84,7 @@ export default function UserManagement({ admin }) {
 
           {/* Filter Period Section */}
           <div className="relative">
-            <button className="mt-4 sm:mt-0 bg-white shadow-sm rounded-lg p-4 flex items-center space-x-2 cursor-pointer focus:ring-2 focus:ring-gray-300">
-              <div className="text-[#a65386] text-2xl rounded-lg p-2">
-                <FiCalendar />
-              </div>
-              <div>
-                <p className="text-gray-600 text-lg">Filter Period</p>
-                {/* <p className="text-gray-800 text-xs font-medium">
-                      {selectedPeriod.start} - {selectedPeriod.end}
-                    </p> */}
-                <AdminDatePicker />
-              </div>
-            </button>
+            <AdminDatePicker />
           </div>
         </header>
 

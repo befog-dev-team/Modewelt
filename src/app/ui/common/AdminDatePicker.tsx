@@ -1,5 +1,4 @@
 "use client";
-"use client";
 
 import * as React from "react";
 import { addDays, format } from "date-fns";
@@ -68,6 +67,5 @@ export default function AdminDatePicker({
         </PopoverContent>
       </Popover>
     </div>
-  );
   );
 }

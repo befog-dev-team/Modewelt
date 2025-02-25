@@ -1,7 +1,10 @@
 "use client";
+
+import AdminDatePicker from "@/app/ui/common/AdminDatePicker";
+import Sidebar from "@/app/ui/dashboard/content/sidebar";
 import { FiCalendar } from "react-icons/fi";
 import { IoIosArrowDown } from "react-icons/io";
-import Sidebar from "@/app/ui/dashboard/content/sidebar";
+
 const content = () => {
   return (
     <div className="min-h-screen bg-[#f3f2f7] p-4 sm:p-6">
@@ -18,24 +21,24 @@ const content = () => {
               </p> */}
             </div>
             {/* Filter Period Section */}
-            <div className="mt-4 sm:mt-0 bg-white shadow-sm rounded-lg p-4 flex items-center space-x-2">
-              <div className="text-[#a65386] text-2xl bg-[#ead6ff] rounded-[0.5rem] p-2">
-                <FiCalendar />
-              </div>
-              <div>
-                <p className="text-gray-600 text-lg">Filter Period</p>
-                <p className="text-gray-800 font-sm text-[8px]">
-                  17 April 2020 - 21 May 2020
-                </p>
-              </div>
-              <div className="text-[#b9babd] text-2xl">
-                <IoIosArrowDown />
-              </div>
+            <div className="relative">
+              <button className="mt-4 sm:mt-0 bg-white shadow-sm rounded-lg p-4 flex items-center space-x-2 cursor-pointer focus:ring-2 focus:ring-gray-300">
+                <div className="text-[#a65386] text-2xl rounded-lg p-2">
+                  <FiCalendar />
+                </div>
+                <div>
+                  <p className="text-gray-600 text-lg">Filter Period</p>
+                  {/* <p className="text-gray-800 text-xs font-medium">
+                      {selectedPeriod.start} - {selectedPeriod.end}
+                    </p> */}
+                  <AdminDatePicker />
+                </div>
+              </button>
             </div>
           </div>
         </header>
         <div>
-            <Sidebar/>
+          <Sidebar />
         </div>
       </div>
     </div>

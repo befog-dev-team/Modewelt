@@ -33,28 +33,6 @@ export default function Dashboard({ admin }) {
     totalUsers: 0,
   }, [data]);
 
-  // Handle click outside dropdown
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedPeriod, setSelectedPeriod] = useState({
-    start: "17 April 2020",
-    end: "21 May 2020",
-  });
-
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const handleDateChange = (start, end) => {
-    setSelectedPeriod({ start, end });
-    setIsOpen(false);
-  };
-
   // Loading state
   if (isLoading) {
     return (

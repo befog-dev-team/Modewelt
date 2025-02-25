@@ -1,4 +1,5 @@
 "use client";
+"use client";
 
 import * as React from "react";
 import { addDays, format } from "date-fns";
@@ -32,6 +33,7 @@ export default function AdminDatePicker({
               "mt-4 sm:mt-0 bg-white shadow-sm rounded-lg p-4 flex items-center space-x-2 cursor-pointer focus:ring-2 focus:ring-gray-300",
               !date && "text-muted-foreground"
             )}
+            aria-label="Select date range"
           >
             <div className="text-[#a65386] text-2xl bg-[#ead6ff] rounded-lg p-2">
               <FiCalendar />
@@ -58,7 +60,6 @@ export default function AdminDatePicker({
           <Calendar
             initialFocus
             mode="range"
-            defaultMonth={date?.from}
             selected={date}
             onSelect={setDate}
             numberOfMonths={2}
@@ -67,5 +68,6 @@ export default function AdminDatePicker({
         </PopoverContent>
       </Popover>
     </div>
+  );
   );
 }

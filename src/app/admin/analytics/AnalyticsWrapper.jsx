@@ -31,8 +31,16 @@ const Analytics = ({ admin }) => {
     queryFn: async () => await ky.get("/api/admin/analytics").json(),
   });
 
+  const { data: jobTrends,
+    isLoading: jobTrendsLoading,
+    error: jobTrendsError,
+  } = useQuery({
+    queryKey: ["job-trends"],
+    queryFn: async () => ky.get("/api/admin/analytics/job-trends").json(),
+  });
+
   // Loading state
-  if (userLoading || jobLoading) {
+  if (userLoading || jobLoading || jobTrendsLoading) {
     return (
       <div className="h-screen flex justify-center items-center">
         <Loader2 className="text-[#f26744] size-10 animate-spin" />
@@ -41,7 +49,7 @@ const Analytics = ({ admin }) => {
   }
 
   // Error state
-  if (userError || jobError) {
+  if (userError || jobError || jobTrendsError) {
     return (
       <div className="min-h-screen flex justify-center items-center text-red-600">
         Error: {userError?.message || jobError?.message}
@@ -50,13 +58,13 @@ const Analytics = ({ admin }) => {
   }
 
   return (
-    <div className="min-h-screen bg-[#f3f2f7] p-4 sm:p-6">
+    <div className="min-h-screen p-4 sm:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <header className="mb-6">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
             <div>
-              <h1 className="text-2xl font-bold text-gray-800">
+              <h1 className="text-2xl font-bold text-gray-800 mx-[2rem]">
                 Analytics & Reports
               </h1>
             </div>
@@ -66,66 +74,52 @@ const Analytics = ({ admin }) => {
             </div>
           </div>
         </header>
-        <section className="mt-8">
-          <div className="bg-white shadow-sm rounded-lg overflow-hidden">
+
+        {/* User Chart Section */}
+        <section className="mt-4">
+          <div className="bg-gray-100 rounded-lg overflow-hidden p-6">
             <UserChart chartdata={userData} />
           </div>
         </section>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-        {/* Job Posting Chart */}
-        <div className="shadow-sm rounded-lg">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold text-gray-800">Job Posting</h2>
-            <button
-              className="flex items-center px-3 py-1.5 rounded-lg text-sm transition"
-              onClick={() => setFilter(!filter)}
-            >
-              <div className="mt-4 sm:mt-0 bg-white shadow-sm rounded-lg p-4 flex items-center space-x-2">
-                <div className="text-[#a65386] text-base bg-[#ead6ff] rounded-[0.5rem] p-2">
-                  <FiCalendar />
-                </div>
-                <div>
-                  <p className="text-gray-600 text-base">Filter Period</p>
-                </div>
-                <div className="text-[#b9babd] text-base">
-                  <IoIosArrowDown />
-                </div>
-              </div>
-            </button>
+
+        {/* Grid Layout for Charts and Table */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-4">
+          {/* Job Posting Chart */}
+          <div className="bg-gray-100 rounded-lg overflow-hidden p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold text-gray-700">Job Posting</h2>
+            </div>
+            <JobPostingChart jobStats={jobStats} />
           </div>
-          <JobPostingChart jobStats={jobStats} />
+
+          {/* Monthly Revenue Chart */}
+          {/* <div className="bg-white rounded-lg overflow-hidden p-6">
+            <h2 className="text-lg font-semibold text-gray-700 mb-4">
+              Monthly Revenue
+            </h2>
+            <MonthlyRevenueChart />
+          </div> */}
+
+          {/* Reviews Chart */}
+          {/* <div className="bg-white rounded-lg overflow-hidden p-6">
+            <h2 className="text-lg font-semibold text-gray-700 mb-4">Reviews</h2>
+            <ReviewsChart />
+          </div> */}
+
+          {/* Trends Table */}
+          <div className="bg-gray-100 rounded-lg overflow-hidden p-6">
+            <h2 className="text-lg font-semibold text-gray-700 mb-4">Trends</h2>
+            <TrendsTable jobTrends={jobTrends} />
+          </div>
         </div>
 
-        {/* Monthly Revenue Chart */}
-        {/* <div className="shadow-sm rounded-lg p-4">
-          <h2 className="text-lg font-semibold text-gray-700">
-            Monthly Revenue
-          </h2>
-          <MonthlyRevenueChart />
+        {/* Download Report Button */}
+        {/* <div className="mt-8 flex justify-center">
+          <button className="bg-[#a65386] text-white px-6 py-3 rounded-lg hover:bg-[#914272] transition">
+            Download Report
+          </button>
         </div> */}
-
-        {/* Reviews Chart */}
-        {/* <div className="bg-white shadow-sm rounded-lg p-4">
-          <h2 className="text-lg font-semibold text-gray-700">Reviews</h2>
-          <ReviewsChart />
-        </div> */}
-
-        {/* Trends Table */}
-        <div className="mt-4 sm:mt-0 bg-[#f3f2f7] shadow-sm rounded-lg p-4 items-center space-x-2">
-          <h2 className="text-lg font-semibold text-gray-700 lg:mb-12 sm:mb-4">
-            Trends
-          </h2>
-          <TrendsTable />
-        </div>
       </div>
-
-      {/* Download Report Button */}
-      {/* <div className="mt-6 flex justify-center">
-        <button className="bg-[#a65386] text-white px-6 py-3 rounded-lg shadow hover:bg-[#914272] transition">
-          Download Report
-        </button>
-      </div> */}
     </div>
   );
 };

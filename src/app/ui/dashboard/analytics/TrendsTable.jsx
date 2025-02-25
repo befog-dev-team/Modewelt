@@ -1,17 +1,8 @@
 'use client';
 
-export default function TrendsTable() {
-  const trends = [
-    { id: 1, name: 'lorem', description: 'lorem the ghtou asdfiadsuj', view: 'View', color: 'text-green-500' },
-    { id: 2, name: 'lorem', description: 'lorem the ghtou asdfiadsuj', view: 'view', color: 'text-green-500' },
-    { id: 3, name: 'lorem', description: 'lorem the ghtou asdfiadsuj', view: 'View', color: 'text-red-500' },
-    { id: 4, name: 'lorem', description: 'lorem the ghtou asdfiadsuj', view: 'View', color: 'text-green-500' },
-    { id: 5, name: 'lorem', description: 'lorem the ghtou asdfiadsuj', view: 'View', color: 'text-red-500' },
-    { id: 6, name: 'lorem', description: 'lorem the ghtou asdfiadsuj', view: 'View', color: 'text-green-500' },
-    { id: 7, name: 'lorem', description: 'lorem the ghtou asdfiadsuj', view: 'view', color: 'text-green-500' },
-    { id: 8, name: 'lorem', description: 'lorem the ghtou asdfiadsuj', view: 'View', color: 'text-red-500' },
-    { id: 9, name: 'lorem', description: 'lorem the ghtou asdfiadsuj', view: 'View', color: 'text-green-500' },
-  ];
+import Link from "next/link";
+
+export default function TrendsTable({ jobTrends }) {
 
   return (
     <div className="w-full max-w-3xl mx-auto p-4 bg-white rounded-2xl shadow-md">
@@ -20,18 +11,24 @@ export default function TrendsTable() {
           <thead>
             <tr className="text-gray-600 text-sm border-b">
               <th className="p-2">SL No</th>
-              <th className="p-2">Trend Name</th>
-              <th className="p-2">Trends Description</th>
+              <th className="p-2">Job Name</th>
+              <th className="p-2">Job Description</th>
               <th className="p-2">View</th>
             </tr>
           </thead>
           <tbody>
-            {trends.map((trend, index) => (
+            {jobTrends.map((trend, index) => (
               <tr key={trend.id} className="border-b text-gray-700 text-sm">
                 <td className="p-2">{String(index + 1).padStart(2, '0')}.</td>
-                <td className="p-2 font-medium">{trend.name}</td>
-                <td className="p-2">{trend.description}</td>
-                <td className={`p-2 font-medium ${trend.color}`}>{trend.view}</td>
+                <td className="p-2 font-medium">{trend.jobTitle}</td>
+                <td className="p-2">{trend.description.length > 30 ? `${trend.description.substring(0, 30)}...` : trend.description}</td>
+                <td className={`p-2 font-medium ${trend.color}`}>
+                  <Link href={`/admin/jobs/${trend.id}`}>
+                    <button className="flex items-center justify-center w-full py-1 px-4 bg-[#f26744] hover:bg-white hover:outline text-white hover:text-black text-sm font-bold rounded">
+                      View
+                    </button>
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>

@@ -286,3 +286,10 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Shadcn Calender */
+
+.rdp-weekdays{
+  display: flex !important;
+  gap: 1rem !important;
+}

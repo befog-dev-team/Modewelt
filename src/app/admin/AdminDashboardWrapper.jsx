@@ -85,43 +85,7 @@ export default function Dashboard({ admin }) {
                   Hi {admin.displayName || admin.username}, Welcome back to Modeweltjob Admin Panel!
                 </p>
               </div>
-              <div ref={dropdownRef} className="relative">
-                <button
-                  className="mt-4 sm:mt-0 bg-white shadow-sm rounded-lg p-4 flex items-center space-x-2 cursor-pointer focus:ring-2 focus:ring-gray-300"
-                  onClick={() => setIsOpen((prev) => !prev)}
-                  aria-expanded={isOpen}
-                >
-                  <div className="text-[#a65386] text-2xl bg-[#ead6ff] rounded-lg p-2">
-                    <FiCalendar />
-                  </div>
-                  <div>
-                    <p className="text-gray-600 text-lg">Filter Period</p>
-                    <p className="text-gray-800 text-xs font-medium">
-                      {selectedPeriod.start} - {selectedPeriod.end}
-                    </p>
-                  </div>
-                  <div className="text-[#b9babd] text-2xl">
-                    {isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
-                  </div>
-                </button>
-
-                {isOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-64 bg-white shadow-lg rounded-lg p-4 z-10">
-                    {[
-                      { start: "01 June 2021", end: "15 July 2021" },
-                      { start: "10 Aug 2022", end: "25 Sep 2022" },
-                    ].map(({ start, end }) => (
-                      <button
-                        key={start}
-                        className="block w-full text-left text-gray-800 hover:bg-gray-100 p-2 rounded-md"
-                        onClick={() => handleDateChange(start, end)}
-                      >
-                        {start} - {end}
-                      </button>
-                    ))}
-                  </div>
-                )}
-
+              <div className="relative">
                 <AdminDatePicker />
               </div>
             </div>

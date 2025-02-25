@@ -30,7 +30,7 @@ const Analytics = ({ admin }) => {
     if (error) {
         return <div className="min-h-screen flex justify-center items-center text-red-600">Error: {error.message}</div>;
     }
-
+    
     return (
         <div className="min-h-screen bg-[#f3f2f7] p-4 sm:p-6">
             <div className="max-w-7xl mx-auto">

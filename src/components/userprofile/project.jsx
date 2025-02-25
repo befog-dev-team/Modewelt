@@ -57,7 +57,7 @@ export default function ProjectPage() {
   };
 
   return (
-    <div className="mt-12 h-auto max-w-[850px] w-full bg-white shadow-lg p-6">
+    <div className="bg-white mt-12 h-auto max-w-[850px] w-full shadow-lg p-6">
       {/* Header Section */}
       <div className="flex justify-between">
         <div className="flex items-center mb-3 space-x-5">

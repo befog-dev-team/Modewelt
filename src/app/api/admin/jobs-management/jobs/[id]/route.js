@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server"; 
+import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
 export async function GET(req, props) {
@@ -17,7 +17,6 @@ export async function GET(req, props) {
         if (!job) { // Check if job is not found
             return NextResponse.json({ error: "Job not found" }, { status: 404 }); // Return error response
         }
-
         return NextResponse.json(job, { status: 200 }); // Return job response
     } catch (error) {
         console.error("Error fetching job:", error); // Log error

@@ -10,24 +10,24 @@ import { Prisma } from "@prisma/client";
 import streamServerClient from "@/lib/stream";
 
 // Configure Nodemailer
-const transporter = nodemailer.createTransport({
-  host: "sandbox.smtp.mailtrap.io", // Mailtrap SMTP host
-  port: 2525, // Mailtrap SMTP port
-  auth: {
-    user: process.env.MAILTRAP_USER,
-    pass: process.env.MAILTRAP_PASS,
-  },
-});
+// const transporter = nodemailer.createTransport({
+//   host: "sandbox.smtp.mailtrap.io", // Mailtrap SMTP host
+//   port: 2525, // Mailtrap SMTP port
+//   auth: {
+//     user: process.env.MAILTRAP_USER,
+//     pass: process.env.MAILTRAP_PASS,
+//   },
+// });
 
 // Uncomment the code below to use Gmail transporter instead of Mailtrap
 
-// const transporter = nodemailer.createTransport({
-//   service: "gmail",
-//   auth: {
-//     user: process.env.EMAIL_USER,
-//     pass: process.env.EMAIL_PASS,
-//   },
-// });
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
 
 export async function signUp(
   credentials: SignUpValues // The sign up values

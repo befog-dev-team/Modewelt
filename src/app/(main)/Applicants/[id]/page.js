@@ -8,19 +8,14 @@ import Image from "next/image";
 import pdf from "../../../../../public/assets/Applicants/pdf.png";
 import { Loader2, SquareArrowOutUpRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { formatRelativeDate } from "@/lib/utils";
 import UserAvatar from "@/components/UserAvatar";
+import ky from "ky";
 
+// Applicants Page Component
 const ApplicantsPage = () => {
-  const router = useRouter();
-  const [selectedApplicant, setSelectedApplicant] = useState(null);
-
-  // Function to fetch job data from API
-  const fetchJob = async (id) => {
-    const response = await axios.get(`/api/jobs/${id}`);
-    return response.data;
-  };
+  const router = useRouter(); // Next.js router hook
+  const [selectedApplicant, setSelectedApplicant] = useState(null); // Selected applicant state
 
   const { id } = useParams(); // Get the job id from the URL
   if (!id) notFound(); // Redirect to 404 page if id is not provided
@@ -28,16 +23,16 @@ const ApplicantsPage = () => {
   // Using useQuery to fetch and cache job data
   const { data: job, error, isLoading } = useQuery({
     queryKey: ["job", id], // Cache key based on the job id
-    queryFn: () => fetchJob(id), // Fetch function
-    staleTime: 1000 * 60 * 5, // Cache the data for 5 minutes
+    queryFn: async () => {
+      return ky.get(`/api/jobs/${id}`).json()
+    },
   });
 
   // Using useQuery to fetch and cache applicants data
   const { data: applicantsData } = useQuery({
     queryKey: ["applicantsData", id],
     queryFn: async () => {
-      const res = await axios.get(`/api/jobs/job-applications?jobId=${id}`);
-      return res.data;
+      return ky.get(`/api/jobs/job-applications?jobId=${id}`).json();
     },
   });
 

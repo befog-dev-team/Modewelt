@@ -63,6 +63,7 @@ export default function Dashboard({ admin }) {
                   Hi {admin.displayName || admin.username}, Welcome back to Modeweltjob Admin Panel!
                 </p>
               </div>
+              {/* Filter Period Section */}
               <div className="relative">
                 <AdminDatePicker />
               </div>

@@ -6,6 +6,7 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import ky from "ky";
+import { DatePickerWithRange } from "../../ui/dashboard/datepicker/DatePickerWithRange";
 
 import UserChart from "@/app/ui/dashboard/users/userchart";
 import UserDetails from "@/app/ui/dashboard/users/userdetails";
@@ -111,20 +112,7 @@ export default function UserManagement({ admin }) {
                         </button>
 
                         {isOpen && (
-                            <div className="absolute top-full left-0 mt-2 w-64 bg-white shadow-lg rounded-lg p-4 z-10">
-                                {[
-                                    { start: "01 June 2021", end: "15 July 2021" },
-                                    { start: "10 Aug 2022", end: "25 Sep 2022" },
-                                ].map(({ start, end }) => (
-                                    <button
-                                        key={start}
-                                        className="block w-full text-left text-gray-800 hover:bg-gray-100 p-2 rounded-md"
-                                        onClick={() => handleDateChange(start, end)}
-                                    >
-                                        {start} - {end}
-                                    </button>
-                                ))}
-                            </div>
+                            <DatePickerWithRange/>
                         )}
                     </div>
                 </header>

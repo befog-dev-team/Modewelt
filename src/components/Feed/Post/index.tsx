@@ -141,7 +141,7 @@ export default function Post({ post }: PostProps) {
                   </button>
                 </Link>
               )}
-              <div className="flex items-center justify-center w-full py-1 px-4 text-sm rounded hover:text-red hover:font-semibold">
+              <div >
                 <button
                   onClick={() => setShowModal(true)}
                   className="flex items-center justify-center w-full py-1 px-4 text-sm rounded hover:text-white hover:font-bold hover:bg-red-500"

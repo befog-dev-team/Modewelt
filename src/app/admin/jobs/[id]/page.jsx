@@ -446,8 +446,8 @@ export default function ApplicantsDetails() {
         </div>
       </div>
       <ToastContainer
-        closeOnClick closeOnClick
         position="top-center"
+        closeOnClick
         // autoClose={false}
         newestOnTop
         draggable

@@ -141,7 +141,7 @@ export default function Post({ post }: PostProps) {
                   </button>
                 </Link>
               )}
-              <div className="p-6">
+              <div>
                 <button
                   onClick={() => setShowModal(true)}
                   className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"

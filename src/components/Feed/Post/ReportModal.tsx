@@ -66,7 +66,7 @@ export default function ReportModal({ isOpen, onClose }: ReportModalProps) {
             </button>
             <button
               onClick={handleSubmit}
-              className="px-4 py-2 bg-purple-600 text-white rounded-lg"
+              className="px-4 py-2 bg-[#f26744] text-white rounded-lg"
             >
               Report
             </button>

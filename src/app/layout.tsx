@@ -100,7 +100,7 @@ export default function RootLayout({
             {/* ToastContainer component for displaying toasts */}
             <ToastContainer
               position="top-center"
-              // autoClose={false}
+              closeOnClick
               newestOnTop
               draggable
             />

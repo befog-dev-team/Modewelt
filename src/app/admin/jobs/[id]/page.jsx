@@ -445,7 +445,13 @@ export default function ApplicantsDetails() {
           <p className="text-gray-600">{job?.benefits}</p>
         </div>
       </div>
-      <ToastContainer />
+      <ToastContainer
+        closeOnClick closeOnClick
+        position="top-center"
+        // autoClose={false}
+        newestOnTop
+        draggable
+      />
     </div>
   );
 }

@@ -9,7 +9,7 @@ export default function ReportModal({ postId, jobId, isOpen, onClose }) {
   const { user } = useSession();
 
   const userId = user?.id;
-  const email = user?.email;
+  const [email, setEmail] = useState(user?.email);
   const [selectedReason, setSelectedReason] = useState("");
   const [customReason, setCustomReason] = useState("");
   const [altEmail, setAltEmail] = useState("");
@@ -54,6 +54,9 @@ export default function ReportModal({ postId, jobId, isOpen, onClose }) {
 
       if (response.ok) {
         toast.success("Report submitted successfully!");
+        setSelectedReason("");
+        setCustomReason("");
+        setAltEmail("");
         onClose();
       } else {
         toast.error("Failed to submit report. Please try again.");

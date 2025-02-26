@@ -39,7 +39,7 @@ export default function ReportModal({ postId, jobId, isOpen, onClose }) {
       reason: selectedReason,
       customReason: selectedReason === "Other" ? customReason : "",
       email,
-      altEmail: selectedReason === "Other" ? altEmail : "",
+      altEmail,
       postId,
       jobId,
     };

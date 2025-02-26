@@ -152,6 +152,7 @@ export default function Post({ post }: PostProps) {
                 <ReportModal
                   isOpen={showModal}
                   onClose={() => setShowModal(false)}
+                  userEmail={post.user.email ?? ""}
                 />
               </div>
               {/* <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Report</button> */}

@@ -55,8 +55,8 @@ const Sidebar = () => {
               <Link href={menu.path} prefetch={true}>
                 <div
                   className={`flex items-center space-x-2 p-2 rounded-md cursor-pointer font-medium text-sm transition ${activeIndex === index
-                      ? "text-[#b35b95] bg-[#ead6ff]" // Active item styles
-                      : "text-gray-700 hover:bg-purple-100" // Non-active item styles
+                    ? "text-[#b35b95] bg-[#ead6ff]" // Active item styles
+                    : "text-gray-700 hover:bg-purple-100" // Non-active item styles
                     }`}
                   onClick={() => handleClick(index)} // Set clicked item as active
                 >

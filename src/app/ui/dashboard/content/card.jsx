@@ -7,7 +7,7 @@ import actionIcon from "../../../../../public/contact/ac.png";
 
 const cardData = [
   {
-    title: "Total Post",
+    title: "Total Reports",
     value: "40,689",
     icon: pageIcon,
     timeFrame: "Last",
@@ -21,7 +21,7 @@ const cardData = [
     period: "Week",
   },
   {
-    title: "Offensive Content",
+    title: "Reported Jobs",
     value: "2,040",
     icon: offensiveIcon,
     timeFrame: "Last",
@@ -38,35 +38,36 @@ const cardData = [
 
 export default function StatsCards() {
   return (
-    <div className=" max-w-[70%] xl:max-w-[980px] mx-auto">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
+    <div className="max-w-[70%] xl:max-w-[980px] mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {cardData.map((item, index) => (
           <div
             key={index}
-            className="px-4 py-0.5 text-sm bg-white rounded-2xl shadow-lg w-full max-w-sm"
+            className="p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
             <div className="flex items-center justify-between">
-              <h3 className="text-gray-600 font-semibold text-sm md:text-base">
+              <h3 className="text-gray-600 font-semibold text-base md:text-lg">
                 {item.title}
               </h3>
-              <div className="w-12 h-12 p-3 bg-[#F5F0FA] rounded-[1rem] flex items-center justify-center">
+              <div className="w-12 h-12 p-3 bg-[#F5F0FA] rounded-xl flex items-center justify-center">
                 <Image
                   src={item.icon}
                   alt={item.title}
                   width={28}
                   height={28}
+                  className="object-contain"
                 />
               </div>
             </div>
-              <p className="text-xl font-bold text-black">{item.value}</p>
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-[12px] text-[#a6aaab] sm:text-md md:text-lg w-full sm:w-auto">
+            <p className="text-2xl font-bold text-black mt-4">{item.value}</p>
+            <div className="flex flex-wrap items-center justify-between gap-2 mt-4">
+              <p className="text-sm text-[#a6aaab]">
                 <span className="text-green-600 font-semibold">
-                  {item.timeFrame}
+                  {item.timeFrame}{" "}
                 </span>
                 {item.period}
               </p>
-              <select className="border text-[#a6aaab] border-gray-300 rounded-lg text-xs sm:text-sm md:text-base px-1 sm:px-2 py-0.5 sm:py-1 focus:outline-none focus:ring-2 focus:ring-gray-400 transition w-full sm:w-auto pb-1">
+              <select className="border text-[#a6aaab] border-gray-300 rounded-lg text-sm px-2 py-1 focus:outline-none focus:ring-2 focus:ring-gray-400 transition">
                 <option>October</option>
                 <option>November</option>
                 <option>December</option>

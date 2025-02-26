@@ -3,24 +3,14 @@ import { MdBlockFlipped } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import { FaCheck } from "react-icons/fa6";
 import Card from "./card";
-// import page from "../../../../../public/contact/page.png";
-// import Vector from "../../../../../public/contact/Vector.png";
-// import time from "../../../../../public/contact/time.png";
-// import ac from "../../../../../public/contact/ac.png";
 
 export default function Dashboard() {
-//   const stats = [
-//     { title: "Total Post", value: "40,689", icon: page },
-//     { title: "Reported Post", value: "89,000", icon: Vector },
-//     { title: "Offensive", value: "2,040", icon: time },
-//     { title: "Total Action", value: "2,040", icon: ac },
-//   ];
 
   return (
     <div className="p-2 md:p-8 max-w-7xl mx-auto">
       {/* Stats Section */}
       <div className="flex bg-gray-100">
-        <Card/>
+        <Card />
       </div>
       {/* Posts Table */}
       <div className="mt-8 bg-white rounded-2xl shadow-md overflow-hidden">

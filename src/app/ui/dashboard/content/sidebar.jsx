@@ -39,11 +39,10 @@ const Sidebar = () => {
               <li
                 key={type}
                 onClick={() => setSelectedContent(type)}
-                className={`flex justify-between items-center px-4 py-2 cursor-pointer rounded-lg mb-2 ${
-                  selectedContent === type
-                    ? "bg-[#f2e6ee] text-[#a85287]"
-                    : "hover:bg-gray-100 text-gray-600"
-                }`}
+                className={`flex justify-between items-center px-4 py-2 cursor-pointer rounded-lg mb-2 ${selectedContent === type
+                  ? "bg-[#f2e6ee] text-[#a85287]"
+                  : "hover:bg-gray-100 text-gray-600"
+                  }`}
               >
                 <span className="flex items-center gap-2">
                   {type === "Post" && <span><CiMail /></span>}
@@ -78,17 +77,17 @@ const Sidebar = () => {
       <div className="flex-1 bg-gray-100">
         {selectedContent === "Post" && (
           <div>
-            <Post/>
+            <Post />
           </div>
         )}
         {selectedContent === "Comment" && (
           <div>
-            <Comment/>
+            <Comment />
           </div>
         )}
         {selectedContent === "Job Listing" && (
           <div>
-            <Joblist/>
+            <Joblist />
           </div>
         )}
       </div>

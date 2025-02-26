@@ -1,61 +1,54 @@
 "use client";
+
 import { MdBlockFlipped } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import { FaCheck } from "react-icons/fa6";
 import Card from "./card";
-// import page from "../../../../../public/contact/page.png";
-// import Vector from "../../../../../public/contact/Vector.png";
-// import time from "../../../../../public/contact/time.png";
-// import ac from "../../../../../public/contact/ac.png";
 
 export default function Dashboard() {
-//   const stats = [
-//     { title: "Total Post", value: "40,689", icon: page },
-//     { title: "Reported Post", value: "89,000", icon: Vector },
-//     { title: "Offensive", value: "2,040", icon: time },
-//     { title: "Total Action", value: "2,040", icon: ac },
-//   ];
-
   return (
-    <div className="p-2 md:p-8 max-w-7xl mx-auto">
+    <div className="p-4 md:p-8 max-w-7xl mx-auto">
       {/* Stats Section */}
-      <div className="flex bg-gray-100">
-        <Card/>
-      </div>
+      <Card />
+
       {/* Posts Table */}
       <div className="mt-8 bg-white rounded-2xl shadow-md overflow-hidden">
-        <div className="p-4 border-b border-gray-200 font-semibold text-lg">Post</div>
+        <div className="p-6 border-b border-gray-200">
+          <h2 className="font-semibold text-xl text-gray-800">Posts</h2>
+        </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-gray-600">
-            <thead className="bg-gray-100">
+          <table className="w-full text-left text-gray-700">
+            <thead>
               <tr>
-                <th className="p-4">User</th>
-                <th>User Name</th>
-                <th>Post Date</th>
-                <th>Description</th>
-                <th className="text-center">Action</th>
+                <th className="p-4 font-medium">User</th>
+                <th className="p-4 font-medium">User Name</th>
+                <th className="p-4 font-medium">Post Date</th>
+                <th className="p-4 font-medium">Reason</th>
+                <th className="p-4 font-medium text-center">Action</th>
               </tr>
             </thead>
             <tbody>
               {Array.from({ length: 6 }).map((_, index) => (
-                <tr key={index} className="border-b border-gray-200 hover:bg-gray-50">
+                <tr key={index} className="border-b border-gray-200 hover:bg-gray-50 transition-colors">
                   <td className="p-4 flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-full bg-gray-300"></div>
-                    <span>User Name</span>
+                    <div className="w-10 h-10 rounded-full bg-gray-300 flex-shrink-0"></div>
+                    <span className="font-medium text-gray-800">User Name</span>
                   </td>
-                  <td>@user</td>
-                  <td>12.09.2019 - 12:53 PM</td>
-                  <td>abc@gmail.com</td>
-                  <td className="space-x-2 text-center">
-                    <button className="bg-green-200 text-green-800 border-2 border-green-800 p-2 rounded transition-all hover:bg-green-800 hover:text-white">
-                      <FaCheck />
-                    </button>
-                    <button className="bg-[#ffcccc] text-[#ff1919] border-2 border-[#ff1919] p-2 rounded transition-all hover:bg-[#ff1919] hover:text-white">
-                      <RxCross2 />
-                    </button>
-                    <button className="bg-[#ffe1b5] text-[#ed991a] border-2 border-[#ed991a] p-2 rounded transition-all hover:bg-[#ed991a] hover:text-white">
-                      <MdBlockFlipped />
-                    </button>
+                  <td className="p-4">@user</td>
+                  <td className="p-4">12.09.2019 - 12:53 PM</td>
+                  <td className="p-4">abc@gmail.com</td>
+                  <td className="p-4">
+                    <div className="flex justify-center space-x-2">
+                      <button className="bg-green-200 text-green-800 border-2 border-green-800 p-2 rounded-lg transition-all hover:bg-green-800 hover:text-white">
+                        <FaCheck />
+                      </button>
+                      <button className="bg-red-100 text-red-800 border-2 border-red-800 p-2 rounded-lg transition-all hover:bg-red-800 hover:text-white">
+                        <RxCross2 />
+                      </button>
+                      <button className="bg-amber-100 text-amber-800 border-2 border-amber-800 p-2 rounded-lg transition-all hover:bg-amber-800 hover:text-white">
+                        <MdBlockFlipped />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

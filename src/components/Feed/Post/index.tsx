@@ -18,7 +18,6 @@ import Commentss from "@/components/Feed/comments/Commentss";
 import LikeButton from "./LikeButton";
 import FollowButton from "@/components/FollowButton";
 import ShareButton from "./ShareButton";
-import { ReportPostModal } from "../Post/ReportPostModal";
 
 // PostProps interface
 interface PostProps {
@@ -30,6 +29,7 @@ export default function Post({ post }: PostProps) {
   const [expanded, setExpanded] = useState(false); // Expanded state
   const [showComments, setShowComments] = useState(false); // Show comments state
   const [isPopupOpen, setIsPopupOpen] = useState(false); // Popup state
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
 
   // Get the current user from the session
   const { user } = useSession();
@@ -54,49 +54,6 @@ export default function Post({ post }: PostProps) {
     setIsDialogOpen(false); // Close the dialog
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [reportedPosts, setReportedPosts] = useState<
-    { postId: number; reason: string }[]
-  >([]);
-
-  const reasonsList = [
-    {
-      id: "false-info",
-      label: "False Information",
-      description: "Spreading misleading information?",
-    },
-    {
-      id: "harassment",
-      label: "Harassment or Abuse",
-      description: "Targeting or abusing someone?",
-    },
-    {
-      id: "hate-speech",
-      label: "Hate Speech",
-      description: "Promoting hate based on identity?",
-    },
-    {
-      id: "violence",
-      label: "Violence or Threats",
-      description: "Threats or promoting violence?",
-    },
-    {
-      id: "spam",
-      label: "Spam or Scam",
-      description: "Fraud, phishing, or spam?",
-    },
-    {
-      id: "inappropriate",
-      label: "Inappropriate Content",
-      description: "Vulgar or offensive material?",
-    },
-    { id: "other", label: "Other", description: "" },
-  ];
-
-  const handleReport = (postId: number, reason: string) => {
-    console.log(`Post ${postId} reported for:`, reason);
-    setReportedPosts([...reportedPosts, { postId, reason }]);
-  };
 
   return (
     <div className="bg-white mx-auto my-4 rounded-md shadow-md w-full max-w-4xl">
@@ -171,23 +128,6 @@ export default function Post({ post }: PostProps) {
                   </button>
                 </Link>
               )}
-              <div className="p-6">
-                  <button
-                    className="mt-3 px-4 py-2 text-sm text-white bg-red-600 hover:bg-red-700 rounded-lg"
-                    onClick={() => setIsModalOpen(true)}
-                  >
-                    Report Post
-                  </button>
-
-                {/* Report Post Modal */}
-                <ReportPostModal
-                  isOpen={isModalOpen}
-                  onClose={() => setIsModalOpen(false)}
-                  onReport={handleReport}
-                  postId={1}
-                  reasonsList={reasonsList}
-                />
-              </div>
 
               {/* <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Connect</button>
               <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Not Interested</button> */}

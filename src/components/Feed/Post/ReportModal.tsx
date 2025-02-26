@@ -8,11 +8,16 @@ interface ReportModalProps {
 export default function ReportModal({ isOpen, onClose }: ReportModalProps) {
   const [selectedReason, setSelectedReason] = useState("");
   const [customReason, setCustomReason] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("user@example.com");
   const [altEmail, setAltEmail] = useState("");
 
+  const handleReasonChange = (reason: string) => {
+    setSelectedReason(reason);
+    setAltEmail(""); // Reset alternative email when reason changes
+  };
+
   const handleSubmit = () => {
-    if (selectedReason === "Other" && (!customReason.trim() || !email.trim() || !altEmail.trim())) {
+    if (selectedReason === "Other" && (!customReason.trim() || !altEmail.trim())) {
       alert("Please provide all required details.");
       return;
     }
@@ -33,21 +38,20 @@ export default function ReportModal({ isOpen, onClose }: ReportModalProps) {
                   type="radio"
                   value={reason}
                   checked={selectedReason === reason}
-                  onChange={() => setSelectedReason(reason)}
+                  onChange={() => handleReasonChange(reason)}
                   className="cursor-pointer"
                 />
                 <span>{reason}</span>
               </label>
             ))}
 
-            {selectedReason === "Other" && (
+            {(selectedReason === "Other" || selectedReason) && (
               <div className="space-y-2 mt-2">
                 <input
                   type="email"
-                  placeholder="Enter your email..."
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full border px-2 py-1 rounded-md"
+                  disabled
+                  className="w-full border px-2 py-1 rounded-md bg-gray-200"
                 />
                 <input
                   type="email"
@@ -56,13 +60,15 @@ export default function ReportModal({ isOpen, onClose }: ReportModalProps) {
                   onChange={(e) => setAltEmail(e.target.value)}
                   className="w-full border px-2 py-1 rounded-md"
                 />
-                <input
-                  type="text"
-                  placeholder="Type your reason..."
-                  value={customReason}
-                  onChange={(e) => setCustomReason(e.target.value)}
-                  className="w-full border px-2 py-1 rounded-md"
-                />
+                {selectedReason === "Other" && (
+                  <input
+                    type="text"
+                    placeholder="Type your reason..."
+                    value={customReason}
+                    onChange={(e) => setCustomReason(e.target.value)}
+                    className="w-full border px-2 py-1 rounded-md"
+                  />
+                )}
               </div>
             )}
           </div>

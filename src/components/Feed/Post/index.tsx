@@ -141,7 +141,7 @@ export default function Post({ post }: PostProps) {
                   </button>
                 </Link>
               )}
-              <div >
+              <div className="flex items-center justify-center w-full py-1 px-4 text-sm rounded hover:text-red hover:font-semibold">
                 <button
                   onClick={() => setShowModal(true)}
                   className="flex items-center justify-center w-full py-1 px-4 text-sm rounded hover:text-white hover:font-bold hover:bg-red-500"
@@ -152,7 +152,6 @@ export default function Post({ post }: PostProps) {
                 <ReportModal
                   isOpen={showModal}
                   onClose={() => setShowModal(false)}
-                  userEmail={post.user.email ?? ""}
                 />
               </div>
               {/* <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Report</button> */}

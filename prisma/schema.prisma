@@ -57,6 +57,7 @@ model User {
   experiences            Experience[]
   skills                 Skill[]
   endorsements           Endorsement[]
+  Report                 Report[]
 
   lastLogin DateTime? // ? means that the field is optional
   createdAt DateTime  @default(now()) // @default sets a default value for a field
@@ -101,6 +102,7 @@ model Post {
   linkedNotifications Notification[] // @relation links the Post to the Notification model
 
   createdAt DateTime @default(now()) // @default sets a default value for a field 
+  Report    Report[]
 
   @@map("posts") // @@map allows you to set the name of the table in the database
 }
@@ -267,6 +269,7 @@ model Job {
   userId         String // Foreign key to reference the User
   user           User             @relation(fields: [userId], references: [id], onDelete: Cascade) // Relation to User model
   applications   JobApplication[] // Relation to JobApplication
+  Report         Report[]
 }
 
 // JobApplication model is used to define the structure of the JobApplication table in the database
@@ -305,6 +308,25 @@ model JobApplication {
   job    Job    @relation(fields: [jobId], references: [id])
   userId String
   user   User   @relation(fields: [userId], references: [id])
+}
+
+// Report model is used to define the structure of the Report table in the database
+model Report {
+  id           String   @id @default(cuid())
+  reason       String
+  customReason String?
+  email        String
+  altEmail     String?
+  userId       String // Foreign key to reference the User
+  postId       String? // Optional foreign key to reference the Post
+  jobId        String? // Optional foreign key to reference the Job
+  createdAt    DateTime @default(now())
+
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post? @relation(fields: [postId], references: [id], onDelete: Cascade)
+  job  Job?  @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@map("reports")
 }
 
 //Project model is used to define the structure of the Project table in the database
@@ -352,6 +374,7 @@ model Experience {
   @@map("experiences") // Custom table name in database
 }
 
+// Skill model is used to define the structure of the Skill table in the database
 model Skill {
   id           String   @id @default(cuid())
   userId       String
@@ -365,6 +388,7 @@ model Skill {
   @@map("skills")
 }
 
+// Endorsement model is used to define the structure of the Endorsement table in the database
 model Endorsement {
   id        String   @id @default(cuid())
   skillId   String

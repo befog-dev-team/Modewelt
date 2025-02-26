@@ -2,7 +2,7 @@
 
 import FollowingFeed from "@/app/(main)/FollowingFeed"; // Importing FollowingFeed component
 import ForYouFeed from "@/app/(main)/ForYouFeed"; // Importing ForYouFeed component
-import React, { useState } from "react"; // Importing necessary hooks
+import { useState } from "react"; // Importing necessary hooks
 
 export default function SortBySection() {
     const [selectedFeed, setSelectedFeed] = useState("For You"); // State for selected feed

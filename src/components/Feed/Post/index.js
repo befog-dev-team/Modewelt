@@ -15,11 +15,9 @@ import Commentss from "@/components/Feed/comments/Commentss";
 import FollowButton from "@/components/FollowButton";
 // Import useState hook
 import UserAvatar from "@/components/UserAvatar";
-import { PostData } from "@/lib/types";
 // Import Link component
 import { cn, formatRelativeDate } from "@/lib/utils";
 // Import DeletePostDialog component
-import { Media } from "@prisma/client";
 import { filesize } from "filesize";
 // Import filesize function
 import { MessageSquare } from "lucide-react";
@@ -32,13 +30,8 @@ import { useState } from "react";
 // Import Image component
 import { FaEllipsisH } from "react-icons/fa";
 
-// PostProps interface
-interface PostProps {
-  post: PostData; // Post data
-}
-
 // Post component
-export default function Post({ post }: PostProps) {
+export default function Post({ post }) {
   const [expanded, setExpanded] = useState(false); // Expanded state
   const [showComments, setShowComments] = useState(false); // Show comments state
   const [isPopupOpen, setIsPopupOpen] = useState(false); // Popup state
@@ -136,7 +129,7 @@ export default function Post({ post }: PostProps) {
               {/* View Profile Button */}
               {user.id !== post.user.id && (
                 <Link href={`/profile/${post.user.username}`} prefetch={true}>
-                  <button className="flex items-center justify-center w-full py-1 px-4 text-sm rounded hover:text-red hover:font-semibold">
+                  <button className="flex items-center justify-center w-full py-1 px-4 text-sm rounded">
                     View Profile
                   </button>
                 </Link>
@@ -150,6 +143,7 @@ export default function Post({ post }: PostProps) {
                 </button>
 
                 <ReportModal
+                  postId={post.id}
                   isOpen={showModal}
                   onClose={() => setShowModal(false)}
                 />
@@ -185,9 +179,8 @@ export default function Post({ post }: PostProps) {
         {post.content.trim() && (
           <div>
             <div
-              className={`px-8 mt-4 text-sm transition-all duration-500 ease-in-out overflow-hidden whitespace-pre-line break-words ${
-                expanded ? "max-h-[1000px]" : "max-h-[100px]"
-              }`}
+              className={`px-8 mt-4 text-sm transition-all duration-500 ease-in-out overflow-hidden whitespace-pre-line break-words ${expanded ? "max-h-[1000px]" : "max-h-[100px]"
+                }`}
             >
               {expanded ? text : trimmedText + "..."}
             </div>
@@ -253,11 +246,7 @@ export default function Post({ post }: PostProps) {
   );
 }
 
-interface MediaPreviewsProps {
-  attachments: Media[];
-}
-
-function MediaPreviews({ attachments }: MediaPreviewsProps) {
+function MediaPreviews({ attachments }) {
   return (
     <div
       className={cn(
@@ -275,11 +264,7 @@ function MediaPreviews({ attachments }: MediaPreviewsProps) {
   );
 }
 
-interface MediaPreviewProps {
-  media: Media;
-}
-
-function MediaPreview({ media }: MediaPreviewProps) {
+function MediaPreview({ media }) {
   // Add support for image attachments
   if (media.type === "IMAGE") {
     return (
@@ -343,12 +328,7 @@ function MediaPreview({ media }: MediaPreviewProps) {
   );
 }
 
-interface CommentButtonProps {
-  post: PostData;
-  onClick: () => void;
-}
-
-function CommentButton({ post, onClick }: CommentButtonProps) {
+function CommentButton({ post, onClick }) {
   return (
     <button onClick={onClick} className="flex items-center gap-2">
       <MessageSquare className="size-5" />

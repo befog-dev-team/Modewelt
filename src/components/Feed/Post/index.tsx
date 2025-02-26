@@ -172,14 +172,12 @@ export default function Post({ post }: PostProps) {
                 </Link>
               )}
               <div className="p-6">
-                <div className="border p-4 rounded-lg shadow-md">
                   <button
                     className="mt-3 px-4 py-2 text-sm text-white bg-red-600 hover:bg-red-700 rounded-lg"
                     onClick={() => setIsModalOpen(true)}
                   >
                     Report Post
                   </button>
-                </div>
 
                 {/* Report Post Modal */}
                 <ReportPostModal

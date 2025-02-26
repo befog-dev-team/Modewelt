@@ -42,14 +42,14 @@ export default function UserProfile({ user, loggedinUserId, followerInfo }) {
                     <div className="absolute inset-x-2 top-2 flex justify-between">
                         {/* Upload Icon */}
                         <div
-                            className="p-2 bg-white bg-opacity-90 rounded-md shadow-lg cursor-pointer hover:scale-105 transition-transform"
+                            className="p-2 bg-opacity-90 rounded-md cursor-pointer hover:scale-105 transition-transform"
                             aria-label="Upload Icon"
                             tabIndex={0}
                         >
-                            <MdOutlineFileUpload
+                            {/* <MdOutlineFileUpload
                                 className="text-gray-600 text-xl"
                                 aria-hidden="true"
-                            />
+                            /> */}
                         </div>
 
                         {/* Edit Profile Button */}

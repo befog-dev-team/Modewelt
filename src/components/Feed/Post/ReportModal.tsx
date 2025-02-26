@@ -3,9 +3,10 @@ import { useState } from "react";
 interface ReportModalProps {
   isOpen: boolean;
   onClose: () => void;
+  userEmail: string; // Making email dynamic
 }
 
-export default function ReportModal({ isOpen, onClose }: ReportModalProps) {
+export default function ReportModal({ isOpen, onClose, userEmail }: ReportModalProps) {
   const [selectedReason, setSelectedReason] = useState("");
   const [customReason, setCustomReason] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -17,16 +18,16 @@ export default function ReportModal({ isOpen, onClose }: ReportModalProps) {
     }
 
     console.log("Report submitted:", selectedReason, customReason);
-    setShowConfirmation(true); // Show confirmation modal instead of closing
+    setShowConfirmation(true);
   };
 
   return (
     isOpen && (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
         {showConfirmation ? (
-          <ConfirmationModal onClose={onClose} />
+          <ConfirmationModal email={userEmail} onClose={onClose} />
         ) : (
-          <div className="bg-white p-6 rounded-lg w-96">
+          <div className="bg-white p-6 rounded-lg w-96 shadow-lg">
             <h2 className="text-xl font-semibold">Select Reason</h2>
             <div className="mt-4 space-y-3">
               {[
@@ -38,7 +39,7 @@ export default function ReportModal({ isOpen, onClose }: ReportModalProps) {
                 "Inappropriate Content",
                 "Other",
               ].map((reason) => (
-                <label key={reason} className="flex items-center space-x-2">
+                <label key={reason} className="flex items-center space-x-2 cursor-pointer">
                   <input
                     type="radio"
                     value={reason}
@@ -64,13 +65,13 @@ export default function ReportModal({ isOpen, onClose }: ReportModalProps) {
             <div className="mt-4 flex justify-between">
               <button
                 onClick={onClose}
-                className="px-4 py-2 bg-gray-300 rounded-lg"
+                className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 transition"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSubmit}
-                className="px-4 py-2 bg-[#f26744] text-white rounded-lg"
+                className="px-4 py-2 bg-[#f26744] text-white rounded-lg hover:bg-[#d8563a] transition"
               >
                 Report
               </button>
@@ -82,17 +83,23 @@ export default function ReportModal({ isOpen, onClose }: ReportModalProps) {
   );
 }
 
-function ConfirmationModal({ onClose }: { onClose: () => void }) {
+function ConfirmationModal({ email, onClose }: { email: string; onClose: () => void }) {
   return (
-    <div className="bg-white p-6 rounded-lg w-96">
-      <h2 className="text-xl font-semibold text-center">Please Confirm your email</h2>
-      <div className="mt-4 p-3 border rounded-md text-blue-600 text-center">
-        xyz@gmail.com
+    <div className="bg-white p-6 rounded-lg w-96 shadow-lg text-center">
+      <h2 className="text-xl font-semibold">Please Confirm your Email</h2>
+      <div className="mt-4 p-3 border rounded-md text-blue-600 bg-gray-100">
+        {email}
       </div>
-      <div className="mt-4 flex justify-center">
+      <div className="mt-4 flex gap-2">
         <button
           onClick={onClose}
-          className="px-4 py-2 bg-green-200 text-green-800 border border-green-400 rounded-lg w-full"
+          className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 transition w-1/2"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={() => alert("Email confirmed")}
+          className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition w-1/2"
         >
           Confirm Email
         </button>

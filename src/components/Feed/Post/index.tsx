@@ -1,23 +1,36 @@
-"use client"; // Use the client-side API
+"use client";
 
-import { PostData } from "@/lib/types"; // Import PostData type
-import Image from "next/image"; // Import Image component
-import { FaEllipsisH } from "react-icons/fa"; // Import icons
+// Use the client-side API
+// Import icons
 // import { BiLike } from "react-icons/bi"; // Import icons
-import Modal from "../Sharepopup/Model"; // Import Modal component
-import { useState } from "react"; // Import useState hook
-import UserAvatar from "@/components/UserAvatar"; // Import UserAvatar component
-import Link from "next/link"; // Import Link component
-import { cn, formatRelativeDate } from "@/lib/utils"; // Import formatRelativeDate function
-import { useSession } from "@/app/(main)/SessionProvider"; // Import useSession hook
-import DeletePostDialog from "./DeletePostDialog"; // Import DeletePostDialog component
-import { Media } from "@prisma/client";
-import { filesize } from "filesize"; // Import filesize function
-import { MessageSquare } from "lucide-react";
-import Commentss from "@/components/Feed/comments/Commentss";
+import Modal from "../Sharepopup/Model";
+// Import useSession hook
+import DeletePostDialog from "./DeletePostDialog";
 import LikeButton from "./LikeButton";
-import FollowButton from "@/components/FollowButton";
+import ReportModal from "./ReportModal";
 import ShareButton from "./ShareButton";
+// Import formatRelativeDate function
+import { useSession } from "@/app/(main)/SessionProvider";
+import Commentss from "@/components/Feed/comments/Commentss";
+import FollowButton from "@/components/FollowButton";
+// Import useState hook
+import UserAvatar from "@/components/UserAvatar";
+import { PostData } from "@/lib/types";
+// Import Link component
+import { cn, formatRelativeDate } from "@/lib/utils";
+// Import DeletePostDialog component
+import { Media } from "@prisma/client";
+import { filesize } from "filesize";
+// Import filesize function
+import { MessageSquare } from "lucide-react";
+// Import PostData type
+import Image from "next/image";
+// Import UserAvatar component
+import Link from "next/link";
+// Import Modal component
+import { useState } from "react";
+// Import Image component
+import { FaEllipsisH } from "react-icons/fa";
 
 // PostProps interface
 interface PostProps {
@@ -29,6 +42,7 @@ export default function Post({ post }: PostProps) {
   const [expanded, setExpanded] = useState(false); // Expanded state
   const [showComments, setShowComments] = useState(false); // Show comments state
   const [isPopupOpen, setIsPopupOpen] = useState(false); // Popup state
+  const [showModal, setShowModal] = useState(false); // Show modal state
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
 
   // Get the current user from the session
@@ -53,7 +67,6 @@ export default function Post({ post }: PostProps) {
   const handleCloseDialog = () => {
     setIsDialogOpen(false); // Close the dialog
   };
-
 
   return (
     <div className="bg-white mx-auto my-4 rounded-md shadow-md w-full max-w-4xl">
@@ -128,9 +141,21 @@ export default function Post({ post }: PostProps) {
                   </button>
                 </Link>
               )}
+              <div className="p-6">
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                >
+                  Report
+                </button>
 
-              {/* <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Connect</button>
-              <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Not Interested</button> */}
+                <ReportModal
+                  isOpen={showModal}
+                  onClose={() => setShowModal(false)}
+                />
+              </div>
+              {/* <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Report</button> */}
+              {/* <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Not Interested</button> */}
             </div>
           )}
         </div>

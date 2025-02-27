@@ -64,9 +64,9 @@ const Sidebar = () => {
   // ];
 
   return (
-    <div className="flex flex-col sm:flex-row h-fit">
+    <div className="flex flex-col sm:flex-row">
       {/* Sidebar */}
-      <div className="bg-white shadow-lg p-4 rounded-lg w-full sm:w-60">
+      <div className="bg-white shadow-lg p-4 rounded-lg w-full h-screen sm:w-60">
         {/* Date Selector */}
         {/* <button className="bg-[#a85287] text-white py-2 px-4 rounded w-full mb-4">
           Date
@@ -115,7 +115,7 @@ const Sidebar = () => {
       </div>
 
       {/* Main Content Section */}
-      <div className="flex-1 bg-gray-100">
+      <div className="flex-1 bg-gray-100 max-h-screen overflow-y-auto no-scrollbar">
         {selectedContent === "Post" && (
           <div>
             <Post reportStats={reportStats} reportPosts={reportPosts} />

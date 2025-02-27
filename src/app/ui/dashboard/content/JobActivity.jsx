@@ -16,7 +16,7 @@ export default function JobActivity() {
   const [currentPage, setCurrentPage] = useState(1);
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen flex flex-col items-center">
+    <div className="py-6 bg-gray-100 min-h-screen flex flex-col items-center">
       <h1 className="text-2xl font-bold text-gray-800 mb-4">Job Activity</h1>
       <div className="w-full max-w-6xl bg-white p-4 rounded-xl shadow-md">
         <div className="overflow-x-auto">

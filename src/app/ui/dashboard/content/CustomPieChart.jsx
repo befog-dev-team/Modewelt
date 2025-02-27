@@ -11,8 +11,7 @@ const data = [
 
 const CustomPieChart = () => {
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-md w-full max-w-sm">
-      <h2 className="text-lg font-semibold mb-4 text-gray-700">Statistics</h2>
+    <div>
       <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie

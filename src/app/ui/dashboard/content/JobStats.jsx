@@ -37,20 +37,28 @@ export default function JobStats() {
           <CustomBarChart />
         </div> */}
         <div className="bg-white rounded-xl shadow-md p-4">
-          <h2 className="text-gray-800 text-lg font-semibold mb-4">Recent Jobs</h2>
-          <div className="space-y-2">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">Recent Jobs</h2>
+          <div className="space-y-3">
             <JobCard
               title="Fashion Designer"
-              company="Company Name"
-              icon="📁"
+              company="Design Co."
+              icon="👗"
             />
-            <JobCard title="Job Name" company="Company Name" icon="💳" />
-            <JobCard title="Job Name" company="Company Name" icon="🪙" />
+            <JobCard
+              title="Software Engineer"
+              company="Tech Solutions"
+              icon="💻"
+            />
+            <JobCard
+              title="Marketing Manager"
+              company="Advertise Inc."
+              icon="📈"
+            />
           </div>
         </div>
         <div className="bg-white rounded-xl shadow-md p-4">
           <h2 className="text-gray-800 text-lg font-semibold mb-4">
-            Statistics
+            Job Classification
           </h2>
           <CustomPieChart />
         </div>

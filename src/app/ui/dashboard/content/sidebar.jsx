@@ -2,7 +2,6 @@
 
 import ky from "ky";
 import { useState } from "react";
-import { CiStar } from "react-icons/ci";
 import { LuBriefcaseBusiness } from "react-icons/lu";
 import Post from "./post";
 import Job from "./Job";
@@ -10,6 +9,7 @@ import JobStats from "./JobStats";
 import { BsPostcard } from "react-icons/bs";
 import { Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { MdQueryStats } from "react-icons/md";
 
 const Sidebar = () => {
   const [selectedContent, setSelectedContent] = useState("Post");
@@ -20,8 +20,13 @@ const Sidebar = () => {
     queryFn: () => ky.get("/api/admin/content-moderation/report/stats").json(),
   });
 
+  const { data: reportPosts, isLoading: isReportPosts, error: errorReportPosts } = useQuery({
+    queryKey: ["reported-posts"],
+    queryFn: () => ky.get("/api/admin/content-moderation/report/posts").json(),
+  });
+
   // Loading state
-  if (isReportStatsLoading) {
+  if (isReportStatsLoading || isReportPosts) {
     return (
       <div className="h-screen flex justify-center items-center">
         <Loader2 className="text-[#f26744] size-10 animate-spin" />
@@ -30,18 +35,18 @@ const Sidebar = () => {
   }
 
   // Error state
-  if (errorReportStats) {
+  if (errorReportStats || errorReportPosts) {
     return (
       <div className="min-h-screen flex justify-center items-center text-red-600">
-        Error: {userError?.message || jobError?.message}
+        Error: {errorReportStats?.message || errorReportPosts?.message}
       </div>
     );
   }
 
   // Dynamic Content Stats (From API)
   const contentStats = {
-    Post: reportStats?.reportedPosts || 0,
-    Job: reportStats?.reportedJobs || 0,
+    "Post": reportStats?.reportedPosts || 0,
+    "Job": reportStats?.reportedJobs || 0,
     "Job Stats": reportStats?.totalReports || 0, // Example: Adjust based on actual requirements
   };
 
@@ -52,7 +57,7 @@ const Sidebar = () => {
   //   "Warn Uploader",
   //   "Suspend Uploader",
   // ];
-  
+
   return (
     <div className="flex flex-col sm:flex-row h-fit">
       {/* Sidebar */}
@@ -77,8 +82,8 @@ const Sidebar = () => {
               >
                 <span className="flex items-center gap-2">
                   {type === "Post" && <span><BsPostcard /></span>}
-                  {type === "Job" && <span><CiStar /></span>}
-                  {type === "JobStats" && <span><LuBriefcaseBusiness /></span>}
+                  {type === "Job" && <span><LuBriefcaseBusiness /></span>}
+                  {type === "Job Stats" && <span><MdQueryStats /></span>}
                   {type}
                 </span>
                 <span>{count}</span>
@@ -108,7 +113,7 @@ const Sidebar = () => {
       <div className="flex-1 bg-gray-100">
         {selectedContent === "Post" && (
           <div>
-            <Post reportStats={reportStats} />
+            <Post reportStats={reportStats} reportPosts={reportPosts} />
           </div>
         )}
         {selectedContent === "Job" && (
@@ -116,7 +121,7 @@ const Sidebar = () => {
             <Job reportStats={reportStats} />
           </div>
         )}
-        {selectedContent === "JobStats" && (
+        {selectedContent === "Job Stats" && (
           <div>
             <JobStats />
           </div>

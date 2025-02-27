@@ -113,7 +113,9 @@ model Media {
   postId    String? // ? means that the field is optional
   post      Post?     @relation(fields: [postId], references: [id], onDelete: SetNull)
   projectId String?
-  project   Project?  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project   Project?  @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  reportId  String?
+  Report    Report?   @relation(fields: [reportId], references: [id], onDelete: SetNull)
   fileName  String // fileName is a string field
   fileSize  Int // fileSize is an integer field
   type      MediaType // MediaType is an enum
@@ -129,6 +131,8 @@ enum MediaType {
   IMAGE // IMAGE is a value of the enum
   VIDEO // VIDEO is a value of the enum
   PDF // PDF is a value of the enum
+  AUDIO // AUDIO is a value of the enum
+  OTHER // OTHER is a value of the enum
 }
 
 // Like model is used to define the structure of the Like table in the database
@@ -322,9 +326,11 @@ model Report {
   jobId        String? // Optional foreign key to reference the Job
   createdAt    DateTime @default(now())
 
-  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post Post? @relation(fields: [postId], references: [id], onDelete: Cascade)
-  job  Job?  @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  user  User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post  Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  job   Job?    @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  
+  media Media[] // Relation to media, a report can have multiple media files
 
   @@map("reports")
 }

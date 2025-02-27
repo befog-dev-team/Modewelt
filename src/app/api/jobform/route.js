@@ -14,7 +14,6 @@ cloudinary.config({
 const ALLOWED_DOC_TYPES = ["pdf", "doc", "docx", "rtf", "odt", "txt"];
 
 // 📌 Upload to Cloudinary Function (Handles All Docs)
-// 📌 Upload to Cloudinary Function (Handles All Docs)
 const uploadToCloudinary = async (fileBuffer, folder, filename) => {
     return new Promise((resolve, reject) => {
         const fileExtension = filename.split(".").pop().toLowerCase();

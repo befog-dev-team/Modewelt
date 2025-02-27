@@ -1,11 +1,73 @@
+import { v2 as cloudinary } from "cloudinary";
 import { NextResponse } from "next/server";
+import { Readable } from "stream";
 import prisma from "@/lib/prisma";
+
+// 📌 Cloudinary Configuration
+cloudinary.config({
+    cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+// 📌 Upload to Cloudinary Function
+const uploadToCloudinary = async (fileBuffer, folder, filename) => {
+    return new Promise((resolve, reject) => {
+        const fileExtension = filename.split(".").pop().toLowerCase();
+        const publicId = filename.replace(/\.[^/.]+$/, "");
+
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder,
+                resource_type: "raw",
+                public_id: publicId,
+                format: fileExtension,
+            },
+            (error, result) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            }
+        );
+
+        Readable.from(fileBuffer).pipe(stream);
+    });
+};
 
 export async function POST(req) {
     try {
-        const { userId, reason, customReason, email, altEmail, postId } = await req.json();
+        const formData = await req.formData();
 
-        // Create a new report in the database
+        if (!formData) {
+            return NextResponse.json({ error: "No form data provided" }, { status: 400 });
+        }
+
+        // Extract report details
+        const userId = formData.get("userId");
+        const reason = formData.get("reason");
+        const customReason = formData.get("customReason") || null;
+        const email = formData.get("email");
+        const altEmail = formData.get("altEmail") || null;
+        const postId = formData.get("postId") || null;
+        let jobId = formData.get("jobId") || null;
+
+        // 📌 Validate Required Fields
+        if (!userId || !reason || !email) {
+            return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+        }
+
+        // 📌 Verify Job ID Exists Before Associating with Report
+        if (jobId) {
+            const jobExists = await prisma.job.findUnique({ where: { id: jobId } });
+            if (!jobExists) {
+                console.log(`⚠️ Job ID ${jobId} not found, setting jobId to null.`);
+                jobId = null; // Prevents foreign key constraint errors
+            }
+        }
+
+        // 📌 Create Report in Database
         const report = await prisma.report.create({
             data: {
                 userId,
@@ -13,13 +75,56 @@ export async function POST(req) {
                 customReason,
                 email,
                 altEmail,
-                postId
-            }
+                postId,
+                jobId, // Job ID is now properly validated
+            },
         });
+
+        // 📌 Upload Files to Cloudinary
+        const reportFiles = formData.getAll("files") || [];
+        const uploadedFiles = await Promise.all(
+            reportFiles.map(async (document) => {
+                if (document instanceof File && document.size > 0) {
+                    const docBuffer = Buffer.from(await document.arrayBuffer());
+                    const uploadResult = await uploadToCloudinary(docBuffer, "report-files", document.name);
+                    return {
+                        reportId: report.id, // Associate media with the report
+                        fileName: document.name,
+                        fileSize: document.size,
+                        url: uploadResult.secure_url,
+                        public_id: uploadResult.public_id,
+                        type: document.type.includes("image") ? "IMAGE" :
+                            document.type.includes("video") ? "VIDEO" :
+                                document.type.includes("pdf") ? "PDF" :
+                                    document.type.includes("audio") ? "AUDIO" : "OTHER",
+                    };
+                }
+                return null;
+            })
+        ).then(results => results.filter(Boolean)); // Filter out null values
+
+        // 📌 Save Uploaded Media References in Database
+        if (uploadedFiles.length > 0) {
+            await prisma.media.createMany({
+                data: uploadedFiles,
+            });
+        }
 
         return NextResponse.json({ message: "Report submitted successfully", report }, { status: 201 });
     } catch (error) {
-        console.error("Error creating report:", error);
-        return NextResponse.json({ message: "Failed to submit report" }, { status: 400 });
+        const errorDetails = error instanceof Error ? {
+            message: error.message,
+            stack: error.stack,
+        } : {
+            message: "Unknown error occurred",
+            details: error,
+        };
+
+        console.error("❌ Error submitting report:", errorDetails);
+
+        return NextResponse.json(
+            { error: "Internal Server Error", details: errorDetails },
+            { status: 500 }
+        );
     }
 }

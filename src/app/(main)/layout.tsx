@@ -91,9 +91,8 @@ export default async function Layout({
                 <Navbar />
             </Suspense> */}
             <ToastContainer
-                closeOnClick
                 position="top-center"
-                // autoClose={false}
+                closeOnClick
                 newestOnTop
                 draggable
             />

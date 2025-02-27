@@ -448,7 +448,6 @@ export default function ApplicantsDetails() {
       <ToastContainer
         position="top-center"
         closeOnClick
-        // autoClose={false}
         newestOnTop
         draggable
       />

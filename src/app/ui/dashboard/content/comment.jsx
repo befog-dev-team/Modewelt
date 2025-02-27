@@ -12,6 +12,7 @@ export default function Dashboard() {
       <div className="flex bg-gray-100">
         <Card />
       </div>
+      
       {/* Posts Table */}
       <div className="mt-8 bg-white rounded-2xl shadow-md overflow-hidden">
         <div className="p-4 border-b border-gray-200 font-semibold text-lg">Post</div>

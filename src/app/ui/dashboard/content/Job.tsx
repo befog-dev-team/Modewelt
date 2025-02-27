@@ -10,10 +10,10 @@ export default function Dashboard({ reportStats }) {
       {/* Stats Section */}
       <Card reportStats={reportStats} />
 
-      {/* Posts Table */}
+      {/* Jobs Table */}
       <div className="mt-8 bg-white rounded-2xl shadow-md overflow-hidden">
         <div className="p-6 border-b border-gray-200">
-          <h2 className="font-semibold text-xl text-gray-800">Posts</h2>
+          <h2 className="font-semibold text-xl text-gray-800">Jobs</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-gray-700">
@@ -21,7 +21,7 @@ export default function Dashboard({ reportStats }) {
               <tr>
                 <th className="p-4 font-medium">User</th>
                 <th className="p-4 font-medium">User Name</th>
-                <th className="p-4 font-medium">Post Date</th>
+                <th className="p-4 font-medium">Job Date</th>
                 <th className="p-4 font-medium">Reason</th>
                 <th className="p-4 font-medium text-center">Action</th>
               </tr>

@@ -1,42 +1,20 @@
 "use client";
+
 import Image from "next/image";
 import pageIcon from "../../../../../public/contact/page.png";
 import reportIcon from "../../../../../public/contact/Vector.png";
 import offensiveIcon from "../../../../../public/contact/time.png";
 import actionIcon from "../../../../../public/contact/ac.png";
 
-const cardData = [
-  {
-    title: "Total Reports",
-    value: "40,689",
-    icon: pageIcon,
-    timeFrame: "Last",
-    period: "Day",
-  },
-  {
-    title: "Reported Post",
-    value: "8,900",
-    icon: reportIcon,
-    timeFrame: "Last",
-    period: "Week",
-  },
-  {
-    title: "Reported Jobs",
-    value: "2,040",
-    icon: offensiveIcon,
-    timeFrame: "Last",
-    period: "Month",
-  },
-  {
-    title: "Total Action",
-    value: "1,245",
-    icon: actionIcon,
-    timeFrame: "Last",
-    period: "Year",
-  },
-];
+export default function StatsCards({ reportStats }) {
+  // Card Data
+  const cardData = [
+    { title: "Total Reports", value: reportStats.totalReports, icon: pageIcon },
+    { title: "Reported Posts", value: reportStats.reportedPosts, icon: reportIcon },
+    { title: "Reported Jobs", value: reportStats.reportedJobs, icon: offensiveIcon },
+    { title: "Total Actions", value: reportStats.totalActions, icon: actionIcon },
+  ];
 
-export default function StatsCards() {
   return (
     <div className="max-w-[70%] xl:max-w-[980px] mx-auto">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -60,7 +38,8 @@ export default function StatsCards() {
               </div>
             </div>
             <p className="text-2xl font-bold text-black mt-4">{item.value}</p>
-            <div className="flex flex-wrap items-center justify-between gap-2 mt-4">
+            {/* Time Option */}
+            {/* <div className="flex flex-wrap items-center justify-between gap-2 mt-4">
               <p className="text-sm text-[#a6aaab]">
                 <span className="text-green-600 font-semibold">
                   {item.timeFrame}{" "}
@@ -72,7 +51,7 @@ export default function StatsCards() {
                 <option>November</option>
                 <option>December</option>
               </select>
-            </div>
+            </div> */}
           </div>
         ))}
       </div>

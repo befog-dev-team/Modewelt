@@ -1,17 +1,48 @@
-import React, { useState } from "react";
-import { CiMail } from "react-icons/ci";
+"use client"
+
+import ky from "ky";
+import { useState } from "react";
 import { CiStar } from "react-icons/ci";
-import { LuSend } from "react-icons/lu";
+import { LuBriefcaseBusiness } from "react-icons/lu";
 import Post from "./post";
-import Comment from "./comment";
-import Joblist from "./joblist";
+import Job from "./Job";
+import JobStats from "./JobStats";
+import { BsPostcard } from "react-icons/bs";
+import { Loader2 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+
 const Sidebar = () => {
   const [selectedContent, setSelectedContent] = useState("Post");
 
+  // Fetch report stats
+  const { data: reportStats, isLoading: isReportStatsLoading, error: errorReportStats } = useQuery({
+    queryKey: ["report-stats"],
+    queryFn: () => ky.get("/api/admin/content-moderation/report/stats").json(),
+  });
+
+  // Loading state
+  if (isReportStatsLoading) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <Loader2 className="text-[#f26744] size-10 animate-spin" />
+      </div>
+    );
+  }
+
+  // Error state
+  if (errorReportStats) {
+    return (
+      <div className="min-h-screen flex justify-center items-center text-red-600">
+        Error: {userError?.message || jobError?.message}
+      </div>
+    );
+  }
+
+  // Dynamic Content Stats (From API)
   const contentStats = {
-    Post: 1253,
-    Comment: 245,
-    "Job Listing": 24532,
+    Post: reportStats?.reportedPosts || 0,
+    Job: reportStats?.reportedJobs || 0,
+    "Job Stats": reportStats?.totalReports || 0, // Example: Adjust based on actual requirements
   };
 
   // const moderationActions = [
@@ -21,15 +52,15 @@ const Sidebar = () => {
   //   "Warn Uploader",
   //   "Suspend Uploader",
   // ];
-
+  
   return (
     <div className="flex flex-col sm:flex-row h-fit">
       {/* Sidebar */}
       <div className="bg-white shadow-lg p-4 rounded-lg w-full sm:w-60">
         {/* Date Selector */}
-        <button className="bg-[#a85287] text-white py-2 px-4 rounded w-full mb-4">
+        {/* <button className="bg-[#a85287] text-white py-2 px-4 rounded w-full mb-4">
           Date
-        </button>
+        </button> */}
 
         {/* Type of Content */}
         <div className="mb-6">
@@ -45,9 +76,9 @@ const Sidebar = () => {
                   }`}
               >
                 <span className="flex items-center gap-2">
-                  {type === "Post" && <span><CiMail /></span>}
-                  {type === "Comment" && <span><CiStar /></span>}
-                  {type === "Job Listing" && <span><LuSend /></span>}
+                  {type === "Post" && <span><BsPostcard /></span>}
+                  {type === "Job" && <span><CiStar /></span>}
+                  {type === "JobStats" && <span><LuBriefcaseBusiness /></span>}
                   {type}
                 </span>
                 <span>{count}</span>
@@ -77,17 +108,17 @@ const Sidebar = () => {
       <div className="flex-1 bg-gray-100">
         {selectedContent === "Post" && (
           <div>
-            <Post />
+            <Post reportStats={reportStats} />
           </div>
         )}
-        {selectedContent === "Comment" && (
+        {selectedContent === "Job" && (
           <div>
-            <Comment />
+            <Job reportStats={reportStats} />
           </div>
         )}
-        {selectedContent === "Job Listing" && (
+        {selectedContent === "JobStats" && (
           <div>
-            <Joblist />
+            <JobStats />
           </div>
         )}
       </div>

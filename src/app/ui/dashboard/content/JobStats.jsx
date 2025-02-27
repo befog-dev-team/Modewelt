@@ -4,7 +4,7 @@ import CustomBarChart from "./CustomBar";
 import CustomPieChart from "./CustomPieChart";
 import JobActivity from "./JobActivity";
 
-export default function Home() {
+export default function JobStats() {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

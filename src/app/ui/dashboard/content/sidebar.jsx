@@ -25,8 +25,13 @@ const Sidebar = () => {
     queryFn: () => ky.get("/api/admin/content-moderation/report/posts").json(),
   });
 
+  const { data: reportJobs, isLoading: isReportJobs, error: errorReportJobs } = useQuery({
+    queryKey: ["reported-jobs"],
+    queryFn: () => ky.get("/api/admin/content-moderation/report/jobs").json(),
+  });
+
   // Loading state
-  if (isReportStatsLoading || isReportPosts) {
+  if (isReportStatsLoading || isReportPosts || isReportJobs) {
     return (
       <div className="h-screen flex justify-center items-center">
         <Loader2 className="text-[#f26744] size-10 animate-spin" />
@@ -35,7 +40,7 @@ const Sidebar = () => {
   }
 
   // Error state
-  if (errorReportStats || errorReportPosts) {
+  if (errorReportStats || errorReportPosts || errorReportJobs) {
     return (
       <div className="min-h-screen flex justify-center items-center text-red-600">
         Error: {errorReportStats?.message || errorReportPosts?.message}
@@ -118,7 +123,7 @@ const Sidebar = () => {
         )}
         {selectedContent === "Job" && (
           <div>
-            <Job reportStats={reportStats} />
+            <Job reportStats={reportStats} reportJobs={reportJobs} />
           </div>
         )}
         {selectedContent === "Job Stats" && (

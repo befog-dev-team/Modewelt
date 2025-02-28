@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function DELETE(req, { params }) {
+export async function DELETE(req, props) {
+    const params = await props.params;
     try {
         const reportId = params.id;
 
@@ -49,7 +50,8 @@ export async function DELETE(req, { params }) {
     }
 }
 
-export async function PATCH(req, { params }) {
+export async function PATCH(req, props) {
+    const params = await props.params;
     try {
         const reportId = params.id;
 

@@ -23,10 +23,29 @@ export async function DELETE(req, { params }) {
         // Delete the report itself
         await prisma.report.delete({ where: { id: reportId } });
 
-        return NextResponse.json({ message: "Post and report deleted successfully" });
+        // Increment totalActions for all reports
+        await prisma.report.updateMany({
+            data: { totalActions: { increment: 1 } },
+        });
+
+        return NextResponse.json({ message: "Post and report deleted successfully, totalActions incremented" });
     } catch (error) {
+        // Ensure error is a valid object
+        const errorDetails = error instanceof Error ? {
+            message: error.message,
+            stack: error.stack,
+        } : {
+            message: "Unknown error occurred",
+            details: error,
+        };
+
         console.error("Error deleting post and report:", error);
-        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+
+        // Return a valid error response
+        return NextResponse.json(
+            { error: "Internal Server Error", details: errorDetails },
+            { status: 500 }
+        );
     }
 }
 
@@ -43,7 +62,12 @@ export async function PATCH(req, { params }) {
         // Approving means removing the report from the database
         await prisma.report.delete({ where: { id: reportId } });
 
-        return NextResponse.json({ message: "Report approved and removed" });
+        // Increment totalActions for all reports
+        await prisma.report.updateMany({
+            data: { totalActions: { increment: 1 } },
+        });
+
+        return NextResponse.json({ message: "Report approved, removed, and totalActions incremented" });
     } catch (error) {
         console.error("Error approving report:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

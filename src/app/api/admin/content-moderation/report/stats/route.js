@@ -6,13 +6,20 @@ export async function GET() {
         const totalReports = await prisma.report.count();
         const reportedPosts = await prisma.report.count({ where: { postId: { not: null } } });
         const reportedJobs = await prisma.report.count({ where: { jobId: { not: null } } });
-        const totalActions = Math.floor(totalReports * 0.3); // 30% of total reports
+
+        // Fetch totalActions correctly
+        const totalActionsData = await prisma.report.aggregate({
+            _sum: { totalActions: true }
+        });
+
+        // Extract the number (default to 0 if null)
+        const totalActions = totalActionsData._sum.totalActions || 0;
 
         return NextResponse.json({
             totalReports,
             reportedPosts,
             reportedJobs,
-            totalActions,
+            totalActions, 
         });
     } catch (error) {
         console.error("Error fetching report stats:", error);

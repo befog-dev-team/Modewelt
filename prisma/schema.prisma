@@ -111,11 +111,11 @@ model Post {
 model Media {
   id        String    @id @default(cuid()) // @id marks a field as the primary key
   postId    String? // ? means that the field is optional
-  post      Post?     @relation(fields: [postId], references: [id], onDelete: SetNull)
+  post      Post?     @relation(fields: [postId], references: [id], onDelete: Cascade)
   projectId String?
-  project   Project?  @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  project   Project?  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   reportId  String?
-  Report    Report?   @relation(fields: [reportId], references: [id], onDelete: SetNull)
+  Report    Report?   @relation(fields: [reportId], references: [id], onDelete: Cascade)
   fileName  String // fileName is a string field
   fileSize  Int // fileSize is an integer field
   type      MediaType // MediaType is an enum
@@ -324,12 +324,13 @@ model Report {
   userId       String // Foreign key to reference the User
   postId       String? // Optional foreign key to reference the Post
   jobId        String? // Optional foreign key to reference the Job
+  totalActions Int      @default(0)
   createdAt    DateTime @default(now())
 
-  user  User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post  Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
-  job   Job?    @relation(fields: [jobId], references: [id], onDelete: Cascade)
-  
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post? @relation(fields: [postId], references: [id], onDelete: Cascade)
+  job  Job?  @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
   media Media[] // Relation to media, a report can have multiple media files
 
   @@map("reports")

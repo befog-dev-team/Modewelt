@@ -7,6 +7,16 @@ export const getCurrentYear = (): number => {
   return new Date().getFullYear();
 };
 
+// Helper function to generate random colors
+export function getRandomColor() {
+  const letters = '0123456789ABCDEF'; // hex characters
+  let color = '#'; // color string
+  for (let i = 0; i < 6; i++) { // loop to generate 6 characters
+    color += letters[Math.floor(Math.random() * 16)]; // add random hex character
+  }
+  return color; // return the color
+}
+
 // Add the following functions to the file
 export function extractHashtags(content: string) {
   const regex = /#(\w+)/g; // regex to match hashtags

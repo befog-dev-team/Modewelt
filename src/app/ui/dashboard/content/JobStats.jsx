@@ -1,11 +1,48 @@
-// pages/index.js
+"use client"
+
 import React from "react";
 import CustomBarChart from "./CustomBar";
 import CustomPieChart from "./CustomPieChart";
 import JobActivity from "./JobActivity";
 import RecentJob from "./RecentJob";
+import ky from "ky";
+import { Loader2 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 
 export default function JobStats() {
+  // Fetch and cache stats using useQuery
+  const { data: recentJob, isLoading: isRecentJobLoading, error: errorRecentJob } = useQuery({
+    queryKey: ["content-moderation-job-stats", "recent-jobs"],
+    queryFn: async () => {
+      return await ky.get("/api/admin/content-moderation/job-stats/recent-jobs").json();
+    },
+  });
+
+  const { data: classifyJob, isLoading: isClassifyJobLoading, error: errorClassifyJob } = useQuery({
+    queryKey: ["content-moderation-job-stats", "classification"],
+    queryFn: async () => {
+      return await ky.get("/api/admin/content-moderation/job-stats/classification").json();
+    },
+  });
+
+  // Loading state
+  if (isRecentJobLoading || isClassifyJobLoading) {
+    return (
+      <div className="h-[70vh] flex justify-center items-center">
+        <Loader2 className="text-[#f26744] size-10 animate-spin" />
+      </div>
+    );
+  }
+
+  // Error state
+  if (errorRecentJob || errorClassifyJob) {
+    return (
+      <div className="h-screen flex justify-center items-center bg-red-100 text-red-700 p-4 rounded-md">
+        <p><strong>Error:</strong> {error.response?.data?.message || error.message}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -39,10 +76,10 @@ export default function JobStats() {
         </div> */}
 
         {/* RecentJob Section */}
-        <RecentJob />
+        <RecentJob recentJob={recentJob} />
 
         {/* CustomPieChart Section */}
-        <CustomPieChart />
+        <CustomPieChart data={classifyJob} />
       </div>
       {/* JobActivity Section */}
       <JobActivity />

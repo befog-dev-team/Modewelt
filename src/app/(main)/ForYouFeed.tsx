@@ -27,7 +27,6 @@ export default function ForYouFeed() {
         .json<PostsPage>(), // Parse the JSON response
     initialPageParam: null as string | null, // The initial page parameter
     getNextPageParam: (lastPage) => lastPage.nextCursor, // Get the next page parameter
-    staleTime: 0, // Ensures fresh data on mount
   });
 
   // The posts from the data

@@ -26,7 +26,6 @@ export default function FollowingFeed() {
             ).json<PostsPage>(),
         initialPageParam: null as string | null,
         getNextPageParam: (lastPage) => lastPage?.nextCursor,
-        staleTime: 0, // Ensures fresh data on mount
     });
 
     const posts = data?.pages?.flatMap((page) => page?.posts ?? []) || [];

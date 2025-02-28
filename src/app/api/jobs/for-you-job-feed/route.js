@@ -5,7 +5,7 @@ export async function GET(req) {
     try {
         // Get the cursor from the query parameters (for pagination)
         const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
-        const pageSize = 5; // Number of jobs to fetch per page
+        const pageSize = 3; // Number of jobs to fetch per page
 
         // Validate the request to ensure the user is logged in
         const { user } = await validateRequest();

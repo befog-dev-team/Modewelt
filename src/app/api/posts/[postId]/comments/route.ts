@@ -8,7 +8,7 @@ export async function GET(req: NextRequest, context: { params: Promise<{ postId:
     const { postId } = await context.params
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined
 
-    const pageSize = 5
+    const pageSize = 3;
 
     const { user } = await validateRequest()
 

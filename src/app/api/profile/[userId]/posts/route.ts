@@ -15,7 +15,7 @@ export async function GET(req: NextRequest, props: { params: Promise<{ userId: s
         const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
 
         // pageSize is a number 
-        const pageSize = 5;
+        const pageSize = 3;
 
         // validateRequest is a function that checks if the request is authenticated
         const { user } = await validateRequest();

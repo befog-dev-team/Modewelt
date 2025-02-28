@@ -27,6 +27,7 @@ export default function ForYouFeed() {
         .json<PostsPage>(), // Parse the JSON response
     initialPageParam: null as string | null, // The initial page parameter
     getNextPageParam: (lastPage) => lastPage.nextCursor, // Get the next page parameter
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
   // The posts from the data

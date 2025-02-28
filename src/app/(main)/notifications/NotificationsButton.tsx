@@ -24,7 +24,7 @@ export default function NotificationsButton({
                 .get("/api/notifications/unread-count") // GET request to /api/notifications/unread-count
                 .json<NotificationCountInfo>(), // json<NotificationCountInfo>() is the type of the response
         initialData: initialState, // initialData is the initial state
-        // refetchInterval: 60 * 1000, // refetchInterval is the interval to refetch the data (60 seconds)
+        refetchInterval: 60 * 1000, // refetchInterval is the interval to refetch the data (60 seconds)
     });
 
     return (

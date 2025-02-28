@@ -24,15 +24,15 @@ export async function DELETE(req, props) {
         // Delete the report itself
         await prisma.report.delete({ where: { id: reportId } });
 
-        // Increment totalActions in the adminstats table
-        await prisma.report.adminstats({
-            data: { totalActions: { increment: 1 } },
-        });
-
-        // Ensure at least one adminStats record exists
+        // Ensure at least one AdminStats record exists
         const stats = await prisma.adminStats.findFirst();
         if (!stats) {
             await prisma.adminStats.create({ data: { totalActions: 1 } });
+        } else {
+            // Increment totalActions in AdminStats table
+            await prisma.adminStats.updateMany({
+                data: { totalActions: { increment: 1 } },
+            });
         }
 
         return NextResponse.json({ message: "Post and report deleted successfully, totalActions incremented" });
@@ -70,15 +70,15 @@ export async function PATCH(req, props) {
         // Approving means removing the report from the database
         await prisma.report.delete({ where: { id: reportId } });
 
-        // Increment totalActions in the adminstats table
-        await prisma.report.adminstats({
-            data: { totalActions: { increment: 1 } },
-        });
-
-        // Ensure at least one adminStats record exists
+        // Ensure at least one AdminStats record exists
         const stats = await prisma.adminStats.findFirst();
         if (!stats) {
             await prisma.adminStats.create({ data: { totalActions: 1 } });
+        } else {
+            // Increment totalActions in AdminStats table
+            await prisma.adminStats.updateMany({
+                data: { totalActions: { increment: 1 } },
+            });
         }
 
         return NextResponse.json({ message: "Report approved, removed, and totalActions incremented" });

@@ -8,7 +8,7 @@ export async function GET() {
         const reportedJobs = await prisma.report.count({ where: { jobId: { not: null } } });
 
         // Fetch totalActions correctly
-        const totalActionsData = await prisma.report.aggregate({
+        const totalActionsData = await prisma.adminStats.aggregate({
             _sum: { totalActions: true }
         });
 

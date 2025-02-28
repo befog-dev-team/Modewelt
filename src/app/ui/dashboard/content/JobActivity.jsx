@@ -1,19 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-const jobs = [
-  { company: 'Spotify Subscription', jobId: '#12548796', jobName: 'Shopping', num: '1234 ****', date: '28 Jan, 12.30 AM', applicants: 200 },
-  { company: 'Freepik Sales', jobId: '#12548796', jobName: 'Transfer', num: '1234 ****', date: '25 Jan, 10.40 PM', applicants: 200 },
-  { company: 'Mobile Service', jobId: '#12548796', jobName: 'Service', num: '1234 ****', date: '20 Jan, 10.40 PM', applicants: 200 },
-  { company: 'Wilson', jobId: '#12548796', jobName: 'Transfer', num: '1234 ****', date: '15 Jan, 03.29 PM', applicants: 200 },
-  { company: 'Emilly', jobId: '#12548796', jobName: 'Transfer', num: '1234 ****', date: '14 Jan, 10.40 PM', applicants: 200 },
-];
-
-const reports = Array(8).fill({ jobId: '#12548796', reports: '09' });
-
-export default function JobActivity() {
-  const [currentPage, setCurrentPage] = useState(1);
+export default function JobActivity({ data }) {
+  const router = useRouter();
 
   return (
     <div className="py-6 bg-gray-100 min-h-screen flex flex-col items-center">
@@ -32,10 +22,16 @@ export default function JobActivity() {
               </tr>
             </thead>
             <tbody>
-              {jobs.map((job, index) => (
-                <tr key={index} className="border-b">
+              {data.map((job, index) => (
+                <tr
+                  key={index}
+                  className="border-b hover:bg-gray-100 cursor-pointer transition"
+                  onClick={() => router.push(`/admin/jobs/${job.jobId}`)}
+                >
                   <td className="p-3 flex items-center">
-                    <span className={`h-3 w-3 rounded-full ${index % 2 === 0 ? 'bg-red-500' : 'bg-green-500'} mr-2`}></span>
+                    <span
+                      className={`h-3 w-3 rounded-full ${index % 2 === 0 ? 'bg-red-500' : 'bg-green-500'} mr-2`}
+                    ></span>
                     {job.company}
                   </td>
                   <td className="p-3">{job.jobId}</td>
@@ -49,26 +45,6 @@ export default function JobActivity() {
           </table>
         </div>
       </div>
-
-      {/* <h2 className="text-xl font-bold text-gray-800 mt-6">Job Reports</h2>
-      <div className="w-full max-w-md bg-white p-4 rounded-xl shadow-md mt-2">
-        <table className="w-full text-left">
-          <thead>
-            <tr className="bg-gray-200 text-gray-700">
-              <th className="p-3">Job ID</th>
-              <th className="p-3">No. of Reports</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reports.map((report, index) => (
-              <tr key={index} className="border-b">
-                <td className="p-3">{report.jobId}</td>
-                <td className="p-3">{report.reports}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div> */}
     </div>
   );
 }

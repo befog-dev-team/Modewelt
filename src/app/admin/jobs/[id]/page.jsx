@@ -105,43 +105,36 @@ export default function ApplicantsDetails() {
     );
   }
 
-  // No applicants found
-  if (!applicantsData || applicantsData.length === 0) {
-    return (
-      <div className="h-screen flex justify-center items-center">
-        <p className="text-[#303940] text-lg font-semibold">
-          No applicants found for this job.
-        </p>
-      </div>
-    );
-  }
-
   return (
     <div className="flex min-h-screen bg-gray-100 p-6 gap-4">
       {/* Sidebar - Applicant List */}
       <div className="w-1/4 bg-white p-4 rounded-lg shadow-md">
         <h2 className="text-lg text-[#303940] font-semibold mb-4">Applicants</h2>
         <ul className="space-y-2">
-          {applicantsData.map((applicant, index) => (
-            <li
-              key={index}
-              onClick={() => handleApplicantSelect(applicant)}
-              className={`flex items-center gap-2 p-2 cursor-pointer rounded-lg hover:bg-gray-200 ${selectedApplicant?.id === applicant.id ? "bg-gray-200" : ""
-                }`}
-            >
-              <UserAvatar
-                avatarUrl={applicant?.user?.avatarUrl}
-                alt={`${applicant.firstName} ${applicant.lastName}`}
-                width={120}
-                height={120}
-                size={40}
-                className="rounded-full w-10 h-10"
-              />
-              <span className="text-[#303940]">
-                {applicant.firstName} {applicant.lastName}
-              </span>
-            </li>
-          ))}
+          {applicantsData && applicantsData.length === 0 ? (
+            <p className="text-gray-500">No applicants found for this job.</p>
+          ) : (
+            applicantsData.map((applicant, index) => (
+              <li
+                key={index}
+                onClick={() => handleApplicantSelect(applicant)}
+                className={`flex items-center gap-2 p-2 cursor-pointer rounded-lg hover:bg-gray-200 ${selectedApplicant?.id === applicant.id ? "bg-gray-200" : ""
+                  }`}
+              >
+                <UserAvatar
+                  avatarUrl={applicant?.user?.avatarUrl}
+                  alt={`${applicant.firstName} ${applicant.lastName}`}
+                  width={120}
+                  height={120}
+                  size={40}
+                  className="rounded-full w-10 h-10"
+                />
+                <span className="text-[#303940]">
+                  {applicant.firstName} {applicant.lastName}
+                </span>
+              </li>
+            ))
+          )}
         </ul>
       </div>
 

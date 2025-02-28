@@ -17,7 +17,6 @@ export async function GET() {
             value: job._count.jobTitle,
         }));
 
-
         return NextResponse.json(data);
     } catch (error) {
         console.error(error);

@@ -52,7 +52,7 @@ const Sidebar = () => {
   const contentStats = {
     "Post": reportStats?.reportedPosts || 0,
     "Job": reportStats?.reportedJobs || 0,
-    "Job Stats": reportStats?.totalReports || 0, // Example: Adjust based on actual requirements
+    "Job Stats": "",
   };
 
   // const moderationActions = [

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+'use client';
 
-export default function RecentJob({ recentJob }) {
+export default function RecentJob({ data }) {
   return (
     <div className='bg-white rounded-xl shadow-md p-4'>
       <h2 className="text-xl font-semibold text-gray-800 mb-4">Recent Jobs</h2>
       <div className="max-h-[300px] overflow-y-auto no-scrollbar">
         <div className="space-y-3">
-          {recentJob.map((job) => (
+          {data.map((job) => (
             <JobCard
               key={job.id}
               title={job.jobTitle}

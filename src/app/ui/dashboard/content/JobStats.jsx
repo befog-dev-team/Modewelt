@@ -25,8 +25,15 @@ export default function JobStats() {
     },
   });
 
+  const { data: jobActivity, isLoading: isJobActivityLoading, error: errorJobActivity } = useQuery({
+    queryKey: ["content-moderation-job-stats", "activity"],
+    queryFn: async () => {
+      return await ky.get("/api/admin/content-moderation/job-stats/activity").json();
+    },
+  });
+
   // Loading state
-  if (isRecentJobLoading || isClassifyJobLoading) {
+  if (isRecentJobLoading || isClassifyJobLoading || isJobActivityLoading) {
     return (
       <div className="h-[70vh] flex justify-center items-center">
         <Loader2 className="text-[#f26744] size-10 animate-spin" />
@@ -35,10 +42,10 @@ export default function JobStats() {
   }
 
   // Error state
-  if (errorRecentJob || errorClassifyJob) {
+  if (errorRecentJob || errorClassifyJob || errorJobActivity) {
     return (
       <div className="h-screen flex justify-center items-center bg-red-100 text-red-700 p-4 rounded-md">
-        <p><strong>Error:</strong> {error.response?.data?.message || error.message}</p>
+        <p><strong>Error:</strong> Failed to fetch data. Please try again later.</p>
       </div>
     );
   }
@@ -76,13 +83,13 @@ export default function JobStats() {
         </div> */}
 
         {/* RecentJob Section */}
-        <RecentJob recentJob={recentJob} />
+        <RecentJob data={recentJob} />
 
         {/* CustomPieChart Section */}
         <CustomPieChart data={classifyJob} />
       </div>
       {/* JobActivity Section */}
-      <JobActivity />
+      <JobActivity data={jobActivity} />
     </div>
   );
 }

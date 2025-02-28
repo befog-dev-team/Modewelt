@@ -11,7 +11,10 @@ const data = [
 
 const CustomPieChart = () => {
   return (
-    <div>
+    <div className="bg-white rounded-xl shadow-md p-4">
+      <h2 className="text-gray-800 text-lg font-semibold mb-4">
+        Job Classification
+      </h2>
       <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie

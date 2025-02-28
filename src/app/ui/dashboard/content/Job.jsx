@@ -58,7 +58,7 @@ export default function ReportedJobs({ reportStats, reportJobs }) {
               <tr>
                 <th className="p-4 font-medium">User</th>
                 <th className="p-4 font-medium">User Name</th>
-                <th className="p-4 font-medium">Job Date</th>
+                <th className="p-4 font-medium">Report Date</th>
                 <th className="p-4 font-medium">Reason</th>
                 <th className="p-4 font-medium text-center">Action</th>
               </tr>
@@ -72,7 +72,7 @@ export default function ReportedJobs({ reportStats, reportJobs }) {
                       <span className="font-medium text-gray-800">{report.user.username}</span>
                     </td>
                     <td className="p-4">@{report.user.username}</td>
-                    <td className="p-4">{new Date(report.job.createdAt).toLocaleString()}</td>
+                    <td className="p-4">{new Date(report.createdAt).toLocaleString()}</td>
                     <td className="p-4">{report.reason}</td>
                     <td className="p-4">
                       <div className="flex justify-center space-x-2">

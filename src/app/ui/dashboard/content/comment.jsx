@@ -22,7 +22,7 @@ export default function Dashboard() {
               <tr>
                 <th className="p-4">User</th>
                 <th>User Name</th>
-                <th>Post Date</th>
+                <th>Report Date</th>
                 <th>Comment</th>
                 <th className="text-center">Action</th>
               </tr>

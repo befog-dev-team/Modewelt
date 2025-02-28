@@ -6,19 +6,19 @@ export async function DELETE(req, props) {
     try {
         const reportId = params.id;
 
-        // Ensure report exists before deleting
-        const existingReport = await prisma.report.findUnique({
+        // Attempt to delete the report and return early if it does not exist
+        const deletedReport = await prisma.report.delete({
             where: { id: reportId },
             include: { post: true },
-        });
+        }).catch(() => null); // Prevents Prisma error if already deleted
 
-        if (!existingReport) {
+        if (!deletedReport) {
             return NextResponse.json({ error: "Report already deleted or not found" }, { status: 404 });
         }
 
         // Delete the associated post if it exists
-        if (existingReport.post) {
-            await prisma.post.delete({ where: { id: existingReport.post.id } }).catch(() => {
+        if (deletedReport.post) {
+            await prisma.post.delete({ where: { id: deletedReport.post.id } }).catch(() => {
                 console.warn("Post already deleted or does not exist");
             });
         }
@@ -26,20 +26,11 @@ export async function DELETE(req, props) {
         // Ensure at least one AdminStats record exists
         let stats = await prisma.adminStats.findFirst();
         if (!stats) {
-            stats = await prisma.adminStats.create({ data: { totalActions: 1 } });
+            await prisma.adminStats.create({ data: { totalActions: 1 } });
         } else {
             await prisma.adminStats.updateMany({
                 data: { totalActions: { increment: 1 } },
             });
-        }
-
-        // Delete the report (ensure it still exists before deletion)
-        const checkReport = await prisma.report.findUnique({ where: { id: reportId } });
-        if (checkReport) {
-            await prisma.report.delete({ where: { id: reportId } });
-        } else {
-            console.warn("Report already deleted before final deletion");
-            return NextResponse.json({ error: "Report already deleted" }, { status: 404 });
         }
 
         return NextResponse.json({ message: "Post and report deleted successfully, totalActions incremented" });

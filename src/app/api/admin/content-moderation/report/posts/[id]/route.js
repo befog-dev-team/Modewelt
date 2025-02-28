@@ -24,11 +24,6 @@ export async function DELETE(req, props) {
         // Delete the report itself
         await prisma.report.delete({ where: { id: reportId } });
 
-        // Increment totalActions for all reports
-        await prisma.report.updateMany({
-            data: { totalActions: { increment: 1 } },
-        });
-
         return NextResponse.json({ message: "Post and report deleted successfully, totalActions incremented" });
     } catch (error) {
         // Ensure error is a valid object
@@ -63,11 +58,6 @@ export async function PATCH(req, props) {
 
         // Approving means removing the report from the database
         await prisma.report.delete({ where: { id: reportId } });
-
-        // Increment totalActions for all reports
-        await prisma.report.updateMany({
-            data: { totalActions: { increment: 1 } },
-        });
 
         return NextResponse.json({ message: "Report approved, removed, and totalActions incremented" });
     } catch (error) {

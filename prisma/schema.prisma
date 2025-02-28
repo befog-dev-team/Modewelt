@@ -324,7 +324,6 @@ model Report {
   userId       String // Foreign key to reference the User
   postId       String? // Optional foreign key to reference the Post
   jobId        String? // Optional foreign key to reference the Job
-  totalActions Int      @default(0)
   createdAt    DateTime @default(now())
 
   user User  @relation(fields: [userId], references: [id], onDelete: Cascade)

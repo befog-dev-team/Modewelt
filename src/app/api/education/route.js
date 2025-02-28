@@ -80,7 +80,7 @@ export async function POST(req) {
 
         // console.log("✅ Education Created:", newEducation);
 
-        return Response.json({ success: true, education: newEducation }, { status: 201 });
+        return Response.json({ success: true, education: newEducation }, { status: 200 });
     } catch (error) {
         console.error("❌ Error creating education:", error);
         return Response.json({ error: "Internal Server Error" }, { status: 500 });

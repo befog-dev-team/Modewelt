@@ -62,7 +62,6 @@ export async function POST(req) {
         if (jobId) {
             const jobExists = await prisma.job.findUnique({ where: { id: jobId } });
             if (!jobExists) {
-                console.log(`⚠️ Job ID ${jobId} not found, setting jobId to null.`);
                 jobId = null; // Prevents foreign key constraint errors
             }
         }
@@ -110,7 +109,7 @@ export async function POST(req) {
             });
         }
 
-        return NextResponse.json({ message: "Report submitted successfully", report }, { status: 201 });
+        return NextResponse.json({ message: "Report submitted successfully", report }, { status: 200 });
     } catch (error) {
         const errorDetails = error instanceof Error ? {
             message: error.message,

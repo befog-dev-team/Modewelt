@@ -51,7 +51,7 @@ export async function POST(req) {
             data: { userId: user.id, jobTitle, company, location, duration, description, imageUrl, publicId }
         });
 
-        return Response.json({ success: true, experience: newExperience }, { status: 201 });
+        return Response.json({ success: true, experience: newExperience }, { status: 200 });
     } catch (error) {
         console.error("❌ Error creating experience:", error);
         return Response.json({ error: "Internal Server Error" }, { status: 500 });

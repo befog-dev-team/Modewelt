@@ -26,6 +26,7 @@ export default function JobSection({ searchQuery }) {
         .json(),
     initialPageParam: null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
   console.log("Fetched job pages:", data?.pages);

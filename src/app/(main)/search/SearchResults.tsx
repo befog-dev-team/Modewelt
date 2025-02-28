@@ -32,6 +32,7 @@ export default function SearchResults({ query }: SearchResultsProps) {
         .json<PostsPage>(),
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
+    staleTime: 1000 * 60 * 5, // 5 minutes
     gcTime: 0,
   });
 

@@ -26,6 +26,7 @@ export default function MyJobSection() {
                 .json(),
         initialPageParam: null,
         getNextPageParam: (lastPage) => lastPage?.nextCursor || null,
+        staleTime: 1000 * 60 * 5, // 5 minutes
     });
 
     // Flatten paginated results

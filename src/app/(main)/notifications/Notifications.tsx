@@ -32,6 +32,7 @@ export default function Notifications() {
                 .json<NotificationsPage>(),// json<NotificationsPage>() is the type of the response
         initialPageParam: null as string | null, // initialPageParam is the initial pageParam
         getNextPageParam: (lastPage) => lastPage.nextCursor, // getNextPageParam is the function to get the next pageParam
+        staleTime: 1000 * 60 * 5, // 5 minutes
     });
 
     const queryClient = useQueryClient(); // queryClient is the query client

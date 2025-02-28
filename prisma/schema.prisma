@@ -70,6 +70,14 @@ enum Role {
   ADMIN // ADMIN is a value of the enum
 }
 
+// SystemStats model is used to define the structure of the SystemStats table in the database
+model AdminStats {
+  id           String   @id @default(cuid())
+  totalActions Int      @default(0) // Tracks all report actions
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
 // Session model is used to define the structure of the Session table in the database
 model Session {
   id        String   @id // @id marks a field as the primary key

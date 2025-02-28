@@ -4,7 +4,7 @@ import pdf from "../../../../../public/support/pdf.png";
 import Image from "next/image";
 export default function VisitorInfo() {
   return (
-    <div className="flex flex-col md:flex-row gap-6 py-6 bg-gray-100">
+    <div className="flex flex-col md:flex-row gap-6 pt-6 bg-gray-100">
       {/* Visitor Information */}
       <div className="bg-white p-6 rounded-lg shadow-md w-full md:w-1/2">
         <h2 className="text-lg text-[#1f2a38] font-semibold">

@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import Image from "next/image";
 import photo from "../../../../../public/navbar/profile.jpg";
@@ -10,7 +11,7 @@ import { MdOutlineFileDownload } from "react-icons/md";
 export default function SupportTicket() {
   const [isReplyOpen, setIsReplyOpen] = useState(false);
   return (
-    <div className="max-w-2xl mx-auto bg-white py-6 shadow-md rounded-lg border border-gray-200">
+    <div className="py-6 mx-auto bg-white shadow-md rounded-lg border border-gray-200">
       <h2 className="text-xl font-semibold text-gray-800 mb-2 px-6">
         Help Needed for Subscription Premium
       </h2>

@@ -26,7 +26,7 @@ export default function ReplyBox({ ticket }) {
     editorProps: {
       attributes: {
         class:
-          "h-full w-full p-4 border text-[#1f2a38] focus:outline-none rounded-md",
+          "min-h-[200px] w-full p-4 border text-[#1f2a38] focus:outline-none rounded-md",
       },
     },
     content: "",
@@ -60,7 +60,7 @@ export default function ReplyBox({ ticket }) {
         {/* Editor Content Area */}
         <EditorContent
           editor={editor}
-          className="w-full h-[200px]"
+          className="w-full min-h-[200px]"
         />
 
         {/* Actions */}

@@ -16,14 +16,14 @@ export default function VisitorInfo({ ticket }) {
     name = "Unknown User",
     time = "Unknown Time",
     media = [],
-    userId,
+    username,
     jobId,
     postId,
   } = ticket || {};
 
   // Function to handle button clicks
   const handleViewProfile = () => {
-    router.push(`/profile/${userId}`);
+    router.push(`/profile/${username}`);
   };
 
   const handleViewJobPost = () => {
@@ -69,7 +69,7 @@ export default function VisitorInfo({ ticket }) {
           {/* Buttons for View Profile, View Job Post, and View Post */}
           <div className="mt-6 flex flex-col gap-3">
             {/* View Profile Button */}
-            {userId && (
+            {username && (
               <button
                 className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200"
                 onClick={handleViewProfile}

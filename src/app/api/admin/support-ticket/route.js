@@ -25,6 +25,7 @@ export async function GET(req) {
         const tickets = reports.map((report) => ({
             id: report.id,
             name: report.user?.displayName || "Unknown User",
+            username: report.user?.username || "Unknown User",
             email: report.email || report.user?.email || "Unknown Email",
             altEmail: report.altEmail,
             userId: report.userId,

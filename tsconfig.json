@@ -34,7 +34,7 @@
     "src/**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "src/app/(main)/jobform/[id]/jobApplication.js", "src/app/api/projects/route.js", "src/app/api/education/route.js", "src/app/api/experience/route.js", "src/app/api/skills/route.js", "src/app/api/skills/[username]/[skillId]/route.js", "src/app/api/skills/endorse/route.js", "src/app/api/job-search/route.js", "src/components/Jobs/NewJobSection/job-search/JobSearchResults.jsx", "src/app/ui/calendar.jsx", "src/app/ui/calendar.jsx", "src/components/Feed/Post/ReportModal.jsx", "src/components/Feed/Post/index.jsx", "src/app/ui/dashboard/content/Job.jsx"  ],
+, "src/app/(main)/jobform/[id]/jobApplication.js", "src/app/api/projects/route.js", "src/app/api/education/route.js", "src/app/api/experience/route.js", "src/app/api/skills/route.js", "src/app/api/skills/[username]/[skillId]/route.js", "src/app/api/skills/endorse/route.js", "src/app/api/job-search/route.js", "src/components/Jobs/NewJobSection/job-search/JobSearchResults.jsx", "src/app/ui/calendar.jsx", "src/app/ui/calendar.jsx", "src/components/Feed/Post/ReportModal.jsx", "src/components/Feed/Post/index.jsx", "src/app/ui/dashboard/content/Job.jsx", "src/components/ToolBar.jsx"  ],
   "exclude": [
     "node_modules"
   ]

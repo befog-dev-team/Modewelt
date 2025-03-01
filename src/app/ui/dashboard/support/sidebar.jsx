@@ -82,7 +82,7 @@ export default function Support() {
   if (isLoading) {
     return (
       <div className="h-screen flex justify-center items-center">
-        <Loader2 className="text-blue-500 size-10 animate-spin" />
+        <Loader2 className="text-[#f26744] size-10 animate-spin" />
       </div>
     );
   }
@@ -156,7 +156,7 @@ export default function Support() {
                 key={ticket.id}
                 ticket={ticket}
                 onClick={setSelectedTicket}
-                isSelected={selectedTicket?.id === ticket.id} 
+                isSelected={selectedTicket?.id === ticket.id}
               />
             )
           ) : (
@@ -190,7 +190,7 @@ export default function Support() {
       <div className="w-2/3">
         {selectedTicket ? (
           <div className="bg-gray-100 min-h-screen">
-            <SupportTicket />
+            <SupportTicket ticket={selectedTicket} />
             <VisitorInfo />
           </div>
         ) : (

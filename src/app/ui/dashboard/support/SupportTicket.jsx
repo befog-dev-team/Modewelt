@@ -2,68 +2,84 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import photo from "../../../../../public/navbar/profile.jpg";
-import img from "../../../../../public/support/img.png";
-import pdf from "../../../../../public/support/pdf.png";
-import ReplyBox from "./ReplyBox";
 import { MdOutlineFileDownload } from "react-icons/md";
+import { FaFilePdf, FaFileImage, FaFileVideo, FaFile } from "react-icons/fa";
+import ReplyBox from "./ReplyBox";
+import UserAvatar from "@/components/UserAvatar";
+import Link from "next/link";
 
-export default function SupportTicket() {
+const SupportTicket = ({ ticket }) => {
   const [isReplyOpen, setIsReplyOpen] = useState(false);
+
+  if (!ticket) {
+    return (
+      <div className="bg-white min-h-screen flex justify-center items-center text-gray-500 text-2xl">
+        Select a ticket to view details.
+      </div>
+    );
+  }
+
   return (
     <div className="py-6 mx-auto bg-white shadow-md rounded-lg border border-gray-200">
       <h2 className="text-xl font-semibold text-gray-800 mb-2 px-6">
-        Help Needed for Subscription Premium
+        {ticket.message}
       </h2>
       <div className="flex gap-4 mb-4 mt-2 px-6">
-        <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm">
-          Open
-        </span>
-        <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm">
-          ● High Priority
-        </span>
-        <span className="bg-yellow-100 text-yellow-600 px-3 py-1 rounded-full text-sm">
-          Respond
-        </span>
+        {ticket.labels.map((label, index) => (
+          <span
+            key={index}
+            className={`text-xs px-2 py-1 rounded-full ${label === "● High Priority"
+              ? "bg-red-100 text-red-600"
+              : "bg-blue-100 text-blue-600"
+              }`}
+          >
+            {label}
+          </span>
+        ))}
       </div>
 
       <div className="w-full bg-gray-300 h-[1px] mb-4"></div>
 
       <div className="flex items-center gap-4 mb-4 px-6">
-        <Image
-          src={photo}
+        <UserAvatar
+          avatarUrl={ticket.avatarUrl}
           alt="User Avatar"
           width={48}
           height={48}
           className="rounded-full w-12 h-12"
         />
         <div>
-          <p className="font-semibold text-gray-800">Full Name</p>
-          <p className="text-gray-500 text-sm">15th of Jan, 8 PM</p>
+          <p className="font-semibold text-gray-800">{ticket.name}</p>
+          <p className="text-gray-500 text-sm">{ticket.time}</p>
         </div>
       </div>
 
-      <p className="mb-4 px-8 text-gray-800">Hi!</p>
-      <p className="text-gray-600 mb-4 px-8">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
-      </p>
+      <p className="mb-4 px-8 text-gray-800">{ticket.message}</p>
 
-      <p className="text-gray-500 text-sm px-6">2 Attachments</p>
-      <div className="flex gap-4 mb-4 mt-6 px-6">
-        <Attachment img={pdf} fileName="doc.pdf" size="23KB" />
-        <Attachment img={img} fileName="image.jpg" size="232KB" />
-      </div>
+      {/* Attachments */}
+      {ticket.media.length > 0 && (
+        <>
+          <p className="text-gray-500 text-sm px-6">
+            {ticket.media.length} Attachment{ticket.media.length > 1 ? "s" : ""}
+          </p>
+          <div className="flex gap-4 mb-4 mt-6 px-6">
+            {ticket.media.map((media) => (
+              <Attachment
+                key={media.id}
+                fileName={media.fileName}
+                size={`${Math.round(media.fileSize / 1024)}KB`}
+                url={media.url}
+                type={media.type}
+              />
+            ))}
+          </div>
+        </>
+      )}
 
       <div className="flex justify-end px-6 mt-8">
         <button
           className="bg-[#a65386] text-white px-6 py-2 rounded-lg hover:bg-[#a65386] transition"
-          onClick={() => setIsReplyOpen((prev) => !prev)} // ✅ Toggle logic added
+          onClick={() => setIsReplyOpen((prev) => !prev)}
         >
           Action Ticket
         </button>
@@ -72,19 +88,64 @@ export default function SupportTicket() {
       {isReplyOpen && <ReplyBox />}
     </div>
   );
-}
+};
 
-function Attachment({ img, fileName, size }) {
+const Attachment = ({ fileName, size, url, type }) => {
+  // Get the appropriate icon based on the file type
+  const getIcon = (type) => {
+    switch (type) {
+      case "IMAGE":
+        return <FaFileImage className="text-3xl text-blue-500" />;
+      case "PDF":
+        return <FaFilePdf className="text-3xl text-red-500" />;
+      case "VIDEO":
+        return <FaFileVideo className="text-3xl text-purple-500" />;
+      default:
+        return <FaFile className="text-3xl text-gray-500" />;
+    }
+  };
+
+  // Function to download a file
+  const downloadFile = async (url, fileName) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(downloadUrl);
+    } catch (error) {
+      console.error("Error downloading file:", error);
+    }
+  };
+
   return (
-    <div className="flex items-center justify-between p-3 bg-blue-50 border border-gray-300 rounded-lg min-w-[250px] max-w-xs">
-      <div className="flex items-center gap-2">
-        <Image src={img} alt={fileName} width={40} height={40} />
-        <div>
-          <p className="font-medium text-[#707070] text-sm">{fileName}</p>
-          <p className="text-gray-500 text-xs">{size}</p>
+    <div>
+      <Link href={url} target="_blank">
+        <div className="flex items-center justify-between p-3 bg-blue-50 border border-gray-300 rounded-lg min-w-[250px] max-w-xs">
+          <div className="flex items-center gap-2">
+            {getIcon(type)}
+            <div>
+              <p className="font-medium text-[#707070] text-sm">{fileName}</p>
+              <p className="text-gray-500 text-xs">{size}</p>
+            </div>
+          </div>
+
+          <MdOutlineFileDownload
+            onClick={(e) => {
+              e.stopPropagation();
+              downloadFile(url, fileName);
+            }}
+            className="text-2xl cursor-pointer text-[#a65386] hover:text-[#a65386] transition"
+          />
         </div>
-      </div>
-      <MdOutlineFileDownload className="text-2xl cursor-pointer text-[#a65386] hover:text-[#a65386] transition" />
+      </Link>
     </div>
   );
-}
+};
+
+export default SupportTicket;

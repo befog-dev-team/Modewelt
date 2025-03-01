@@ -191,7 +191,7 @@ export default function Support() {
         {selectedTicket ? (
           <div className="bg-gray-100 min-h-screen">
             <SupportTicket ticket={selectedTicket} />
-            <VisitorInfo />
+            <VisitorInfo ticket={selectedTicket} />
           </div>
         ) : (
           <div className="bg-white min-h-screen flex justify-center items-center text-gray-500 text-2xl">

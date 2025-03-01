@@ -126,7 +126,7 @@ const Attachment = ({ fileName, size, url, type }) => {
   return (
     <div>
       <div className="flex items-center justify-between p-3 bg-blue-50 border border-gray-300 rounded-lg min-w-[250px] max-w-xs">
-        <Link href={url} target="_blank">
+        <Link href={url} target="_blank" passHref>
           <div className="flex items-center gap-2">
             {getIcon(type)}
             <p className="font-medium text-[#707070] text-sm">{fileName}</p>

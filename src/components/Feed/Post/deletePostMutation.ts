@@ -6,7 +6,7 @@ import {
     useQueryClient, // Import the useQueryClient hook from the react-query module
 } from "@tanstack/react-query"; // Import the react-query functions from the tanstack module
 import { usePathname, useRouter } from "next/navigation"; // Import the usePathname and useRouter hooks from the next/navigation module
-import { toast } from "react-toastify"; // Import the toast function from the react-toastify module
+import { toast } from "react-hot-toast"; // Import the toast function from the react-toastify module
 import { deletePost } from "./deletePostActions"; // Import the deletePost function from the deletePostActions module
 
 // Define the useDeletePostMutation function

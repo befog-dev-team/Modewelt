@@ -3,27 +3,51 @@ import { useState } from "react";
 import profile from "../../../../../public/navbar/profile.jpg";
 import Image from "next/image";
 import { FaTrash, FaGoogleDrive } from "react-icons/fa";
+import { useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Underline from "@tiptap/extension-underline";
+import Placeholder from "@tiptap/extension-placeholder";
 
-export default function ReplyBox() {
+export default function ReplyBox({ ticket }) {
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Underline,
+      Placeholder.configure({
+        placeholder: "What's on your mind?",
+        emptyNodeClass:
+          'first:before:text-gray-400 first:before:float-left first:before:content-[attr(data-placeholder)] before:pointer-events-none',
+      }),
+    ],
+    content: "",
+    immediatelyRender: false,
+  });
+
   return (
     <div className="w-full">
       <div className="mt-4 border rounded-lg shadow-md p-4 bg-white">
         <div className="flex items-center space-x-3 border-b pb-2">
           <Image
-            src={profile}
+            src={ticket?.avatarUrl || "/default-avatar.png"}
             alt="Profile"
+            width={40}
+            height={40}
             className="w-10 h-10 rounded-full"
           />
           <div>
-            <h3 className="font-semibold text-[#1f2a38]">Name</h3>
-            <p className="text-sm text-gray-500">23rd March 2025, 08:30pm</p>
+            <h3 className="font-semibold text-[#1f2a38]">
+              {ticket?.name || "Unknown User"}
+            </h3>
+            <p className="text-sm text-gray-500">
+              {ticket?.time || "No timestamp"}
+            </p>
           </div>
         </div>
 
         {/* Toolbar */}
         <div className="flex space-x-4 text-gray-600 py-2 justify-between">
           <div>
-            <h1>Replay</h1>
+            <h1>Reply</h1>
           </div>
           <div className="flex gap-2 h-2 items-center justify-center mt-1">
             <svg

@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 // Reusable Input Component
 const InputField = ({ label, name, value, onChange, type = "text", options = [], disabled = false }) => (

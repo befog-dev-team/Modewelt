@@ -85,7 +85,7 @@ const SupportTicket = ({ ticket }) => {
         </button>
       </div>
 
-      {isReplyOpen && <ReplyBox />}
+      {isReplyOpen && <ReplyBox ticket={ticket} />}
     </div>
   );
 };
@@ -125,25 +125,23 @@ const Attachment = ({ fileName, size, url, type }) => {
 
   return (
     <div>
-      <Link href={url} target="_blank">
-        <div className="flex items-center justify-between p-3 bg-blue-50 border border-gray-300 rounded-lg min-w-[250px] max-w-xs">
+      <div className="flex items-center justify-between p-3 bg-blue-50 border border-gray-300 rounded-lg min-w-[250px] max-w-xs">
+        <Link href={url} target="_blank">
           <div className="flex items-center gap-2">
             {getIcon(type)}
-            <div>
-              <p className="font-medium text-[#707070] text-sm">{fileName}</p>
-              <p className="text-gray-500 text-xs">{size}</p>
-            </div>
+            <p className="font-medium text-[#707070] text-sm">{fileName}</p>
+            <p className="text-gray-500 text-xs">{size}</p>
           </div>
+        </Link>
 
-          <MdOutlineFileDownload
-            onClick={(e) => {
-              e.stopPropagation();
-              downloadFile(url, fileName);
-            }}
-            className="text-2xl cursor-pointer text-[#a65386] hover:text-[#a65386] transition"
-          />
-        </div>
-      </Link>
+        <MdOutlineFileDownload
+          onClick={(e) => {
+            e.stopPropagation();
+            downloadFile(url, fileName);
+          }}
+          className="text-2xl cursor-pointer text-[#a65386] hover:text-[#a65386] transition"
+        />
+      </div>
     </div>
   );
 };

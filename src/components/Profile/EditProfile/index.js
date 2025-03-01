@@ -10,7 +10,7 @@ import CropImageDialog from "@/components/ui/CropImageDialog"; // Import the Cro
 import Image from "next/image"; // Import the Image component
 import { useState, useRef } from "react"; // Import the useState and useRef hooks
 import Resizer from "react-image-file-resizer"; // Import the react-image-file-resizer package
-import { toast } from "react-toastify"; // Import the toast function
+import { toast } from "react-hot-toast"; // Import the toast function
 import avatarPlaceholder from "../../../../public/assets/sample/avatar.png"; // Import the avatarPlaceholder image
 import backgroundPlaceholder from "../../../../public/assets/profile/backgroundImageBackrgound.png"; // Import the backgroundPlaceholder image
 

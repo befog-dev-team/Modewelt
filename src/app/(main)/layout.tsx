@@ -2,7 +2,6 @@ import { validateRequest } from "@/auth"; // Import the validateRequest function
 import { redirect } from "next/navigation"; // Import the redirect function
 import SessionProvider from "./SessionProvider"; // Import the SessionProvider component
 import NProgressLoader from "@/components/NProgressLoader"; // Import the NProgressLoader component
-import { ToastContainer } from "react-toastify"; // Import the ToastContainer component
 import Head from "next/head";
 import 'stream-chat-react/dist/css/v2/index.css'; // Import the Stream Chat React CSS
 import { Metadata } from "next";
@@ -90,12 +89,6 @@ export default async function Layout({
             {/* <Suspense fallback={<div>Loading...</div>}>
                 <Navbar />
             </Suspense> */}
-            <ToastContainer
-                position="top-center"
-                closeOnClick
-                newestOnTop
-                draggable
-            />
             <main>
                 {children}
             </main>

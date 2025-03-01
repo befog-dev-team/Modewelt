@@ -3,7 +3,7 @@
 import React, { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import "@/app/(main)/css/Auth.css";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { login } from "./loginActions";

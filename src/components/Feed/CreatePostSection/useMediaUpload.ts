@@ -1,4 +1,4 @@
-import { toast } from "react-toastify"; // Import the toast function from the react-toastify module
+import { toast } from "react-hot-toast"; // Import the toast function from the react-toastify module
 import { useUploadThing } from "@/lib/uploadthing"; // Import the useUploadThing hook from the uploadthing module
 import { useState } from "react"; // Import the useState function from the react module
 

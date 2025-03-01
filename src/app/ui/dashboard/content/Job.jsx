@@ -5,7 +5,7 @@ import ky from "ky";
 import Card from "./card";
 import { FaCheck } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 export default function ReportedJobs({ reportStats, reportJobs }) {
   const queryClient = useQueryClient();

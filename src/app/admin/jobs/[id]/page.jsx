@@ -10,7 +10,7 @@ import { MdOutlineFileDownload } from "react-icons/md";
 import Image from "next/image";
 import pdf from "../../../../../public/assets/Applicants/pdf.png";
 import dayjs from "dayjs";
-import { toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 

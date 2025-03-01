@@ -10,9 +10,6 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin"; // Import th
 import { extractRouterConfig } from "uploadthing/server"; // Import the extractRouterConfig function from the uploadthing/server package
 import { fileRouter } from "./api/uploadthing/core"; // Import the fileRouter object from the ./api/uploadthing/core file
 
-import "react-toastify/dist/ReactToastify.css"; // Import the ReactToastify CSS
-import { ToastContainer } from "react-toastify";
-
 const geistSans = localFont({ // Create a local font for Geist Sans
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -97,13 +94,6 @@ export default function RootLayout({
         <>
           <ReactQueryProvider> {/* Add the ReactQueryProvider component for the React Query context */}
             <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} /> {/* Add the NextSSRPlugin component with the routerConfig prop set to the extracted router configuration from the fileRouter object */}
-            {/* ToastContainer component for displaying toasts */}
-            <ToastContainer
-              position="top-center"
-              closeOnClick
-              newestOnTop
-              draggable
-            />
             <main>
               {children} {/* Render the children */}
             </main>

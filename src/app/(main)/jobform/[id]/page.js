@@ -13,7 +13,7 @@ import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "../../SessionProvider";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 // Input Field Component 
 function InputField({ label, type, placeholder, required = false, value, onChange }) {

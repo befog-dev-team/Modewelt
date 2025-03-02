@@ -14,13 +14,9 @@ export async function POST(req) {
     try {
         // Authenticate user
         const { user } = await validateRequest();
-        console.log("🔐 User:", user);
         if (!user) {
-            console.log("Unauthorized: No valid session found");
             return Response.json({ error: "Unauthorized" }, { status: 401 });
         }
-
-        console.log("✅ Authenticated User:", user);
 
         // Parse form data
         const formData = await req.formData();
@@ -92,11 +88,9 @@ export async function POST(req) {
 // API Route: Handle PUT request (Edit Project)
 export async function PUT(req) {
     try {
-        console.log("✏️ Updating project...");
         // Authenticate user
         const { user } = await validateRequest();
         if (!user) {
-            console.log("❌ Unauthorized: No valid session found");
             return Response.json({ error: "Unauthorized" }, { status: 401 });
         }
         // Parse form data
@@ -184,11 +178,9 @@ export async function PUT(req) {
 // API Route: Handle DELETE request (Delete Project)
 export async function DELETE(req) {
     try {
-        console.log("🗑️ Deleting project...");
         // Authenticate user
         const { user } = await validateRequest();
         if (!user) {
-            console.log("❌ Unauthorized: No valid session found");
             return Response.json({ error: "Unauthorized" }, { status: 401 });
         }
         // Parse request body
@@ -214,7 +206,6 @@ export async function DELETE(req) {
         await prisma.project.delete({
             where: { id: projectId },
         });
-        console.log("✅ Project deleted successfully");
         return Response.json({ success: true, message: "Project deleted successfully" }, { status: 200 });
     } catch (error) {
         console.error("❌ Error deleting project:", error);

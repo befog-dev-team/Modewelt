@@ -7,14 +7,6 @@ import Link from 'next/link';
 
 
 export default function VisitorSection({ visitors }) {
-
-    // // Handle the "View All" button click
-    // const handleViewAll = () => {
-    //     // Redirect to a page showing all visitors
-    //     // Example: router.push('/profile/visitors');
-    //     console.log('View All clicked');
-    // };
-
     return (
         <div>
             <div className="min-h-[300px] bg-[#ffffff] mt-5 shadow-lg p-4">

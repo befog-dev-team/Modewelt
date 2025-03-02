@@ -19,8 +19,6 @@ export function useUpdateProfileMutation() {
 
     const mutation = useMutation({
         mutationFn: async ({ values, avatar, backgroundImage }: { values: UpdateUserProfileValues; avatar?: File; backgroundImage?: File; }) => {
-            console.log("Mutation values:", values);
-
             // Ensure `values` is passed correctly
             const profileUpdate = updateUserProfile(values); // Call the updateUserProfile function with the values
             const avatarUpload = avatar ? startAvatarUpload([avatar]) : null; // Call the startAvatarUpload function with the avatar file if it exists

@@ -11,8 +11,6 @@ export async function GET(req, props) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        // console.log("👤 Authenticated User:", user);
-
         // Extract username from the request parameters
         const username = params?.username;
 

@@ -39,7 +39,7 @@ const uploadToCloudinary = async (fileBuffer, folder, filename) => {
 export async function POST(req) {
     try {
         const formData = await req.formData();
-
+        
         if (!formData) {
             return NextResponse.json({ error: "No form data provided" }, { status: 400 });
         }
@@ -50,7 +50,7 @@ export async function POST(req) {
         const customReason = formData.get("customReason") || null;
         const email = formData.get("email");
         const altEmail = formData.get("altEmail") || null;
-        const postId = formData.get("postId") || null;
+        let postId = formData.get("postId") || null;
         let jobId = formData.get("jobId") || null;
 
         // 📌 Validate Required Fields
@@ -58,12 +58,17 @@ export async function POST(req) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
-        // 📌 Verify Job ID Exists Before Associating with Report
-        if (jobId) {
-            const jobExists = await prisma.job.findUnique({ where: { id: jobId } });
-            if (!jobExists) {
-                jobId = null; // Prevents foreign key constraint errors
-            }
+        // Convert 'undefined' string to null
+        if (postId === "undefined" || postId === "") {
+            postId = null;
+        }
+        if (jobId === "undefined" || jobId === "") {
+            jobId = null;
+        }
+
+        // Ensure at least one valid ID is provided
+        if (!postId && !jobId) {
+            return NextResponse.json({ error: "Invalid report: postId or jobId required" }, { status: 400 });
         }
 
         // 📌 Create Report in Database

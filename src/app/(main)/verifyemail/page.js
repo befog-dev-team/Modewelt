@@ -19,7 +19,7 @@ export default function VerifyEmail() {
             toast.success('Email Verified Successfully!');
         } catch (error) {
             setError(true);
-            console.log(error.message);
+            console.error(error.message);
             toast.error('Error occurred during email verification. Please try again!');
         }
     };
@@ -45,7 +45,7 @@ export default function VerifyEmail() {
         // eslint-disable-next-line
     }, [token]);
 
-    console.log(error)
+    console.error(error)
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">

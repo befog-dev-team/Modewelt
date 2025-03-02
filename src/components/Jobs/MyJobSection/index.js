@@ -32,8 +32,6 @@ export default function MyJobSection() {
     // Flatten paginated results
     const jobs = data?.pages.flatMap((page) => page.jobs) || [];
 
-    console.log("Jobs Sec:", jobs);
-
     if (status === "pending") {
         return <Loader2 className="mx-auto animate-spin text-[#A45286]" />;
     }

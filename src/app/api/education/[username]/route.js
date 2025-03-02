@@ -16,8 +16,6 @@ export async function GET(req, props) {
             return Response.json({ error: "Username is required" }, { status: 400 });
         }
 
-        // console.log("👤 Fetching education records for:", username);
-
         // Find user by username
         const profileUser = await prisma.user.findUnique({
             where: { username },

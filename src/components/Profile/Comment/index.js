@@ -27,7 +27,6 @@ export default function PdfViewer({ file }) {
     useEffect(() => {
         const type = determineFileType(file);
         setFileType(type);
-        console.log(`File Type: ${type}`);
     }, [file]);
 
     return (

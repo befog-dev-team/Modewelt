@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function VisitorInfo({ ticket }) {
-  console.log("Ticket:", ticket);
   const router = useRouter();
 
   // Destructure the ticket object to get the necessary data

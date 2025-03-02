@@ -25,7 +25,6 @@ export default function Network({ users, trendingTopics }) {
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
         const tab = params.get('tab');
-        console.log(tab);
         if (tab) {
             setActiveSection(tab);
         }

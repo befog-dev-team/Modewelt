@@ -13,7 +13,6 @@ export default function Dashboard({ reportStats, reportPosts }) {
   // Mutation to approve (remove) report
   const approveMutation = useMutation({
     mutationFn: async (reportId) => {
-      console.log("reportId", reportId);
       await ky.patch(`/api/admin/content-moderation/report/posts/${reportId}`);
     },
     onSuccess: (_, reportId) => {

@@ -23,14 +23,11 @@ export async function PATCH(req: Request, props: { params: Promise<{ userId: str
             where: { id: requestId },
         });
 
-        console.log("Request:", request);
-
         if (!request || request.receiverId !== loggedInUser.id) {
             return new Response(JSON.stringify({ error: "Request not found or unauthorized" }), { status: 404 });
         }
 
         if (action === "ACCEPT") {
-            console.log("Accepting request...");
             // ✅ Update request status to 'ACCEPTED'
             await prisma.followerRequest.update({
                 where: { id: requestId },
@@ -53,7 +50,6 @@ export async function PATCH(req: Request, props: { params: Promise<{ userId: str
                     read: false
                 },
             });
-            console.log("Request accepted!");
         } else if (action === "DECLINE") {
             // ✅ Update request status to 'DECLINED'
             await prisma.followerRequest.update({

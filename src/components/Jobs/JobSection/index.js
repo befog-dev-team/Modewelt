@@ -29,8 +29,6 @@ export default function JobSection({ searchQuery }) {
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
-  console.log("Fetched job pages:", data?.pages);
-
   // Flatten the jobs array
   const jobs = data?.pages.flatMap((page) => page.jobs) || [];
 
@@ -68,7 +66,7 @@ export default function JobSection({ searchQuery }) {
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
       {filteredJobsList.map((job) => (
-        <JobPost key={job.id} jobs={job} />
+        <JobPost key={job.id} job={job} />
       ))}
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
     </InfiniteScrollContainer>

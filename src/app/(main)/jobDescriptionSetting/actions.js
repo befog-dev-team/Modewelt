@@ -49,8 +49,6 @@ export async function submitJob(formData) {
 //         throw new Error("Invalid form data: Expected an object but received null/undefined.");
 //     }
 
-//     console.log("Received formData:", formData);
-
 //     try {
 //         const newJob = await prisma.job.create({
 //             data: {

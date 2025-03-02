@@ -51,8 +51,6 @@ export default function Index() {
     return () => window.removeEventListener("keydown", handleKeyDown); // Remove event listener
   }, [isModalOpen]);
 
-  // console.log("Uploadthing upload progress:", uploadProgress); // Log upload progress
-
   // Editor instance
   const editor = useEditor({
     extensions: [

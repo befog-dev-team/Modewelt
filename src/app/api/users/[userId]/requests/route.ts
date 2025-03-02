@@ -42,8 +42,6 @@ export async function PATCH(req: Request, props: { params: Promise<{ userId: str
                     },
                 });
 
-                console.log("Updated request:", updatedRequest);
-
                 await prisma.follow.create({
                     data: {
                         followerId: userId,

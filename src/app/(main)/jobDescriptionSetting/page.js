@@ -69,8 +69,6 @@ export default function JobSettingsForm() {
         }));
     };
 
-    console.log("formData", formData);
-
     const handleSubmit = (e) => {
         e.preventDefault();
 

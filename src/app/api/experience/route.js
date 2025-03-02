@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 import prisma from "@/lib/prisma";
 import { validateRequest } from "@/auth";
@@ -13,12 +12,8 @@ cloudinary.config({
 // Handle POST Request (Add Experience)
 export async function POST(req) {
     try {
-        // console.log("🔍 Received Cookies:", req.headers.get("cookie"));
-
         const { user } = await validateRequest();
         if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
-
-        // console.log("✅ Authenticated User:", user);
         
         const formData = await req.formData();
         const jobTitle = formData.get("jobTitle");
@@ -61,7 +56,6 @@ export async function POST(req) {
 // Handle PUT Request (Edit Experience)
 export async function PUT(req) {
     try {
-        // console.log("✏️ Updating experience...");
         const { user } = await validateRequest();
         if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -115,7 +109,6 @@ export async function PUT(req) {
 // Handle DELETE Request (Delete Experience)
 export async function DELETE(req) {
     try {
-        // console.log("🗑️ Deleting experience...");
         const { user } = await validateRequest();
         if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
 

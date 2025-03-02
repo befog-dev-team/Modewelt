@@ -14,8 +14,6 @@ import { Loader2 } from 'lucide-react';
 import toast from "react-hot-toast";
 
 export default function ReplyBox({ ticket }) {
-  console.log("ticket", ticket);
-
   const editor = useEditor({
     extensions: [
       StarterKit,

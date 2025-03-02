@@ -126,8 +126,6 @@ export default function JobDescriptionForm() {
         router.push(`/jobDescriptionSetting?jobTitle=${formData.jobTitle}&company=${encodeURIComponent(formData.company)}&location=${encodeURIComponent(formData.location)}&workplaceType=${encodeURIComponent(formData.workplaceType)}&jobType=${encodeURIComponent(formData.jobType)}&description=${encodeURIComponent(formData.description)}&requirements=${encodeURIComponent(formData.requirements)}&benefits=${formData.benefits}&skills=${encodeURIComponent(formData.skills.join(','))}`);
     }
 
-    console.log("formData description", formData);
-
     return (
         <div className="bg-[#a2defa] min-h-screen">
             <Navbar />

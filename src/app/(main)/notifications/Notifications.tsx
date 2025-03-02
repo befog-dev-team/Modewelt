@@ -46,7 +46,7 @@ export default function Notifications() {
         },
         // onError is the function to run on error
         onError(error) {
-            console.log("Failed to mark notifications as read", error);
+            console.error("Failed to mark notifications as read", error);
         },
     });
 

@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 import prisma from "@/lib/prisma";
 import { validateRequest } from "@/auth";
@@ -13,15 +12,11 @@ cloudinary.config({
 // API Route: Handle POST request (Add Education)
 export async function POST(req) {
     try {
-        console.log("🔍 Received Cookies:", req.headers.get("cookie"));
-
         // Authenticate user
         const { user } = await validateRequest();
         if (!user) {
             return Response.json({ error: "Unauthorized" }, { status: 401 });
         }
-
-        console.log("✅ Authenticated User:", user);
 
         // Parse form data
         const formData = await req.formData();
@@ -38,7 +33,6 @@ export async function POST(req) {
         let imageUrl = null;
 
         if (file) {
-            console.log("📤 Uploading to Cloudinary...");
             const buffer = Buffer.from(await file.arrayBuffer());
 
             try {
@@ -57,14 +51,11 @@ export async function POST(req) {
                 });
 
                 imageUrl = uploadResult;
-                console.log("✅ Uploaded Image URL:", imageUrl);
             } catch (uploadError) {
                 console.error("❌ Cloudinary Upload Failed:", uploadError);
                 return Response.json({ error: "Image upload failed" }, { status: 500 });
             }
         }
-
-        // console.log("🚀 Saving Education Data:", { institution, degree, duration, additionalInfo, imageUrl });
 
         // Save education in the database
         const newEducation = await prisma.education.create({
@@ -78,8 +69,6 @@ export async function POST(req) {
             },
         });
 
-        // console.log("✅ Education Created:", newEducation);
-
         return Response.json({ success: true, education: newEducation }, { status: 200 });
     } catch (error) {
         console.error("❌ Error creating education:", error);
@@ -90,8 +79,6 @@ export async function POST(req) {
 // API Route: Handle PUT request (Edit Education)
 export async function PUT(req) {
     try {
-        console.log("✏️ Updating education...");
-
         // Authenticate user
         const { user } = await validateRequest();
         if (!user) {
@@ -154,8 +141,6 @@ export async function PUT(req) {
 // API Route: Handle DELETE request (Delete Education)
 export async function DELETE(req) {
     try {
-        console.log("🗑️ Deleting education record...");
-
         // Authenticate user
         const { user } = await validateRequest();
         if (!user) {
@@ -183,7 +168,6 @@ export async function DELETE(req) {
             where: { id: educationId },
         });
 
-        console.log("✅ Education record deleted successfully");
         return Response.json({ success: true, message: "Education deleted successfully" }, { status: 200 });
     } catch (error) {
         console.error("❌ Error deleting education:", error);

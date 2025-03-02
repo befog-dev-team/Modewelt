@@ -21,9 +21,7 @@ const isValidEmail = (email) => {
 export async function POST(req) {
     try {
       const { to, subject, html, altEmail } = await req.json();
-  
-      console.log("Received request to send email:", { to, subject, altEmail });
-  
+    
       // Validate required fields
       if (!to || !subject || !html) {
         console.error("Missing required fields");
@@ -52,7 +50,6 @@ export async function POST(req) {
   
       // Prepare recipients
       const recipients = [to, altEmail].filter(Boolean).join(",");
-      console.log("Sending email to recipients:", recipients);
   
       // Send email to the primary email and alternative email (if provided)
       const mailOptions = {
@@ -61,13 +58,10 @@ export async function POST(req) {
         subject,
         html,
       };
-  
-      console.log("Sending email with options:", mailOptions);
-  
+    
       // Send the email
-      const info = await transporter.sendMail(mailOptions);
-      console.log("Email sent successfully:", info.response);
-  
+      await transporter.sendMail(mailOptions);
+
       return NextResponse.json(
         { message: "Email sent successfully!" },
         { status: 200 }

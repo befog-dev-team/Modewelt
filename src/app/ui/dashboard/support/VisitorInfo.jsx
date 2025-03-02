@@ -27,7 +27,7 @@ export default function VisitorInfo({ ticket }) {
   };
 
   const handleViewJobPost = () => {
-    router.push(`/jobs/${jobId}`);
+    router.push(`/admin/jobs/${jobId}`);
   };
 
   const handleViewPost = () => {

@@ -6,12 +6,10 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 
-import { useToast } from "@/hooks/use-toast"
+import toast from "react-hot-toast";
 import { deleteComment, submitComment } from "./actions";
 
 export function useSubmitCommentMutation(postId: string) {
-  const { toast } = useToast();
-
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -48,16 +46,11 @@ export function useSubmitCommentMutation(postId: string) {
         },
       });
 
-      toast({
-        description: "Comment created",
-      });
+      toast.success("Comment submitted successfully!");
     },
     onError(error) {
       console.error(error);
-      toast({
-        variant: "destructive",
-        description: "Failed to submit comment. Please try again.",
-      });
+      toast.error("Failed to submit comment. Please try again.");
     },
   });
 
@@ -65,8 +58,6 @@ export function useSubmitCommentMutation(postId: string) {
 }
 
 export function useDeleteCommentMutation() {
-  const { toast } = useToast();
-
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -91,16 +82,11 @@ export function useDeleteCommentMutation() {
         },
       );
 
-      toast({
-        description: "Comment deleted",
-      });
+      toast.success("Comment deleted");
     },
     onError(error) {
       console.error(error);
-      toast({
-        variant: "destructive",
-        description: "Failed to delete comment. Please try again.",
-      });
+      toast.error("Failed to delete comment. Please try again.");
     },
   });
 
@@ -110,7 +96,6 @@ export function useDeleteCommentMutation() {
 
 //NOT USED YET
 // export function useSubmitReplyMutation(commentId: string, parentId: string, userId: string) {
-//   const { toast } = useToast();
 //   const queryClient = useQueryClient();
 
 //   const mutation = useMutation({
@@ -161,16 +146,11 @@ export function useDeleteCommentMutation() {
 //         },
 //       });
 
-//       toast({
-//         description: "Reply posted successfully!",
-//       });
+//       toast.success("Reply submitted successfully!");
 //     },
 //     onError(error) {
 //       console.error(error);
-//       toast({
-//         variant: "destructive",
-//         description: "Failed to submit reply. Please try again.",
-//       });
+//       toast.error("Failed to submit reply. Please try again.");
 //     },
 //   });
 

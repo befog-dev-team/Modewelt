@@ -4,6 +4,7 @@ import "./globals.css"; // Import the global styles
 import useLenis from "../components/Hooks/index"; // Import the custom Lenis hook
 import ReactQueryProvider from "./ReactQueryProvider"; // Import the ReactQueryProvider component
 import Head from "next/head";
+import { Toaster } from 'react-hot-toast';
 
 // Uploadthing
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin"; // Import the NextSSRPlugin component from the @uploadthing/react/next-ssr-plugin package
@@ -95,6 +96,7 @@ export default function RootLayout({
           <ReactQueryProvider> {/* Add the ReactQueryProvider component for the React Query context */}
             <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} /> {/* Add the NextSSRPlugin component with the routerConfig prop set to the extracted router configuration from the fileRouter object */}
             <main>
+              <Toaster />
               {children} {/* Render the children */}
             </main>
           </ReactQueryProvider>

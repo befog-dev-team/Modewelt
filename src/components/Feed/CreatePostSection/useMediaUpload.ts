@@ -1,4 +1,4 @@
-import { toast } from "react-hot-toast"; // Import the toast function from the react-toastify module
+import toast  from "react-hot-toast"; // Import the toast function from the react-hot-toast module
 import { useUploadThing } from "@/lib/uploadthing"; // Import the useUploadThing hook from the uploadthing module
 import { useState } from "react"; // Import the useState function from the react module
 
@@ -11,8 +11,6 @@ export interface Attachment {
 
 // Hook to handle media uploads
 export default function useMediaUpload() {
-    // Destructure the toast function from the useToast hook
-
     // Define the state variables for the attachments
     const [attachments, setAttachments] = useState<Attachment[]>([]);
 

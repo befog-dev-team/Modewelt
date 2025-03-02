@@ -1,5 +1,5 @@
 import { useSession } from "@/app/(main)/SessionProvider"; // useSession hook from the SessionProvider module
-import { toast } from 'react-toastify' // Import the toast function from the react-toastify module
+import toast  from 'react-hot-toast' // Import the toast function from the react-hot-toast module
 import { PostsPage } from "@/lib/types"; // Import the PostsPage type from the types module
 import {
     InfiniteData, Query, // Import the InfiniteData type from the react-query module

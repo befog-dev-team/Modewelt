@@ -3,7 +3,7 @@
 import { useSession } from "@/app/(main)/SessionProvider";
 import { Loader2, UploadCloud, X } from "lucide-react";
 import { useState } from "react";
-import { toast } from "react-hot-toast";
+import toast  from "react-hot-toast";
 
 export default function ReportModal({ postId, jobId, isOpen, onClose }) {
   const { user } = useSession();

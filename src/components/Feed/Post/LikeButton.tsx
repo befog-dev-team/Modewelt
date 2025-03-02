@@ -12,17 +12,13 @@ import {
 } from "@tanstack/react-query";
 // import { Heart } from "lucide-react";
 import { BiLike } from "react-icons/bi"; // Import icons
-
-import { useToast } from "@/components/ui/use-toast";
-
+import toast from "react-hot-toast";
 interface LikeButtonProps {
   postId: string;
   initialState: LikeInfo;
 }
 
 export default function LikeButton({ postId, initialState }: LikeButtonProps) {
-  const { toast } = useToast();
-
   const queryClient = useQueryClient();
 
   const queryKey: QueryKey = ["like-info", postId];
@@ -56,10 +52,7 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
     onError(error, variables, context) {
       queryClient.setQueryData(queryKey, context?.previousState);
       console.error(error);
-      toast({
-        variant: "destructive",
-        description: "Something went wrong. Please try again.",
-      });
+      toast.error("Failed to like post. Please try again.");
     },
   });
 

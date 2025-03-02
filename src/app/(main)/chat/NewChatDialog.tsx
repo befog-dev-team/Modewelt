@@ -6,7 +6,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import { useToast } from "@/components/ui/use-toast";
+import toast from 'react-hot-toast';
 import UserAvatar from "@/components/UserAvatar";
 import useDebounce from "@/hooks/useDebounce";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -26,8 +26,6 @@ export default function NewChatDialog({
     onChatCreated,
 }: NewChatDialogProps) {
     const { client, setActiveChannel } = useChatContext();
-
-    const { toast } = useToast();
 
     const { user: loggedInUser } = useSession();
 
@@ -79,10 +77,7 @@ export default function NewChatDialog({
         },
         onError(error) {
             console.error("Error starting chat", error);
-            toast({
-                variant: "destructive",
-                description: "Error starting chat. Please try again.",
-            });
+            toast.error("An error occurred while starting the chat.");
         },
     });
 

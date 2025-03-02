@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import { useRouter } from "next/navigation";
-import { toast } from "react-hot-toast";
+import toast  from "react-hot-toast";
 
 const PostJob = () => {
   const router = useRouter();

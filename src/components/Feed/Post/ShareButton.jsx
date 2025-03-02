@@ -10,7 +10,7 @@ import {
 } from "react-share";
 import { FaShareAlt } from "react-icons/fa";
 import { LuClipboard } from "react-icons/lu";
-import { toast } from "react-hot-toast";
+import toast  from "react-hot-toast";
 
 const variant1 = {
     show: { opacity: 1, transition: { when: "beforeChildren", staggerChildren: 0.1 } },

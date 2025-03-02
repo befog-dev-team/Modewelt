@@ -1,5 +1,5 @@
 import { useSession } from "@/app/(main)/SessionProvider";
-import { toast } from "react-hot-toast";
+import toast  from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { submitJob } from "./actions";
 

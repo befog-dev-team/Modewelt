@@ -33,6 +33,7 @@ export async function GET(req) {
             jobId: report.jobId,
             avatarUrl: report.user?.avatarUrl,
             time: new Date(report.createdAt).toLocaleString(),
+            reason: report.reason,
             message: report.customReason || report.reason || "No details provided",
             labels: report.reason === "Other" ? ["● High Priority"] : ["Open"],
             status: "open",
@@ -49,9 +50,13 @@ export async function GET(req) {
 
         return NextResponse.json({ tickets, totalReports });
     } catch (error) {
-        console.error("Error fetching tickets:", error?.message || error);
+        console.error("Error fetching support tickets:", error?.message || error);
+
         return NextResponse.json(
-            { error: "Internal Server Error" },
+            {
+                error: "Internal Server Error",
+                details: error instanceof Error ? error.message : "Unknown error",
+            },
             { status: 500 }
         );
     }

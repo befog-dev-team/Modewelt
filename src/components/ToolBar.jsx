@@ -234,26 +234,31 @@ const Toolbar = ({ editor }) => {
 
                     {/* Color Picker */}
                     <div className="relative">
-                        <button
-                            id="color-open"
-                            title="Color Picker"
-                            onClick={() => setColorPickerOpen(!isColorPickerOpen)}
-                            className="p-2 rounded-md text-gray-500 hover:bg-gray-100 transition-colors"
+                    <button
+                        id="color-open"
+                        title="Color Picker"
+                        onClick={() => setColorPickerOpen(!isColorPickerOpen)}
+                        className="p-2 rounded-md text-gray-500 hover:bg-gray-100 transition-colors"
+                    >
+                        {/* Dynamically set the icon color */}
+                        <AiOutlineFontColors
+                        id="color-open"
+                        onClick={() => setColorPickerOpen(!isColorPickerOpen)}
+                        className="w-5 h-5"
+                        style={{ color: selectedColor }} // Apply the selected color to the icon
+                        />
+                    </button>
+                    {isColorPickerOpen && (
+                        <div
+                        ref={colorPickerRef}
+                        className="absolute top-10 left-0 bg-white border border-gray-200 rounded-lg shadow-lg p-2 z-10"
                         >
-                            <AiOutlineFontColors id="color-open" onClick={() => setColorPickerOpen(!isColorPickerOpen)} className="w-5 h-5" />
-                        </button>
-                        {isColorPickerOpen && (
-                            <div
-                                ref={colorPickerRef}
-
-                                className="absolute top-10 left-0 bg-white border border-gray-200 rounded-lg shadow-lg p-2 z-10"
-                            >
-                                <HexColorPicker
-                                    color={selectedColor}
-                                    onChange={handleColorChange}
-                                />
-                            </div>
-                        )}
+                        <HexColorPicker
+                            color={selectedColor}
+                            onChange={handleColorChange}
+                        />
+                        </div>
+                    )}
                     </div>
 
                     {/* Link Input */}
@@ -314,14 +319,14 @@ const Toolbar = ({ editor }) => {
                     )}
 
                     {/* File Upload */}
-                    <label title="File Upload" className="p-2 rounded-md text-gray-500 hover:bg-gray-100 transition-colors cursor-pointer">
+                    {/* <label title="File Upload" className="p-2 rounded-md text-gray-500 hover:bg-gray-100 transition-colors cursor-pointer">
                         <MdOutlineFilePresent className="w-5 h-5" />
                         <input
                             type="file"
                             className="hidden"
                             onChange={handleFileUpload}
                         />
-                    </label>
+                    </label> */}
                 </div>
 
                 {/* Right Section - Trash Icon */}

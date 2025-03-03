@@ -49,7 +49,7 @@ export default function Myjob() {
     filter === "All" ? jobs : jobs.filter((job) => job.status === filter);
 
   return (
-    <div className="bg-[#a2defa] min-h-screen">
+    <div className="bg-[#dcf59d] min-h-screen">
       <Navbar />
       <div className=" justify-center space-y-10 lg:space-y-0 lg:space-x-14 px-4 lg:px-8">
         <div className="flex flex-col md:flex-row p-4 md:p-6 lg:p-8">

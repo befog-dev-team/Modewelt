@@ -127,7 +127,7 @@ export default function JobDescriptionForm() {
     }
 
     return (
-        <div className="bg-[#a2defa] min-h-screen">
+        <div className="bg-[#dcf59d] min-h-screen">
             <Navbar />
             <div className="max-w-3xl mx-auto p-6 space-y-6">
                 {/* Job Details Section */}
@@ -224,7 +224,7 @@ export default function JobDescriptionForm() {
                         {formData.skills.map((skill, index) => (
                             <div
                                 key={index}
-                                className="flex items-center bg-[#f26744] text-white px-3 py-1 rounded-full"
+                                className="flex items-center bg-[#fc3fb4] text-white px-3 py-1 rounded-full"
                             >
                                 {skill}
                                 <button
@@ -250,7 +250,7 @@ export default function JobDescriptionForm() {
                         />
                         <button
                             onClick={addSkill}
-                            className="ml-2 bg-[#f26744] px-4 py-2 rounded-md text-white disabled:opacity-50"
+                            className="ml-2 bg-[#fc3fb4] px-4 py-2 rounded-md text-white disabled:opacity-50"
                             disabled={formData.skills.length >= MAX_SKILLS}
                             aria-label="Add skill"
                         >
@@ -283,12 +283,12 @@ export default function JobDescriptionForm() {
                     {/* Buttons */}
                     <div className="mt-6 flex justify-between">
                         {/* <button className="text-[#a35284]">Preview</button> */}
-                        <button className="text-[#f26744]"></button>
+                        <button className="text-[#fc3fb4]"></button>
                         <div>
                             <button onClick={() => router.back()} className="mr-2 px-4 py-2 border rounded-md">
                                 Back
                             </button>
-                            <button onClick={handleNext} className="bg-[#f26744] text-white px-4 py-2 rounded-md hover:bg-[#f26744]">
+                            <button onClick={handleNext} className="bg-[#fc3fb4] text-white px-4 py-2 rounded-md hover:bg-[#fc3fb4]">
                                 Next
                             </button>
                         </div>

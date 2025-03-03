@@ -101,7 +101,7 @@ export default async function JobListing(props) {
     };
 
     return (
-        <div className="min-h-screen bg-[#a2defa] flex flex-col items-center ">
+        <div className="min-h-screen bg-[#dcf59d] flex flex-col items-center ">
             <Navbar />
             {/* <div className="w-full h-[76px] flex justify-between items-center px-6 sm:px-8 md:px-[102px] py-6 bg-[#FFFFFF]">
                 <h1 className="w-auto h-auto font-inter font-medium text-lg sm:text-xl md:text-2xl flex items-center">
@@ -144,7 +144,7 @@ export default async function JobListing(props) {
                             <FaRegBookmark className="text-[#a35284]" />
                         </div> */}
                             <Link href={`/jobform/${job.id}`} prefetch={true}>
-                                <button className="mt-4 md:mt-0 bg-[#f26744] text-white py-2 px-4 rounded-md text-xs sm:text-sm">
+                                <button className="mt-4 md:mt-0 bg-[#fc3fb4] text-white py-2 px-4 rounded-md text-xs sm:text-sm">
                                     Apply Now →
                                 </button>
                             </Link>
@@ -203,12 +203,12 @@ export default async function JobListing(props) {
                                 <div className="flex justify-between items-center mb-6">
                                     <div className="text-sm sm:text-base font-semibold">
                                         <p className="text-[#08a12c]">Salary {job.salaryCurrency}</p>
-                                        <p className="text-[#f26744] text-lg">{job.salaryAmount}</p>
+                                        <p className="text-[#fc3fb4] text-lg">{job.salaryAmount}</p>
                                         <p className="text-[#76808c]">{job.salaryType} salary</p>
                                     </div>
                                     <span className="w-[2px] h-[100px] border-[1px] border-[#E4E5E8]"></span>
                                     <div className="text-sm sm:text-base font-semibold">
-                                        <IoLocationOutline className="text-[#f26744] text-[1.8rem] mb-2" />
+                                        <IoLocationOutline className="text-[#fc3fb4] text-[1.8rem] mb-2" />
                                         <p className="text-[#76808c]">Job Location</p>
                                         <p className="font-semibold">{job.location}</p>
                                     </div>
@@ -220,28 +220,28 @@ export default async function JobListing(props) {
                                     </h1>
                                     <div className="grid grid-cols-2 gap-4">
                                         <div className="flex flex-col items-center">
-                                            <MdOutlineCalendarToday className="text-[#f26744] text-[1.8rem]" />
+                                            <MdOutlineCalendarToday className="text-[#fc3fb4] text-[1.8rem]" />
                                             <p className="text-[#76808c] text-xs sm:text-sm">
                                                 Job Posted
                                             </p>
                                             <p className="font-semibold">{formatCreatedDate(job.createdAt)}</p>
                                         </div>
                                         <div className="flex flex-col items-center">
-                                            <IoMdStopwatch className="text-[#f26744] text-[1.8rem]" />
+                                            <IoMdStopwatch className="text-[#fc3fb4] text-[1.8rem]" />
                                             <p className="text-[#76808c] text-xs sm:text-sm">
                                                 Expires In
                                             </p>
                                             <p className="font-semibold">{formatExpirationDate(job.expirationDate)}</p>
                                         </div>
                                         <div className="flex flex-col items-center">
-                                            <LuLayers className="text-[#f26744] text-[1.8rem]" />
+                                            <LuLayers className="text-[#fc3fb4] text-[1.8rem]" />
                                             <p className="text-[#76808c] text-xs sm:text-sm">
                                                 Job Level
                                             </p>
                                             <p className="font-semibold">{job.jobLevel} Level</p>
                                         </div>
                                         <div className="flex flex-col items-center">
-                                            <MdWorkOutline className="text-[#f26744] text-[1.8rem]" />
+                                            <MdWorkOutline className="text-[#fc3fb4] text-[1.8rem]" />
                                             <p className="text-[#76808c] text-xs sm:text-sm">
                                                 Workplace
                                             </p>

@@ -8,7 +8,7 @@ export default function JobManagementPage() {
   const router = useRouter();
 
   return (
-    <div className="bg-[#a2defa] min-h-screen">
+    <div className="bg-[#dcf59d] min-h-screen">
       <Navbar />
       <div className="px-4 lg:px-8">
         <div className="flex flex-col md:flex-row items-start p-4 md:p-6 lg:p-8 gap-6">

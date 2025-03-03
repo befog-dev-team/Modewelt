@@ -118,7 +118,7 @@ export default function JobSettingsForm() {
     };
 
     return (
-        <div className="bg-[#a2defa]">
+        <div className="bg-[#dcf59d]">
             <div className="mb-8">
                 <Navbar />
             </div>
@@ -194,12 +194,12 @@ export default function JobSettingsForm() {
 
                 {/* Navigation Buttons */}
                 <div className="mt-6 flex justify-between">
-                    <button className="text-[#f26744]"></button>
+                    <button className="text-[#fc3fb4]"></button>
                     <div>
                         <button onClick={() => router.back()} className="mr-2 px-4 py-2 border rounded-md">
                             Back
                         </button>
-                        <button type="submit" onClick={handleSubmit} className="bg-[#f26744] text-white px-4 py-2 rounded-md hover:bg-[#f26744]">
+                        <button type="submit" onClick={handleSubmit} className="bg-[#fc3fb4] text-white px-4 py-2 rounded-md hover:bg-[#fc3fb4]">
                             {isLoading ? (
                                 <Loader2 className="w-6 h-6 animate-spin mx-auto" />
                             ) :

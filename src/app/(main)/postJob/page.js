@@ -23,7 +23,7 @@ const PostJob = () => {
   };
 
   return (
-    <div className="flex items-center m-5 w-full bg-[#a2defa] shadow-md rounded-lg justify-center h-[85vh]">
+    <div className="flex items-center m-5 w-full bg-[#dcf59d] shadow-md rounded-lg justify-center h-[85vh]">
       <div className="w-full max-w-[50rem] h-auto p-6">
         <h1 className="text-4xl font-bold text-center text-[#f26744]">Post a job</h1>
         <p className="mt-2 text-center text-gray-600">Increase the quality of your hire</p>

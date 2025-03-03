@@ -95,7 +95,7 @@ function Page() {
               <button
                 onClick={() => setActiveSection("profile")}
                 className={`flex-1 min-w-[100px] flex justify-center items-center font-[Arial] text-[14px] md:text-[16px] font-bold transition-all duration-300 leading-[13.8px] ${activeSection === "profile"
-                  ? "bg-[#f26744] text-white rounded-t-[4px] cursor-pointer h-[51px]"
+                  ? "bg-[#fc3fb4] text-white rounded-t-[4px] cursor-pointer h-[51px]"
                   : "bg-white text-black h-[40px] cursor-pointer"
                   }`}
               >
@@ -105,7 +105,7 @@ function Page() {
               <button
                 onClick={() => setActiveSection("activities")}
                 className={`flex-1 min-w-[100px] flex justify-center items-center font-[Arial] text-[14px] md:text-[16px] font-semibold transition-all duration-300 leading-[13.8px] ${activeSection === "activities"
-                  ? "h-[50px] bg-[#f26744] text-white rounded-t-[4px] cursor-pointer"
+                  ? "h-[50px] bg-[#fc3fb4] text-white rounded-t-[4px] cursor-pointer"
                   : "bg-white text-black h-[40px] cursor-pointer"
                   }`}
               >
@@ -115,7 +115,7 @@ function Page() {
               <button
                 onClick={() => setActiveSection("articles")}
                 className={`flex-1 min-w-[100px] flex justify-center items-center font-[Arial] text-[14px] md:text-[16px] font-semibold transition-all duration-300 leading-[13.8px] ${activeSection === "articles"
-                  ? "h-[50px] bg-[#f26744] text-white rounded-t-[4px] cursor-pointer"
+                  ? "h-[50px] bg-[#fc3fb4] text-white rounded-t-[4px] cursor-pointer"
                   : "bg-white text-black h-[40px] cursor-pointer"
                   }`}
               >
@@ -488,7 +488,7 @@ function Page() {
                 {/* Header Section */}
                 <div className="flex justify-between px-3 py-3 w-full font-[Gotham] mt-2">
                   <span className="font-semibold text-sm">VISITORS</span>
-                  <span className="text-[#f26744] rounded-md font-semibold text-sm cursor-pointer hover:bg-[#A45286] hover:text-white transition-all duration-200 px-2 py-1">
+                  <span className="text-[#fc3fb4] rounded-md font-semibold text-sm cursor-pointer hover:bg-[#A45286] hover:text-white transition-all duration-200 px-2 py-1">
                     VIEW ALL
                   </span>
                 </div>

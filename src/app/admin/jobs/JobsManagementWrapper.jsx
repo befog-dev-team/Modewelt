@@ -116,7 +116,11 @@ export default function JobsManagementWrapper() {
             </div>
             {/* Filter Period Section */}
             <div className="relative">
-              <AdminDatePicker />
+              <AdminDatePicker
+                date={dateRange}
+                onDateChange={setDateRange}
+                onFilterClick={handleFilterClick}
+              />
             </div>
           </div>
         </header>

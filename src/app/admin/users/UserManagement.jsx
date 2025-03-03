@@ -4,19 +4,44 @@ import AdminDatePicker from "../../ui/common/AdminDatePicker";
 import UserChart from "@/app/ui/dashboard/users/userchart";
 import UserDetails from "@/app/ui/dashboard/users/userdetails";
 import { useQuery } from "@tanstack/react-query";
-import ky from "ky";
+import axios from "axios";
+import { subDays } from "date-fns";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
-import { FiCalendar } from "react-icons/fi";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { useEffect, useState } from "react";
 
 export default function UserManagement({ admin }) {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["user-management-stats"],
-    queryFn: async () => await ky.get("/api/admin/user-management").json(),
+  // Default: Last 30 days
+  const [dateRange, setDateRange] = useState({
+    from: subDays(new Date(), 30),
+    to: new Date(),
   });
 
-  const [isOpen, setIsOpen] = useState(false);
+  const { data = {}, isLoading, error, refetch } = useQuery({
+    queryKey: ["user-management-stats", dateRange],
+    queryFn: async () => {
+      if (!dateRange?.from || !dateRange?.to) return {}; // 🔥 Prevents returning `null`
+      const params = {
+        from: dateRange.from.toISOString().split("T")[0],
+        to: dateRange.to.toISOString().split("T")[0],
+      };
+
+      const res = await axios.get("/api/admin/user-management", { params });
+      return res.data ?? {}; // 🔥 Ensures an empty object instead of `null`
+    },
+    enabled: false, // Fetch only when triggered
+  });
+
+  // Fetch data initially when the component mounts
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  // Trigger API call only when the filter button is clicked
+  const handleFilterClick = () => {
+    if (dateRange?.from && dateRange?.to) {
+      refetch();
+    }
+  };
 
   // Loading State
   if (isLoading) {
@@ -40,15 +65,15 @@ export default function UserManagement({ admin }) {
   if (!data) return null;
 
   const {
-    newRegistrations,
-    previousNewRegistrations,
-    activeUsers,
-    previousActiveUsers,
-    totalUsers,
-    previousTotalUsers,
-    deletedAccounts,
-    previousDeletedAccounts,
-  } = data;
+    newRegistrations = 0,
+    previousNewRegistrations = 0,
+    activeUsers = 0,
+    previousActiveUsers = 0,
+    totalUsers = 0,
+    previousTotalUsers = 0,
+    deletedAccounts = 0,
+    previousDeletedAccounts = 0,
+  } = data || {}; // Ensures `data` never breaks the UI
 
   const getTrendIndicator = (current, previous) => {
     if (previous === 0) return <span className="text-gray-600">N/A</span>;
@@ -83,7 +108,11 @@ export default function UserManagement({ admin }) {
 
           {/* Filter Period Section */}
           <div className="relative">
-            <AdminDatePicker />
+            <AdminDatePicker
+              date={dateRange}
+              onDateChange={setDateRange}
+              onFilterClick={handleFilterClick}
+            />
           </div>
         </header>
 
@@ -116,16 +145,20 @@ export default function UserManagement({ admin }) {
 
         {/* User Chart Section */}
         <section className="mt-8">
-          <div className="bg-white shadow-sm rounded-lg overflow-hidden">
-            <UserChart chartdata={data} />
-          </div>
+          {data &&
+            <div className="bg-white shadow-sm rounded-lg overflow-hidden">
+              <UserChart chartdata={data} />
+            </div>
+          }
         </section>
 
         {/* User Details Section */}
         <section className="mt-8">
-          <div className="bg-white shadow-sm rounded-lg overflow-x-auto">
-            <UserDetails />
-          </div>
+          {data &&
+            <div className="bg-white shadow-sm rounded-lg overflow-x-auto">
+              <UserDetails />
+            </div>
+          }
         </section>
       </div>
     </div>

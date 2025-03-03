@@ -1,14 +1,30 @@
+import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function GET() {
+export async function GET(request) {
     try {
-        const currentDate = new Date();
-        const last30Days = new Date(currentDate.setDate(currentDate.getDate() - 30));
-        const previous30Days = new Date(currentDate.setDate(currentDate.getDate() - 30));
+        const { searchParams } = new URL(request.url);
+        const from = searchParams.get('from');
+        const to = searchParams.get('to');
 
-        // Current Period Data
+        // Convert provided dates to Date objects
+        const fromDate = from ? new Date(from) : null;
+        const toDate = to ? new Date(to) : null;
+
+        // Create independent date references
+        const today = new Date();
+        const last30Days = new Date();
+        last30Days.setDate(today.getDate() - 30);
+
+        const previous30Days = new Date();
+        previous30Days.setDate(today.getDate() - 60);
+
+        // Apply date filter if provided
+        const dateFilter = fromDate && toDate ? { createdAt: { gte: fromDate, lte: toDate } } : {};
+
+        // 📌 **Current Period Stats**
         const newRegistrations = await prisma.user.count({
-            where: { createdAt: { gte: last30Days } },
+            where: from && to ? dateFilter : { createdAt: { gte: last30Days } },
         });
 
         const totalUsers = await prisma.user.count();
@@ -21,12 +37,12 @@ export async function GET() {
             where: { isDeleted: true, createdAt: { gte: last30Days } },
         });
 
-        // Previous Period Data (for trend comparison)
+        // 📌 **Previous Period Stats**
         const previousNewRegistrations = await prisma.user.count({
             where: { createdAt: { gte: previous30Days, lt: last30Days } },
         });
 
-        const previousTotalUsers = totalUsers - newRegistrations;
+        const previousTotalUsers = Math.max(totalUsers - newRegistrations, 0);
 
         const previousActiveUsers = await prisma.user.count({
             where: { lastLogin: { gte: previous30Days, lt: last30Days } },
@@ -36,31 +52,23 @@ export async function GET() {
             where: { isDeleted: true, createdAt: { gte: previous30Days, lt: last30Days } },
         });
 
-        // For user chart data -->
-
-        // Fetch user creation dates
+        // 📌 **User Registrations Per Month for Chart**
         const users = await prisma.user.findMany({
-            select: {
-                createdAt: true,
-            },
+            select: { createdAt: true },
         });
 
-        // Define months
         const months = [
             "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
         ];
 
-        // Initialize user count array for each month
         const userCounts = new Array(12).fill(0);
-
-        // Populate userCounts based on createdAt
         users.forEach((user) => {
-            const monthIndex = new Date(user.createdAt).getMonth(); // Get month index (0-11)
+            const monthIndex = new Date(user.createdAt).getMonth();
             userCounts[monthIndex] += 1;
         });
 
-        return Response.json({
+        return NextResponse.json({
             newRegistrations,
             previousNewRegistrations,
             totalUsers,
@@ -69,10 +77,11 @@ export async function GET() {
             previousActiveUsers,
             deletedAccounts,
             previousDeletedAccounts,
-            labels: months, userCounts
+            labels: months,
+            userCounts
         });
     } catch (error) {
         console.error("❌ Error:", error);
-        return Response.json({ error: "Internal Server Error" }, { status: 500 });
+        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }

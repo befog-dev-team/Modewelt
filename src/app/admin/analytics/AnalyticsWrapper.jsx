@@ -9,8 +9,6 @@ import UserChart from "@/app/ui/dashboard/users/userchart";
 import { useQuery } from "@tanstack/react-query";
 import ky from "ky";
 import { Loader2 } from "lucide-react";
-import { FiCalendar } from "react-icons/fi";
-import { IoIosArrowDown } from "react-icons/io";
 
 const Analytics = ({ admin }) => {
   const {
@@ -70,7 +68,11 @@ const Analytics = ({ admin }) => {
             </div>
             {/* Filter Period Section */}
             <div className="relative">
-              <AdminDatePicker />
+              <AdminDatePicker
+                date={dateRange}
+                onDateChange={setDateRange}
+                onFilterClick={handleFilterClick}
+              />
             </div>
           </div>
         </header>

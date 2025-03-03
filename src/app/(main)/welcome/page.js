@@ -106,7 +106,7 @@ export default function Welcome() {
   }, []); // Empty dependency array ensures effect runs only once on mount
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-[#a2e0fa]">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-[#daf59d]">
       {/* Progress circle and stars container */}
       <div className="text-center">
         <div
@@ -162,7 +162,7 @@ export default function Welcome() {
       <div className="text-center mt-12 transition transition-300">
         <h1
           id="welcome-heading"
-          className="uppercase text-3xl md:text-5xl font-bold text-[#f26744] hidden transition transition-300"
+          className="uppercase text-3xl md:text-5xl font-bold text-[#7b4fff] hidden transition transition-300"
         >
           WELCOME BACK! TO ModeweltJob
         </h1>
@@ -183,7 +183,7 @@ export default function Welcome() {
         <Link href="/feed" prefetch={true}>
           <button
             id="welcome-btn"
-            className="bg-[#f26744] hover:bg-[#f26744] text-white py-3 px-8 rounded-full font-semibold hidden"
+            className="bg-[#fc3fb4] hover:bg-[#fc3fb4] text-white py-3 px-8 rounded-full font-semibold hidden"
           >
             GO TO HOME PAGE
           </button>

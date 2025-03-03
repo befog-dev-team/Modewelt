@@ -78,7 +78,7 @@ export default function SentRequests({ userId }) {
 
                             <div className="flex justify-center items-center space-x-2">
                                 <Link href={`/profile/${request.receiver.username}`} prefetch={true}>
-                                    <button className="bg-[#f26744] text-white text-sm font-bold py-1 px-4 rounded transition-transform hover:scale-105">
+                                    <button className="bg-[#fc3fb4] text-white text-sm font-bold py-1 px-4 rounded transition-transform hover:scale-105">
                                         View Profile
                                     </button>
                                 </Link>

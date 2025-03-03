@@ -25,7 +25,7 @@ export default function SortBySection() {
                         onClick={() => setIsDropdownOpen((prev) => !prev)}
                     >
                         SORT BY:{" "}
-                        <span className="font-semibold text-[#f26744]">{selectedFeed}</span>
+                        <span className="font-semibold text-[#fc3fb4]">{selectedFeed}</span>
                     </p>
                     {isDropdownOpen && (
                         <div className="absolute left-0 right-0 mt-2 bg-white border border-gray-300 shadow-md rounded-sm z-10">

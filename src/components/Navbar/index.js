@@ -37,7 +37,7 @@ function Navbar({ unreadNotificationCount }) {
   const adminNavItem = { href: "/admin", icon: RiAdminLine, label: "Admin" };
 
   return (
-    <div className="bg-[#a2defa] w-full h-16 flex flex-col lg:flex-row items-center text-sm text-gray-600 shadow-sm">
+    <div className="bg-[#dcf59d] w-full h-16 flex flex-col lg:flex-row items-center text-sm text-gray-600 shadow-sm">
       <div className="container mx-auto flex items-center px-2 lg:px-6">
         <Link href="/feed" className="flex flex-col items-center" prefetch>
           <Image src={logo} alt="Company Logo" className="h-10 w-10 lg:mx-10 sm:mx-1" />
@@ -47,9 +47,9 @@ function Navbar({ unreadNotificationCount }) {
         <div className="hidden lg:flex flex-grow items-center space-x-6">
           {navItems.map(({ href, icon: Icon, label }) => (
             <Link key={href} href={href} className="flex flex-col items-center relative" prefetch>
-              <Icon className={`h-6 w-6 ${pathname === href ? "text-[#f26744]" : "text-gray-600"}`} />
+              <Icon className={`h-6 w-6 ${pathname === href ? "text-[#fc3fb4]" : "text-gray-600"}`} />
               <span className="text-xs">{label}</span>
-              {pathname === href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#f26744] rounded-full" />}
+              {pathname === href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />}
             </Link>
           ))}
 
@@ -61,7 +61,7 @@ function Navbar({ unreadNotificationCount }) {
             <NotificationsButton initialState={{ unreadCount: unreadNotificationCount }} />
             <span className="text-xs">Notifications</span>
             {pathname === "/notifications" && (
-              <div className="absolute bottom-[-4px] w-full h-1 bg-[#f26744] rounded-full" />
+              <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />
             )}
           </Link>
 
@@ -69,7 +69,7 @@ function Navbar({ unreadNotificationCount }) {
             <Link href={adminNavItem.href} className="flex flex-col items-center relative" prefetch>
               <adminNavItem.icon className={`h-6 w-6  text-gray-600`} />
               <span className="text-xs">{adminNavItem.label}</span>
-              {pathname === adminNavItem.href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#f26744] rounded-full" />}
+              {pathname === adminNavItem.href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />}
             </Link>
           )}
         </div>
@@ -88,7 +88,7 @@ function Navbar({ unreadNotificationCount }) {
               <p className="text-xs text-gray-500">{user.totalProfileViews} views</p>
             </div>
           </Link>
-          <button className="flex flex-col items-center text-sm hover:text-[#f26744]" onClick={toggleModal}>
+          <button className="flex flex-col items-center text-sm hover:text-[#fc3fb4]" onClick={toggleModal}>
             <FaEllipsisH className="text-2xl" />
             <span className="hidden md:block">Other</span>
           </button>
@@ -100,9 +100,9 @@ function Navbar({ unreadNotificationCount }) {
       <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 flex justify-around items-center py-2 lg:hidden z-10">
         {navItems.map(({ href, icon: Icon, label }) => (
           <Link key={href} href={href} className="flex flex-col items-center relative" prefetch>
-            <Icon className={`h-6 w-6 ${pathname === href ? "text-[#f26744]" : "text-gray-600"}`} />
+            <Icon className={`h-6 w-6 ${pathname === href ? "text-[#fc3fb4]" : "text-gray-600"}`} />
             <span className="text-xs">{label}</span>
-            {pathname === href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#f26744] rounded-full" />}
+            {pathname === href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />}
           </Link>
         ))}
 
@@ -114,7 +114,7 @@ function Navbar({ unreadNotificationCount }) {
           <NotificationsButton initialState={{ unreadCount: unreadNotificationCount }} />
           <span className="text-xs">Notifications</span>
           {pathname === "/notifications" && (
-            <div className="absolute bottom-[-4px] w-full h-1 bg-[#f26744] rounded-full" />
+            <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />
           )}
         </Link>
 
@@ -122,7 +122,7 @@ function Navbar({ unreadNotificationCount }) {
           <Link href={adminNavItem.href} className="flex flex-col items-center relative" prefetch>
             <adminNavItem.icon className={`h-6 w-6  text-gray-600`} />
             <span className="text-xs">{adminNavItem.label}</span>
-            {pathname === adminNavItem.href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#f26744] rounded-full" />}
+            {pathname === adminNavItem.href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />}
           </Link>
         )}
       </div>

@@ -81,7 +81,7 @@ function Page() {
   // };
 
   return (
-    <div className="bg-[#a2defa]">
+    <div className="bg-[#dcf59d]">
       <Navbar />
       <div className="h-auto w-full p-4">
         {/* Main content area */}

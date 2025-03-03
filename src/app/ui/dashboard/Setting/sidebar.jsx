@@ -1,4 +1,5 @@
 "use client";
+
 import GeneralSettings from "./GeneralSettings";
 import ProfileSetting from "./ProfileSettings";
 import NotificationSettings from "./NotificationSettings";

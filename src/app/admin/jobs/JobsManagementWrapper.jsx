@@ -8,8 +8,6 @@ import axios from "axios";
 import { subDays } from "date-fns";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { FiCalendar } from "react-icons/fi";
-import { IoIosArrowDown } from "react-icons/io";
 
 // Filter Component
 // const Filter = ({ filterOpen, toggleFilter }) => (

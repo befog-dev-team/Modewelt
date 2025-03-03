@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,8 +12,8 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { BsCup } from "react-icons/bs";
 import { BiEdit } from "react-icons/bi";
 import { TbDeviceDesktopAnalytics } from "react-icons/tb";
-import { FiCalendar } from "react-icons/fi";
-import { MdOutlineChat } from "react-icons/md";
+// import { FiCalendar } from "react-icons/fi";
+// import { MdOutlineChat } from "react-icons/md";
 import { HiOutlineLogout } from "react-icons/hi";
 import { IoSettingsOutline } from "react-icons/io5";
 
@@ -44,12 +45,12 @@ const Sidebar = () => {
             { label: "Content Moderation", icon: <MdOutlineContactPage />, path: "/admin/content" },
             { label: "Jobs Management", icon: <IoPeopleOutline />, path: "/admin/jobs" },
             { label: "Analytics & Reports", icon: <TbDeviceDesktopAnalytics />, path: "/admin/analytics" },
-            { label: "Subscription Management", icon: <BsCup />, path: "/admin/subscription" },
+            // { label: "Subscription Management", icon: <BsCup />, path: "/admin/subscription" },
             { label: "Support & Tickets", icon: <BiEdit />, path: "/admin/support" },
             { label: "Settings", icon: <IoSettingsOutline />, path: "/admin/setting" },
-            { label: "Security Logs", icon: <FiCalendar />, path: "/admin/security" },
-            { label: "Fashion Trends", icon: <MdOutlineChat />, path: "/admin/trends" },
-            { label: "Logout Admin", icon: <HiOutlineLogout />, path: "/admin/logout" },
+            // { label: "Security Logs", icon: <FiCalendar />, path: "/admin/security" },
+            // { label: "Fashion Trends", icon: <MdOutlineChat />, path: "/admin/trends" },
+            { label: "Logout", icon: <HiOutlineLogout />, path: "/" },
           ].map((menu, index) => (
             <li key={index}>
               <Link href={menu.path} prefetch={true}>

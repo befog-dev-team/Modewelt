@@ -35,8 +35,20 @@ export default function TopNav() {
   return (
     <header className="bg-white shadow-md p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between">
       {/* Search */}
-      <div className="flex items-center bg-gray-200 px-3 rounded-lg w-full sm:w-80 lg:w-[34rem]">
-        <input
+      <div className="flex items-center w-full sm:w-80 lg:w-[34rem]">
+        <div className="flex items-center space-x-2">
+          <Link href={`/profile/${admin.username}`}>
+            <UserAvatar
+              avatarUrl={admin.avatarUrl}
+              className="w-10 h-10 rounded-full border border-gray-300"
+            />
+          </Link>
+          <span className="text-sm font-medium text-gray-800">Hello,</span>
+          <span className="text-sm text-gray-800 font-bold">
+            {admin.displayName}
+          </span>
+        </div>
+        {/* <input
           type="text"
           placeholder="Search here..."
           aria-label="Search input"
@@ -47,7 +59,7 @@ export default function TopNav() {
             aria-label="Search icon"
             className="text-gray-400 cursor-pointer text-3xl"
           />
-        </div>
+        </div> */}
       </div>
 
       {/* Profile & Filters */}
@@ -57,19 +69,6 @@ export default function TopNav() {
           <span className="absolute top-[-4px] right-[-4px] bg-[#2c9bdb] text-white text-xs rounded-full px-1">
             3
           </span>
-        </div>
-
-        <div className="flex items-center space-x-2">
-          <span className="text-sm font-medium text-gray-800">Hello,</span>
-          <span className="text-sm text-gray-800 font-bold">
-            {admin.displayName}
-          </span>
-          <Link href="/admin/profile">
-            <UserAvatar
-              avatarUrl={admin.avatarUrl}
-              className="w-10 h-10 rounded-full border border-gray-300"
-            />
-          </Link>
         </div>
       </div>
     </header>

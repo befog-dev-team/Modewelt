@@ -1,7 +1,7 @@
 "use client";
 
 import AdminDatePicker from "@/app/ui/common/AdminDatePicker";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { LuBriefcaseBusiness } from "react-icons/lu";
 import Post from "@/app/ui/dashboard/content/post";
 import Job from "@/app/ui/dashboard/content/Job";

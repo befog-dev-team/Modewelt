@@ -101,7 +101,7 @@ export default async function JobListing(props) {
     };
 
     return (
-        <div className="min-h-screen bg-[#a2defa] flex flex-col items-center ">
+        <div className="min-h-screen bg-[#dcf59d] flex flex-col items-center ">
             <Navbar />
             {/* <div className="w-full h-[76px] flex justify-between items-center px-6 sm:px-8 md:px-[102px] py-6 bg-[#FFFFFF]">
                 <h1 className="w-auto h-auto font-inter font-medium text-lg sm:text-xl md:text-2xl flex items-center">

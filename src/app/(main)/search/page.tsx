@@ -26,7 +26,7 @@ export default async function Page(props: PageProps) {
   const { query } = searchParams;
 
   return (
-    <div className="bg-[#a2defa] min-h-screen">
+    <div className="bg-[#dcf59d] min-h-screen">
       <Navbar unreadNotificationCount={undefined} />
       <main className="flex w-full justify-center gap-5 mt-6">
         <div className="flex flex-col justify-center min-w-[70vw] space-y-5">

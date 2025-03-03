@@ -6,7 +6,7 @@ const PrivacyPolicy = () => {
   return (
     <div>
       <Navbar />
-      <div className="min-h-screen bg-[#a2defa] flex flex-col items-center p-4">
+      <div className="min-h-screen bg-[#dcf59d] flex flex-col items-center p-4">
         <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-6">
           <h1 className="text-3xl font-bold mb-4 text-[#f26744]">Privacy Policy for Modeweltjob</h1>
           <p className="text-gray-600 mb-4">

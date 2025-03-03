@@ -378,7 +378,7 @@ export default function Home() {
     };
 
     return (
-        <div className="min-h-screen bg-[#a2defa]">
+        <div className="min-h-screen bg-[#dcf59d]">
             {/* Navbar */}
             <Navbar />
 
@@ -391,7 +391,7 @@ export default function Home() {
             </header>
 
             {/* Form Section */}
-            <main className="max-w-4xl mx-auto bg-[#a2defa] rounded-lg shadow-lg p-6 md:p-10 mt-6">
+            <main className="max-w-4xl mx-auto bg-[#dcf59d] rounded-lg shadow-lg p-6 md:p-10 mt-6">
                 <form className="space-y-6" noValidate>
                     {/* /* Upload Resume  */}
                     <FileUpload

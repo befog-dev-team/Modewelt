@@ -48,7 +48,7 @@ export default function JobListing() {
   });
 
   return (
-    <div className="bg-gradient-to-b from-[#a2defa] to-[#f6f7f2] min-h-screen">
+    <div className="bg-gradient-to-b from-[#dcf59d] to-[#f6f7f2] min-h-screen">
       <Navbar />
       <div className="p-4 sm:p-6 max-w-7xl w-full mx-auto">
         <motion.div

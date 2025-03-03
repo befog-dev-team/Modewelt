@@ -118,7 +118,7 @@ export default function JobSettingsForm() {
     };
 
     return (
-        <div className="bg-[#a2defa]">
+        <div className="bg-[#dcf59d]">
             <div className="mb-8">
                 <Navbar />
             </div>

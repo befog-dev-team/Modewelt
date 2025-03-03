@@ -80,7 +80,7 @@ const ApplicantsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#a2defa]">
+    <div className="min-h-screen bg-[#dcf59d]">
       <Navbar />
       <div className="p-6 max-w-7xl mx-auto">
         {/* Job Details Card */}

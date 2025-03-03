@@ -60,7 +60,7 @@ export default function NotificationWrapper({ user, todayViews }) {
                                 { count: user.totalLikes, label: "Total likes" },
                             ].map((item, index) => (
                                 <div key={index}>
-                                    <h3 className="text-[#f26744] text-4xl font-bold">
+                                    <h3 className="text-[#fc3fb4] text-4xl font-bold">
                                         {item.count}
                                     </h3>
                                     <p>{item.label}</p>

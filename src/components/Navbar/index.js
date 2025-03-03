@@ -90,7 +90,7 @@ function Navbar({ unreadNotificationCount }) {
           </Link>
           <button className="flex flex-col items-center text-sm hover:text-[#fc3fb4]" onClick={toggleModal}>
             <FaEllipsisH className="text-2xl" />
-            <span className="hidden md:block">Other</span>
+            <span className="hidden md:block">More</span>
           </button>
           <OtherModal isModalOpen={isModalOpen} closeModal={closeModal} />
         </div>

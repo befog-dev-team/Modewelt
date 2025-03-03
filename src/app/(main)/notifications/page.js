@@ -20,7 +20,7 @@ export default async function Page() {
   const todayViews = await getTodayProfileViews(user.id);
 
   return (
-    <div className="bg-[#a2defa] min-h-screen">
+    <div className="bg-[#dcf59d] min-h-screen">
       <Navbar />
       <NotificationWrapper todayViews={todayViews} user={user} />
       {/* <Footer /> */}

@@ -25,7 +25,7 @@ function InputField({ label, type, placeholder, required = false, value, onChang
             <input
                 type={type}
                 placeholder={placeholder}
-                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#f26744]"
+                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#fc3fb4]"
                 required={required}
                 value={value}
                 onChange={onChange}
@@ -42,7 +42,7 @@ function SelectField({ label, value, options, onChange, required = false }) {
                 {label} {required && <span className="text-red-500">*</span>}
             </label>
             <select
-                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#f26744]"
+                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#fc3fb4]"
                 value={value} // <-- Controlled value
                 onChange={(e) => onChange(e.target.value)} // <-- Pass value to parent
                 required={required}
@@ -64,7 +64,7 @@ function FileUpload({ label, description, accept, onChange }) {
         <div className="flex flex-col items-center justify-center bg-white border border-gray-300 rounded-lg p-6 text-center">
             <label
                 htmlFor="fileUpload"
-                className="text-lg font-medium text-[#f26744] cursor-pointer"
+                className="text-lg font-medium text-[#fc3fb4] cursor-pointer"
             >
                 {label}
             </label>
@@ -156,7 +156,7 @@ export default function Home() {
     // Loading or error state handling
     if (isLoading) {
         return (
-            <Loader2 className="h-screen flex justify-center mx-auto items-center text-[#f26744] size-10 animate-spin" />
+            <Loader2 className="h-screen flex justify-center mx-auto items-center text-[#fc3fb4] size-10 animate-spin" />
         );
     }
 
@@ -383,7 +383,7 @@ export default function Home() {
             <Navbar />
 
             {/* Header Section */}
-            <header className="bg-[#f26744] text-white">
+            <header className="bg-[#fc3fb4] text-white">
                 <div className="max-w-4xl mx-auto p-6 md:p-10">
                     <h1 className="text-2xl font-bold">{job.company} - {job.jobTitle}</h1>
                     <p className="text-sm">{job.salaryAmount} {job.salaryCurrency} | {job.location} | {job.workplaceType}</p>
@@ -467,7 +467,7 @@ export default function Home() {
                             <select
                                 value={formData.countryCode}
                                 onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
-                                className="border p-2 rounded-l focus:outline-none focus:ring-2 focus:ring-[#f26744]"
+                                className="border p-2 rounded-l focus:outline-none focus:ring-2 focus:ring-[#fc3fb4]"
                                 required
                             >
                                 <option value="+91">+91</option>
@@ -497,7 +497,7 @@ export default function Home() {
                                 type="text"
                                 value={formData.phone}
                                 placeholder="Enter your phone number"
-                                className="border p-2 flex-1 rounded-r focus:outline-none focus:ring-2 focus:ring-[#f26744]"
+                                className="border p-2 flex-1 rounded-r focus:outline-none focus:ring-2 focus:ring-[#fc3fb4]"
                                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                 required
                             />
@@ -667,7 +667,7 @@ export default function Home() {
                         {/* Button to Add Experience */}
                         <button
                             onClick={addExperience}
-                            className="mt-3 flex items-center gap-2 text-[#f26744] text-sm font-medium hover:text-[#892d6b] transition-all"
+                            className="mt-3 flex items-center gap-2 text-[#fc3fb4] text-sm font-medium hover:text-[#892d6b] transition-all"
                         >
                             <FaPlus /> Add Experience Details
                         </button>
@@ -728,7 +728,7 @@ export default function Home() {
                         {/* Button to Add Education */}
                         <button
                             onClick={addEducation}
-                            className="mt-3 flex items-center gap-2 text-[#f26744] text-sm font-medium hover:text-[#892d6b] transition-all"
+                            className="mt-3 flex items-center gap-2 text-[#fc3fb4] text-sm font-medium hover:text-[#892d6b] transition-all"
                         >
                             <FaPlus /> Add Education Details
                         </button>
@@ -739,7 +739,7 @@ export default function Home() {
                         <label className="text-gray-700 font-medium">Additional Documents</label>
                         <div className="flex items-center mt-2">
                             <label className="flex flex-col items-center justify-center w-32 h-20 border-2 border-dashed border-gray-300 rounded-md cursor-pointer text-sm text-gray-500">
-                                <CiCirclePlus className="text-3xl text-[#f26744]" />
+                                <CiCirclePlus className="text-3xl text-[#fc3fb4]" />
                                 <span>Add Files</span>
                                 <input
                                     type="file"
@@ -770,12 +770,12 @@ export default function Home() {
 
                     {/* Captcha */}
                     <div className="flex items-center space-x-4 w-1/2">
-                        <div className="bg-gray-100 border rounded-md p-2 flex justify-center items-center text-lg font-semibold text-[#f26744] w-24">
+                        <div className="bg-gray-100 border rounded-md p-2 flex justify-center items-center text-lg font-semibold text-[#fc3fb4] w-24">
                             {captcha}
                         </div>
                         <button
                             type="button"
-                            className="text-[#f26744] text-sm font-medium hover:underline"
+                            className="text-[#fc3fb4] text-sm font-medium hover:underline"
                             onClick={regenerateCaptcha}
                         >
                             <IoMdRefresh className="text-[2rem]" />
@@ -783,7 +783,7 @@ export default function Home() {
                         <input
                             type="text"
                             placeholder="Captcha"
-                            className="border rounded-md p-2 flex-1 focus:outline-none focus:ring-2 focus:ring-[#f26744]"
+                            className="border rounded-md p-2 flex-1 focus:outline-none focus:ring-2 focus:ring-[#fc3fb4]"
                             value={inputCaptcha}
                             onChange={(e) => setInputCaptcha(e.target.value)}
                             required
@@ -804,7 +804,7 @@ export default function Home() {
                             By applying, you hereby accept the data processing terms under the {" "}
                             <a
                                 href="/Terms&Condition"
-                                className="text-[#f26744] underline hover:no-underline"
+                                className="text-[#fc3fb4] underline hover:no-underline"
                             >
                                 Privacy Policy {" "}
                             </a>
@@ -818,7 +818,7 @@ export default function Home() {
                         type="submit"
                         disabled={submitLoading}
                         onClick={handleFormSubmit}
-                        className={`w-1/4 bg-[#f26744] text-white py-2 px-4 rounded-md hover:bg-[#f26744] transition ${submitLoading ? "cursor-not-allowed" : "cursor-pointer"}`}
+                        className={`w-1/4 bg-[#fc3fb4] text-white py-2 px-4 rounded-md hover:bg-[#fc3fb4] transition ${submitLoading ? "cursor-not-allowed" : "cursor-pointer"}`}
                     >
                         {
                             submitLoading ? (

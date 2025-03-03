@@ -39,7 +39,7 @@ const ApplicantsPage = () => {
   // Loading or error state handling
   if (isLoading) {
     return (
-      <Loader2 className="h-screen flex justify-center mx-auto items-center text-[#f26744] size-10 animate-spin" />
+      <Loader2 className="h-screen flex justify-center mx-auto items-center text-[#fc3fb4] size-10 animate-spin" />
     );
   }
 
@@ -109,7 +109,7 @@ const ApplicantsPage = () => {
           {/* Applicants List */}
           <Suspense fallback={<Loader2 className="mx-auto" />}>
             <div className="bg-white shadow-md rounded-lg p-4 overflow-y-auto h-[500px]">
-              <h2 className="text-lg font-semibold text-[#f26744] mb-4">Applicants</h2>
+              <h2 className="text-lg font-semibold text-[#fc3fb4] mb-4">Applicants</h2>
               {Array.isArray(applicantsData) && applicantsData.length > 0 ? (
                 applicantsData.map((applicant) => (
                   <div
@@ -162,7 +162,7 @@ const ApplicantsPage = () => {
                   {/* Action Button */}
                   <div className="flex gap-4 mt-4">
                     <button
-                      className="border border-[#f26744] uppercase text-[#f26744] px-4 py-2 rounded-full hover:bg-[#f26744] hover:text-white transition"
+                      className="border border-[#fc3fb4] uppercase text-[#fc3fb4] px-4 py-2 rounded-full hover:bg-[#fc3fb4] hover:text-white transition"
                       onClick={() => router.push(`/profile/${selectedApplicant.user.username}`)}
                     >
                       See profile
@@ -170,7 +170,7 @@ const ApplicantsPage = () => {
                   </div>
 
                   {/* Insights from Profile */}
-                  <h2 className="mt-8 text-md font-semibold text-[#f26744] uppercase">
+                  <h2 className="mt-8 text-md font-semibold text-[#fc3fb4] uppercase">
                     Insights from profile
                   </h2>
 
@@ -253,12 +253,12 @@ const ApplicantsPage = () => {
                     {/* View Icon */}
                     <SquareArrowOutUpRight
                       onClick={() => window.open(selectedApplicant.resumeFileUrl, "_blank")}
-                      className="ml-auto text-[#f26744] transition-transform duration-200 hover:scale-110 cursor-pointer"
+                      className="ml-auto text-[#fc3fb4] transition-transform duration-200 hover:scale-110 cursor-pointer"
                       size={20}
                     />
                     {/* Download Icon */}
                     <MdOutlineFileDownload
-                      className="text-[#f26744] transition-transform duration-200 hover:scale-110 cursor-pointer"
+                      className="text-[#fc3fb4] transition-transform duration-200 hover:scale-110 cursor-pointer"
                       size={24}
                       onClick={(e) => {
                         e.stopPropagation();
@@ -282,12 +282,12 @@ const ApplicantsPage = () => {
                         {/* View Icon */}
                         <SquareArrowOutUpRight
                           onClick={() => window.open(doc.fileUrl, "_blank")}
-                          className="ml-auto text-[#f26744] transition-transform duration-200 hover:scale-110 cursor-pointer"
+                          className="ml-auto text-[#fc3fb4] transition-transform duration-200 hover:scale-110 cursor-pointer"
                           size={20}
                         />
                         {/* Download Icon */}
                         <MdOutlineFileDownload
-                          className="text-[#f26744] transition-transform duration-200 hover:scale-110 cursor-pointer"
+                          className="text-[#fc3fb4] transition-transform duration-200 hover:scale-110 cursor-pointer"
                           size={24}
                           onClick={(e) => {
                             e.stopPropagation();

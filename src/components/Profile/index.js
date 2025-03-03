@@ -47,7 +47,7 @@ function Profile() {
                             {expanded ? aboutText : trimmedText + "..."}
                         </div>
                         <button
-                            className="text-[#A45286] text-sm font-semibold uppercase mt-2"
+                            className="text-[#fc3fb4] text-sm font-semibold uppercase mt-2"
                             onClick={() => setExpanded(!expanded)}
                         >
                             {expanded ? "Read Less" : "Read More"}
@@ -62,7 +62,7 @@ function Profile() {
                     <div className="bg-white p-4 rounded shadow-lg w-full max-w-md">
                         <h2 className="text-lg font-bold mb-4">Edit About Section</h2>
                         <textarea
-                            className="w-full h-[120px] border p-2 rounded focus:ring-[#A45286] focus:ring-2"
+                            className="w-full h-[120px] border p-2 rounded focus:ring-[#fc3fb4] focus:ring-2"
                             value={newText}
                             onChange={(e) => setNewText(e.target.value)}
                         ></textarea>
@@ -74,7 +74,7 @@ function Profile() {
                                 Cancel
                             </button>
                             <button
-                                className="bg-[#A45286] text-white px-4 py-2 rounded"
+                                className="bg-[#fc3fb4] text-white px-4 py-2 rounded"
                                 onClick={handleSave}
                             >
                                 Save

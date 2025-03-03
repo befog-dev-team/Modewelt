@@ -81,7 +81,7 @@ function Page() {
   // };
 
   return (
-    <div>
+    <div className="bg-[#dcf59d]">
       <Navbar />
       <div className="h-auto w-full p-4">
         {/* Main content area */}
@@ -97,7 +97,7 @@ function Page() {
                 onClick={() => setActiveSection("profile")}
                 className={`flex-1 min-w-[100px] flex justify-center items-center font-[Arial] text-[14px] md:text-[16px] font-bold transition-all duration-300 leading-[13.8px] ${
                   activeSection === "profile"
-                    ? "bg-[#f26744] text-white rounded-t-[4px] cursor-pointer h-[51px]"
+                    ? "bg-[] text-white rounded-t-[4px] cursor-pointer h-[51px]"
                     : "bg-white text-black h-[40px] cursor-pointer"
                 }`}
               >

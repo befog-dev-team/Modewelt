@@ -16,6 +16,12 @@
   }
 }
 
+.gradient-text {
+  background: linear-gradient(90deg, rgba(255,89,227,1) 0%, rgba(255,128,0,1) 36%, rgba(70,110,255,1) 68%, rgba(255,0,213,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 :root {
   /* Main brand or primary color */
   --primary-color: #fc3fb4;

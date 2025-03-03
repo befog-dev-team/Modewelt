@@ -1,18 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import logo from "../../public/Images/logo.svg";
-
-import Image from "next/image";
-import { useState } from "react";
-import { Menu } from "lucide-react";
-import Link from "next/link";
-import { FaUserFriends, FaFileAlt, FaFilter } from "react-icons/fa";
-import Admin from "../../public/Images/admin.png";
 import fashionDesigner from "../../public/Images/Fashion.png";
-import Professionals from "../../public/Images/landing1.png";
-import Landing from "../../public/Images/landingsec.png";
+import Admin from "../../public/Images/admin.png";
 import img1 from "../../public/Images/l1.png";
 import img2 from "../../public/Images/l2.png";
 import img3 from "../../public/Images/l3.png";
@@ -23,7 +12,17 @@ import img7 from "../../public/Images/l7.png";
 import img8 from "../../public/Images/l8.webp";
 import img9 from "../../public/Images/l9.webp";
 import img10 from "../../public/Images/l10.png";
+import Professionals from "../../public/Images/landing1.png";
+import Landing from "../../public/Images/landingsec.png";
+import logo from "../../public/Images/logo.svg";
 import { getCurrentYear } from "@/lib/utils";
+import gsap from "gsap";
+import { Menu } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef } from "react";
+import { useState } from "react";
+import { FaUserFriends, FaFileAlt, FaFilter } from "react-icons/fa";
 
 const initialFeatures = [
   { title: "Exclusive for Fashion Industry", img: img1 },
@@ -404,6 +403,17 @@ export default function Navbar() {
     "Fashion Designer",
     "Trend Forecaster",
   ];
+  const images = [
+    "/images/fashion1.png",
+    "/images/fashion2.png",
+    "/images/fashion3.png",
+    "/images/fashion2.png",
+    "/images/fashion5.png",
+    "/images/fashion2.png",
+    "/images/fashion7.png",
+    "/images/fashion2.png",
+    "/images/fashion9.png",
+  ];
 
   const [openIndex, setOpenIndex] = useState(null);
 
@@ -434,6 +444,40 @@ export default function Navbar() {
       },
     });
   }, []);
+
+  const imagesRef = useRef([]);
+
+  useEffect(() => {
+    imagesRef.current.forEach((img) => {
+      gsap.fromTo(
+        img,
+        { scale: 1 },
+        {
+          scale: 1.2,
+          duration: 0.3,
+          ease: "power2.out",
+          paused: true,
+          onReverseComplete: () => gsap.to(img, { scale: 1, duration: 0.3 }),
+        }
+      );
+    });
+  }, []);
+
+  const handleMouseEnter = (index) => {
+    gsap.to(imagesRef.current[index], {
+      scale: 1.2,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  };
+
+  const handleMouseLeave = (index) => {
+    gsap.to(imagesRef.current[index], {
+      scale: 1,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  };
 
   return (
     <div className="bg-[#daf59d]">
@@ -478,7 +522,8 @@ export default function Navbar() {
         {/* Left Section */}
         <div className="w-full md:w-1/2 text-center md:text-left space-y-4">
           <h1 className="text-4xl md:text-5xl font-bold text-[#7b4fff]">
-            The Future of Fashion Networking
+            The Future of <span className="gradient-text">Fashion</span>{" "}
+            Networking
           </h1>
           <p className="text-gray-600">
             An Exclusive Platform for Fashion Designers
@@ -491,13 +536,25 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Right Section (Form) */}
-        <div className="w-full md:w-1/3 p-6 md:p-8 rounded-lg mt-6 md:mt-0">
-          <Image
-            src={fashionDesigner}
-            alt="Fashion Designer"
-            className="lg:w-[600px] lg:h-[600px] sm:h-[300px] w-full object-cover rounded-lg"
-          />
+        {/* Right Section */}
+        <div className="w-full md:w-1/3 p-6 md:p-8 rounded-lg mt-6 md:mt-0 grid grid-cols-3 gap-4">
+          {images.map((imageSrc, index) => (
+            <div
+              key={index}
+              className="relative overflow-hidden rounded-lg aspect-square w-full"
+              onMouseEnter={() => handleMouseEnter(index)}
+              onMouseLeave={() => handleMouseLeave(index)}
+            >
+              <Image
+                ref={(el) => (imagesRef.current[index] = el)}
+                src={imageSrc}
+                alt={`Fashion Design ${index + 1}`}
+                width={200}
+                height={200}
+                className="object-cover w-full h-full aspect-square transition-transform duration-300"
+              />
+            </div>
+          ))}
         </div>
       </div>
       <div className="relative flex flex-col items-center justify-center bg-[#dff5a2] m-auto overflow-hidden w-full py-6">
@@ -567,8 +624,9 @@ export default function Navbar() {
       <div className="bg-[#f0fff1] lg:h-[718] flex flex-col items-center p-6 lg:pb-20 sm:pb-10">
         {/* Header Section */}
         <div className="max-w-[750px] w-full text-center lg:px-[90px] lg:py-[101px] p-6 md:p-12 rounded-xl">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-            The Ultimate Career Platform for Fashion Professionals
+          <h1 className="text-3xl md:text-4xl font-bold text-[#7b4fff]">
+            The Ultimate Career Platform for{" "}
+            <span className="gradient-text">Fashion</span> Professionals
           </h1>
           <p className="mt-2 text-lg text-gray-700 font-bold">
             Build Your Fashion Career with Modeweltjob

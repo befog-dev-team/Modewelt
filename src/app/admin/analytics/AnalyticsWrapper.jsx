@@ -1,41 +1,81 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import AdminDatePicker from "@/app/ui/common/AdminDatePicker";
 import JobPostingChart from "@/app/ui/dashboard/analytics/JobPostingChart";
-import MonthlyRevenueChart from "@/app/ui/dashboard/analytics/MonthlyRevenueChart";
-import ReviewsChart from "@/app/ui/dashboard/analytics/ReviewsChart";
+// import MonthlyRevenueChart from "@/app/ui/dashboard/analytics/MonthlyRevenueChart";
+// import ReviewsChart from "@/app/ui/dashboard/analytics/ReviewsChart";
 import TrendsTable from "@/app/ui/dashboard/analytics/TrendsTable";
 import UserChart from "@/app/ui/dashboard/users/userchart";
 import { useQuery } from "@tanstack/react-query";
-import ky from "ky";
+import axios from "axios";
 import { Loader2 } from "lucide-react";
+import { subDays } from "date-fns";
 
 const Analytics = ({ admin }) => {
-  const {
-    data: userData,
-    isLoading: userLoading,
-    error: userError,
-  } = useQuery({
-    queryKey: ["user-management-stats"],
-    queryFn: async () => await ky.get("/api/admin/user-management").json(),
+  // Default: Last 30 days
+  const [dateRange, setDateRange] = useState({
+    from: subDays(new Date(), 30),
+    to: new Date(),
   });
 
-  const {
-    data: jobStats,
-    isLoading: jobLoading,
-    error: jobError,
-  } = useQuery({
-    queryKey: ["admin-jobStats"],
-    queryFn: async () => await ky.get("/api/admin/analytics").json(),
+  const { data: userData, isLoading: userLoading, error: userError, refetch: refetchUser } = useQuery({
+    queryKey: ["user-management-stats", dateRange],
+    queryFn: async () => {
+      if (!dateRange?.from || !dateRange?.to) return {}; // 🔥 Prevents returning `null`
+      const params = {
+        from: dateRange.from.toISOString().split("T")[0],
+        to: dateRange.to.toISOString().split("T")[0],
+      };
+      const res = await axios.get("/api/admin/user-management", { params });
+      return res.data ?? {}; // 🔥 Ensures an empty object instead of `null`
+    },
+    enabled: false, // Fetch only when triggered
   });
 
-  const { data: jobTrends,
-    isLoading: jobTrendsLoading,
-    error: jobTrendsError,
-  } = useQuery({
-    queryKey: ["job-trends"],
-    queryFn: async () => ky.get("/api/admin/analytics/job-trends").json(),
+  const { data: jobStats, isLoading: jobLoading, error: jobError, refetch: refetchJobStats } = useQuery({
+    queryKey: ["admin-jobStats", dateRange],
+    queryFn: async () => {
+      if (!dateRange?.from || !dateRange?.to) return {}; // 🔥 Prevents returning `null`
+      const params = {
+        from: dateRange.from.toISOString().split("T")[0],
+        to: dateRange.to.toISOString().split("T")[0],
+      };
+      const res = await axios.get("/api/admin/analytics", { params });
+      return res.data ?? {}; // 🔥 Ensures an empty object instead of `null`
+    },
+    enabled: false, // Fetch only when triggered
   });
+
+  const { data: jobTrends, isLoading: jobTrendsLoading, error: jobTrendsError, refetch: refetchJobTrends } = useQuery({
+    queryKey: ["job-trends", dateRange],
+    queryFn: async () => {
+      if (!dateRange?.from || !dateRange?.to) return {}; // 🔥 Prevents returning `null`
+      const params = {
+        from: dateRange.from.toISOString().split("T")[0],
+        to: dateRange.to.toISOString().split("T")[0],
+      };
+      const res = await axios.get("/api/admin/analytics/job-trends", { params });
+      return res.data ?? {}; // 🔥 Ensures an empty object instead of `null`
+    },
+    enabled: false, // Fetch only when triggered
+  });
+
+  // Fetch data initially when the component mounts
+  useEffect(() => {
+    refetchUser();
+    refetchJobStats();
+    refetchJobTrends();
+  }, []);
+
+  // Trigger API call only when the filter button is clicked
+  const handleFilterClick = () => {
+    if (dateRange?.from && dateRange?.to) {
+      refetchUser();
+      refetchJobStats();
+      refetchJobTrends();
+    }
+  };
 
   // Loading state
   if (userLoading || jobLoading || jobTrendsLoading) {
@@ -79,20 +119,24 @@ const Analytics = ({ admin }) => {
 
         {/* User Chart Section */}
         <section className="mt-4">
-          <div className="bg-gray-100 rounded-lg overflow-hidden p-6">
-            <UserChart chartdata={userData} />
-          </div>
+          {userData && (
+            <div className="bg-gray-100 rounded-lg overflow-hidden p-6">
+              <UserChart chartdata={userData} />
+            </div>
+          )}
         </section>
 
         {/* Grid Layout for Charts and Table */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-4">
           {/* Job Posting Chart */}
-          <div className="bg-gray-100 rounded-lg overflow-hidden p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold text-gray-700">Job Posting</h2>
+          {jobStats && (
+            <div className="bg-gray-100 rounded-lg overflow-hidden p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-lg font-semibold text-gray-700">Job Posting</h2>
+              </div>
+              <JobPostingChart jobStats={jobStats} />
             </div>
-            <JobPostingChart jobStats={jobStats} />
-          </div>
+          )}
 
           {/* Monthly Revenue Chart */}
           {/* <div className="bg-white rounded-lg overflow-hidden p-6">
@@ -109,10 +153,12 @@ const Analytics = ({ admin }) => {
           </div> */}
 
           {/* Trends Table */}
-          <div className="bg-gray-100 rounded-lg overflow-hidden p-6">
-            <h2 className="text-lg font-semibold text-gray-700 mb-4">Trends</h2>
-            <TrendsTable jobTrends={jobTrends} />
-          </div>
+          {jobTrends && (
+            <div className="bg-gray-100 rounded-lg overflow-hidden p-6">
+              <h2 className="text-lg font-semibold text-gray-700 mb-4">Trends</h2>
+              <TrendsTable jobTrends={jobTrends} />
+            </div>
+          )}
         </div>
 
         {/* Download Report Button */}

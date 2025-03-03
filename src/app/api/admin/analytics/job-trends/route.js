@@ -1,9 +1,23 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma"; // Ensure this is your Prisma instance
 
-export async function GET() {
+export async function GET(request) {
     try {
+        const { searchParams } = new URL(request.url);
+        const from = searchParams.get("from");
+        const to = searchParams.get("to");
+
+        // Convert provided dates to Date objects
+        const fromDate = from ? new Date(from) : null;
+        const toDate = to ? new Date(to) : null;
+
         const jobs = await prisma.job.findMany({
+            where: {
+                createdAt: {
+                    gte: fromDate,
+                    lte: toDate,
+                },
+            },
             select: {
                 id: true,
                 jobTitle: true,

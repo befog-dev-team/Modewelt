@@ -8,6 +8,7 @@ import { Loader2 } from "lucide-react";
 
 export default function Profile() {
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState({ name: "", phone: "" });
 
   const { data: admin, isLoading, error } = useQuery({
     queryKey: ["adminProfile"],
@@ -18,6 +19,13 @@ export default function Profile() {
     },
     staleTime: 2000, // 2 seconds
   });
+
+  // Update user state when admin data is available
+  useEffect(() => {
+    if (admin) {
+      setUser({ name: admin.displayName || "", phone: admin.phone || "" });
+    }
+  }, [admin]);
 
   // Loading state
   if (isLoading) {
@@ -32,15 +40,6 @@ export default function Profile() {
   if (error) {
     return <div className="min-h-screen bg-gray-100">Error: {error.message}</div>;
   }
-
-  const [user, setUser] = useState({ name: "", phone: "" });
-
-  // Update user state when admin data is available
-  useEffect(() => {
-    if (admin) {
-      setUser({ name: admin.displayName || "", phone: admin.phone || "" });
-    }
-  }, [admin]);
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -61,7 +60,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4">
+    <div className="max-h-[80vh] overflow-y-auto no-scrollbar flex flex-col items-center justify-center bg-gray-100 px-4">
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-2xl">
         {/* Profile Picture & Name */}
         <div className="flex flex-col items-center">

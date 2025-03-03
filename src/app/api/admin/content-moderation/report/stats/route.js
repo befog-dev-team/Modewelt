@@ -1,25 +1,57 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function GET() {
+export async function GET(request) {
     try {
-        const totalReports = await prisma.report.count();
-        const reportedPosts = await prisma.report.count({ where: { postId: { not: null } } });
-        const reportedJobs = await prisma.report.count({ where: { jobId: { not: null } } });
+        // Extract query parameters from request URL
+        const { searchParams } = new URL(request.url);
+        const from = searchParams.get("from");
+        const to = searchParams.get("to");
 
-        // Fetch totalActions correctly
-        const totalActionsData = await prisma.adminStats.aggregate({
-            _sum: { totalActions: true }
+        if (!from || !to) {
+            return NextResponse.json({ error: "Missing date range" }, { status: 400 });
+        }
+
+        // Convert dates to ISO format
+        const fromDate = new Date(from);
+        const toDate = new Date(to);
+        toDate.setHours(23, 59, 59, 999); // Include entire "to" date
+
+        // Fetch total reports within the date range
+        const totalReports = await prisma.report.count({
+            where: {
+                createdAt: {
+                    gte: fromDate,
+                    lte: toDate,
+                },
+            },
         });
 
-        // Extract the number (default to 0 if null)
-        const totalActions = totalActionsData._sum.totalActions || 0;
+        // Fetch reported posts count
+        const reportedPosts = await prisma.report.count({
+            where: {
+                postId: { not: null },
+                createdAt: { gte: fromDate, lte: toDate },
+            },
+        });
+
+        // Fetch reported jobs count
+        const reportedJobs = await prisma.report.count({
+            where: {
+                jobId: { not: null },
+                createdAt: { gte: fromDate, lte: toDate },
+            },
+        });
+
+        // Fetch total moderation actions taken
+        const adminStats = await prisma.adminStats.findFirst();
+        const totalActions = adminStats?.totalActions || 0;
 
         return NextResponse.json({
             totalReports,
             reportedPosts,
             reportedJobs,
-            totalActions, 
+            totalActions,
         });
     } catch (error) {
         console.error("Error fetching report stats:", error);

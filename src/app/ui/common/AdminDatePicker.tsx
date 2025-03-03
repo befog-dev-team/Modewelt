@@ -11,6 +11,7 @@ import {
 import { FiCalendar } from "react-icons/fi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx"; // Import a close icon
+import { IoSearch } from "react-icons/io5";
 
 export default function AdminDatePicker({
   className,
@@ -72,7 +73,15 @@ export default function AdminDatePicker({
           />
           {/* Clear button */}
           {date?.from && (
-            <div className="p-2 flex justify-end">
+            <div className="p-2 flex justify-around">
+              <button
+                onClick={onFilterClick}
+                disabled={!date?.from || !date?.to}
+                className="text-sm text-blue-600 hover:text-blue-800 flex items-center space-x-1"
+              >
+                <IoSearch className="text-sm" />
+                <span>Apply</span>
+              </button>
               <button
                 onClick={handleClearDates}
                 className="text-sm text-red-600 hover:text-red-800 flex items-center space-x-1"
@@ -84,9 +93,6 @@ export default function AdminDatePicker({
           )}
         </PopoverContent>
       </Popover>
-      <button onClick={onFilterClick} disabled={!date?.from || !date?.to} className="bg-[#a65386] text-white rounded-lg p-2">
-        Apply Filter
-      </button>
     </div>
   );
 }

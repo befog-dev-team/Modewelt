@@ -2,42 +2,63 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { subDays, format } from "date-fns";
 
-//  Get active & expired job stats grouped by day
-export async function GET() {
+export async function GET(request) {
     try {
-        const today = new Date(); // Get today's date
-        const pastWeek = Array.from({ length: 7 }, (_, i) =>
-            format(subDays(today, i), "EEE") // Get last 7 days (Sat, Sun, Mon, etc.)
-        ).reverse(); // Reverse the order to match the chart
+        const { searchParams } = new URL(request.url);
+        const from = searchParams.get("from");
+        const to = searchParams.get("to");
 
-        const jobs = await prisma.job.findMany({ // Fetch all jobs
-            select: { createdAt: true, expirationDate: true }, // Select createdAt & expirationDate
+        // Convert provided dates to Date objects or default to the last 7 days
+        const fromDate = from ? new Date(from) : subDays(new Date(), 7);
+        const toDate = to ? new Date(to) : new Date();
+
+        // Generate past days labels dynamically based on range
+        const pastDays = Array.from({ length: 7 }, (_, i) =>
+            format(subDays(toDate, i), "EEE") // Format days as 'Sat', 'Sun', etc.
+        ).reverse();
+
+        // Fetch jobs within the date range
+        const jobs = await prisma.job.findMany({
+            where: {
+                createdAt: {
+                    gte: fromDate,
+                    lte: toDate,
+                },
+            },
+            select: {
+                createdAt: true,
+                expirationDate: true,
+            },
         });
 
-        const jobStats = pastWeek.map((day) => ({ // Initialize job stats for each day
-            day, // Day of the week
-            posted: 0, // Number of jobs posted
-            expired: 0, // Number of jobs expired
+        // Initialize job stats for each day
+        const jobStats = pastDays.map((day) => ({
+            day,
+            posted: 0,
+            expired: 0,
         }));
 
-        jobs.forEach((job) => { // Iterate over each job
-            const postDay = format(job.createdAt, "EEE"); // Get the day the job was posted
-            const isExpired = new Date(job.expirationDate) < today; // Check if the job is expired
+        jobs.forEach((job) => {
+            const postDay = format(job.createdAt, "EEE"); // Get day of posting
+            const isExpired = job.expirationDate && new Date(job.expirationDate) < new Date();
 
-            jobStats.forEach((stat) => { // Update job stats for each day
-                if (stat.day === postDay) { // If the job was posted on this day
-                    if (isExpired) { // If the job is expired
-                        stat.expired++; // Increment the expired count
+            jobStats.forEach((stat) => {
+                if (stat.day === postDay) {
+                    if (isExpired) {
+                        stat.expired++;
                     } else {
-                        stat.posted++; // Otherwise, increment the posted count
+                        stat.posted++;
                     }
                 }
             });
         });
 
-        return NextResponse.json(jobStats, { status: 200 }); // Return job stats
+        return NextResponse.json(jobStats, { status: 200 });
     } catch (error) {
-        console.error("Failed to fetch job stats:", error); // Log error
-        return NextResponse.json({ error: "Failed to fetch job stats" }, { status: 500 }); // Return error
+        console.error("❌ Failed to fetch job stats:", error);
+        return NextResponse.json(
+            { error: "Failed to fetch job stats" },
+            { status: 500 }
+        );
     }
 }

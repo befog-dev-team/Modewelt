@@ -20,7 +20,7 @@ const Analytics = ({ admin }) => {
   });
 
   const { data: userData, isLoading: userLoading, error: userError, refetch: refetchUser } = useQuery({
-    queryKey: ["user-management-stats"],
+    queryKey: ["user-management-stats", dateRange],
     queryFn: async () => {
       if (!dateRange?.from || !dateRange?.to) return {}; // 🔥 Prevents returning `null`
       const params = {
@@ -34,7 +34,7 @@ const Analytics = ({ admin }) => {
   });
 
   const { data: jobStats, isLoading: jobLoading, error: jobError, refetch: refetchJobStats } = useQuery({
-    queryKey: ["admin-jobStats"],
+    queryKey: ["admin-jobStats", dateRange],
     queryFn: async () => {
       if (!dateRange?.from || !dateRange?.to) return {}; // 🔥 Prevents returning `null`
       const params = {
@@ -48,7 +48,7 @@ const Analytics = ({ admin }) => {
   });
 
   const { data: jobTrends, isLoading: jobTrendsLoading, error: jobTrendsError, refetch: refetchJobTrends } = useQuery({
-    queryKey: ["job-trends"],
+    queryKey: ["job-trends", dateRange],
     queryFn: async () => {
       if (!dateRange?.from || !dateRange?.to) return {}; // 🔥 Prevents returning `null`
       const params = {

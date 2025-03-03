@@ -1,37 +1,59 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import PieChart from "@/app/ui/dashboard/dashboard/piechart";
 import GrowthChart from "@/app/ui/dashboard/dashboard/growthchart";
 // import RevenueChart from "@/app/ui/dashboard/dashboard/revenuechart";
 // import UserMapChart from "../ui/dashboard/dashboard/usermapchart";
-import { FiCalendar } from "react-icons/fi";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import AdminDatePicker from "../ui/common/AdminDatePicker";
+import { subDays } from "date-fns";
 
 export default function Dashboard({ admin }) {
-  const dropdownRef = useRef(null);
-
-  // Fetch and cache stats using useQuery
-  const { data, isLoading, error } = useQuery({
-    queryKey: admin?.id ? ["admin-dashboard-stats", admin.id] : ["admin-dashboard-stats"],
-    queryFn: async () => {
-      const res = await axios.get("/api/admin/dashboard");
-      return res.data;
-    },
-    enabled: Boolean(admin?.id),
+  // Default: Last 30 days
+  const [dateRange, setDateRange] = useState({
+    from: subDays(new Date(), 30),
+    to: new Date(),
   });
 
-  // Memoize stats to prevent unnecessary re-renders
-  const stats = useMemo(() => data || {
-    newRegistrations: 0,
-    companies: 0,
-    activeUsers: 0,
-    totalUsers: 0,
-  }, [data]);
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ["admin-dashboard-stats", dateRange],
+    queryFn: async () => {
+      if (!dateRange?.from || !dateRange?.to) return null;
+      const params = {
+        from: dateRange.from.toISOString().split("T")[0],
+        to: dateRange.to.toISOString().split("T")[0],
+      };
+      const res = await axios.get("/api/admin/dashboard", { params });
+      return res.data;
+    },
+    enabled: false, // Prevent automatic fetching
+  });
+
+  // Fetch data initially when the component mounts
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  // Trigger API call only when the filter button is clicked
+  const handleFilterClick = () => {
+    if (dateRange?.from && dateRange?.to) {
+      refetch();
+    }
+  };
+
+  const stats = useMemo(
+    () =>
+      data || {
+        newRegistrations: 0,
+        companies: 0,
+        activeUsers: 0,
+        totalUsers: 0,
+      },
+    [data]
+  );
 
   // Loading state
   if (isLoading) {
@@ -65,7 +87,11 @@ export default function Dashboard({ admin }) {
               </div>
               {/* Filter Period Section */}
               <div className="relative">
-                <AdminDatePicker />
+                <AdminDatePicker
+                  date={dateRange}
+                  onDateChange={setDateRange}
+                  onFilterClick={handleFilterClick}
+                />
               </div>
             </div>
           </header>
@@ -323,15 +349,17 @@ export default function Dashboard({ admin }) {
           </div>
 
           {/* Charts Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            <PieChart
-              totalUsers={data.totalUsers}
-              activeUsers={data.activeUsers}
-              inactiveUsers={data.inactiveUsers}
-              newRegistrations={data.newRegistrations}
-            />
-            <GrowthChart data={data.formattedData} />
-          </div>
+          {data && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+              <PieChart
+                totalUsers={data.totalUsers}
+                activeUsers={data.activeUsers}
+                inactiveUsers={data.inactiveUsers}
+                newRegistrations={data.newRegistrations}
+              />
+              <GrowthChart data={data.formattedData} />
+            </div>
+          )}
 
           {/* Graphs Section */}
           {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

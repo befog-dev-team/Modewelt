@@ -1,7 +1,5 @@
-"use client";
-
 import * as React from "react";
-import { addDays, format } from "date-fns";
+import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
@@ -12,15 +10,23 @@ import {
 } from "@/components/ui/popover";
 import { FiCalendar } from "react-icons/fi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { RxCross2 } from "react-icons/rx"; // Import a close icon
 
 export default function AdminDatePicker({
   className,
-}: React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2022, 0, 20), 20),
-  });
+  onDateChange,
+  onFilterClick,
+  date,
+}: React.HTMLAttributes<HTMLDivElement> & { onDateChange: (dateRange: DateRange) => void; onFilterClick: () => void; date: DateRange | undefined; }) {
   const [isOpen, setIsOpen] = React.useState(false);
+
+  const handleDateChange = (newDate: DateRange | undefined) => {
+    onDateChange(newDate || { from: undefined, to: undefined });
+  };
+
+  const handleClearDates = () => {
+    onDateChange({ from: undefined, to: undefined });
+  };
 
   return (
     <div className={cn("grid gap-2", className)}>
@@ -60,12 +66,27 @@ export default function AdminDatePicker({
             initialFocus
             mode="range"
             selected={date}
-            onSelect={setDate}
+            onSelect={handleDateChange}
             numberOfMonths={2}
             className="rounded-md border"
           />
+          {/* Clear button */}
+          {date?.from && (
+            <div className="p-2 flex justify-end">
+              <button
+                onClick={handleClearDates}
+                className="text-sm text-red-600 hover:text-red-800 flex items-center space-x-1"
+              >
+                <RxCross2 className="text-sm" />
+                <span>Clear</span>
+              </button>
+            </div>
+          )}
         </PopoverContent>
       </Popover>
+      <button onClick={onFilterClick} disabled={!date?.from || !date?.to} className="bg-[#a65386] text-white rounded-lg p-2">
+        Apply Filter
+      </button>
     </div>
   );
 }

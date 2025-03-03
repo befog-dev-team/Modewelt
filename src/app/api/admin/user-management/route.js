@@ -4,8 +4,8 @@ import prisma from "@/lib/prisma";
 export async function GET(request) {
     try {
         const { searchParams } = new URL(request.url);
-        const from = searchParams.get('from');
-        const to = searchParams.get('to');
+        const from = searchParams.get("from");
+        const to = searchParams.get("to");
 
         // Convert provided dates to Date objects
         const fromDate = from ? new Date(from) : null;
@@ -20,11 +20,11 @@ export async function GET(request) {
         previous30Days.setDate(today.getDate() - 60);
 
         // Apply date filter if provided
-        const dateFilter = fromDate && toDate ? { createdAt: { gte: fromDate, lte: toDate } } : {};
+        const dateFilter = fromDate && toDate ? { createdAt: { gte: fromDate, lte: toDate } } : { createdAt: { gte: last30Days } };
 
         // 📌 **Current Period Stats**
         const newRegistrations = await prisma.user.count({
-            where: from && to ? dateFilter : { createdAt: { gte: last30Days } },
+            where: dateFilter,
         });
 
         const totalUsers = await prisma.user.count();
@@ -68,6 +68,23 @@ export async function GET(request) {
             userCounts[monthIndex] += 1;
         });
 
+        // 📌 **Fetch User Details**
+        const userDetails = await prisma.user.findMany({
+            where: {
+                lastLogin: { not: null }, // 🔹 Exclude inactive users (never logged in)
+                ...dateFilter, // Apply existing filters if needed
+            },
+            select: {
+                displayName: true,
+                location: true,
+                createdAt: true,
+                email: true,
+                phone: true,
+                isDeleted: true,
+                lastLogin: true,
+            },
+        });
+
         return NextResponse.json({
             newRegistrations,
             previousNewRegistrations,
@@ -78,10 +95,17 @@ export async function GET(request) {
             deletedAccounts,
             previousDeletedAccounts,
             labels: months,
-            userCounts
+            userCounts,
+            userDetails, // Include user details in the response
         });
     } catch (error) {
         console.error("❌ Error:", error);
-        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+        return NextResponse.json(
+            {
+                error: "Internal Server Error",
+                details: error instanceof Error ? error.message : "Unknown error",
+            },
+            { status: 500 }
+        );
     }
 }

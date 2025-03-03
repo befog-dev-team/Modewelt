@@ -156,7 +156,7 @@ export default function UserManagement({ admin }) {
         <section className="mt-8">
           {data &&
             <div className="bg-white shadow-sm rounded-lg overflow-x-auto">
-              <UserDetails />
+              <UserDetails users={data.userDetails} />
             </div>
           }
         </section>

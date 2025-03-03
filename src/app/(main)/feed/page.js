@@ -15,7 +15,7 @@ export const metadata = {
 
 export default async function Page() {
   return (
-    <div className="flex flex-col min-h-screen bg-[#a2e0fa]">
+    <div className="flex flex-col min-h-screen bg-[#dcf59d]">
       <Navbar />
       <div className="flex flex-col lg:flex-row justify-center mt-12 space-y-10 lg:space-y-0 lg:space-x-14 px-4 lg:px-8">
         {/* Left Section */}

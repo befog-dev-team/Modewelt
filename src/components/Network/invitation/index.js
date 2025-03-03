@@ -20,7 +20,7 @@ export default function Invitation() {
     <div className="p-4 max-w-screen-lg mx-auto">
       {/* Invitation Heading */}
       <div className="flex items-center space-x-4 mb-6">
-        <h2 className="font-sans text-[#f26744] text-xl font-bold uppercase">
+        <h2 className="font-sans text-[#fc3fb4] text-xl font-bold uppercase">
           Invitations
         </h2>
       </div>
@@ -29,7 +29,7 @@ export default function Invitation() {
       <div className="flex justify-center border-b border-gray-200 mb-4">
         <button
           className={`w-1/2 py-2 text-sm font-semibold uppercase transition-colors duration-300 ${activeTab === "received"
-            ? "bg-[#f26744] text-white"
+            ? "bg-[#fc3fb4] text-white"
             : "bg-white text-gray-800"
             }`}
           onClick={() => handleTabChange("received")}
@@ -38,7 +38,7 @@ export default function Invitation() {
         </button>
         <button
           className={`w-1/2 py-2 text-sm font-semibold uppercase transition-colors duration-300 ${activeTab === "sent"
-            ? "bg-[#f26744] text-white"
+            ? "bg-[#fc3fb4] text-white"
             : "bg-white text-gray-800"
             }`}
           onClick={() => handleTabChange("sent")}

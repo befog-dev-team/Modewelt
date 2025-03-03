@@ -94,7 +94,7 @@ export default function ReportJobModal({ postId, jobId, isOpen, onClose }) {
                 value={reason}
                 checked={selectedReason === reason}
                 onChange={() => handleReasonChange(reason)}
-                className="form-radio h-4 w-4 text-[#f26744]"
+                className="form-radio h-4 w-4 text-[#fc3fb4]"
               />
               <span className="text-gray-700">{reason}</span>
             </label>
@@ -116,7 +116,7 @@ export default function ReportJobModal({ postId, jobId, isOpen, onClose }) {
                 placeholder="Enter alternative email"
                 value={altEmail}
                 onChange={(e) => setAltEmail(e.target.value)}
-                className="w-full border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f26744]"
+                className="w-full border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#fc3fb4]"
               />
 
               {selectedReason === "Other" && (
@@ -128,7 +128,7 @@ export default function ReportJobModal({ postId, jobId, isOpen, onClose }) {
                     type="file"
                     multiple
                     onChange={handleFileChange}
-                    className="w-full border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f26744]"
+                    className="w-full border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#fc3fb4]"
                     accept=".txt,.pdf,.jpg,.jpeg,.png,.gif,.mp3,.mp4"
                   />
 
@@ -153,7 +153,7 @@ export default function ReportJobModal({ postId, jobId, isOpen, onClose }) {
                     placeholder="Type your reason"
                     value={customReason}
                     onChange={(e) => setCustomReason(e.target.value)}
-                    className="w-full border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f26744]"
+                    className="w-full border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#fc3fb4]"
                     rows={3}
                   ></textarea>
                 </>
@@ -172,7 +172,7 @@ export default function ReportJobModal({ postId, jobId, isOpen, onClose }) {
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className={`px-4 py-2 rounded-lg text-white transition duration-200 ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-[#f26744] hover:bg-[#e65a3a]"
+            className={`px-4 py-2 rounded-lg text-white transition duration-200 ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-[#fc3fb4] hover:bg-[#fc3fb4]"
               }`}
           >
             {loading ? (

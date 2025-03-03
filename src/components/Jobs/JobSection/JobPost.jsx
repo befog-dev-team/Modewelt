@@ -53,7 +53,7 @@ export default function JobPost({ job }) {
                             </button>
 
                             <Link href={`/jobDetails/${job.id}`} prefetch={true}>
-                                <button className="block w-full text-left px-4 py-2 text-sm bg-[#f26744] text-white text-[14px] font-semibold hover:bg-gradient-to-l hover:from-[#a3527e] hover:to-[#c166a0] transition duration-300 ease-in-out hover:text-white">
+                                <button className="block w-full text-left px-4 py-2 text-sm bg-[#fc3fb4] text-white text-[14px] font-semibold hover:bg-gradient-to-l hover:from-[#fc3fb4] hover:to-[#fc3fb4] transition duration-300 ease-in-out hover:text-white">
                                     More Info
                                 </button>
                             </Link>

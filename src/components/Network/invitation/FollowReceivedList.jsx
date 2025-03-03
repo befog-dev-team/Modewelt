@@ -116,7 +116,7 @@ const FollowReceivedList = ({ userId }) => {
                                 <button
                                     onClick={() => handleAccept(request.id)}
                                     disabled={acceptedRequestLoading || declinedRequestLoading}
-                                    className="bg-[#f26744] text-white text-sm font-bold py-1 px-4 border rounded"
+                                    className="bg-[#fc3fb4] text-white text-sm font-bold py-1 px-4 border rounded"
                                 >
                                     {acceptedRequestLoading ? <Loader2 className="animate-spin" /> : "Accept"}
                                 </button>

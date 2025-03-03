@@ -27,8 +27,8 @@ export default function Hashtag() {
       <div>
         {/* Hashtag Heading */}
         <div className="space-x-2 flex items-center">
-          <HiOutlineHashtag className="max-w-[21px] w-full h-[21px] text-[#f26744]" />
-          <h2 className="font-[Arial] text-[#f26744] text-[20px] font-[700] uppercase leading-[23px]">
+          <HiOutlineHashtag className="max-w-[21px] w-full h-[21px] text-[#fc3fb4]" />
+          <h2 className="font-[Arial] text-[#fc3fb4] text-[20px] font-[700] uppercase leading-[23px]">
             Hashtags
           </h2>
         </div>

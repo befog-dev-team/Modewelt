@@ -35,7 +35,7 @@ export default function Connection() {
       <div className="mb-24 space-y-8">
         {/* Connections Section */}
         <div className="text-center">
-          <p className="font-[Arial] text-[#f26744] text-[20px] sm:text-[24px] font-bold uppercase leading-[23px]">
+          <p className="font-[Arial] text-[#fc3fb4] text-[20px] sm:text-[24px] font-bold uppercase leading-[23px]">
             Connections
           </p>
         </div>
@@ -66,10 +66,10 @@ export default function Connection() {
               </div>
               {/* New Connection Info */}
               <div className="flex items-center gap-2 mb-4">
-                <div className="min-w-[33px] min-h-[33px] font-[Arial] text-[16px] flex justify-center items-center text-white bg-[#f26744] rounded-[4px]">
+                <div className="min-w-[33px] min-h-[33px] font-[Arial] text-[16px] flex justify-center items-center text-white bg-[#fc3fb4] rounded-[4px]">
                   {item.connections.length > 0 ? `${formatNumber(item.connections.length)}+` : "0"}
                 </div>
-                <div className="text-[#f26744] font-bold text-[12px] uppercase">
+                <div className="text-[#fc3fb4] font-bold text-[12px] uppercase">
                   New Connection
                 </div>
               </div>

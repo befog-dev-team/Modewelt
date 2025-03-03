@@ -41,7 +41,7 @@ export default function JobSection({ searchQuery }) {
     : jobs;
 
   if (status === "pending") {
-    return <Loader2 className="mx-auto animate-spin text-[#f26744]" />;
+    return <Loader2 className="mx-auto animate-spin text-[#fc3fb4]" />;
   }
 
   if (status === "success" && !filteredJobsList.length && !hasNextPage) {

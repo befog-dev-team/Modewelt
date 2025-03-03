@@ -26,7 +26,7 @@ export default function Index() {
           />
           <div className="flex space-x-4 items-center">
             {/* <IoFilterSharp size={24} className="text-[#e3e3e3] hover:text-gray-500" /> */}
-            <div className="flex justify-center items-center w-[32px] h-[32px] bg-[#f26744] rounded-[4px]">
+            <div className="flex justify-center items-center w-[32px] h-[32px] bg-[#fc3fb4] rounded-[4px]">
               <IoSearchOutline className="text-white cursor-pointer" />
             </div>
           </div>

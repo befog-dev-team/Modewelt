@@ -84,7 +84,7 @@ export default function FollowButton({
 
     const buttonStyles = {
         Follow:
-            "flex items-center justify-center w-full py-1 px-4 text-sm bg-[#f26744] text-white text-sm font-bold rounded",
+            "flex items-center justify-center w-full py-1 px-4 text-sm bg-[#fc3fb4] text-white text-sm font-bold rounded",
         Requested:
             "flex items-center justify-center w-full py-1 px-4 text-sm bg-gray-300 text-sm font-semibold rounded",
         Following:

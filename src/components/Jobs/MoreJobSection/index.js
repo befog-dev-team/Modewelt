@@ -57,7 +57,7 @@ export default function Index() {
           {/* Buttons Section */}
           <div className="flex justify-end sm:justify-center w-full sm:w-auto">
             <Link href={job.link} prefetch={true}>
-              <button className="w-[120px] h-[36px] flex justify-center items-center rounded-[4px] uppercase bg-[#f26744] text-white text-[14px] font-semibold transition duration-300 ease-in-out">
+              <button className="w-[120px] h-[36px] flex justify-center items-center rounded-[4px] uppercase bg-[#fc3fb4] text-white text-[14px] font-semibold transition duration-300 ease-in-out">
                 <span className="font-[Arial] text-[14px] leading-[16px]">
                   More Info
                 </span>

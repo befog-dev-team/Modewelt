@@ -12,10 +12,10 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { BsCup } from "react-icons/bs";
 import { BiEdit } from "react-icons/bi";
 import { TbDeviceDesktopAnalytics } from "react-icons/tb";
-// import { FiCalendar } from "react-icons/fi";
 // import { MdOutlineChat } from "react-icons/md";
 import { HiOutlineLogout } from "react-icons/hi";
 import { IoSettingsOutline } from "react-icons/io5";
+import { FiCalendar } from "react-icons/fi";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,7 +48,7 @@ const Sidebar = () => {
             // { label: "Subscription Management", icon: <BsCup />, path: "/admin/subscription" },
             { label: "Support & Tickets", icon: <BiEdit />, path: "/admin/support" },
             { label: "Settings", icon: <IoSettingsOutline />, path: "/admin/setting" },
-            // { label: "Security Logs", icon: <FiCalendar />, path: "/admin/security" },
+            { label: "Security Logs", icon: <FiCalendar />, path: "/admin/security" },
             // { label: "Fashion Trends", icon: <MdOutlineChat />, path: "/admin/trends" },
             { label: "Logout", icon: <HiOutlineLogout />, path: "/" },
           ].map((menu, index) => (

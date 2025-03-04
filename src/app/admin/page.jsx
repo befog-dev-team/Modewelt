@@ -1,4 +1,5 @@
 import { requireAdmin } from "@/lib/auth";
+import { activityRequire } from "@/lib/activity";
 import AdminDashboardWrapper from "./AdminDashboardWrapper"
 
 export const metadata = {
@@ -10,6 +11,7 @@ export default async function AdminPage() {
     let admin;
     try {
         admin = await requireAdmin();
+        await activityRequire("ACCESS");
     } catch (error) {
         console.error("Failed to fetch admin data:", error);
         return <div>Error loading admin data</div>;

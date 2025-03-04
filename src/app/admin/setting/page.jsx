@@ -1,9 +1,21 @@
-"use client";
-
-import Sidebar from "@/app/ui/dashboard/Setting/sidebar";
+import { requireAdmin } from "@/lib/auth";
 import ProfileWrapper from "@/app/admin/profile/ProfileWrapper";
+// import Sidebar from "@/app/ui/dashboard/Setting/sidebar";
 
-const setting = () => {
+export const metadata = {
+  title: "Setting",
+  description: "Setting page for managing user profile.",
+};
+
+const setting = async () => {
+  let admin;
+  try {
+    admin = await requireAdmin();
+  } catch (error) {
+    console.error("Failed to fetch admin data:", error);
+    return <div>Error loading admin data</div>;
+  }
+
   return (
     <div className="max-h-[80vh] overflow-y-auto no-scrollbar bg-[#f3f2f7] p-4 sm:p-6">
       <div className="max-w-7xl mx-auto">

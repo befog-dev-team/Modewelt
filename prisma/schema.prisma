@@ -57,6 +57,7 @@ model User {
   experiences            Experience[]
   skills                 Skill[]
   endorsements           Endorsement[]
+  AdminActivity          AdminActivity[]
   Report                 Report[]
 
   lastLogin DateTime? // ? means that the field is optional
@@ -68,6 +69,16 @@ model User {
 enum Role {
   USER // USER is a value of the enum
   ADMIN // ADMIN is a value of the enum
+}
+
+model AdminActivity {
+  id     String   @id @default(cuid())
+  userId String // The admin user who performed the action
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  action String // Type of action (e.g., "LOGIN", "REPORT_HANDLED")
+  date   DateTime @default(now()) // Date of the activity
+
+  @@map("admin_activities") // Custom table name
 }
 
 // SystemStats model is used to define the structure of the SystemStats table in the database

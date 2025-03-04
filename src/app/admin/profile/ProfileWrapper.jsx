@@ -60,7 +60,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto no-scrollbar flex flex-col items-center justify-center bg-gray-100 px-4">
+    <div className="min-h-[80vh] overflow-y-auto no-scrollbar flex flex-col items-center justify-center bg-gray-100 px-4">
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-2xl">
         {/* Profile Picture & Name */}
         <div className="flex flex-col items-center">

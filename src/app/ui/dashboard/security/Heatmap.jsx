@@ -1,66 +1,126 @@
-import React from 'react';
+"use client";
 
-const days = ['Sun', 'Wed', 'Sat']; // All days of the week
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const weeks = 52;
-const data = Array.from({ length: weeks * 7 }, () => Math.floor(Math.random() * 5)); // Random activity count (0-4)
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { Loader2 } from "lucide-react";
 
-const Heatmap = () => {
-  const getColor = (count) => {
-    if (count === 0) return 'bg-gray-100'; // No activity
-    if (count === 1) return 'bg-gray-100'; // Low activity
-    if (count === 2) return 'bg-gray-100'; // Medium activity
-    if (count === 3) return 'bg-green-500'; // High activity
-    return 'bg-green-700'; // Very high activity
+const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const totalDays = 365;
+
+const Heatmap = ({activities}) => {
+  const processActivities = (activities) => {
+    const activityMap = activities.reduce((acc, activity) => {
+      if (!activity.date) return acc;
+      const date = new Date(activity.date).toISOString().split("T")[0];
+      acc[date] = (acc[date] || 0) + 1;
+      return acc;
+    }, {});
+    return activityMap;
   };
 
+  const generateDataPoints = (activityMap) => {
+    const today = new Date();
+    const startDate = new Date(today);
+    startDate.setDate(today.getDate() - totalDays + 1);
+
+    const dataPoints = [];
+    for (let i = 0; i < totalDays; i++) {
+      const date = new Date(startDate);
+      date.setDate(startDate.getDate() + i);
+      const formattedDate = date.toISOString().split("T")[0];
+
+      dataPoints.push({
+        date,
+        count: activityMap[formattedDate] || 0,
+      });
+    }
+
+    return dataPoints;
+  };
+
+  const getColor = (count) => {
+    if (count === 0) return "bg-gray-100";
+    if (count === 1) return "bg-green-200";
+    if (count === 2) return "bg-green-400";
+    if (count === 3) return "bg-green-600";
+    return "bg-green-800";
+  };
+
+  const activityMap = processActivities(activities);
+  const dataPoints = generateDataPoints(activityMap);
+
+  const firstDayIndex = dataPoints[0].date.getDay();
+  const emptyCells = Array.from({ length: firstDayIndex }).map((_, index) => ({
+    date: null,
+    count: null,
+  }));
+
+  const gridData = [...emptyCells, ...dataPoints];
+
+  // Calculate the number of weeks
+  const numberOfWeeks = Math.ceil(gridData.length / 7);
+
+  // Generate month labels
+  const monthLabels = [];
+  for (let i = 0; i < numberOfWeeks; i++) {
+    const weekStartDate = gridData[i * 7].date;
+    if (weekStartDate) {
+      const month = months[weekStartDate.getMonth()];
+      if (!monthLabels.includes(month)) {
+        monthLabels.push(month);
+      } else {
+        monthLabels.push("");
+      }
+    } else {
+      monthLabels.push("");
+    }
+  }
+
   return (
-    <div className="bg-white overflow-auto p-4 flex flex-col">
-      <div className="grid grid-cols-[auto_1fr] gap-2">
-        {/* Days Column */}
+    <div className="bg-white p-4 flex flex-col items-center w-full overflow-hidden">
+      <div className="grid grid-cols-[auto_1fr] gap-2 w-full max-w-4xl mx-auto">
         <div className="flex flex-col gap-2 text-sm text-gray-500">
           {days.map((day, index) => (
-            <span key={index} className="h-6 flex items-center justify-end pr-2">
+            <span key={index} className="h-4 flex items-center justify-end pr-2">
               {day}
             </span>
           ))}
         </div>
 
-        {/* Heatmap Grid */}
-        <div className="flex flex-col">
-          <div className="grid grid-rows-7 grid-flow-col gap-2 sm:gap-2">
-            {data.map((count, index) => {
-              const dayIndex = index % 7;
-              const weekIndex = Math.floor(index / 7);
-              const date = new Date();
-              date.setDate(date.getDate() - (weeks * 7 - index));
-
-              return (
+        <div className="flex flex-col w-full overflow-x-auto no-scrollbar">
+          <div className="grid grid-rows-7 grid-flow-col gap-1">
+            {gridData.map(({ date, count }, index) => (
+              <div key={index} className="relative group">
                 <div
-                  key={index}
-                  className={`w-1 h-1 sm:w-1 sm:h-1 md:w-1 md:h-1 lg:w-2 lg:h-2 rounded-sm ${getColor(
-                    count
-                  )} hover:opacity-75 transition-opacity relative group`}
-                  title={`${count} activities on ${date.toLocaleDateString()}`}
-                >
-                  {/* Tooltip */}
-                  <div className="absolute hidden group-hover:block bg-black text-white text-xs p-1 rounded-md bottom-full mb-2 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
+                  className={`w-3 h-3 sm:w-3 sm:h-3 md:w-4 md:h-4 lg:w-4 lg:h-4 rounded-sm ${date ? getColor(count) : "bg-transparent"
+                    } hover:opacity-75 transition-opacity`}
+                />
+                {date && (
+                  <div className="absolute w-min-[150px] top-full mt-1 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-50">
                     {count} activities on {date.toLocaleDateString()}
                   </div>
-                </div>
-              );
-            })}
+                )}
+              </div>
+            ))}
           </div>
 
-          {/* Months Row */}
           <div className="flex justify-between mt-2 text-sm text-gray-500">
-            {months.map((month, index) => (
+            {monthLabels.map((month, index) => (
               <span key={index} className="flex-1 text-center">
                 {month}
               </span>
             ))}
           </div>
         </div>
+      </div>
+
+      <div className="flex justify-end mt-4 space-x-2 text-sm text-gray-500 w-full max-w-4xl mx-auto">
+        <span>Less</span>
+        {[0, 1, 2, 3, 4].map((count) => (
+          <div key={count} className={`w-3 h-3 sm:w-3 sm:h-3 md:w-4 md:h-4 lg:w-4 lg:h-4 rounded-sm ${getColor(count)}`} />
+        ))}
+        <span>More</span>
       </div>
     </div>
   );

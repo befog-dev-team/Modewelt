@@ -1,8 +1,20 @@
-"use client";
-import Heatmap from "@/app/ui/dashboard/security/Heatmap";
-import TableComponent from "@/app/ui/dashboard/security/TableComponent";
+import { requireAdmin } from "@/lib/auth";
+import SecurityWrapper from "./SecurityWrapper";
 
-const Security = () => {
+export const metadata = {
+  title: "Security Logs",
+  description: "Security logs page for monitoring user activities.",
+};
+
+const Security = async () => {
+  let admin;
+  try {
+    admin = await requireAdmin();
+  } catch (error) {
+    console.error("Failed to fetch admin data:", error);
+    return <div>Error loading admin data</div>;
+  }
+
   return (
     <div className="min-h-screen bg-[#f3f2f7] p-4 sm:p-6">
       <div className="max-w-5xl mx-auto">
@@ -14,12 +26,8 @@ const Security = () => {
             </div>
           </div>
         </header>
-
-        {/* Heatmap Section */}
-        <div className="#f3f2f7 rounded-lg shadow-sm p-4 sm:p-6">
-          <Heatmap />
-          <TableComponent />
-        </div>
+        {/* Security Wrapper Section */}
+        <SecurityWrapper />
       </div>
     </div>
   );

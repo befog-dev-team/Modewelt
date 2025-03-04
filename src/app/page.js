@@ -239,15 +239,15 @@ export default function Navbar() {
   }, []);
 
   const images = [
-    "/images/fashion1.png",
+    "/images/fashion1.jpg",
     "",
-    "/images/fashion3.png",
+    "/images/fashion3.avif",
     "",
-    "/images/fashion5.png",
+    "/images/fashion5.jpg",
     "",
-    "/images/fashion7.png",
+    "/images/fashion7.jpg",
     "",
-    "/images/fashion9.png",
+    "/images/fashion9.avif",
   ];
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -363,12 +363,7 @@ export default function Navbar() {
             onClick={closeModal}
           >
             <div className="relative w-full h-full">
-              <button
-                className="absolute top-4 right-4 bg-white text-black rounded-full p-2 text-xl"
-                onClick={closeModal}
-              >
-                ✕
-              </button>
+              
               <Image
                 src={selectedImage}
                 alt="Expanded Fashion Design"

@@ -91,9 +91,9 @@ function OtherModal({ isModalOpen, closeModal }) {
                                     <p className="text-[11px] cursor-pointer">Premium</p>
                                 </Link> 
                                 */}
-                                {/* <Link href={"/setting"}>
+                                <Link href={"/setting"}>
                                     <p className="text-[11px] cursor-pointer">Setting</p>
-                                </Link> */}
+                                </Link>
                                 <Link href={"/Help"} prefetch={true}>
                                     <p className="text-[11px] cursor-pointer">Help</p>
                                 </Link>

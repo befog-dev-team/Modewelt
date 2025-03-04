@@ -33,11 +33,11 @@ export default function Network() {
     }, [activeSection, sectionRefs]);
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-[#dcf59d]">
             <Navbar />
             <div className="flex flex-col md:flex-row">
                 {/* Left Sidebar */}
-                <div className="w-full md:max-w-[300px] md:w-[300px] h-auto md:h-[100vh] bg-white shadow-md">
+                <div className="w-full md:max-w-[300px] md:w-[300px] h-auto md:h-[100vh] bg-[#dcf59d] shadow-md">
                     <div className="px-6 flex items-center space-x-4 py-6">
                         <Image
                             src={images}
@@ -52,7 +52,7 @@ export default function Network() {
                     <ul className="relative space-y-0">
                         <div
                             ref={scrollerRef}
-                            className="absolute w-[5px] h-[48px] rounded-r-full bg-gradient-to-r from-[#a85287] to-[#a85287] shadow-lg transition-all duration-300 ease-in-out"
+                            className="absolute w-[5px] h-[48px] rounded-r-full bg-gradient-to-r from-[#fc3fb4] to-[#fc3fb4] shadow-lg transition-all duration-300 ease-in-out"
                         ></div>
 
                         <li
@@ -60,11 +60,11 @@ export default function Network() {
                             className="flex items-center w-full h-[51px] cursor-pointer"
                             onClick={() => setActiveSection('connections')}
                         >
-                            <span className={`ml-16 font-semibold ${activeSection === 'connections' ? 'text-[#a85287]' : 'text-gray-800'}`}>
+                            <span className={`ml-16 font-semibold ${activeSection === 'connections' ? 'text-[#fc3fb4]' : 'text-gray-800'}`}>
                                 Account Preferences
                             </span>
                         </li>
-                        <li
+                        {/* <li
                             ref={SecurityRef}
                             className="flex items-center w-full h-[51px] cursor-pointer"
                             onClick={() => setActiveSection('invitations')}
@@ -90,7 +90,7 @@ export default function Network() {
                             <span className={`ml-16 font-semibold ${activeSection === 'hashtags' ? 'text-[#a85287]' : 'text-gray-800'}`}>
                                 Notification
                             </span>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
 

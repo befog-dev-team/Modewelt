@@ -91,11 +91,11 @@ model Session {
 
 // EmailVerificationToken model is used to define the structure of the EmailVerificationToken table in the database
 model EmailVerificationToken {
-  id        String   @id @default(cuid()) // @id marks a field as the primary key
-  token     String   @unique // @unique creates a unique constraint on the field
-  userId    String // userId is a string field
-  user      User     @relation(fields: [userId], references: [id]) // @relation links the EmailVerificationToken to the User model
-  expiresAt DateTime // expiresAt is a date-time field
+  id        String   @id @default(cuid()) // Primary key
+  token     String   @unique @db.Text // Ensures Prisma can store long hashed tokens
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade) // Ensures token is deleted if user is deleted
+  expiresAt DateTime
 }
 
 // Post model is used to define the structure of the Post table in the database

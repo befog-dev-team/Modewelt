@@ -3,7 +3,7 @@
 import React, { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import "@/app/(main)/css/Auth.css";
-import toast  from "react-hot-toast";
+import toast from "react-hot-toast";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { login } from "./loginActions";
@@ -149,13 +149,19 @@ const Auth = () => {
               className="animation flex justify-between text-sm mt-2 text-blue-500 uppercase"
               style={{ "--D": 4, "--S": 25 }}
             >
-              {/* <Link href="/forgetpassword" prefetch={true}>Forgot Password</Link> */}
-              <Link href="/forgetpassword" prefetch={true}></Link>
+              <Link href="/auth/forget-password" prefetch={true}>Forgot Password</Link>
+              {/* <Link href="/forgetpassword" prefetch={true}></Link> */}
               <p
                 className="SignUpLink cursor-pointer"
                 onClick={() => setActive(true)}
               >
                 {/* Create Account */}
+                <a
+                  href="#"
+                  onClick={() => setActive(true)}
+                >
+                  Create Account
+                </a>
               </p>
             </div>
 

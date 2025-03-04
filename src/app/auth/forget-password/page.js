@@ -27,8 +27,8 @@ export default function ResetForm() {
     };
 
     return (
-        <div className="h-screen flex justify-center items-center">
-            <div className="max-w-md w-full bg-white p-8 rounded-2xl shadow-lg border border-gray-200 relative">
+        <div className="h-screen bg-[#dcf59d] flex justify-center items-center">
+            <div className="max-w-md w-full bg-[#dcf59d] p-8 rounded-2xl shadow-lg border border-gray-200 relative">
                 {/* Error message at the top */}
                 {error && (
                     <div className="bg-red-100 text-center text-red-600 p-3 rounded-md text-sm font-medium mb-4">
@@ -36,27 +36,27 @@ export default function ResetForm() {
                     </div>
                 )}
 
-                <h1 className="text-[#944377] font-bold text-center text-2xl mb-6">
+                <h1 className="text-[#fc3fb4] font-bold text-center text-2xl mb-6">
                     Reset Your Password
                 </h1>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="flex flex-col">
-                        <label className="text-[#944377] font-semibold mb-1" htmlFor="email">
+                        <label className="text-[#fc3fb4] font-semibold mb-1" htmlFor="email">
                             Email ID
                         </label>
                         <input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#944377] focus:outline-none transition"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#fc3fb4] focus:outline-none transition"
                             required
                         />
                     </div>
 
                     <button
                         type="submit"
-                        className="w-full bg-[#944377] text-white font-medium py-2 rounded-lg hover:bg-[#7c3360] transition-all duration-300 shadow-md"
+                        className="w-full bg-[#fc3fb4] text-white font-medium py-2 rounded-lg hover:bg-[#fc3fb4] transition-all duration-300 shadow-md"
                     >
                         Send Reset Link
                     </button>

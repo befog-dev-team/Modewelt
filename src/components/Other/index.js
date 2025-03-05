@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+
+import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import Link from "next/link";
 import { logout } from "@/app/auth/actions";
@@ -7,13 +8,15 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/app/(main)/SessionProvider";
 import { useRouter } from "next/navigation";
 import UserAvatar from "../UserAvatar";
-import { Loader2 } from "lucide-react";
+import { Loader2, AlertTriangle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogFooter, DialogTitle } from "@/components/ui/dialog";
 
-function OtherModal({ isModalOpen, closeModal }) {
-
+export default function OtherModal({ isModalOpen, closeModal }) {
     const router = useRouter();
     const queryClient = useQueryClient();
-    const [loading, setLoading] = useState(false); // Loading state for logout
+    const [loading, setLoading] = useState(false);
+    const [logoutDialogOpen, setLogoutDialogOpen] = useState(false); // Logout confirmation state
 
     const { user } = useSession();
     if (!user) {
@@ -21,7 +24,7 @@ function OtherModal({ isModalOpen, closeModal }) {
     }
 
     const handleLogout = async () => {
-        setLoading(true); // Start loading
+        setLoading(true);
         try {
             await logout();
             queryClient.clear();
@@ -29,18 +32,16 @@ function OtherModal({ isModalOpen, closeModal }) {
         } catch (error) {
             console.error("Logout failed:", error);
         } finally {
-            setLoading(false); // Stop loading
+            setLoading(false);
+            setLogoutDialogOpen(false); // Close dialog after action
         }
     };
 
     return (
         <div>
-            {/* Modal Overlay (Transparent Background) */}
-            <div
-                className={`${isModalOpen ? 'flex' : 'hidden'
-                    } fixed inset-0 bg-black bg-opacity-50 z-40`}
-            >
-                {/* Profile Content Container */}
+            {/* Modal Overlay */}
+            <div className={`${isModalOpen ? "flex" : "hidden"} fixed inset-0 bg-black bg-opacity-50 z-40`}>
+                {/* Profile Content */}
                 <div className="bg-white rounded-lg shadow-lg p-6 min-w-[342px] max-h-[450px] fixed top-[120px] right-5 z-50">
                     {/* Close Button */}
                     <button
@@ -61,18 +62,14 @@ function OtherModal({ isModalOpen, closeModal }) {
                             </Link>
                             <div className="text-left">
                                 <h1 className="text-[16px] font-semibold">{user.displayName}</h1>
-                                <span className="text-[12px] text-gray-500">
-                                    {user.profileHeadline}
-                                </span>
+                                <span className="text-[12px] text-gray-500">{user.profileHeadline}</span>
                             </div>
                         </div>
 
                         {/* View Profile Button */}
                         <button
                             type="button"
-                            style={{
-                                background: '#fc3fb4',
-                            }}
+                            style={{ background: "#fc3fb4" }}
                             className="text-white w-full h-[37px] font-medium rounded-lg text-sm inline-flex items-center justify-center px-5 py-2"
                             onClick={() => {
                                 closeModal();
@@ -82,15 +79,9 @@ function OtherModal({ isModalOpen, closeModal }) {
                             View your profile
                         </button>
 
-
                         {/* Settings and Management Section */}
                         <div className="space-y-4 text-left">
                             <div className="space-y-2">
-                                {/*
-                                 <Link href={"/premium"}>
-                                    <p className="text-[11px] cursor-pointer">Premium</p>
-                                </Link> 
-                                */}
                                 <Link href={"/setting"}>
                                     <p className="text-[11px] cursor-pointer">Setting</p>
                                 </Link>
@@ -115,29 +106,45 @@ function OtherModal({ isModalOpen, closeModal }) {
                             </div>
                             <hr />
                         </div>
+
+                        {/* Logout Button with Confirmation Dialog */}
                         <div className="flex justify-center mt-4">
                             <button
-                                onClick={handleLogout}
+                                onClick={() => setLogoutDialogOpen(true)}
                                 type="button"
-                                disabled={loading} // Disable when loading
-                                style={{ background: ' #fc3fb4 ' }}
+                                disabled={loading}
+                                style={{ background: "#fc3fb4" }}
                                 className="text-white w-[111px] h-[32px] text-[12px] font-medium rounded-lg flex items-center justify-center"
                             >
-                                {loading ?
-                                    (<Loader2 className="mx-auto animate-spin" />)
-                                    : "Sign Out"
-                                }
+                                {loading ? <Loader2 className="mx-auto animate-spin" /> : "Sign Out"}
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {/* Logout Confirmation Dialog */}
+            <Dialog open={logoutDialogOpen} onOpenChange={setLogoutDialogOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle className="flex items-center space-x-2">
+                            <AlertTriangle className="w-5 h-5 text-red-500" />
+                            <span>Confirm Logout</span>
+                        </DialogTitle>
+                    </DialogHeader>
+                    <p className="text-sm text-gray-500">
+                        Are you sure you want to log out? You will need to sign in again to access your account.
+                    </p>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setLogoutDialogOpen(false)} disabled={loading}>
+                            Cancel
+                        </Button>
+                        <Button variant="destructive" onClick={handleLogout} disabled={loading}>
+                            {loading ? <Loader2 className="animate-spin w-4 h-4" /> : "Log Out"}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
-
-
-
-
     );
 }
-
-export default OtherModal;

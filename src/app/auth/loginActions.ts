@@ -24,9 +24,14 @@ export async function login(
             }
         });
 
-        // Check if user exists and has a password hash
+        // Check if user exists
         if (!existingUser || !existingUser.passwordHash) {
             return { error: "Invalid username or password" };
+        }
+
+        // Check if the account is deleted
+        if (existingUser.isDeleted) {
+            return { error: "This account has been deleted." };
         }
 
         // Check if the user is verified

@@ -96,7 +96,7 @@ export default function PdfViewer({ file }) {
 
             {/* See All Post Button */}
             <div className="text-center mt-4">
-                <button className="w-full text-[#a35284] font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-300 hover:bg-[#a35284] hover:text-white">
+                <button className="w-full text-[#fa43b4] font-medium text-sm md:text-base px-4 py-2 rounded transition-all duration-300 hover:bg-[#fa43b4] hover:text-white">
                     SEE ALL POSTS
                 </button>
             </div>

@@ -9,7 +9,7 @@ export default function ProfileDashboard({ user, totalLikesReceived, totalCommen
                     <span className="font-semibold">Your Dashboard</span>
                     {/* <Link href="/stats">
                         <span
-                            className="text-[#A45286] rounded-md hover:bg-[#A45286] hover:text-white transition-all duration-200 px-2 py-1 font-semibold cursor-pointer"
+                            className="text-[#fa43b4] rounded-md hover:bg-[#fa43b4] hover:text-white transition-all duration-200 px-2 py-1 font-semibold cursor-pointer"
                         >
                             Go To Stats
                         </span>

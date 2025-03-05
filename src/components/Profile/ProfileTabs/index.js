@@ -156,8 +156,8 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
                         <div className="px-4 flex flex-wrap gap-4">
                             <button
                                 onClick={() => setActiveSectionPost("post")}
-                                className={`border-2 border-[#A45286] rounded-md px-4 py-2 text-sm md:text-lg ${activeSectionPost === "post"
-                                    ? "bg-[#A45286] text-white"
+                                className={`border-2 border-[#fa43b4] rounded-md px-4 py-2 text-sm md:text-lg ${activeSectionPost === "post"
+                                    ? "bg-[#fa43b4] text-white"
                                     : ""
                                     }`}
                             >
@@ -165,8 +165,8 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
                             </button>
                             <button
                                 onClick={() => setActiveSectionPost("comment")}
-                                className={`border-2 border-[#A45286] rounded-md px-4 py-2 text-sm md:text-lg ${activeSectionPost === "comment"
-                                    ? "bg-[#A45286] text-white"
+                                className={`border-2 border-[#fa43b4] rounded-md px-4 py-2 text-sm md:text-lg ${activeSectionPost === "comment"
+                                    ? "bg-[#fa43b4] text-white"
                                     : ""
                                     }`}
                             >
@@ -174,8 +174,8 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
                             </button>
                             <button
                                 onClick={() => setActiveSectionPost("videos")}
-                                className={`border-2 border-[#A45286] rounded-md px-4 py-2 text-sm md:text-lg ${activeSectionPost === "videos"
-                                    ? "bg-[#A45286] text-white"
+                                className={`border-2 border-[#fa43b4] rounded-md px-4 py-2 text-sm md:text-lg ${activeSectionPost === "videos"
+                                    ? "bg-[#fa43b4] text-white"
                                     : ""
                                     }`}
                             >
@@ -183,8 +183,8 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
                             </button>
                             <button
                                 onClick={() => setActiveSectionPost("images")}
-                                className={`border-2 border-[#A45286] rounded-md px-4 py-2 text-sm md:text-lg ${activeSectionPost === "images"
-                                    ? "bg-[#A45286] text-white"
+                                className={`border-2 border-[#fa43b4] rounded-md px-4 py-2 text-sm md:text-lg ${activeSectionPost === "images"
+                                    ? "bg-[#fa43b4] text-white"
                                     : ""
                                     }`}
                             >
@@ -192,8 +192,8 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
                             </button>
                             <button
                                 onClick={() => setActiveSectionPost("documents")}
-                                className={`border-2 border-[#A45286] rounded-md px-4 py-2 text-sm md:text-lg ${activeSectionPost === "documents"
-                                    ? "bg-[#A45286] text-white"
+                                className={`border-2 border-[#fa43b4] rounded-md px-4 py-2 text-sm md:text-lg ${activeSectionPost === "documents"
+                                    ? "bg-[#fa43b4] text-white"
                                     : ""
                                     }`}
                             >

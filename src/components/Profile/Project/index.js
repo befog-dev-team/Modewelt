@@ -279,7 +279,7 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
               visibleProjects < projects.length ? projects.length : 3
             )
           }
-          className="text-[#A45286] font-bold"
+          className="text-[#fa43b4] font-bold"
         >
           {visibleProjects < projects.length ? "SEE ALL" : "SEE LESS"}
         </button>

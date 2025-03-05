@@ -64,7 +64,7 @@ export default function Index() {
                         </div>
                     </div>
                 </div>
-                <p className="ml-3 text-[14px] text-[#A45286]">
+                <p className="ml-3 text-[14px] text-[#fa43b4]">
                     See all recomendations
                 </p>
             </div>

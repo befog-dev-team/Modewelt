@@ -195,7 +195,7 @@ export default function SkillsPage({ user, username, loggedinUserId }) {
             >
               <div className="flex justify-between items-center">
                 <span className="font-semibold text-sm">{skill.title}</span>
-                <span className="text-[#A45286] font-bold">
+                <span className="text-[#fa43b4] font-bold">
                   {skill.endorsements}
                 </span>
               </div>
@@ -242,7 +242,7 @@ export default function SkillsPage({ user, username, loggedinUserId }) {
       {/* See More / See Less Button */}
       {skills.length > 3 && (
         <p
-          className="mt-4 text-left font-bold pr-4 text-sm text-[#A45286] cursor-pointer"
+          className="mt-4 text-left font-bold pr-4 text-sm text-[#fa43b4] cursor-pointer"
           onClick={handleSeeMoreLess}
         >
           {visibleSkills < skills.length
@@ -274,7 +274,7 @@ export default function SkillsPage({ user, username, loggedinUserId }) {
                 Cancel
               </button>
               <button
-                className="bg-[#A45286] text-white px-4 py-2 rounded"
+                className="bg-[#fa43b4] text-white px-4 py-2 rounded"
                 onClick={handleSaveSkill}
                 disabled={isSaving}
               >

@@ -5,40 +5,63 @@ import ky from "ky";
 import Card from "./card";
 import { FaCheck } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
-import toast  from "react-hot-toast";
+import toast from "react-hot-toast";
+import { Loader2 } from "lucide-react";
 
 export default function ReportedJobs({ reportStats, reportJobs }) {
   const queryClient = useQueryClient();
 
-  // Mutation to approve (remove) report
+  // Mutation to approve (remove) report optimistically
   const approveMutation = useMutation({
     mutationFn: async (reportId) => {
       await ky.patch(`/api/admin/content-moderation/report/jobs/${reportId}`);
     },
-    onSuccess: (_, reportId) => {
-      toast.success("Report approved successfully!");
+    onMutate: async (reportId) => {
+      await queryClient.cancelQueries(["reported-jobs"]); // Cancel ongoing fetches
+
+      // Snapshot previous data
+      const previousData = queryClient.getQueryData(["reported-jobs"]);
+
+      // Optimistically update the UI
       queryClient.setQueryData(["reported-jobs"], (oldData) =>
-        oldData?.filter((report) => report.id !== reportId)
+        oldData ? oldData.filter((report) => report.id !== reportId) : []
       );
+
+      return { previousData }; // Return snapshot in case we need to rollback
     },
-    onError: () => {
+    onError: (_, reportId, context) => {
+      queryClient.setQueryData(["reported-jobs"], context.previousData); // Rollback on failure
       toast.error("Failed to approve report.");
+    },
+    onSuccess: () => {
+      toast.success("Report approved successfully!");
     },
   });
 
-  // Mutation to delete job and report
+  // Mutation to delete job and report optimistically
   const deleteMutation = useMutation({
     mutationFn: async (reportId) => {
       await ky.delete(`/api/admin/content-moderation/report/jobs/${reportId}`);
     },
-    onSuccess: (_, reportId) => {
-      toast.success("Job and report deleted successfully!");
+    onMutate: async (reportId) => {
+      await queryClient.cancelQueries(["reported-jobs"]); // Cancel ongoing fetches
+
+      // Snapshot previous data
+      const previousData = queryClient.getQueryData(["reported-jobs"]);
+
+      // Optimistically update the UI
       queryClient.setQueryData(["reported-jobs"], (oldData) =>
-        oldData?.filter((report) => report.id !== reportId)
+        oldData ? oldData.filter((report) => report.id !== reportId) : []
       );
+
+      return { previousData }; // Return snapshot in case we need to rollback
     },
-    onError: () => {
+    onError: (_, reportId, context) => {
+      queryClient.setQueryData(["reported-jobs"], context.previousData); // Rollback on failure
       toast.error("Failed to delete report.");
+    },
+    onSuccess: () => {
+      toast.success("Job and report deleted successfully!");
     },
   });
 
@@ -82,7 +105,10 @@ export default function ReportedJobs({ reportStats, reportJobs }) {
                           disabled={approveMutation.isLoading}
                           className="bg-green-200 text-green-800 border-2 border-green-800 p-2 rounded-lg transition-all hover:bg-green-800 hover:text-white disabled:opacity-50"
                         >
-                          <FaCheck />
+                          {approveMutation.isLoading ?
+                            <Loader2 className="mx-auto w-6 h-5 animate-spin" />
+                            : <FaCheck />
+                          }
                         </button>
                         <button
                           title="Delete Action"
@@ -90,7 +116,10 @@ export default function ReportedJobs({ reportStats, reportJobs }) {
                           disabled={deleteMutation.isLoading}
                           className="bg-red-100 text-red-800 border-2 border-red-800 p-2 rounded-lg transition-all hover:bg-red-800 hover:text-white disabled:opacity-50"
                         >
-                          <MdDelete />
+                          {deleteMutation.isLoading ?
+                            <Loader2 className="mx-auto w-6 h-5 animate-spin" />
+                            : <FaCheck />
+                          }
                         </button>
                       </div>
                     </td>

@@ -5,40 +5,58 @@ import ky from "ky";
 import Card from "./card";
 import { FaCheck } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
-import toast  from "react-hot-toast";
+import toast from "react-hot-toast";
 
 export default function Dashboard({ reportStats, reportPosts }) {
   const queryClient = useQueryClient();
 
-  // Mutation to approve (remove) report
+  // Mutation to approve (remove) report optimistically
   const approveMutation = useMutation({
     mutationFn: async (reportId) => {
       await ky.patch(`/api/admin/content-moderation/report/posts/${reportId}`);
     },
-    onSuccess: (_, reportId) => {
-      toast.success("Report approved successfully!");
+    onMutate: async (reportId) => {
+      await queryClient.cancelQueries(["reported-posts"]); // Cancel any ongoing queries
+
+      const previousData = queryClient.getQueryData(["reported-posts"]); // Save current state
+
       queryClient.setQueryData(["reported-posts"], (oldData) =>
-        oldData?.filter((report) => report.id !== reportId)
+        oldData ? oldData.filter((report) => report.id !== reportId) : []
       );
+
+      return { previousData }; // Return snapshot for rollback
     },
-    onError: () => {
+    onError: (err, reportId, context) => {
+      queryClient.setQueryData(["reported-posts"], context.previousData); // Rollback on error
       toast.error("Failed to approve report.");
+    },
+    onSuccess: () => {
+      toast.success("Report approved successfully!");
     },
   });
 
-  // Mutation to delete post and report
+  // Mutation to delete post and report optimistically
   const deleteMutation = useMutation({
     mutationFn: async (reportId) => {
       await ky.delete(`/api/admin/content-moderation/report/posts/${reportId}`);
     },
-    onSuccess: (_, reportId) => {
-      toast.success("Post and report deleted successfully!");
+    onMutate: async (reportId) => {
+      await queryClient.cancelQueries(["reported-posts"]); // Cancel any ongoing queries
+
+      const previousData = queryClient.getQueryData(["reported-posts"]); // Save current state
+
       queryClient.setQueryData(["reported-posts"], (oldData) =>
-        oldData?.filter((report) => report.id !== reportId)
+        oldData ? oldData.filter((report) => report.id !== reportId) : []
       );
+
+      return { previousData }; // Return snapshot for rollback
     },
-    onError: () => {
+    onError: (err, reportId, context) => {
+      queryClient.setQueryData(["reported-posts"], context.previousData); // Rollback on error
       toast.error("Failed to delete report.");
+    },
+    onSuccess: () => {
+      toast.success("Post and report deleted successfully!");
     },
   });
 
@@ -82,7 +100,10 @@ export default function Dashboard({ reportStats, reportPosts }) {
                           disabled={approveMutation.isLoading}
                           className="bg-green-200 text-green-800 border-2 border-green-800 p-2 rounded-lg transition-all hover:bg-green-800 hover:text-white disabled:opacity-50"
                         >
-                          <FaCheck />
+                          {approveMutation.isLoading ?
+                            <Loader2 className="mx-auto w-6 h-5 animate-spin" />
+                            : <FaCheck />
+                          }
                         </button>
                         <button
                           title="Delete Action"
@@ -90,7 +111,10 @@ export default function Dashboard({ reportStats, reportPosts }) {
                           disabled={deleteMutation.isLoading}
                           className="bg-red-100 text-red-800 border-2 border-red-800 p-2 rounded-lg transition-all hover:bg-red-800 hover:text-white disabled:opacity-50"
                         >
-                          <MdDelete />
+                          {deleteMutation.isLoading ?
+                            <Loader2 className="mx-auto w-6 h-5 animate-spin" />
+                            : <FaCheck />
+                          }
                         </button>
                       </div>
                     </td>

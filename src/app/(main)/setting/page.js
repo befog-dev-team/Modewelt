@@ -55,11 +55,11 @@ export default function Network() {
     };
 
     return (
-        <div className="min-h-screen bg-[#f5f5f5]">
+        <div className="min-h-screen bg-[#dcf59d]">
             <Navbar />
             <div className="flex flex-col md:flex-row">
                 {/* Left Sidebar */}
-                <div className="w-full md:max-w-[300px] md:w-[300px] h-auto md:h-[100vh] bg-white shadow-md">
+                <div className="w-full md:max-w-[300px] md:w-[300px] h-auto md:h-[100vh] bg-[#dcf59d] shadow-md">
                     <div className="px-6 flex items-center space-x-4 py-6">
                         {/* User Avatar */}
                         <Link href={`/profile/${user.username}`} prefetch={true}>

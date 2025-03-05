@@ -1,6 +1,4 @@
 "use client";
-
-import fashionDesigner from "../../public/Images/Fashion.png";
 import Admin from "../../public/Images/admin.png";
 import img1 from "../../public/Images/l1.png";
 import img2 from "../../public/Images/l2.png";

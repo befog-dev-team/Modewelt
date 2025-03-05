@@ -45,9 +45,9 @@ export default function Network() {
         setLoading(true); // Start loading
 
         try {
+            deleteAccount(); // Proceed with account deletion
             await logout(); // Log out first
             queryClient.clear(); // Clear session and cache
-            deleteAccount(); // Proceed with account deletion
         } catch (error) {
             console.error("Logout failed:", error);
             setLoading(false); // Stop loading if logout fails

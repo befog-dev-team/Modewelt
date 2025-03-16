@@ -24,43 +24,43 @@ const content = ({ admin }) => {
 
     // Fetch report stats
     const { data: reportStats, isLoading: isReportStatsLoading, error: errorReportStats, refetch: refetchStats } = useQuery({
-        queryKey: ["report-stats", dateRange],
+        queryKey: ["report-stats"],
         queryFn: async () => {
-            if (!dateRange?.from || !dateRange?.to) return {}; // 🔥 Prevents returning `null`
+            if (!dateRange?.from || !dateRange?.to) return {}; // Prevents returning `null`
             const params = {
                 from: dateRange.from.toISOString().split("T")[0],
                 to: dateRange.to.toISOString().split("T")[0],
             };
             const res = await axios.get("/api/admin/content-moderation/report/stats", { params });
-            return res.data ?? {}; // 🔥 Ensures an empty object instead of `null`
+            return res.data ?? {}; // Ensures an empty object instead of `null`
         },
         enabled: false, // Fetch only when triggered
     });
 
     const { data: reportPosts, isLoading: isReportPosts, error: errorReportPosts, refetch: refetchPosts } = useQuery({
-        queryKey: ["reported-posts", dateRange],
+        queryKey: ["reported-posts"],
         queryFn: async () => {
-            if (!dateRange?.from || !dateRange?.to) return {}; // 🔥 Prevents returning `null`
+            if (!dateRange?.from || !dateRange?.to) return {}; // Prevents returning `null`
             const params = {
                 from: dateRange.from.toISOString().split("T")[0],
                 to: dateRange.to.toISOString().split("T")[0],
             };
             const res = await axios.get("/api/admin/content-moderation/report/posts", { params });
-            return res.data ?? {}; // 🔥 Ensures an empty object instead of `null`
+            return res.data ?? {}; // Ensures an empty object instead of `null`
         },
         enabled: false, // Fetch only when triggered
     });
 
     const { data: reportJobs, isLoading: isReportJobs, error: errorReportJobs, refetch: refetchJobs } = useQuery({
-        queryKey: ["reported-jobs", dateRange],
+        queryKey: ["reported-jobs"],
         queryFn: async () => {
-            if (!dateRange?.from || !dateRange?.to) return {}; // 🔥 Prevents returning `null`
+            if (!dateRange?.from || !dateRange?.to) return {}; // Prevents returning `null`
             const params = {
                 from: dateRange.from.toISOString().split("T")[0],
                 to: dateRange.to.toISOString().split("T")[0],
             };
             const res = await axios.get("/api/admin/content-moderation/report/jobs", { params });
-            return res.data ?? {}; // 🔥 Ensures an empty object instead of `null`
+            return res.data ?? {}; // Ensures an empty object instead of `null`
         },
         enabled: false, // Fetch only when triggered
     });
@@ -115,7 +115,7 @@ const content = ({ admin }) => {
     // ];
 
     return (
-        <div className="min-h-screen bg-[#f3f2f7] p-4 sm:p-6">
+        <div className="min-h-[75vh] bg-[#f3f2f7] p-4 sm:p-6">
             <div className="max-w-7xl mx-auto">
                 {/* Header Section */}
                 <header className="mb-6">

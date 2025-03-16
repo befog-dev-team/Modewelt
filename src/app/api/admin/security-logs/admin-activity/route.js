@@ -8,6 +8,7 @@ export async function GET() {
       include: {
         user: true, // Include related user data
       },
+      take: 100, // Limit to 100 records
     });
 
     // Format the data for the table

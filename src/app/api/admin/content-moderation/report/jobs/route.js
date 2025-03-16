@@ -19,7 +19,6 @@ export async function GET(request) {
 
         const reportedJobs = await prisma.report.findMany({
             where: {
-                jobId: { not: null },
                 createdAt: {
                     gte: fromDate,
                     lte: toDate,
@@ -28,9 +27,6 @@ export async function GET(request) {
             include: {
                 user: {
                     select: { id: true, username: true },
-                },
-                job: {
-                    select: { createdAt: true },
                 },
             },
             orderBy: { createdAt: "desc" }, // Order by latest reports

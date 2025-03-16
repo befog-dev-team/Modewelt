@@ -1,14 +1,10 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { Loader2 } from "lucide-react";
-
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const totalDays = 365;
 
-const Heatmap = ({activities}) => {
+const Heatmap = ({ activities }) => {
   const processActivities = (activities) => {
     const activityMap = activities.reduce((acc, activity) => {
       if (!activity.date) return acc;
@@ -21,8 +17,7 @@ const Heatmap = ({activities}) => {
 
   const generateDataPoints = (activityMap) => {
     const today = new Date();
-    const startDate = new Date(today);
-    startDate.setDate(today.getDate() - totalDays + 1);
+    const startDate = new Date(today.getFullYear(), 0, 1); // Jan 1st of the current year
 
     const dataPoints = [];
     for (let i = 0; i < totalDays; i++) {
@@ -78,7 +73,7 @@ const Heatmap = ({activities}) => {
   }
 
   return (
-    <div className="bg-white p-4 flex flex-col items-center w-full overflow-hidden">
+    <div className="bg-white p-4 flex flex-col items-center w-full">
       <div className="grid grid-cols-[auto_1fr] gap-2 w-full max-w-4xl mx-auto">
         <div className="flex flex-col gap-2 text-sm text-gray-500">
           {days.map((day, index) => (
@@ -97,7 +92,7 @@ const Heatmap = ({activities}) => {
                     } hover:opacity-75 transition-opacity`}
                 />
                 {date && (
-                  <div className="absolute w-min-[150px] top-full mt-1 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-50">
+                  <div className="absolute w-[88px] overflow-x-auto no-scrollbar top-full mt-1 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-50">
                     {count} activities on {date.toLocaleDateString()}
                   </div>
                 )}

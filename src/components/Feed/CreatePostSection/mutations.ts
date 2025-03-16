@@ -64,7 +64,7 @@ export function useSubmitPostMutation() {
                 },
             });
 
-            toast.success("Post created"); // Display a success toast
+            toast.success("Post created successfully"); // Display a success toast
         },
         onError(error) {
             console.error(error);

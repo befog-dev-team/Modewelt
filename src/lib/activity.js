@@ -14,7 +14,7 @@ export const activityRequire = async (action) => {
 
   const { user } = await validateRequest();
 
-  if (!user || user.role !== "ADMIN") {
+  if (user.role !== "ADMIN") {
     console.warn("Unauthorized access attempt. Redirecting to:", referer);
     redirect(referer); // Redirect back to the referring page
   }

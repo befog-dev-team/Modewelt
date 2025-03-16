@@ -52,7 +52,7 @@ export function useSubmitJobMutation() {
                 },
             });
 
-            toast.success("Job posted successfully!");
+            toast.success("Job posted successfully");
         },
        
     });

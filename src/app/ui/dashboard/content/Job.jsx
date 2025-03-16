@@ -4,17 +4,20 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ky from "ky";
 import Card from "./card";
 import { FaCheck } from "react-icons/fa6";
-import { MdDelete } from "react-icons/md";
+import { MdDeleteForever } from "react-icons/md";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function ReportedJobs({ reportStats, reportJobs }) {
+  const router = useRouter();
+
   const queryClient = useQueryClient();
 
   // Mutation to approve (remove) report optimistically
   const approveMutation = useMutation({
     mutationFn: async (reportId) => {
-      await ky.patch(`/api/admin/content-moderation/report/jobs/${reportId}`);
+      return await ky.patch(`/api/admin/content-moderation/report/jobs/${reportId}`).json();
     },
     onMutate: async (reportId) => {
       await queryClient.cancelQueries(["reported-jobs"]); // Cancel ongoing fetches
@@ -29,19 +32,21 @@ export default function ReportedJobs({ reportStats, reportJobs }) {
 
       return { previousData }; // Return snapshot in case we need to rollback
     },
-    onError: (_, reportId, context) => {
+    onError: (error, reportId, context) => {
       queryClient.setQueryData(["reported-jobs"], context.previousData); // Rollback on failure
-      toast.error("Failed to approve report.");
+      toast.error(error.message || "Already deleted job or failed to approve report.");
+      router.refresh();
     },
-    onSuccess: () => {
-      toast.success("Report approved successfully!");
+    onSuccess: (response) => {
+      toast.success(response.message || "Report approved successfully"); // Show API message
+      queryClient.invalidateQueries(["reported-jobs"]); // Refresh UI
     },
   });
 
   // Mutation to delete job and report optimistically
   const deleteMutation = useMutation({
     mutationFn: async (reportId) => {
-      await ky.delete(`/api/admin/content-moderation/report/jobs/${reportId}`);
+      return await ky.delete(`/api/admin/content-moderation/report/jobs/${reportId}`).json();
     },
     onMutate: async (reportId) => {
       await queryClient.cancelQueries(["reported-jobs"]); // Cancel ongoing fetches
@@ -56,12 +61,14 @@ export default function ReportedJobs({ reportStats, reportJobs }) {
 
       return { previousData }; // Return snapshot in case we need to rollback
     },
-    onError: (_, reportId, context) => {
+    onError: (error, reportId, context) => {
       queryClient.setQueryData(["reported-jobs"], context.previousData); // Rollback on failure
-      toast.error("Failed to delete report.");
+      toast.error(error.message || "Already deleted job or Failed to delete report.");
+      router.refresh();
     },
-    onSuccess: () => {
-      toast.success("Job and report deleted successfully!");
+    onSuccess: (response) => {
+      toast.success(response.message || "Report deleted successfully"); // Show API message
+      queryClient.invalidateQueries(["reported-jobs"]); // Refresh UI
     },
   });
 
@@ -118,7 +125,7 @@ export default function ReportedJobs({ reportStats, reportJobs }) {
                         >
                           {deleteMutation.isLoading ?
                             <Loader2 className="mx-auto w-6 h-5 animate-spin" />
-                            : <FaCheck />
+                            : <MdDeleteForever />
                           }
                         </button>
                       </div>

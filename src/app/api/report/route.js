@@ -3,14 +3,14 @@ import { NextResponse } from "next/server";
 import { Readable } from "stream";
 import prisma from "@/lib/prisma";
 
-// 📌 Cloudinary Configuration
+// Cloudinary Configuration
 cloudinary.config({
     cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// 📌 Upload to Cloudinary Function
+// Upload to Cloudinary Function
 const uploadToCloudinary = async (fileBuffer, folder, filename) => {
     return new Promise((resolve, reject) => {
         const fileExtension = filename.split(".").pop().toLowerCase();
@@ -39,7 +39,7 @@ const uploadToCloudinary = async (fileBuffer, folder, filename) => {
 export async function POST(req) {
     try {
         const formData = await req.formData();
-        
+
         if (!formData) {
             return NextResponse.json({ error: "No form data provided" }, { status: 400 });
         }
@@ -53,7 +53,7 @@ export async function POST(req) {
         let postId = formData.get("postId") || null;
         let jobId = formData.get("jobId") || null;
 
-        // 📌 Validate Required Fields
+        // Validate Required Fields
         if (!userId || !reason || !email) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
@@ -71,7 +71,7 @@ export async function POST(req) {
             return NextResponse.json({ error: "Invalid report: postId or jobId required" }, { status: 400 });
         }
 
-        // 📌 Create Report in Database
+        // Create Report in Database
         const report = await prisma.report.create({
             data: {
                 userId,
@@ -84,11 +84,13 @@ export async function POST(req) {
             },
         });
 
-        // 📌 Upload Files to Cloudinary
+        console.log("Received Files:", formData.getAll("files"));
+
+        // Upload Files to Cloudinary
         const reportFiles = formData.getAll("files") || [];
         const uploadedFiles = await Promise.all(
             reportFiles.map(async (document) => {
-                if (document instanceof File && document.size > 0) {
+                if (document && typeof document.arrayBuffer === "function" && document.size > 0) {
                     const docBuffer = Buffer.from(await document.arrayBuffer());
                     const uploadResult = await uploadToCloudinary(docBuffer, "report-files", document.name);
                     return {
@@ -107,7 +109,7 @@ export async function POST(req) {
             })
         ).then(results => results.filter(Boolean)); // Filter out null values
 
-        // 📌 Save Uploaded Media References in Database
+        // Save Uploaded Media References in Database
         if (uploadedFiles.length > 0) {
             await prisma.media.createMany({
                 data: uploadedFiles,
@@ -124,7 +126,7 @@ export async function POST(req) {
             details: error,
         };
 
-        console.error("❌ Error submitting report:", errorDetails);
+        console.error("Error submitting report:", errorDetails);
 
         return NextResponse.json(
             { error: "Internal Server Error", details: errorDetails },

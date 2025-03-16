@@ -19,7 +19,7 @@ export default function SecurityWrapper() {
     queryKey: ["adminActivities", "table"],
     queryFn: async () => {
       const response = await axios.get("/api/admin/security-logs/admin-activity");
-      return response.data; // Ensure data part is returned
+      return response.data;
     },
   });
 

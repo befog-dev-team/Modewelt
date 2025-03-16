@@ -63,14 +63,14 @@ export default function TopNav() {
       </div>
 
       {/* Profile & Filters */}
-      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
+      {/* <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
         <div className="bg-[#d5e4f5] p-2 rounded-lg text-[#2c9bdb] cursor-pointer flex items-center relative">
           <BiBell />
           <span className="absolute top-[-4px] right-[-4px] bg-[#2c9bdb] text-white text-xs rounded-full px-1">
             3
           </span>
         </div>
-      </div>
+      </div> */}
     </header>
   );
 }

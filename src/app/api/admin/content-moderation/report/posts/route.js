@@ -20,7 +20,6 @@ export async function GET(request) {
 
         const reportedPosts = await prisma.report.findMany({
             where: {
-                postId: { not: null },
                 createdAt: {
                     gte: fromDate,
                     lte: toDate,
@@ -29,9 +28,6 @@ export async function GET(request) {
             include: {
                 user: {
                     select: { id: true, username: true },
-                },
-                post: {
-                    select: { createdAt: true },
                 },
             },
             orderBy: { createdAt: "desc" }, // Order by latest reports

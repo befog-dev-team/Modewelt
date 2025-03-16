@@ -1,25 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { Loader2 } from "lucide-react";
 
 export default function TableComponent({ data }) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
 
   // Ensure data is an array before filtering
   const filteredData = Array.isArray(data)
-    ? data.filter((row) =>
-      Object.values(row).some((value) =>
+    ? data.filter((row) => {
+      const matchesSearch = Object.values(row).some((value) =>
         String(value).toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    )
+      );
+
+      // Convert row.date to ISO format for comparison
+      const rowDate = new Date(row.date).toISOString().split("T")[0];
+      const matchesDate = selectedDate ? rowDate === selectedDate : true;
+
+      return matchesSearch && matchesDate;
+    })
     : [];
 
   return (
     <div className="flex justify-center mt-8">
-      <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-5xl">
+      <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-5xl h-[40vh] overflow-y-auto no-scrollbar">
         {/* Search & Filter */}
         <div className="flex justify-between items-center mb-4">
           <div className="flex gap-2 relative w-1/3">
@@ -44,6 +48,14 @@ export default function TableComponent({ data }) {
                 d="M21 21l-4.35-4.35M15.5 10.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"
               />
             </svg>
+          </div>
+          <div>
+            <input
+              type="date"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300"
+            />
           </div>
         </div>
 
@@ -75,7 +87,7 @@ export default function TableComponent({ data }) {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6" className="p-4 text-center text-gray-500">
+                  <td colSpan="5" className="p-4 text-center text-gray-500">
                     No results found.
                   </td>
                 </tr>

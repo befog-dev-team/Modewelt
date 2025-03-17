@@ -9,7 +9,7 @@ export const metadata = {
 export default async function AdminPage() {
     let admin;
     try {
-        await activityRequire("ACCESS");
+        admin = await activityRequire("ACCESS");
     } catch (error) {
         console.error("Failed to fetch admin data:", error);
         return <div>Error loading admin data</div>;

@@ -117,6 +117,9 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
+        {/* Google AdSense Meta */}
+        <meta name="google-adsense-account" content="ca-pub-3599405412984531" />
+
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta

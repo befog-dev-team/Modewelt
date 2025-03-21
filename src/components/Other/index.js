@@ -140,7 +140,7 @@ export default function OtherModal({ isModalOpen, closeModal }) {
                             Cancel
                         </Button>
                         <Button variant="destructive" onClick={handleLogout} disabled={loading}>
-                            {loading ? <Loader2 className="animate-spin w-4 h-4" /> : "Log Out"}
+                            {loading ? <Loader2 className="animate-spin w-4 h-4" /> : "Sign Out"}
                         </Button>
                     </DialogFooter>
                 </DialogContent>

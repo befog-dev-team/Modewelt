@@ -10,13 +10,18 @@ import { login } from "./loginActions";
 import { signUp } from "./signupActions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, signupSchema } from "@/lib/validation";
-import { Loader2 } from "lucide-react";
+import { Loader2, Eye, EyeOff } from "lucide-react";
 
 const Auth = () => {
   const [active, setActive] = useState(false); // for switching between login and signup form
   const router = useRouter(); // for navigation
   const [pending, startTransition] = useTransition(); // for transition
   const [error, setError] = useState(undefined); // for error handling
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const togglePassword = () => setShowPassword(!showPassword);
+  const toggleConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
 
   // Login Form
   const {
@@ -104,15 +109,25 @@ const Auth = () => {
 
   return (
     <div className="flex justify-center items-center bg-[#dcf59d] min-h-screen relative">
+
+      {/* ERROR MESSAGE */}
+      {error && (
+        <div className="bg-red-500 text-white p-2 rounded-md text-center absolute top-4 left-1/2 transform -translate-x-1/2">
+          {error}
+        </div>
+      )}
+
+      {/* AUTH CONTAINER */}
       <div
-        className={`auth-container relative z-10 h-[524px] w-[957px] border-[#fc3fb4] border-2 flex bg-background shadow-lg rounded-2xl max-w-4xl ${active ? "active" : ""
-          }`}
+        className={`auth-container relative z-10 h-[524px] w-[957px] border-[#fc3fb4] border-2 flex bg-background shadow-lg rounded-2xl max-w-4xl ${active ? "active" : ""}`}
       >
-        <div className="curved-shape1 hidden md:block"></div>
-        <div className="curved-shape2 hidden md:block"></div>
+        <div className="curved-shape1"></div>
+        <div className="curved-shape2"></div>
 
         {/* LOGIN FORM */}
-        <div className="form-box Login sm:w-full md:w-full">
+        <div
+          className={`form-box Login w-full md:w-full absolute transition-all duration-500 ${active ? "opacity-0 -z-10 pointer-events-none" : "opacity-100 z-20 pointer-events-auto"}`}
+        >
           <div className="relative">
             <h2
               className="animation text-center text-[2.5rem] font-[800] text-[#fc3fb4] mb-8 uppercase"
@@ -139,9 +154,16 @@ const Auth = () => {
               className="input-box animation"
               style={{ "--D": 3, "--S": 24 }}
             >
-              <input type="password" {...loginRegister("password")} required />
+              <input
+                type={showPassword ? "text" : "password"}
+                {...loginRegister("password")}
+                required
+              />
               <label htmlFor="login_password">Password</label>
-              <i className="bx bxs-lock-alt"></i>
+              <span className="absolute right-[-1px] top-1/2 transform -translate-y-1/2 cursor-pointer" onClick={togglePassword}>
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </span>
+              {/* <i className="bx bxs-lock-alt"></i> */}
             </div>
 
             {/* Links and buttons */}
@@ -150,7 +172,6 @@ const Auth = () => {
               style={{ "--D": 4, "--S": 25 }}
             >
               <Link href="/auth/forget-password" prefetch={true}>Forgot Password</Link>
-              {/* <Link href="/forgetpassword" prefetch={true}></Link> */}
               <p
                 className="SignUpLink cursor-pointer"
                 onClick={() => setActive(true)}
@@ -205,7 +226,7 @@ const Auth = () => {
         </div>
 
         {/* INFO CONTENT */}
-        <div className="info-content Login text-white uppercase w-full md:w-auto relative md:top-[5%] hidden md:block">
+        <div className="info-content Login text-white uppercase w-full md:w-auto relative md:top-[5%] md:block">
           <h2
             className="relative animation text-3xl md:text-6xl font-bold mb-2 w-full md:w-[115%] right-0 md:right-[15%] hidden md:block"
             style={{ "--D": 0, "--S": 20 }}
@@ -218,7 +239,9 @@ const Auth = () => {
         </div>
 
         {/* REGISTRATION FORM */}
-        <div className="form-box Register sm:w-full md:w-full">
+        <div
+          className={`form-box Register w-full md:w-full absolute transition-all duration-500 ${active ? "opacity-100 z-20 pointer-events-auto" : "opacity-0 -z-10 pointer-events-none"}`}
+        >
           <div className="relative">
             <h2
               className="animation text-center text-[2.5rem] font-[800] text-[#fc3fb4] uppercase"
@@ -228,7 +251,7 @@ const Auth = () => {
             </h2>
             {/* Signup heading underline */}
             <div
-              className="animation h-[0.4rem] w-[6rem] top-[3.5rem] rounded-[10px] left-[7.25rem] bg-[#fc3fb4] absolute"
+              className="animation h-[0.4rem] w-[6rem] top-[3.5rem] rounded-[10px] left-[8.5rem] bg-[#fc3fb4] absolute"
               style={{ "--li": 18, "--S": 1 }}
             ></div>
           </div>
@@ -261,23 +284,33 @@ const Auth = () => {
               className="input-box animation"
               style={{ "--li": 22, "--S": 5 }}
             >
-              <input type="password" {...signupRegister("password")} required />
+              <input
+                type={showPassword ? "text" : "password"}
+                {...signupRegister("password")}
+                required
+              />
               <label htmlFor="register_password">Password</label>
-              <i className="bx bxs-lock-alt"></i>
+              <span className="absolute right-[-1px] top-1/2 transform -translate-y-1/2 cursor-pointer" onClick={togglePassword}>
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </span>
+              {/* <i className="bx bxs-lock-alt"></i> */}
             </div>
             <div
               className="input-box animation"
               style={{ "--li": 23, "--S": 6 }}
             >
               <input
-                type="password"
+                type={showConfirmPassword ? "text" : "password"}
                 {...signupRegister("confirmPassword")}
                 required
               />
               <label htmlFor="register_confirm_password">
                 Confirm Password
               </label>
-              <i className="bx bxs-lock"></i>
+              <span className="absolute right-[-1px] top-1/2 transform -translate-y-1/2 cursor-pointer" onClick={toggleConfirmPassword}>
+                {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </span>
+              {/* <i className="bx bxs-lock"></i> */}
             </div>
 
             <div

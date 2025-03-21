@@ -8,6 +8,7 @@ import nodemailer from "nodemailer";
 import crypto from "crypto";
 import { Prisma } from "@prisma/client";
 import streamServerClient from "@/lib/stream";
+import { getEmailVerificationTemplate } from "@/lib/utils";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -95,12 +96,7 @@ export async function signUp(
       from: process.env.EMAIL_USER,
       to: email,
       subject: "Verify Your Email Address",
-      html: `
-        <h1>Welcome to Our Platform!</h1>
-        <p>Click the link below to verify your email address:</p>
-        <a href="${verificationUrl}">${verificationUrl}</a>
-        <p>This link will expire in 7 days.</p>
-      `,
+      html: getEmailVerificationTemplate(verificationUrl),
     });
 
     return { error: "" };

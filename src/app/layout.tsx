@@ -117,6 +117,11 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
+        {/* Boxicons */}
+        <Script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js" />
+
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' />
+
         {/* Google AdSense Meta */}
         <meta name="google-adsense-account" content="ca-pub-3599405412984531" />
 

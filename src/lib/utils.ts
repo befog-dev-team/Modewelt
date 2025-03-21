@@ -76,3 +76,40 @@ export function slugify(input: string): string {
     .replace(/ /g, "-") // replace spaces with hyphens
     .replace(/[^a-z0-9-]/g, ""); // remove non-alphanumeric characters
 }
+
+// Add the getEmailVerificationTemplate function to the file
+export const getEmailVerificationTemplate = (verificationUrl: string) => {
+  return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Verify Your Email - Modewelt</title>
+      <style>
+        body { font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+        .header { background-color: #fc3fb4; color: white; text-align: center; padding: 20px; font-size: 24px; font-weight: bold; }
+        .content { text-align: center; padding: 20px; font-size: 16px; color: #333; }
+        .btn { display: inline-block; padding: 12px 24px; margin: 20px 0; color: white; background-color: #fc3fb4; text-decoration: none; border-radius: 6px; font-weight: bold; }
+        .footer { text-align: center; padding: 10px; font-size: 12px; color: #666; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">Modewelt - Fashion Careers</div>
+        <div class="content">
+          <p>Thank you for signing up at <strong>Modewelt</strong>! Click the button below to verify your email:</p>
+          <a href="${verificationUrl}" class="btn">Verify Email</a>
+          <p>If the button doesn’t work, copy and paste this link into your browser:</p>
+          <p>${verificationUrl}</p>
+          <p>This link will expire in 7 days.</p>
+        </div>
+        <div class="footer">
+          &copy; ${new Date().getFullYear()} Modewelt. All rights reserved.
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+};

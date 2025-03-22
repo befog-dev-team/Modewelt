@@ -32,6 +32,10 @@ export const metadata: Metadata = {
     default: "Modeweltjob",
   },
   description: "Connect to the world of fashion and style",
+  openGraph: {
+    title: "Modeweltjob",
+    description: "Your fashion industry job platform",
+  },
   keywords: [
     "fashion",
     "style",
@@ -117,6 +121,8 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
+        <meta name="google-site-verification" content="yZgBWd7EfLjqe51gMp4Zevko3stp3oC5D--MlGExmx8" />
+        
         {/* Boxicons */}
         <Script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js" />
 

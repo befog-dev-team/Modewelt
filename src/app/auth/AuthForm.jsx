@@ -88,6 +88,12 @@ const Auth = () => {
       data.email = data.email.toLowerCase();
       data.username = data.username.toLowerCase();
 
+      // Check if password and confirm password match
+      if (data.password !== data.confirmPassword) {
+        toast.error("Passwords do not match!");
+        return;
+      }
+
       // Start transition
       startTransition(async () => {
         const { error } = await signUp(data); // signup action

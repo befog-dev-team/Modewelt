@@ -4,6 +4,7 @@ import "./globals.css";
 import ReactQueryProvider from "./ReactQueryProvider";
 import { Toaster } from "react-hot-toast";
 import Script from "next/script";
+import AdSense from "@/components/AdSense";
 
 // Uploadthing
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
@@ -113,14 +114,6 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* Google AdSense */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3599405412984531"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
-
         <meta name="google-site-verification" content="yZgBWd7EfLjqe51gMp4Zevko3stp3oC5D--MlGExmx8" />
         
         {/* Boxicons */}
@@ -168,6 +161,7 @@ export default function RootLayout({
           <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} />
           <main>
             <Toaster />
+            <AdSense />
             {children}
           </main>
         </ReactQueryProvider>

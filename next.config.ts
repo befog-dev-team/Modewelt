@@ -8,16 +8,8 @@ const nextConfig: import('next').NextConfig = {
     ignoreDuringBuilds: true,
   },
 
-  // experimental: {
-  //   turbo: {}, // Enable Next.js Rust compiler for faster builds
-  //   serverActions: {},
-  //   staleTimes: {
-  //     dynamic: 30,
-  //   },
-  // },
-
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole: process.env.NODE_ENV === "production",
   },
 
   serverExternalPackages: ["@node-rs/argon2"],
@@ -34,17 +26,31 @@ const nextConfig: import('next').NextConfig = {
         pathname: `/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/*`,
       },
     ],
-    formats: ['image/avif', 'image/webp'],
+    formats: ["image/avif", "image/webp"],
   },
 
-  rewrites: async () => { // Define the rewrites
-    return [ // Return an array of rewrites
+  async headers() {
+    return [
       {
-        source: "/hashtag/:tag", // Match the hashtag route
-        destination: "/search?query=%23:tag", // Redirect to the search route with the hashtag query
+        source: "/ads.txt",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "text/plain",
+          },
+        ],
       },
     ];
-  }
+  },
+
+  async rewrites() {
+    return [
+      {
+        source: "/hashtag/:tag",
+        destination: "/search?query=%23:tag",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -49,6 +49,14 @@ const nextConfig: import('next').NextConfig = {
         source: "/hashtag/:tag",
         destination: "/search?query=%23:tag",
       },
+      {
+        source: "/sitemap.xml",
+        destination: "/api/sitemap",
+      },
+      {
+        source: "/robots.txt",
+        destination: "/api/robots",
+      }
     ];
   },
 };

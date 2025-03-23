@@ -183,12 +183,12 @@ const Auth = () => {
                 onClick={() => setActive(true)}
               >
                 {/* Create Account */}
-                <a
-                  href="#"
+                <span
+                  className="cursor-pointer"
                   onClick={() => setActive(true)}
                 >
                   Create Account
-                </a>
+                </span>
               </p>
             </div>
 
@@ -219,13 +219,12 @@ const Auth = () => {
             >
               <p>
                 Don&apos;t have an account?{" "}
-                <a
-                  href="#"
-                  className="SignUpLink text-[#fc3fb4] font-bold"
+                <span
+                  className="SignUpLink text-[#fc3fb4] font-bold cursor-pointer"
                   onClick={() => setActive(true)}
                 >
                   Sign Up
-                </a>
+                </span>
               </p>
             </div>
           </form>
@@ -346,13 +345,12 @@ const Auth = () => {
             >
               <p>
                 Already have an account?{" "}
-                <a
-                  href="#"
-                  className="SignInLink text-[#fc3fb4] font-bold hover:underline"
+                <span
+                  className="SignInLink text-[#fc3fb4] font-bold hover:underline cursor-pointer"
                   onClick={() => setActive(false)}
                 >
                   Login
-                </a>
+                </span>
               </p>
             </div>
           </form>

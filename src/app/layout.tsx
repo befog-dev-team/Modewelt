@@ -114,8 +114,16 @@ export default function RootLayout({
           `}
         </Script>
 
+        {/* Google AdSense */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3599405412984531"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+
         <meta name="google-site-verification" content="yZgBWd7EfLjqe51gMp4Zevko3stp3oC5D--MlGExmx8" />
-        
+
         {/* Boxicons */}
         <Script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js" />
 

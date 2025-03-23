@@ -220,7 +220,7 @@ const Auth = () => {
               <p>
                 Don&apos;t have an account?{" "}
                 <span
-                  className="SignUpLink text-[#fc3fb4] font-bold cursor-pointer"
+                  className="SignUpLink text-[#fc3fb4] font-bold hover:underline cursor-pointer"
                   onClick={() => setActive(true)}
                 >
                   Sign Up

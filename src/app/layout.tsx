@@ -122,7 +122,20 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
+        {/* Google Search Console Meta Tag */}
         <meta name="google-site-verification" content="yZgBWd7EfLjqe51gMp4Zevko3stp3oC5D--MlGExmx8" />
+
+        {/* Google Tag Manager */}
+        <Script id="google-tag-manager" strategy="afterInteractive">
+          {`
+    (function(w,d,s,l,i){w[l] = w[l] || [];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M3MXBPDV');
+  `}
+        </Script>
+        {/* End Google Tag Manager */}
 
         {/* Boxicons */}
         <Script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js" />
@@ -167,6 +180,10 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[--background-color] overflow-x-hidden`}>
         <ReactQueryProvider>
           <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} />
+          {/* <!-- Google Tag Manager (noscript) --> */}
+          <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3MXBPDV"
+            height="0" width="0" style={{ display: "none", visibility: "hidden" }}></iframe></noscript>
+          {/* <!-- End Google Tag Manager (noscript) --> */}
           <main>
             <Toaster />
             <AdSense />

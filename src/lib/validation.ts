@@ -11,6 +11,7 @@ export const signupSchema = z.object({
     "Only letters, numbers, underscores, and hyphens are allowed",
   ).transform((val) => val.toLowerCase()),
   password: requiredString.min(4, "Password must be at least 4 characters"),
+  confirmPassword: requiredString.min(4, "Password must be at least 4 characters"),
 });
 
 // SignUpValues is the type of values that signupSchema accepts

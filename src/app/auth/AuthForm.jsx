@@ -56,6 +56,7 @@ const Auth = () => {
         }
       });
     } catch (err) {
+      console.error(err);
       setError(err.response?.data?.message || "Login Failed"); // set error
       toast.error("Login Failed"); // error toast
     }
@@ -88,8 +89,7 @@ const Auth = () => {
       data.email = data.email.toLowerCase();
       data.username = data.username.toLowerCase();
 
-      // Check if password and confirm password match
-      if (data.password !== data.confirmPassword) {
+      if (data.password.trim() !== data.confirmPassword.trim()) {
         toast.error("Passwords do not match!");
         return;
       }
@@ -108,6 +108,7 @@ const Auth = () => {
         }
       });
     } catch (err) {
+      console.error(err);
       setError(err.response?.data?.message || "Signup Failed"); // set error
       toast.error("Signup Failed"); // error toast
     }

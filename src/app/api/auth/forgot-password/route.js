@@ -52,7 +52,7 @@ export async function POST(req) {
                 <p><a href="${resetUrl}" style="color: blue;">Reset Password</a></p>
                 <p>If you did not request this, please ignore this email.</p>
                 <p>Thanks,</p>
-                <p>Modewelt Team</p>
+                <p>Modeweltjob Team</p>
             `,
         };
 

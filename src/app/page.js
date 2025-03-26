@@ -472,10 +472,10 @@ export default function Navbar() {
           <div className="text-center md:text-left">
             <p className="mt-4 text-gray-700">
               Are you a fashion designer, stylist, photographer, or industry
-              expert looking for the right opportunities? Modewelt is here to
+              expert looking for the right opportunities? Modeweltjob is here to
               connect you with top brands, recruiters, and creative
               professionals worldwide. Whether you&apos;re starting your journey
-              or leveling up your career, Modewelt makes it easier for you to
+              or leveling up your career, Modeweltjob makes it easier for you to
               showcase your talent and get hired.
             </p>
             <button className="mt-6 bg-[#fc3fb4] font-bold text-white px-6 py-2 rounded-md shadow-md hover:bg-[#fc3fb4] transition-all duration-300">
@@ -519,7 +519,7 @@ export default function Navbar() {
           <div className="h-[400px] rounded-xl flex justify-center">
             <Image
               src={Landing}
-              alt="Modewelt Hiring Platform"
+              alt="Modeweltjob Hiring Platform"
               className="rounded-xl object-cover w-full h-full"
             />
           </div>
@@ -527,7 +527,7 @@ export default function Navbar() {
           {/* Content Section */}
           <div className="space-y-6">
             <p className="text-[#7b4fff] uppercase text-sm font-bold tracking-wider">
-              ModeweltJob Database
+              Modeweltjob Database
             </p>
             <h2 className="text-2xl md:text-3xl font-bold leading-snug">
               Quickly hire active jobseekers around your office.

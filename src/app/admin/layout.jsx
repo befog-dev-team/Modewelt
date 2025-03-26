@@ -36,14 +36,14 @@ const Layout = ({ children }) => {
         <meta name="robots" content="index, follow" />
 
         {/* Open Graph Tags */}
-        <meta property="og:title" content="Modewelt - Connect to Fashion" />
+        <meta property="og:title" content="Modeweltjob - Connect to Fashion" />
         <meta property="og:description" content={metadata.description ?? ''} />
         <meta property="og:image" content="/img/og-image.png" />
         <meta property="og:url" content="https://www.modeweltjob.com" />
 
         {/* Twitter Cards */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Modewelt - Connect to Fashion" />
+        <meta name="twitter:title" content="Modeweltjob - Connect to Fashion" />
         <meta name="twitter:description" content={metadata.description ?? ''} />
         <meta name="twitter:image" content="/img/twitter-image.png" />
         <meta name="twitter:url" content="https://www.modeweltjob.com" />

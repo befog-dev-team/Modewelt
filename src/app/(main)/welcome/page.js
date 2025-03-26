@@ -173,7 +173,7 @@ export default function Welcome() {
           ModeweltJob.com is an emerging platform dedicated to connecting
           professionals with career opportunities in the fashion industry.
           Whether you&apos;re a designer, stylist, photographer, or marketing
-          expert, Modewelt aims to be your go-to resource for exciting roles in
+          expert, Modeweltjob aims to be your go-to resource for exciting roles in
           fashion.
         </p>
       </div>

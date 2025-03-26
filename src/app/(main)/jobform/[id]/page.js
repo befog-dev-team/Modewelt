@@ -168,7 +168,7 @@ export default function Home() {
     const addExperience = (event) => {
         event.preventDefault();
         if (!formData.role.trim() || !formData.company.trim()) {
-            alert("Please enter both role and company.");
+            toast.error("Please enter both role and company.");
             return;
         }
 
@@ -192,7 +192,7 @@ export default function Home() {
     const addEducation = (event) => {
         event.preventDefault();
         if (!formData.degree.trim() || !formData.institution.trim()) {
-            alert("Please enter both degree and institution.");
+            toast.error("Please enter both degree and institution.");
             return;
         }
 

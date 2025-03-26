@@ -7,6 +7,7 @@ import profileimg from "../../../../public/assets/profile/backgroundImageBackrgo
 import { MdEdit, MdDelete } from "react-icons/md";
 import { LuPlus } from "react-icons/lu";
 import { Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function ProjectPage({ user, username, loggedinUserId }) {
   // State management
@@ -45,13 +46,13 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
   const handleAddProject = async () => {
     // Form validation
     if (!currentProject?.name?.trim()) {
-      alert("Project name is required");
+      toast.error("Project name is required");
       return;
     }
 
     // Prevent adding more than 6 projects
     if (projects.length >= 6) {
-      alert("You can only add up to 6 projects.");
+      toast.error("You can only add up to 6 projects.");
       return;
     }
 
@@ -97,7 +98,7 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
   // Update project handler (similar structure to Add)
   const handleUpdateProject = async () => {
     if (!currentProject?.name?.trim()) {
-      alert("Project name is required");
+      toast.error("Project name is required");
       return;
     }
 
@@ -166,7 +167,7 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
   const handleMediaChange = (e) => {
     const file = e.target.files[0];
     if (file && !file.type.match(/^(image\/.*|video\/.*)$/)) {
-      alert("Only images and videos are allowed");
+      toast.error("Only images and videos are allowed");
       return;
     }
     setFile(file);

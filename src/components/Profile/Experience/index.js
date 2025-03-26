@@ -6,6 +6,7 @@ import { MdEdit, MdDelete } from "react-icons/md";
 import { Loader2 } from "lucide-react";
 import axios from "axios";
 import profileimg from "../../../../public/assets/profile/imgarticle.png";
+import toast from "react-hot-toast";
 
 export default function ExperiencePage({ user, username, loggedinUserId }) {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -39,7 +40,7 @@ setError("Failed to fetch experience data. Please try again.");
 
     const handleAddExperienceClick = () => {
         if (experienceList.length >= MAX_EXPERIENCE_LIMIT) {
-            alert("You can only add up to 5 experiences.");
+            toast.error("You can only add up to 5 experiences.");
             return;
         }
         setCurrentExperience(null);
@@ -64,7 +65,7 @@ setError("Failed to fetch experience data. Please try again.");
 
     const handleSaveExperience = async () => {
         if (!currentExperience?.jobTitle?.trim() || !currentExperience?.company?.trim() || !currentExperience?.duration?.trim()) {
-            alert("All fields are required!");
+            toast.error("All fields are required!");
             return;
         }
 
@@ -88,7 +89,7 @@ setError("Failed to fetch experience data. Please try again.");
                 response = await axios.put("/api/experience", formData);
             } else {
                 if (experienceList.length >= MAX_EXPERIENCE_LIMIT) {
-                    alert("You can only add up to 5 experiences.");
+                    toast.error("You can only add up to 5 experiences.");
                     return;
                 }
                 response = await axios.post("/api/experience", formData);

@@ -6,6 +6,7 @@ import axios from "axios";
 import { FaEllipsisH, FaShareAlt } from "react-icons/fa";
 import Modal from "../Sharepopup/Model";
 import { BiLike, BiSolidLike } from "react-icons/bi";
+import toast from "react-hot-toast";
 
 const API_BASE_URL = "https://modewelt-backend.onrender.com/api";
 const postId = "678a31ee730784476cde2e38"; // Replace with the actual post ID
@@ -54,7 +55,7 @@ const Post = () => {
 
   // Like or dislike post
   const handleLikeClick = async () => {
-    if (!token) return alert("You must be logged in to like posts.");
+    if (!token) return toast.error("You must be logged in to like posts.");
 
     try {
       const response = await axios.post(
@@ -69,7 +70,7 @@ const Post = () => {
       setLiked(response.data.liked);
     } catch (error) {
       console.error("Error updating like:", error);
-      alert("Failed to update like. Please try again.");
+      toast.error("Failed to update like. Please try again.");
     }
   };
 
@@ -90,7 +91,7 @@ const Post = () => {
       setNewComment("");
     } catch (error) {
       console.error("Error adding comment:", error);
-      alert("Failed to add comment. Please try again.");
+      toast.error("Failed to add comment. Please try again.");
     }
   };
 

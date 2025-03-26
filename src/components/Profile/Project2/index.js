@@ -6,6 +6,7 @@ import profileimg from "../../../../public/assets/profile/imgarticle.png";
 import axios from "axios";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function EducationPage({ user, username, loggedinUserId }) {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -39,7 +40,7 @@ export default function EducationPage({ user, username, loggedinUserId }) {
 
     const handleAddEducationClick = () => {
         if (educationList.length >= MAX_EDUCATION_LIMIT) {
-            alert("You can only add up to 5 education entries.");
+            toast.error("You can only add up to 5 education entries.");
             return;
         }
         setCurrentEducation(null);
@@ -63,7 +64,7 @@ export default function EducationPage({ user, username, loggedinUserId }) {
 
     const handleSaveEducation = async () => {
         if (!currentEducation?.institution?.trim() || !currentEducation?.degree?.trim() || !currentEducation?.duration?.trim()) {
-            alert("All fields are required!");
+            toast.error("All fields are required!");
             return;
         }
 
@@ -88,7 +89,7 @@ export default function EducationPage({ user, username, loggedinUserId }) {
             } else {
                 // Add new education only if limit is not exceeded
                 if (educationList.length >= MAX_EDUCATION_LIMIT) {
-                    alert("You can only add up to 5 education entries.");
+                    toast.error("You can only add up to 5 education entries.");
                     return;
                 }
                 response = await axios.post("/api/education", formData);

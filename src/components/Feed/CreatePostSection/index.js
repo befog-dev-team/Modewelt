@@ -17,6 +17,7 @@ import { Loader2 } from "lucide-react"; // Loader
 import useMediaUpload from "./useMediaUpload"; // Media upload hook
 import { useDropzone } from "@uploadthing/react"; // Dropzone
 import { cn } from "@/lib/utils"; // Utils
+import toast from "react-hot-toast";
 
 // CreatePostSection component
 export default function Index() {
@@ -81,7 +82,7 @@ export default function Index() {
     const totalFiles = files.length + selectedFiles.length; // Calculate total files if these are added
 
     if (totalFiles > 3) {
-      alert("You can only upload up to 3 files."); // Show alert
+      toast.error("You can only upload up to 3 files."); // Show alert
       e.target.value = ""; // Clear the input
       return; // Exit the function
     }
@@ -114,7 +115,7 @@ export default function Index() {
   // Handle onSubmit
   const onSubmit = async () => {
     if (!input.trim() && selectedFiles.length === 0) {
-      alert("Please provide some content to post, either text or media.");
+      toast.error("Please provide some content to post, either text or media.");
       return;
     }
 

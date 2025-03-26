@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
+import toast  from "react-hot-toast";
 
 export default function Profile() {
   const [loading, setLoading] = useState(false);
@@ -51,10 +52,10 @@ export default function Profile() {
     const res = await axios.post("/api/admin/profile", user);
 
     if (res.status === 200) {
-      alert("Profile Updated Successfully!");
+      toast.success("Profile Updated Successfully!");
       setLoading(false);
     } else {
-      alert("Error updating profile");
+      toast.error("Error updating profile");
       setLoading(false);
     }
   };

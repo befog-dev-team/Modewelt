@@ -6,6 +6,7 @@ import { LuPlus } from "react-icons/lu";
 import { MdDelete } from "react-icons/md"; // Import delete icon
 import { Loader2 } from "lucide-react";
 import profileimg from "../../../../public/assets/profile/imgarticle.png";
+import toast from "react-hot-toast";
 
 export default function SkillsPage({ user, username, loggedinUserId }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -51,7 +52,7 @@ export default function SkillsPage({ user, username, loggedinUserId }) {
   const handleAddSkillClick = () => {
     // Step 3: Validate before opening modal
     if (skills.length >= MAX_SKILLS_LIMIT) {
-      alert("You can only add up to 10 skills.");
+      toast.error("You can only add up to 10 skills.");
       return;
     }
     setIsPopupOpen(true);
@@ -68,13 +69,13 @@ export default function SkillsPage({ user, username, loggedinUserId }) {
   // 🔹 Save new skill (POST request)
   const handleSaveSkill = async () => {
     if (newSkill.title.trim() === "") {
-      alert("Skill title is required!");
+      toast.error("Skill title is required!");
       return;
     }
 
     // Step 4: Validate again before saving
     if (skills.length >= MAX_SKILLS_LIMIT) {
-      alert("You can only add up to 10 skills.");
+      toast.error("You can only add up to 10 skills.");
       return;
     }
 
@@ -83,7 +84,7 @@ export default function SkillsPage({ user, username, loggedinUserId }) {
         (skill) => skill.title.toLowerCase() === newSkill.title.toLowerCase()
       )
     ) {
-      alert("This skill already exists.");
+      toast.error("This skill already exists.");
       return;
     }
 

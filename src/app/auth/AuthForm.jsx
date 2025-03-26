@@ -28,6 +28,7 @@ const Auth = () => {
     register: loginRegister, // register function
     handleSubmit: handleLoginSubmit, // submit function
     formState: { isSubmitting: isLoginSubmitting }, // form state
+    reset: resetLogin, // reset form
   } = useForm({
     // form hook
     resolver: zodResolver(loginSchema), // validation schema
@@ -52,6 +53,7 @@ const Auth = () => {
         }
         else {
           toast.success("Login Successful"); // success message
+          resetLogin(); // reset form
           router.push("/feed"); // navigate to home page
         }
       });
@@ -67,6 +69,7 @@ const Auth = () => {
     register: signupRegister, // register function
     handleSubmit: handleSignupSubmit, // submit function
     formState: { isSubmitting: isSignupSubmitting }, // form state
+    reset: resetSignup // reset form
   } = useForm({
     // form hook
     resolver: zodResolver(signupSchema), // validation schema
@@ -102,9 +105,8 @@ const Auth = () => {
           toast.error(error); // error toast
         }
         else {
-          toast.success(
-            "Signup successful! Please check your email for verification."
-          ); // success message
+          toast.success("Signup successful! Please check your email for verification.");
+          resetSignup(); // reset form
         }
       });
     } catch (err) {

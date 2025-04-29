@@ -279,8 +279,9 @@ export default function Navbar() {
     <div className="bg-[#daf59d]">
       <nav className="shadow-md py-4 px-6 flex justify-between items-center ">
         {/* Logo */}
-        <div className="text-xl font-bold lg:mx-20 md:mx-10 sm:mx-5 mx-2">
+        <div className="text-xl font-bold lg:mx-20 md:mx-10 sm:mx-5 mx-2 flex items-center space-x-2">
           <Image src={logo} alt="Modewelt" width={40} height={40} />
+          <div className="gradient-text">Modeweltjob</div>
         </div>
 
         {/* Desktop Menu */}

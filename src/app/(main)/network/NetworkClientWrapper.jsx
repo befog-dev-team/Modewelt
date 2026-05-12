@@ -8,7 +8,6 @@ import Invitations from '../../../components/Network/invitation';
 // import Groups from '../../../components/Network/groups';
 // import Teammates from '../../../components/Network/teammates';
 import Hashtag from '../../../components/Network/Hashtag';
-import Navbar from '@/components/Navbar';
 // import Footer from '@/components/Footer';
 
 export default function Network({ users, trendingTopics }) {
@@ -48,8 +47,15 @@ export default function Network({ users, trendingTopics }) {
     }, [activeSection]);
 
     return (
-        <div className='bg-[#dcf59d] min-h-screen'>
-            <Navbar />
+        <div className='relative min-h-screen'>
+            {/* Background Image */}
+            <div
+                className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
+                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?q=80&w=2000&auto=format&fit=crop')" }}
+            ></div>
+            {/* Overlay for readability */}
+            <div className="fixed inset-0 bg-white/75 backdrop-blur-[0px] -z-10"></div>
+
             <div className="flex flex-col lg:flex-row mt-4 md:mt-[45px] lg:ml-[134px]">
                 {/* Left Sidebar */}
                 <div className="w-full sm:w-[240px] md:w-[290px] h-min bg-white shadow-md">

@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import UserAvatar from "../UserAvatar";
 import { Loader2, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogFooter, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 export default function OtherModal({ isModalOpen, closeModal }) {
     const router = useRouter();
@@ -82,13 +82,13 @@ export default function OtherModal({ isModalOpen, closeModal }) {
                         {/* Settings and Management Section */}
                         <div className="space-y-4 text-left">
                             <div className="space-y-2">
-                                <Link href={"/setting"}>
+                                <Link href={"/setting"} onClick={closeModal}>
                                     <p className="text-[11px] cursor-pointer">Setting</p>
                                 </Link>
-                                <Link href={"/Help"} prefetch={true}>
+                                <Link href={"/Help"} prefetch={true} onClick={closeModal}>
                                     <p className="text-[11px] cursor-pointer">Help</p>
                                 </Link>
-                                <Link href={"/Terms&Condition"} prefetch={true}>
+                                <Link href={"/Terms&Condition"} prefetch={true} onClick={closeModal}>
                                     <p className="text-[11px] cursor-pointer">Terms and Conditions</p>
                                 </Link>
                             </div>
@@ -96,10 +96,10 @@ export default function OtherModal({ isModalOpen, closeModal }) {
                             <div className="space-y-2">
                                 <h1 className="font-medium text-[14px] cursor-pointer">Manage</h1>
                                 <div className="space-y-1">
-                                    <Link href={"/feed"} prefetch={true}>
+                                    <Link href={"/feed"} prefetch={true} onClick={closeModal}>
                                         <p className="text-[11px] cursor-pointer">Posts & Activities</p>
                                     </Link>
-                                    <Link href={"/jobs"} prefetch={true}>
+                                    <Link href={"/jobs"} prefetch={true} onClick={closeModal}>
                                         <p className="text-[11px] cursor-pointer">Job post account</p>
                                     </Link>
                                 </div>
@@ -132,9 +132,9 @@ export default function OtherModal({ isModalOpen, closeModal }) {
                             <span>Confirm Logout</span>
                         </DialogTitle>
                     </DialogHeader>
-                    <p className="text-sm text-gray-500">
+                    <DialogDescription className="text-sm text-gray-500">
                         Are you sure you want to log out? You will need to sign in again to access your account.
-                    </p>
+                    </DialogDescription>
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setLogoutDialogOpen(false)} disabled={loading}>
                             Cancel

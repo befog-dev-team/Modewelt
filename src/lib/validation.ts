@@ -10,6 +10,7 @@ export const signupSchema = z.object({
     /^[a-zA-Z0-9_-]+$/,
     "Only letters, numbers, underscores, and hyphens are allowed",
   ).transform((val) => val.toLowerCase()),
+  phone: requiredString.min(10, "Phone number must be at least 10 characters"),
   password: requiredString.min(4, "Password must be at least 4 characters"),
   confirmPassword: requiredString.min(4, "Password must be at least 4 characters"),
 });

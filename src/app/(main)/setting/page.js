@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogFooter, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Loader2, AlertTriangle } from "lucide-react";
-import Navbar from "../../../components/Navbar";
+
 import { useSession } from "../SessionProvider";
 import Link from "next/link";
 import UserAvatar from "@/components/UserAvatar";
@@ -55,11 +55,18 @@ export default function Network() {
     };
 
     return (
-        <div className="min-h-screen bg-[#dcf59d]">
-            <Navbar />
-            <div className="flex flex-col md:flex-row">
+        <div className="relative min-h-screen">
+            {/* Background Image */}
+            <div 
+                className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
+                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?q=80&w=2000&auto=format&fit=crop')" }}
+            ></div>
+            {/* Overlay for readability */}
+            <div className="fixed inset-0 bg-white/75 backdrop-blur-[1px] -z-10"></div>
+
+            <div className="flex flex-col md:flex-row relative z-10">
                 {/* Left Sidebar */}
-                <div className="w-full md:max-w-[300px] md:w-[300px] h-auto md:h-[100vh] bg-[#dcf59d] shadow-md">
+                <div className="w-full md:max-w-[300px] md:w-[300px] h-auto md:h-[100vh] bg-white/20 backdrop-blur-sm shadow-md">
                     <div className="px-6 flex items-center space-x-4 py-6">
                         {/* User Avatar */}
                         <Link href={`/profile/${user.username}`} prefetch={true}>
@@ -72,7 +79,7 @@ export default function Network() {
                 </div>
 
                 {/* Right Content */}
-                <div className="flex-1 p-8">
+                <div className="flex-1 p-8 relative z-10">
                     <div className="max-w-4xl mx-auto">
                         <div className="bg-white p-6 rounded-lg shadow-sm">
                             <h2 className="text-xl font-semibold mb-4">Account Settings</h2>
@@ -106,9 +113,9 @@ export default function Network() {
                             <span>Are you sure?</span>
                         </DialogTitle>
                     </DialogHeader>
-                    <p className="text-sm text-gray-500">
+                    <DialogDescription className="text-sm text-gray-500">
                         This action is irreversible. Your account data will be deleted permanently.
-                    </p>
+                    </DialogDescription>
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setOpen(false)} disabled={loading}>
                             Cancel

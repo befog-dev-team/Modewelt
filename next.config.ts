@@ -20,10 +20,11 @@ const nextConfig: import('next').NextConfig = {
       { protocol: "https", hostname: "via.placeholder.com" },
       { protocol: "https", hostname: "s3-alpha-sig.figma.com" },
       { protocol: "https", hostname: "res.cloudinary.com" },
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "plus.unsplash.com" },
       {
         protocol: "https",
         hostname: "utfs.io",
-        pathname: `/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/*`,
       },
     ],
     formats: ["image/avif", "image/webp"],

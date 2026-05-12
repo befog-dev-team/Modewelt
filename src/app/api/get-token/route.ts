@@ -17,6 +17,7 @@ export async function GET() {
         // The token is valid for 60 seconds before it expires
         const issuedAt = Math.floor(Date.now() / 1000) - 60;
 
+        console.log(`[Token API] Generating token for user: ${user.id}`);
         // Create a token for the user
         const token = streamServerClient.createToken( 
             user.id, // The user ID
@@ -24,6 +25,7 @@ export async function GET() {
             issuedAt, // The time the token was issued
         );
 
+        console.log(`[Token API] Token generated successfully for user: ${user.id}`);
         // Return the token to the client
         return Response.json({ token });
     } catch (error) {

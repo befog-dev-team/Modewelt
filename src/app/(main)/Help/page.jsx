@@ -1,13 +1,20 @@
-import Navbar from '@/components/Navbar';
+
 // import Footer from '@/components/Footer';
 import React from 'react';
 
 const HelpCenter = () => {
   return (
     <div>
-      <Navbar/>
-      <div className="min-h-screen bg-[#dcf59d] flex flex-col items-center p-4">
-      <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-6">
+
+      <div className="relative min-h-screen flex flex-col items-center p-4">
+        {/* Background Image */}
+        <div 
+          className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?q=80&w=2000&auto=format&fit=crop')" }}
+        ></div>
+        {/* Overlay for readability */}
+        <div className="fixed inset-0 bg-white/75 backdrop-blur-[1px] -z-10"></div>
+        <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-6 relative z-10">
         <h1 className="text-3xl font-bold mb-4 text-[#fc3fb4]">Modeweltjob Help Center</h1>
         <p className="text-gray-600 mb-6">
           Welcome to the Modeweltjob Help Center! We are dedicated to ensuring your experience on Modeweltjob is smooth and productive. Whether you’re a job seeker passionate about the fashion industry or an employer seeking creative talent, this guide will help you navigate the platform effectively.
@@ -106,7 +113,7 @@ const HelpCenter = () => {
           <li>What is the difference between standard and sponsored job postings?</li>
         </ul>
 
-        <h2 className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">Contact Us</h2>
+        <h2 id="contact" className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">Contact Us</h2>
         <p className="text-gray-600 mb-4">
           Still have questions? Reach out to our support team!
         </p>

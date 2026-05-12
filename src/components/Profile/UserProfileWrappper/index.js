@@ -1,4 +1,4 @@
-import Navbar from '../../Navbar'
+
 // import Footer from '../../Footer'
 import UserProfile from '../UserProfile'
 import ProfileDashboard from '../ProfileDashboard'
@@ -21,7 +21,7 @@ export default function UserProfileWrappper({ username, user, loggedinUserId, to
 
     return (
         <div>
-            <Navbar />
+
             <div className="h-auto w-full p-4">
                 {/* Main content area */}
                 <div className="flex flex-col lg:flex-row justify-center mt-12 space-y-10 lg:space-y-0 lg:space-x-14 px-4 lg:px-8">
@@ -45,7 +45,7 @@ export default function UserProfileWrappper({ username, user, loggedinUserId, to
                         />
 
                         {/* Visitor Section */}
-                        <VisitorSection visitors={visitors } user={user} />
+                        <VisitorSection visitors={visitors} user={user} />
 
                         {/* Course Section */}
                         {/* <CourseSection /> */}

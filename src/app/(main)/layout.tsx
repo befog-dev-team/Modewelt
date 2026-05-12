@@ -9,9 +9,8 @@ import { Metadata } from "next";
 // import { Suspense } from "react";
 // import dynamic from "next/dynamic";
 
-// // Lazy load the Navbar and Footer components
-// const Navbar = dynamic(() => import("../../components/Navbar"));
-// const Footer = dynamic(() => import("../../components/Footer"));
+import Navbar from "@/components/Navbar";
+// import Footer from "@/components/Footer";
 
 // Define the metadata object
 export const metadata: Metadata = { // Define the metadata object
@@ -86,10 +85,8 @@ export default async function Layout({
                 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
             </Head>
             <NProgressLoader /> {/* Include the NProgressLoader here */}
-            {/* <Suspense fallback={<div>Loading...</div>}>
-                <Navbar />
-            </Suspense> */}
-            <main>
+            <Navbar />
+            <main className="pt-16">
                 {children}
             </main>
             {/* <Suspense fallback={<div>Loading Footer...</div>}>

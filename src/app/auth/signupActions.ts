@@ -22,7 +22,7 @@ export async function signUp(
   credentials: SignUpValues
 ): Promise<{ error: string }> {
   try {
-    const { username: rawUsername, email: rawEmail, password } = signupSchema.parse(credentials);
+    const { username: rawUsername, email: rawEmail, password, phone } = signupSchema.parse(credentials);
 
     const username = rawUsername.toLowerCase(); // Convert the username to lowercase
     const email = rawEmail.toLowerCase(); // Convert the email to lowercase
@@ -68,7 +68,7 @@ export async function signUp(
           displayName: username,
           email,
           passwordHash,
-          phone: "",
+          phone,
           isVerified: false,
         },
       });

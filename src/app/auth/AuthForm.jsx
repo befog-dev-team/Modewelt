@@ -117,7 +117,7 @@ const Auth = () => {
   };
 
   return (
-    <div className="flex justify-center items-center bg-[#dcf59d] min-h-screen relative">
+    <div className="flex justify-center items-center bg-white min-h-screen relative">
 
       {/* ERROR MESSAGE */}
       {error && (
@@ -155,8 +155,8 @@ const Auth = () => {
               className="input-box animation"
               style={{ "--D": 2, "--S": 23 }}
             >
-              <input type="email" {...loginRegister("email")} required />
-              <label htmlFor="login_username">Email</label>
+              <input type="text" {...loginRegister("email")} required />
+              <label htmlFor="login_username">Email or Username</label>
               <i className="bx bxs-user"></i>
             </div>
             <div

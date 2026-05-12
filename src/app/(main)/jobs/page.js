@@ -1,16 +1,15 @@
-import React from "react";
-// import Image from "next/image";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 
 // Left Sections
 import NewJobSection from "../../../components/Jobs/NewJobSection";
-// import SortBySection from "../../../components/Jobs/SortBySection";
-// import MoreJobSection from "../../../components/Jobs/MoreJobSection";
+
 // Right Sections
-// import PostJobSection from "../../../components/Jobs/PostJobSection";
-// import MySearchSection from "../../../components/Jobs/MySearchSection";
-import Navbar from "@/components/Navbar";
-import JobMenu from "../../../components/Jobs/Jobmenu/page";
-// import Footer from "@/components/Footer";
+const JobMenu = dynamic(() => import("../../../components/Jobs/Jobmenu/page"), {
+  loading: () => <div className="h-64 animate-pulse bg-white mb-4" />,
+});
+
+
 
 // const jobList = [
 //   { title: "Fashion Designer", company: "Company Name" },
@@ -24,8 +23,15 @@ export const metadata = {
 
 export default function Jobs() {
   return (
-    <div className="bg-[#dcf59d] min-h-screen">
-      <Navbar />
+    <div className="relative flex flex-col min-h-screen">
+      {/* Background Image */}
+      <div
+        className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?q=80&w=2000&auto=format&fit=crop')" }}
+      ></div>
+      {/* Overlay for readability */}
+      <div className="fixed inset-0 bg-white/75 backdrop-blur-[1px] -z-10"></div>
+
       <div className="flex flex-col lg:flex-row justify-center mt-12 space-y-10 lg:space-y-0 lg:space-x-14 px-4 lg:px-8">
         {/* Left Section */}
         <div className="flex flex-col w-full lg:w-[850px] mb-8 lg:mb-0">
@@ -50,8 +56,10 @@ export default function Jobs() {
           {/* My Search Section */}
           {/* <MySearchSection /> */}
 
-          {/* Job Menu Section */}
-          <JobMenu />
+          <Suspense fallback={<div className="h-64 animate-pulse bg-white mb-4" />}>
+            {/* Job Menu Section */}
+            <JobMenu />
+          </Suspense>
 
           {/* Trending Job Section */}
           {/* <div className="bg-white h-[245px] shadow-lg mb-4 rounded-lg p-4">

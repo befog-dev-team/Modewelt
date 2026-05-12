@@ -11,16 +11,15 @@ export async function login(
 ): Promise<{ error: string }> {
     try {
         // Parse the login values
-        const { email, password } = loginSchema.parse(credentials);
-        email.toLowerCase(); // Convert the email to lowercase
+        const { email: identifier, password } = loginSchema.parse(credentials);
 
-        // Find the user by email
+        // Find the user by email or username
         const existingUser = await prisma.user.findFirst({
             where: {
-                email: {
-                    equals: email,
-                    mode: "insensitive"
-                }
+                OR: [
+                    { email: { equals: identifier, mode: "insensitive" } },
+                    { username: { equals: identifier, mode: "insensitive" } },
+                ]
             }
         });
 
@@ -54,7 +53,7 @@ export async function login(
 
         // Update `lastLogin` field
         await prisma.user.update({
-            where: { email },
+            where: { id: existingUser.id },
             data: { lastLogin: new Date() },
         });
 

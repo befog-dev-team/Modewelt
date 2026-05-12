@@ -84,7 +84,6 @@ export const google = new Google( // create a new Google instance
   `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/callback/google`, // Google callback URL
 );
 
-// Validate the request
 export const validateRequest = cache(async (): Promise<
   { user: User & { role: Role }; session: Session } | { user: null; session: null }
 > => {
@@ -122,4 +121,4 @@ export const validateRequest = cache(async (): Promise<
   }
 
   return result;
-});
+});

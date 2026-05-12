@@ -4,7 +4,6 @@ import "./globals.css";
 import ReactQueryProvider from "./ReactQueryProvider";
 import { Toaster } from "react-hot-toast";
 import Script from "next/script";
-import AdSense from "@/components/AdSense";
 
 // Uploadthing
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
@@ -97,7 +96,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <head>
         {/* Google Analytics */}
         <Script
@@ -186,7 +185,6 @@ export default function RootLayout({
           {/* <!-- End Google Tag Manager (noscript) --> */}
           <main>
             <Toaster />
-            <AdSense />
             {children}
           </main>
         </ReactQueryProvider>

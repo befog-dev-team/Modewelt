@@ -25,7 +25,7 @@ export default function useInitializeChatClient() {
                 },
                 async () => // the async function
                     kyInstance // the ky instance
-                        .get("/api/get-token") // get the token
+                        .get("/api/get-token", { timeout: 20000, retry: 3 }) // get the token with increased timeout and retries
                         .json<{ token: string }>() // the token
                         .then((data) => data.token), // the token
             )

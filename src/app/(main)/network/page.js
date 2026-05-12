@@ -1,4 +1,4 @@
-// app/network/page.tsx
+import { redirect } from 'next/navigation';
 import { validateRequest } from '@/auth';
 import NetworkClientWrapper from './NetworkClientWrapper';
 import prisma from '@/lib/prisma';
@@ -12,7 +12,7 @@ export default async function NetworkPage() {
     const { user } = await validateRequest();
     
     if (!user) {
-        return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+        redirect("/auth");
     }
 
     const users = await prisma.user.findMany({

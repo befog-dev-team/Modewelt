@@ -1,13 +1,20 @@
 import React from 'react';
-import Navbar from '../../../components/Navbar';
+
 // import Footer from '../../../components/Footer';
 
 const TermsAndConditions = () => {
   return (
     <div>
-      <Navbar />
-      <div className="min-h-screen bg-[#dcf59d] flex flex-col items-center p-4">
-        <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-6">
+
+      <div className="relative min-h-screen flex flex-col items-center p-4">
+        {/* Background Image */}
+        <div 
+          className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?q=80&w=2000&auto=format&fit=crop')" }}
+        ></div>
+        {/* Overlay for readability */}
+        <div className="fixed inset-0 bg-white/75 backdrop-blur-[1px] -z-10"></div>
+        <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-6 relative z-10">
           <h1 className="text-3xl font-bold mb-4 text-[#fc3fb4]">Modeweltjob Terms and Conditions</h1>
           <p className="text-gray-600 mb-4">
             Welcome to Modeweltjob, a job portal application specifically designed for the fashion industry. By accessing or using Modeweltjob, you agree to comply with and be bound by these Terms and Conditions (&quot;Terms&quot;). Please read them carefully.

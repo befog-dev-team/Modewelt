@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Navbar from "../../../components/Navbar";
+
 import { useRouter } from "next/navigation";
 import toast  from "react-hot-toast";
 
@@ -23,7 +23,7 @@ const PostJob = () => {
   };
 
   return (
-    <div className="flex items-center m-5 w-full bg-[#dcf59d] shadow-md rounded-lg justify-center h-[85vh]">
+    <div className="flex items-center m-5 w-full bg-white shadow-md rounded-lg justify-center h-[85vh]">
       <div className="w-full max-w-[50rem] h-auto p-6">
         <h1 className="text-4xl font-bold text-center text-[#f26744]">Post a job</h1>
         <p className="mt-2 text-center text-gray-600">Increase the quality of your hire</p>
@@ -68,9 +68,16 @@ const PostJob = () => {
 
 const Page = () => {
   return (
-    <div>
-      <Navbar />
-      <div className="h-[90vh] w-full flex items-center justify-center">
+    <div className="relative min-h-screen">
+      {/* Background Image */}
+      <div 
+        className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?q=80&w=2000&auto=format&fit=crop')" }}
+      ></div>
+      {/* Overlay for readability */}
+      <div className="fixed inset-0 bg-white/75 backdrop-blur-[1px] -z-10"></div>
+
+      <div className="h-[90vh] w-full flex items-center justify-center relative z-10">
         <PostJob />
       </div>
     </div>

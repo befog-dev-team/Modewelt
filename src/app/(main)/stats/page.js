@@ -5,14 +5,21 @@ import ResponsiveChart from "../../../components/States/ResponsiveChart";
 import Dashboard from "../../../components/States/Dashboard";
 import Image from "next/image";
 import Rocket from "../../../../public/assets/states/rocket.png";
-import Navbar from "../../../components/Navbar/index";
+
 // import Footer from "../../../components/Footer/index";
 
 const Stats = () => {
   return (
-    <div>
-      <Navbar />
-      <div className="flex flex-col lg:flex-row justify-center min-h-screen mt-12 mb-10 space-y-10 lg:space-x-10 lg:space-y-0">
+    <div className="relative min-h-screen">
+      {/* Background Image */}
+      <div 
+        className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?q=80&w=2000&auto=format&fit=crop')" }}
+      ></div>
+      {/* Overlay for readability */}
+      <div className="fixed inset-0 bg-white/75 backdrop-blur-[1px] -z-10"></div>
+
+      <div className="flex flex-col lg:flex-row justify-center mt-12 mb-10 space-y-10 lg:space-x-10 lg:space-y-0 relative z-10">
         {/* Main Content */}
         <div className="max-w-[850px] w-full p-6 rounded-lg">
           {/* Welcome Banner */}

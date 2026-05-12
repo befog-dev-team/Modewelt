@@ -81,7 +81,7 @@ function Page() {
   // };
 
   return (
-    <div className="bg-[#dcf59d]">
+    <div className="bg-white">
       <Navbar />
       <div className="h-auto w-full p-4">
         {/* Main content area */}
@@ -95,33 +95,30 @@ function Page() {
             <div className="flex flex-wrap items-end border-b-[1px] border-[#E7E7E7] w-full max-w-[850px] mt-2">
               <button
                 onClick={() => setActiveSection("profile")}
-                className={`flex-1 min-w-[100px] flex justify-center items-center font-[Arial] text-[14px] md:text-[16px] font-bold transition-all duration-300 leading-[13.8px] ${
-                  activeSection === "profile"
+                className={`flex-1 min-w-[100px] flex justify-center items-center font-[Arial] text-[14px] md:text-[16px] font-bold transition-all duration-300 leading-[13.8px] ${activeSection === "profile"
                     ? "bg-[] text-white rounded-t-[4px] cursor-pointer h-[51px]"
                     : "bg-white text-black h-[40px] cursor-pointer"
-                }`}
+                  }`}
               >
                 Profile
               </button>
 
               <button
                 onClick={() => setActiveSection("activities")}
-                className={`flex-1 min-w-[100px] flex justify-center items-center font-[Arial] text-[14px] md:text-[16px] font-semibold transition-all duration-300 leading-[13.8px] ${
-                  activeSection === "activities"
+                className={`flex-1 min-w-[100px] flex justify-center items-center font-[Arial] text-[14px] md:text-[16px] font-semibold transition-all duration-300 leading-[13.8px] ${activeSection === "activities"
                     ? "h-[50px] bg-[#f26744] text-white rounded-t-[4px] cursor-pointer"
                     : "bg-white text-black h-[40px] cursor-pointer"
-                }`}
+                  }`}
               >
                 Activity & Interests
               </button>
 
               <button
                 onClick={() => setActiveSection("articles")}
-                className={`flex-1 min-w-[100px] flex justify-center items-center font-[Arial] text-[14px] md:text-[16px] font-semibold transition-all duration-300 leading-[13.8px] ${
-                  activeSection === "articles"
+                className={`flex-1 min-w-[100px] flex justify-center items-center font-[Arial] text-[14px] md:text-[16px] font-semibold transition-all duration-300 leading-[13.8px] ${activeSection === "articles"
                     ? "h-[50px] bg-[#f26744] text-white rounded-t-[4px] cursor-pointer"
                     : "bg-white text-black h-[40px] cursor-pointer"
-                }`}
+                  }`}
               >
                 Articles (3)
               </button>
@@ -130,7 +127,7 @@ function Page() {
             {/* Profile Section */}
             {activeSection === "profile" && (
               <div>
-                <About/>
+                <About />
                 <ProjectPage />
                 <SkillsPage />
                 <Experience />
@@ -146,13 +143,13 @@ function Page() {
                   style={{
                     height:
                       activeSectionPost === "post" ||
-                      activeSectionPost === "comment"
+                        activeSectionPost === "comment"
                         ? "auto"
                         : activeSectionPost === "videos"
-                        ? "auto"
-                        : activeSectionPost === "images"
-                        ? "auto"
-                        : "auto",
+                          ? "auto"
+                          : activeSectionPost === "images"
+                            ? "auto"
+                            : "auto",
                   }}
                 >
                   <div>
@@ -165,51 +162,46 @@ function Page() {
                   <div className="px-4 flex flex-wrap gap-4">
                     <button
                       onClick={() => setActiveSectionPost("post")}
-                      className={`border-2 border-[#A45286] rounded-md px-4 py-2 text-sm md:text-lg ${
-                        activeSectionPost === "post"
+                      className={`border-2 border-[#A45286] rounded-md px-4 py-2 text-sm md:text-lg ${activeSectionPost === "post"
                           ? "bg-[#A45286] text-white"
                           : ""
-                      }`}
+                        }`}
                     >
                       Post
                     </button>
                     <button
                       onClick={() => setActiveSectionPost("comment")}
-                      className={`border-2 border-[#A45286] rounded-md px-4 py-2 text-sm md:text-lg ${
-                        activeSectionPost === "comment"
+                      className={`border-2 border-[#A45286] rounded-md px-4 py-2 text-sm md:text-lg ${activeSectionPost === "comment"
                           ? "bg-[#A45286] text-white"
                           : ""
-                      }`}
+                        }`}
                     >
                       Comment
                     </button>
                     <button
                       onClick={() => setActiveSectionPost("videos")}
-                      className={`border-2 border-[#A45286] rounded-md px-4 py-2 text-sm md:text-lg ${
-                        activeSectionPost === "videos"
+                      className={`border-2 border-[#A45286] rounded-md px-4 py-2 text-sm md:text-lg ${activeSectionPost === "videos"
                           ? "bg-[#A45286] text-white"
                           : ""
-                      }`}
+                        }`}
                     >
                       Videos
                     </button>
                     <button
                       onClick={() => setActiveSectionPost("images")}
-                      className={`border-2 border-[#A45286] rounded-md px-4 py-2 text-sm md:text-lg ${
-                        activeSectionPost === "images"
+                      className={`border-2 border-[#A45286] rounded-md px-4 py-2 text-sm md:text-lg ${activeSectionPost === "images"
                           ? "bg-[#A45286] text-white"
                           : ""
-                      }`}
+                        }`}
                     >
                       Images
                     </button>
                     <button
                       onClick={() => setActiveSectionPost("documents")}
-                      className={`border-2 border-[#A45286] rounded-md px-4 py-2 text-sm md:text-lg ${
-                        activeSectionPost === "documents"
+                      className={`border-2 border-[#A45286] rounded-md px-4 py-2 text-sm md:text-lg ${activeSectionPost === "documents"
                           ? "bg-[#A45286] text-white"
                           : ""
-                      }`}
+                        }`}
                     >
                       Documents
                     </button>
@@ -232,21 +224,19 @@ function Page() {
                   {/* Tabs */}
                   <div className="flex space-x-4 mb-6">
                     <button
-                      className={`px-4 py-2 text-sm font-medium rounded ${
-                        activeTab === "events"
+                      className={`px-4 py-2 text-sm font-medium rounded ${activeTab === "events"
                           ? "bg-[#a35285] text-white"
                           : "bg-white text-[#a35285] border border-[#a35285]"
-                      }`}
+                        }`}
                       onClick={() => handleTabSwitch("events")}
                     >
                       EVENTS
                     </button>
                     <button
-                      className={`px-4 py-2 text-sm font-medium rounded ${
-                        activeTab === "reminders"
+                      className={`px-4 py-2 text-sm font-medium rounded ${activeTab === "reminders"
                           ? "bg-[#a35285] text-white"
                           : "bg-white text-[#a35285] border border-[#a35285]"
-                      }`}
+                        }`}
                       onClick={() => handleTabSwitch("reminders")}
                     >
                       REMINDERS
@@ -453,7 +443,7 @@ function Page() {
 
           {/* Other content area */}
           <div className="w-full lg:w-[290px] hidden lg:block">
-            <Side/>
+            <Side />
           </div>
         </div>
       </div>

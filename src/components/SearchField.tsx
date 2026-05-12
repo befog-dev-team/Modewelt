@@ -16,14 +16,23 @@ export default function SearchField() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="focus:ring-[#a34e83] focus:outline-none">
-      <div className="relative">
+    <form onSubmit={handleSubmit} className="w-full max-w-xl group">
+      <div className="relative flex items-center">
         <Input
           name="query"
-          placeholder="Search"
-          className="pr-10 sm:pr-8 md:pr-[4rem] lg:pr-[8rem] xl:pr-[10rem]"
+          placeholder="Search for fashion, styles, jobs..."
+          className="h-11 w-full bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded-2xl pl-5 pr-12 text-[15px] shadow-inner transition-all duration-500 ease-out 
+                     group-hover:border-[#fc3fb4]/50 group-hover:shadow-sm
+                     focus:bg-white focus:border-[#fc3fb4] focus:ring-4 focus:ring-[#fc3fb4]/10 
+                     focus:shadow-[0_8px_30px_rgb(252,63,180,0.12)] placeholder:text-gray-500 font-medium"
         />
-        <SearchIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
+        <button 
+          type="submit"
+          className="absolute right-1.5 p-2.5 rounded-xl bg-gradient-to-br from-[#fc3fb4] to-[#ff7eb3] text-white shadow-sm
+                     hover:shadow-[#fc3fb4]/30 hover:shadow-lg hover:-translate-y-0.5 active:scale-95 transition-all duration-300"
+        >
+          <SearchIcon className="size-4 stroke-[2.5px]" />
+        </button>
       </div>
     </form>
   );

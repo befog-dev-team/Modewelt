@@ -5,6 +5,7 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
+    DialogDescription,
 } from "@/components/ui/dialog";
 import toast from 'react-hot-toast';
 import UserAvatar from "@/components/UserAvatar";
@@ -86,6 +87,9 @@ export default function NewChatDialog({
             <DialogContent className="bg-card p-0">
                 <DialogHeader className="px-6 pt-6">
                     <DialogTitle>New chat</DialogTitle>
+                    <DialogDescription className="sr-only">
+                        Search for users to start a new chat.
+                    </DialogDescription>
                 </DialogHeader>
                 <div>
                     <div className="group relative">

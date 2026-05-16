@@ -26,12 +26,19 @@ import Imagepage from "../../../components/Profile/Images";
 import Documentpage from "../../../components/Profile/Documents";
 import Userprofile from "../../../components/Profile/UserProfile";
 
+import { useSession } from "../SessionProvider";
+
 function Page() {
   const router = useRouter();
+  const { user: sessionUser } = useSession();
   const [activeSection, setActiveSection] = useState("profile");
   const [activeSectionPost, setActiveSectionPost] = useState("post");
 
   const [activeTab, setActiveTab] = useState("events");
+
+  if (!sessionUser) {
+    return null;
+  }
 
   const handleTabSwitch = (tab) => {
     setActiveTab(tab);
@@ -81,7 +88,7 @@ function Page() {
   // };
 
   return (
-    <div className="bg-[#dcf59d]">
+    <div className="bg-white">
       <Navbar />
       <div className="h-auto w-full p-4">
         {/* Main content area */}
@@ -89,7 +96,7 @@ function Page() {
           {/* Top section with image and info */}
           <div className="flex flex-col">
             {/* Left side with images and details */}
-            <Userprofile />
+            <Userprofile user={sessionUser} loggedinUserId={sessionUser.id} />
 
             <div className="flex flex-wrap items-end border-b-[1px] border-[#E7E7E7] w-full max-w-[850px] mt-2">
               <button
@@ -126,13 +133,14 @@ function Page() {
             {/* Profile Section */}
             {activeSection === "profile" && (
               <div>
-                <Profile />
-                <ProjectPage />
-                <SkillsPage />
-                <Experience />
-                <ProjectPage2 />
+                <Profile user={sessionUser} username={sessionUser.username} loggedinUserId={sessionUser.id} />
+                <ProjectPage user={sessionUser} username={sessionUser.username} loggedinUserId={sessionUser.id} />
+                <SkillsPage user={sessionUser} username={sessionUser.username} loggedinUserId={sessionUser.id} />
+                <Experience user={sessionUser} username={sessionUser.username} loggedinUserId={sessionUser.id} />
+                <ProjectPage2 user={sessionUser} username={sessionUser.username} loggedinUserId={sessionUser.id} />
               </div>
             )}
+
 
             {/* Activities and Interests Section */}
             {activeSection === "activities" && (

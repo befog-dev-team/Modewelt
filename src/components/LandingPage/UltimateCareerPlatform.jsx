@@ -20,7 +20,7 @@ export default function UltimateCareerPlatform() {
         <div className="max-w-[750px] w-full text-center lg:px-[90px] lg:py-[101px] p-6 md:p-12 rounded-xl">
           <h1 className="text-3xl md:text-4xl font-bold text-[#7b4fff]">
             The Ultimate Career Platform for{" "}
-            <span className="gradient-text">Fashion Designers</span> Professionals
+            <span className="gradient-text">Designers</span> Professionals
           </h1>
           <p className="mt-2 text-lg text-gray-700 font-bold">
             Build Your Fashion Career with Modeweltjob

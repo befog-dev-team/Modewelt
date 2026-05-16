@@ -70,9 +70,9 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
         method: "POST",
         body: formData,
       });
-      if (!res.ok) throw new Error("Failed to add project");
-      // Update state with new project
       const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to add project");
+
       if (data.success) {
         // Reset form
         setProjects([...projects, data.project]);
@@ -82,8 +82,9 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
       }
     } catch (error) {
       console.error("Error adding project:", error);
-      setError("Failed to add project. Please try again.");
+      toast.error(error.message || "Failed to add project. Please try again.");
     } finally {
+
       setIsLoading(false);
     }
   };
@@ -116,9 +117,9 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
         body: formData,
       });
 
-      if (!res.ok) throw new Error("Failed to update project");
-
       const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to update project");
+
       if (data.success) {
         setProjects((prev) =>
           prev.map((p) => (p.id === data.project.id ? data.project : p))
@@ -129,8 +130,9 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
       }
     } catch (error) {
       console.error("Error updating project:", error);
-      setError("Failed to update project. Please try again.");
+      toast.error(error.message || "Failed to update project. Please try again.");
     } finally {
+
       setIsLoading(false);
     }
   };

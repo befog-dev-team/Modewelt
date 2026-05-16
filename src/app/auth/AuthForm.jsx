@@ -128,107 +128,103 @@ const Auth = () => {
 
       {/* AUTH CONTAINER */}
       <div
-        className={`auth-container relative z-10 h-[524px] w-[957px] border-[#fc3fb4] border-2 flex bg-background shadow-lg rounded-2xl max-w-4xl ${active ? "active" : ""}`}
+        className={`auth-container relative z-10 h-[524px] w-[957px] border-gray-800 border flex bg-[#0a0a0a] shadow-2xl rounded-2xl max-w-4xl ${active ? "active" : ""}`}
       >
         <div className="curved-shape1"></div>
         <div className="curved-shape2"></div>
 
         {/* LOGIN FORM */}
         <div
-          className={`form-box Login w-full md:w-full absolute transition-all duration-500 ${active ? "opacity-0 -z-10 pointer-events-none" : "opacity-100 z-20 pointer-events-auto"}`}
+          className={`form-box Login w-full px-8 py-10 md:px-12 absolute transition-all duration-500 ${active ? "opacity-0 -z-10 pointer-events-none" : "opacity-100 z-20 pointer-events-auto"}`}
         >
-          <div className="relative">
-            <h2
-              className="animation text-center text-[2.5rem] font-[800] text-[#fc3fb4] mb-8 uppercase"
-              style={{ "--D": 0, "--S": 21 }}
-            >
-              Login
-            </h2>
-            {/* Login heading underline */}
-            <div
-              className="animation h-[0.4rem] w-[6rem] top-[3.7rem] md:top-[3.5rem] rounded-[10px] left-[6.15rem] md:left-[8.3rem] bg-[#fc3fb4] absolute"
-              style={{ "--D": 1, "--S": 22 }}
-            ></div>
-          </div>
-          <form onSubmit={handleLoginSubmit(handleLogin)}>
-            <div
-              className="input-box animation"
-              style={{ "--D": 2, "--S": 23 }}
-            >
-              <input type="text" {...loginRegister("email")} required />
-              <label htmlFor="login_username">Email or Username</label>
-              <i className="bx bxs-user"></i>
+          <div className="flex flex-col items-center mb-8">
+            {/* Logo Placeholder */}
+            <div className="w-14 h-14 bg-gradient-to-br from-[#fc3fb4] to-[#9466FF] rounded-2xl mb-4 shadow-xl flex items-center justify-center transform rotate-12">
+              <span className="text-white font-black text-2xl -rotate-12">MW</span>
             </div>
-            <div
-              className="input-box animation"
-              style={{ "--D": 3, "--S": 24 }}
+            <h2 className="text-3xl font-bold text-white tracking-tight">Welcome</h2>
+          </div>
+
+          {/* Social Login */}
+          <div className="mb-6">
+            <button
+              type="button"
+              className="w-full h-14 bg-[#1a1a1a] hover:bg-[#252525] border border-gray-800 rounded-xl flex items-center justify-center gap-3 text-gray-200 font-medium transition-all duration-300"
             >
+              <svg className="w-5 h-5" viewBox="0 0 24 24">
+                <path
+                  fill="#EA4335"
+                  d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3C17.782 1.145 15.055 0 12 0 7.27 0 3.198 2.698 1.24 6.65l4.026 3.115Z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M16.04 18.013c-1.09.303-2.26.478-3.473.478-3.978 0-7.365-2.73-8.293-6.44L1.24 15.166C3.198 19.118 7.27 21.815 12 21.815c3.055 0 5.771-1.14 7.91-3.007l-3.87-4.795Z"
+                />
+                <path
+                  fill="#4285F4"
+                  d="M19.91 21c3.155-2.545 5.09-6.39 5.09-10.815 0-.727-.064-1.454-.19-2.182H12v4.364h7.118c-.318 1.645-1.254 3.036-2.618 3.936l3.41 4.697Z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M5.266 14.235A7.077 7.077 0 0 1 4.909 12c0-.78.132-1.53.375-2.235L1.24 6.65A11.934 11.934 0 0 0 0 12c0 1.92.455 3.736 1.257 5.35l4.009-3.115Z"
+                />
+              </svg>
+              Sign in with Google
+            </button>
+          </div>
+
+          <div className="flex items-center gap-4 mb-6">
+            <div className="h-[1px] flex-1 bg-gray-800"></div>
+            <span className="text-gray-500 text-xs font-bold uppercase tracking-widest">or email</span>
+            <div className="h-[1px] flex-1 bg-gray-800"></div>
+          </div>
+
+          <form onSubmit={handleLoginSubmit(handleLogin)} className="space-y-4">
+            <div className="relative group">
+              <input
+                type="text"
+                {...loginRegister("email")}
+                placeholder="Email address"
+                required
+                className="w-full h-14 bg-[#0f0f0f] border border-gray-800 rounded-xl px-4 text-white placeholder-gray-600 focus:border-[#9466FF] focus:ring-1 focus:ring-[#9466FF] transition-all outline-none"
+              />
+            </div>
+            <div className="relative group">
               <input
                 type={showPassword ? "text" : "password"}
                 {...loginRegister("password")}
+                placeholder="Password"
                 required
+                className="w-full h-14 bg-[#0f0f0f] border border-gray-800 rounded-xl px-4 pr-12 text-white placeholder-gray-600 focus:border-[#9466FF] focus:ring-1 focus:ring-[#9466FF] transition-all outline-none"
               />
-              <label htmlFor="login_password">Password</label>
-              <span className="absolute right-[-1px] top-1/2 transform -translate-y-1/2 cursor-pointer" onClick={togglePassword}>
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-300" onClick={togglePassword}>
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </span>
-              {/* <i className="bx bxs-lock-alt"></i> */}
             </div>
 
-            {/* Links and buttons */}
-            <div
-              className="animation flex justify-between text-sm mt-2 text-blue-500 uppercase"
-              style={{ "--D": 4, "--S": 25 }}
+            <button
+              type="submit"
+              disabled={isLoginSubmitting}
+              className="w-full h-14 bg-[#9466FF] hover:bg-[#8354f5] text-white font-bold rounded-xl shadow-lg shadow-purple-500/20 transition-all duration-300 flex items-center justify-center transform active:scale-[0.98]"
             >
-              <Link href="/auth/forget-password" prefetch={true}>Forgot Password</Link>
-              <p
-                className="SignUpLink cursor-pointer"
+              {pending ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                "Login"
+              )}
+            </button>
+
+            <div className="flex flex-col items-center gap-3 pt-4">
+              <button
+                type="button"
+                className="text-gray-400 hover:text-white text-sm transition-colors"
                 onClick={() => setActive(true)}
               >
-                {/* Create Account */}
-                <span
-                  className="cursor-pointer"
-                  onClick={() => setActive(true)}
-                >
-                  Create Account
-                </span>
-              </p>
-            </div>
-
-            <div
-              className="input-box animation"
-              style={{ "--D": 5, "--S": 26 }}
-            >
-              <button
-                type="submit"
-                disabled={isLoginSubmitting}
-                className={`uppercase w-full ${pending
-                  ? "bg-[#fc3fb4] hover:bg-[#fc3fb4] cursor-not-allowed"
-                  : "bg-[#fc3fb4] hover:bg-[#fc3fb4]"
-                  } text-white py-3 px-4 rounded-full transition duration-300`}
-              >
-                {pending ? (
-                  <Loader2 className="mx-auto animate-spin" />
-                ) : (
-                  "Login"
-                )}
+                Create account
               </button>
-            </div>
-
-            {/* Registration link */}
-            <div
-              className="regi-link animation mt-6 text-center text-sm text-gray-600 uppercase"
-              style={{ "--D": 6, "--S": 27 }}
-            >
-              <p>
-                Don&apos;t have an account?{" "}
-                <span
-                  className="SignUpLink text-[#fc3fb4] font-bold hover:underline cursor-pointer"
-                  onClick={() => setActive(true)}
-                >
-                  Sign Up
-                </span>
-              </p>
+              <Link href="/auth/forget-password" prefetch={true} className="text-gray-500 hover:text-gray-300 text-xs transition-colors">
+                Reset password
+              </Link>
             </div>
           </form>
         </div>

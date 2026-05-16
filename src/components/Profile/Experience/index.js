@@ -4,7 +4,6 @@ import Image from "next/image";
 import { LuPlus } from "react-icons/lu";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { Loader2 } from "lucide-react";
-import axios from "axios";
 import profileimg from "../../../../public/assets/profile/imgarticle.png";
 import toast from "react-hot-toast";
 
@@ -15,7 +14,7 @@ export default function ExperiencePage({ user, username, loggedinUserId }) {
     const [file, setFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
-const [error, setError] = useState(null);
+    const [error, setError] = useState(null);
     const MAX_EXPERIENCE_LIMIT = 5;
 
     // Fetch experiences when the component loads
@@ -24,15 +23,19 @@ const [error, setError] = useState(null);
     }, []);
 
     const fetchExperiences = async () => {
+
         setIsLoading(true);
+        setError(null);
         try {
-            const response = await axios.get(`/api/experience/${username}`);
-            if (response.data.success) {
-                setExperienceList(response.data.experiences);
+            const res = await fetch(`/api/experience/${username}`);
+            if (!res.ok) throw new Error("Failed to fetch experiences");
+            const data = await res.json();
+            if (data.success) {
+                setExperienceList(data.experiences);
             }
         } catch (error) {
             console.error("Error fetching experiences:", error);
-setError("Failed to fetch experience data. Please try again.");
+            setError("Failed to fetch experience data. Please try again.");
         } finally {
             setIsLoading(false);
         }
@@ -64,7 +67,7 @@ setError("Failed to fetch experience data. Please try again.");
     };
 
     const handleSaveExperience = async () => {
-        if (!currentExperience?.jobTitle?.trim() || !currentExperience?.company?.trim() || !currentExperience?.duration?.trim()) {
+        if (!currentExperience?.jobTitle?.trim() || !currentExperience?.company?.trim() || !currentExperience?.location?.trim() || !currentExperience?.duration?.trim()) {
             toast.error("All fields are required!");
             return;
         }
@@ -74,7 +77,7 @@ setError("Failed to fetch experience data. Please try again.");
         const formData = new FormData();
         formData.append("jobTitle", currentExperience.jobTitle);
         formData.append("company", currentExperience.company);
-        formData.append("location", currentExperience.location);
+        formData.append("location", currentExperience.location || "");
         formData.append("duration", currentExperience.duration);
         formData.append("description", currentExperience.description || "");
 
@@ -83,19 +86,28 @@ setError("Failed to fetch experience data. Please try again.");
         }
 
         try {
-            let response;
+            let res;
             if (currentExperience?.id) {
                 formData.append("experienceId", currentExperience.id);
-                response = await axios.put("/api/experience", formData);
+                res = await fetch("/api/experience", {
+                    method: "PUT",
+                    body: formData,
+                });
             } else {
                 if (experienceList.length >= MAX_EXPERIENCE_LIMIT) {
                     toast.error("You can only add up to 5 experiences.");
                     return;
                 }
-                response = await axios.post("/api/experience", formData);
+                res = await fetch("/api/experience", {
+                    method: "POST",
+                    body: formData,
+                });
             }
 
-            if (response.data.success) {
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Failed to save experience");
+
+            if (data.success) {
                 fetchExperiences();
                 setIsPopupOpen(false);
                 setCurrentExperience(null);
@@ -103,10 +115,12 @@ setError("Failed to fetch experience data. Please try again.");
             }
         } catch (error) {
             console.error("Error saving experience:", error);
+            toast.error(error.message || "Error saving experience");
         } finally {
             setIsSaving(false);
         }
     };
+
 
     const handleEditExperience = (experience) => {
         setCurrentExperience({ ...experience });
@@ -120,19 +134,26 @@ setError("Failed to fetch experience data. Please try again.");
         setIsSaving(true);
 
         try {
-            const response = await axios.delete("/api/experience", {
-                data: { experienceId },
+            const res = await fetch("/api/experience", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ experienceId }),
             });
 
-            if (response.data.success) {
+            if (!res.ok) throw new Error("Failed to delete experience");
+            const data = await res.json();
+
+            if (data.success) {
                 setExperienceList((prev) => prev.filter((exp) => exp.id !== experienceId));
             }
         } catch (error) {
             console.error("Error deleting experience:", error);
+            toast.error("Error deleting experience");
         } finally {
             setIsSaving(false);
         }
     };
+
 
     // **Cancel Button Functionality**
     const handleCancel = () => {

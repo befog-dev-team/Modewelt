@@ -39,12 +39,12 @@ const jobCategories = [
     icon: <FaCode />,
   },
   {
-    title: "Makeup",
+    title: "Web Designer",
     jobs: 211,
     icon: <PiBagSimpleBold />,
   },
   {
-    title: "Retail Manager",
+    title: "UI/UX Designer",
     jobs: 346,
     icon: <IoIosPeople />,
   },

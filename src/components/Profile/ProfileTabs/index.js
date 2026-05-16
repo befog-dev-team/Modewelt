@@ -8,7 +8,9 @@ import SkillsPage from "../Skills";
 import Experience from "../Experience";
 import ProjectPage2 from "../Project2";
 import Postpage from "../Post";
-import Commentpage from "../Comment"
+import dynamic from "next/dynamic";
+
+const Commentpage = dynamic(() => import("../Comment"), { ssr: false });
 import Videopage from "../Video";
 import Imagepage from "../Images";
 import Documentpage from "../Documents";

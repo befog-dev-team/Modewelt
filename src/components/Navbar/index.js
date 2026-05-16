@@ -44,8 +44,9 @@ function Navbar({ unreadNotificationCount }) {
     { href: "/feed", icon: SlFeed, label: "Feed" },
     { href: "/network", icon: GoPeople, label: "Network" },
     { href: "/jobs", icon: FiBriefcase, label: "Jobs" },
-    { href: "/chat", icon: IoChatbubbleEllipsesOutline, label: "Messages" },
   ];
+
+
 
   const adminNavItem = { href: "/admin", icon: RiAdminLine, label: "Admin" };
 

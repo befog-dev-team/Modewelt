@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Home, Briefcase, Users, FileText, MessageSquare, Bell, CheckCircle, Search, DollarSign, Zap, X } from "lucide-react";
+import { Home, Briefcase, Users, FileText, MessageSquare, Bell, CheckCircle, Search, DollarSign, Zap, X, Menu, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -13,9 +13,8 @@ export default function HeroSection() {
     { name: "Home", icon: <Home size={18} /> },
     { name: "Careers", icon: <Briefcase size={18} /> },
     { name: "Connections", icon: <Users size={18} /> },
-    { name: "Resumes", icon: <FileText size={18} /> },
-    { name: "Chat", icon: <MessageSquare size={18} /> },
     { name: "Notifications", icon: <Bell size={18} /> },
+
   ];
 
   return (
@@ -57,47 +56,70 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="hidden lg:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <Link key={link.name} href="#" className="flex items-center space-x-1.5 text-gray-500 hover:text-[#0062ff] transition-colors font-medium">
-              {link.icon}
-              <span>{link.name}</span>
+        <div className="flex items-center space-x-3 md:space-x-6">
+          <div className="hidden sm:flex items-center space-x-3">
+            <Link href="/auth" className="px-5 py-2 text-[#fc3fb4] font-bold border border-pink-100 rounded-xl hover:bg-pink-50 transition-all text-sm">
+              Sign In
             </Link>
-          ))}
-        </div>
-
-        <div className="hidden md:flex items-center space-x-4">
-          <Link href="/auth" className="px-6 py-2.5 text-[#0062ff] font-bold border border-blue-200 rounded-xl hover:bg-blue-50 transition-all">
-            Sign In
-          </Link>
-          <Link href="/auth" className="px-6 py-2.5 bg-[#fc3fb4] text-white font-bold rounded-xl shadow-lg shadow-pink-200 hover:bg-[#e0359f] hover:scale-105 transition-all">
-            Get Started
-          </Link>
-        </div>
-
-        <button className="lg:hidden p-2 text-gray-600" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X className="w-6 h-6" /> : <Search className="w-6 h-6" />}
-        </button>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="absolute top-24 left-0 w-full bg-white/95 backdrop-blur-xl shadow-2xl border-b border-blue-50 lg:hidden flex flex-col items-center space-y-6 py-10 z-50 animate-in slide-in-from-top-10 duration-300">
-            {navLinks.map((link) => (
-              <Link key={link.name} href="#" className="flex items-center space-x-3 text-lg font-bold text-gray-600 hover:text-[#0062ff]" onClick={() => setIsOpen(false)}>
-                {link.icon}
-                <span>{link.name}</span>
-              </Link>
-            ))}
-            <div className="flex flex-col w-full px-10 space-y-4 pt-6 border-t border-gray-100">
-              <Link href="/auth" className="w-full text-center py-4 text-[#0062ff] font-bold border border-blue-100 rounded-2xl">
-                Sign In
-              </Link>
-              <Link href="/auth" className="w-full text-center py-4 bg-[#0062ff] text-white font-bold rounded-2xl shadow-lg shadow-blue-100">
-                Get Started
-              </Link>
-            </div>
+            <Link href="/auth" className="px-5 py-2 bg-[#fc3fb4] text-white font-bold rounded-xl shadow-lg shadow-pink-200 hover:bg-[#e0359f] hover:scale-105 transition-all text-sm">
+              Get Started
+            </Link>
           </div>
+
+          <button className="xl:hidden p-2.5 bg-gray-50 rounded-xl text-gray-600 hover:bg-pink-50 hover:text-[#fc3fb4] transition-all" onClick={() => setIsOpen(true)}>
+            <Menu className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* Right-Side Drawer Mobile Menu */}
+        {isOpen && (
+          <>
+            <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[100] xl:hidden" onClick={() => setIsOpen(false)} />
+            <div className="fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white z-[101] xl:hidden shadow-2xl flex flex-col animate-in slide-in-from-right duration-300">
+              <div className="flex items-center justify-between p-6 border-b border-gray-50">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-pink-50 rounded-xl flex items-center justify-center text-[#fc3fb4]">
+                    <Users className="w-6 h-6" />
+                  </div>
+                  <span className="font-black text-[#1e293b] uppercase tracking-tight">Menu</span>
+                </div>
+                <button className="p-2 hover:bg-gray-100 rounded-full transition-colors" onClick={() => setIsOpen(false)}>
+                  <X className="w-6 h-6 text-gray-400" />
+                </button>
+              </div>
+
+              <div className="flex-1 overflow-y-auto py-4">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href="#"
+                    className="flex items-center justify-between px-6 py-5 hover:bg-gray-50 transition-colors group"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <div className="flex items-center space-x-4">
+                      <div className="p-2.5 bg-gray-50 rounded-2xl text-gray-500 group-hover:bg-white group-hover:text-[#fc3fb4] group-hover:shadow-md transition-all">
+                        {link.icon}
+                      </div>
+                      <span className="font-bold text-gray-700 group-hover:text-[#1e293b]">{link.name}</span>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-[#fc3fb4] transition-colors" />
+                  </Link>
+                ))}
+              </div>
+
+              <div className="p-6 border-t border-gray-50 space-y-4">
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2">Account</p>
+                <Link href="/auth" className="flex items-center justify-center w-full py-4 bg-[#fc3fb4] text-white font-bold rounded-2xl shadow-lg shadow-pink-200">
+                  Get Started
+                </Link>
+                <Link href="/auth" className="flex items-center justify-center w-full py-4 text-[#fc3fb4] font-bold border border-pink-50 rounded-2xl">
+                  Sign In
+                </Link>
+              </div>
+            </div>
+          </>
         )}
+
       </nav>
 
       {/* Hero Content */}
@@ -111,18 +133,18 @@ export default function HeroSection() {
             </div>
 
             <h1 className="text-3xl md:text-5xl font-black text-[#1e293b] leading-[1.15]">
-              The Community for <span className="gradient-text">Fashion Designers</span> & Creatives
+              The Community for <span className="gradient-text">Designers</span> & Creatives
             </h1>
 
             <div className="space-y-4 max-w-lg">
-              <h3 className="text-base md:text-lg font-bold text-[#334155]">An Exclusive Platform for Fashion Designers</h3>
+              <h3 className="text-base md:text-lg font-bold text-[#334155]">An Exclusive Platform for Designers</h3>
               <p className="text-gray-500 text-sm leading-relaxed">
                 Connect, Grow, and Thrive in the Global Industry. Modewelt provides the tools and network you need to elevate your creative career.
               </p>
             </div>
           </div>
 
-          <Link href="/auth" className="inline-flex items-center justify-center px-8 py-3 bg-[#0062ff] text-white font-bold text-base rounded-xl shadow-lg shadow-blue-100 hover:bg-[#0052d4] hover:scale-105 transition-all transform active:scale-95">
+          <Link href="/auth" className="inline-flex items-center justify-center px-8 py-3 bg-[#fc3fb4] text-white font-bold text-base rounded-xl shadow-lg shadow-pink-200 hover:bg-[#e0359f] hover:scale-105 transition-all transform active:scale-95">
             Register Now
           </Link>
 
@@ -147,120 +169,28 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Right Side: Dashboard Mockup */}
-        <div className="w-full lg:w-1/2 mt-10 lg:mt-0 relative flex items-start justify-center">
-          {/* Main Dashboard Window */}
-          <div className="relative w-full max-w-xl bg-white rounded-[2rem] border border-gray-100 p-1 shadow-xl overflow-visible">
-            <div className="bg-white rounded-[1.75rem] p-5 shadow-sm h-full">
-              {/* Profile Header */}
-              <div className="flex items-center justify-between mb-5">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-blue-50 shadow-md">
-                    <Image src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop" alt="Mark Endorson" width={48} height={48} className="object-cover" />
-                  </div>
-                  <div>
-                    <div className="flex items-center space-x-2">
-                      <h4 className="text-base font-bold text-[#1e293b]">Ammad Riaz</h4>
-                      <CheckCircle className="w-5 h-5 text-blue-500 fill-blue-500 text-white" />
-                    </div>
-                    <p className="text-gray-500 font-medium text-sm">Sr. Software Engineer</p>
-                    <p className="text-xs text-gray-400">New York, USA</p>
-                  </div>
-                </div>
-                <div className="bg-orange-50 text-orange-500 px-4 py-2 rounded-full text-sm font-bold border border-orange-100">
-                  <div className="bg-orange-50 text-orange-500 px-3 py-1 rounded-full text-xs font-bold border border-orange-100">Senior Level</div>
-                </div>
+        {/* Right Side: Simple 3x3 Frame - Scaled & Aligned */}
+        <div className="w-full lg:w-1/2 mt-16 lg:mt-2 flex justify-center items-start lg:pl-10">
+          <div className="grid grid-cols-3 gap-3 w-full max-w-[440px]">
+            {[
+              "https://plus.unsplash.com/premium_photo-1683141084792-510897cbca07?w=600&auto=format&fit=crop&q=60",
+              "https://images.unsplash.com/photo-1653976499578-2d494b63c7be?w=600&auto=format&fit=crop&q=60",
+              "https://images.unsplash.com/photo-1476357471311-43c0db9fb2b4?w=600&auto=format&fit=crop&q=60",
+              "https://plus.unsplash.com/premium_photo-1674718916340-2cb0f69e61ab?w=600&auto=format&fit=crop&q=60",
+              "https://images.unsplash.com/photo-1587614313085-5da51cebd8ac?w=600&auto=format&fit=crop&q=60",
+              "https://plus.unsplash.com/premium_photo-1720903984909-04be5b4cda06?w=600&auto=format&fit=crop&q=60",
+              "https://images.unsplash.com/photo-1656618724305-a4257e46e847?w=600&auto=format&fit=crop&q=60",
+              "https://images.unsplash.com/photo-1617777938240-9a1d8e51a47d?w=600&auto=format&fit=crop&q=60",
+              "https://plus.unsplash.com/premium_photo-1678566153919-86c4ba4216f1?w=600&auto=format&fit=crop&q=60"
+            ].map((url, i) => (
+              <div key={i} className="relative aspect-square rounded-2xl overflow-hidden shadow-lg border-2 border-white transform hover:scale-105 hover:z-10 transition-all duration-300">
+                <Image src={url} alt={`Design ${i + 1}`} fill className="object-cover" />
               </div>
-
-              <div className="space-y-6">
-                <h5 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">BEST MATCHES TODAY</h5>
-
-                {/* Job Card 1 */}
-                <div className="group bg-blue-50/50 p-6 rounded-3xl border border-blue-100 hover:bg-white hover:shadow-xl transition-all duration-300">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
-                        <div className="w-8 h-8 bg-blue-600 rounded-sm"></div>
-                      </div>
-                      <div>
-                        <h6 className="font-bold text-[#1e293b]">Frontend Developer</h6>
-                        <p className="text-sm text-gray-500 flex items-center gap-1">
-                          <span className="text-gray-900 font-bold">H&M</span> • New York, USA
-                        </p>
-                      </div>
-                    </div>
-                    <span className="text-xs text-gray-400 font-medium italic">2 hours ago</span>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-white text-[#0062ff] text-xs font-bold rounded-lg border border-blue-50 shadow-sm">Mid Level</span>
-                    <span className="px-3 py-1 bg-white text-green-600 text-xs font-bold rounded-lg border border-green-50 shadow-sm">100% Match</span>
-                    <span className="px-3 py-1 bg-white text-gray-600 text-xs font-bold rounded-lg border border-gray-50 shadow-sm">$150K - $200K</span>
-                  </div>
-                </div>
-
-                {/* Job Card 2 */}
-                <div className="group bg-gray-50/50 p-6 rounded-3xl border border-gray-100 hover:bg-white hover:shadow-xl transition-all duration-300">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
-                        <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-                          <div className="w-4 h-4 bg-white rounded-full"></div>
-                        </div>
-                      </div>
-                      <div>
-                        <h6 className="font-bold text-[#1e293b]">Senior Product Designer</h6>
-                        <p className="text-sm text-gray-500 flex items-center gap-1">
-                          <span className="text-gray-900 font-bold">Befog</span> • Lucknow, India
-                        </p>
-                      </div>
-                    </div>
-                    <span className="text-xs text-gray-400 font-medium italic">3 hours ago</span>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-white text-[#0062ff] text-xs font-bold rounded-lg border border-blue-50 shadow-sm">Senior Level</span>
-                    <span className="px-3 py-1 bg-white text-green-600 text-xs font-bold rounded-lg border border-green-50 shadow-sm">98% Match</span>
-                    <span className="px-3 py-1 bg-white text-gray-600 text-xs font-bold rounded-lg border border-gray-50 shadow-sm">$264K - $400K</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Floating Elements */}
-            <div className="absolute top-20 -left-10 bg-white/80 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/60 flex items-center space-x-3 animate-bounce-slow">
-              <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-[#0062ff]">
-                <MessageSquare className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-sm font-bold text-[#1e293b]">12 New Matches</div>
-                <p className="text-[10px] text-gray-500">Based on your Profile</p>
-              </div>
-            </div>
-
-            <div className="absolute bottom-40 -left-16 bg-white/80 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/60 flex items-center space-x-3 animate-bounce-slow" style={{ animationDelay: '1s' }}>
-              <div className="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center text-orange-500">
-                <Zap className="w-5 h-5 fill-orange-500" />
-              </div>
-              <div>
-                <div className="text-sm font-bold text-[#1e293b]">98% Match</div>
-                <p className="text-[10px] text-gray-500">Walmart - Product Designer</p>
-              </div>
-            </div>
-
-            <div className="absolute -bottom-4 right-10 bg-[#eef8f3] p-4 rounded-2xl shadow-xl border border-green-100 flex items-center space-x-3">
-              <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center text-white">
-                <DollarSign className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-sm font-bold text-[#1e293b]">$132K - $264K</div>
-                <p className="text-[10px] text-gray-500">Avg. matching salary</p>
-              </div>
-            </div>
+            ))}
           </div>
-
-          {/* Background Decorative Blobs */}
-          <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-blue-400/10 blur-[120px] rounded-full"></div>
-          <div className="absolute -z-10 -top-20 -right-20 w-64 h-64 bg-orange-400/5 blur-[80px] rounded-full"></div>
         </div>
+
+
       </div>
 
       <style jsx>{`

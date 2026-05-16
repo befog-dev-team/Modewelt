@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { LuPlus } from "react-icons/lu";
 import profileimg from "../../../../public/assets/profile/imgarticle.png";
-import axios from "axios";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
@@ -24,11 +23,15 @@ export default function EducationPage({ user, username, loggedinUserId }) {
     }, []);
 
     const fetchEducationData = async () => {
+
         setIsLoading(true);
+        setError(null);
         try {
-            const response = await axios.get(`/api/education/${username}`);
-            if (response.data.success) {
-                setEducationList(response.data.education);
+            const res = await fetch(`/api/education/${username}`);
+            if (!res.ok) throw new Error("Failed to fetch education data");
+            const data = await res.json();
+            if (data.success) {
+                setEducationList(data.education);
             }
         } catch (error) {
             console.error("Error fetching education data:", error);
@@ -81,21 +84,30 @@ export default function EducationPage({ user, username, loggedinUserId }) {
         }
 
         try {
-            let response;
+            let res;
             if (currentEducation?.id) {
                 // Update existing education
                 formData.append("educationId", currentEducation.id);
-                response = await axios.put("/api/education", formData);
+                res = await fetch("/api/education", {
+                    method: "PUT",
+                    body: formData,
+                });
             } else {
                 // Add new education only if limit is not exceeded
                 if (educationList.length >= MAX_EDUCATION_LIMIT) {
                     toast.error("You can only add up to 5 education entries.");
                     return;
                 }
-                response = await axios.post("/api/education", formData);
+                res = await fetch("/api/education", {
+                    method: "POST",
+                    body: formData,
+                });
             }
 
-            if (response.data.success) {
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Failed to save education");
+
+            if (data.success) {
                 fetchEducationData(); // Refresh data
                 setIsPopupOpen(false);
                 setCurrentEducation(null);
@@ -103,10 +115,13 @@ export default function EducationPage({ user, username, loggedinUserId }) {
             }
         } catch (error) {
             console.error("Error saving education:", error);
+            toast.error(error.message || "Error saving education");
         } finally {
             setIsSaving(false);
         }
     };
+
+
 
     const handleEditEducation = (education) => {
         setCurrentEducation({ ...education });
@@ -120,19 +135,26 @@ export default function EducationPage({ user, username, loggedinUserId }) {
         setIsSaving(true);
 
         try {
-            const response = await axios.delete("/api/education", {
-                data: { educationId }
+            const res = await fetch("/api/education", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ educationId }),
             });
 
-            if (response.data.success) {
+            if (!res.ok) throw new Error("Failed to delete education");
+            const data = await res.json();
+
+            if (data.success) {
                 setEducationList((prev) => prev.filter((edu) => edu.id !== educationId));
             }
         } catch (error) {
             console.error("Error deleting education:", error);
+            toast.error("Error deleting education");
         } finally {
             setIsSaving(false);
         }
     };
+
 
      // **Cancel Button Functionality**
      const handleCancel = () => {

@@ -5,6 +5,30 @@ import ReactQueryProvider from "./ReactQueryProvider";
 import { Toaster } from "react-hot-toast";
 import Script from "next/script";
 
+if (typeof Promise.withResolvers === "undefined") {
+  if (typeof window !== "undefined") {
+    // @ts-expect-error polyfill
+    window.Promise.withResolvers = function () {
+      let resolve, reject;
+      const promise = new Promise((res, rej) => {
+        resolve = res;
+        reject = rej;
+      });
+      return { promise, resolve, reject };
+    };
+  } else {
+    // @ts-expect-error polyfill
+    global.Promise.withResolvers = function () {
+      let resolve, reject;
+      const promise = new Promise((res, rej) => {
+        resolve = res;
+        reject = rej;
+      });
+      return { promise, resolve, reject };
+    };
+  }
+}
+
 // Uploadthing
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";

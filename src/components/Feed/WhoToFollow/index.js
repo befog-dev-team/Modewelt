@@ -27,6 +27,7 @@ export default async function WhoToFollow() {
             },
         },
         select: getUserDataSelect(user.id), // Pass the user-specific selection logic here
+        take: 5,
     });
 
     return (
@@ -38,33 +39,33 @@ export default async function WhoToFollow() {
             <hr className="border-t border-[#F4F4F4] mt-4" />
 
             {/* Users to follow */}
-            <div className="h-[250px] mt-2 overflow-y-auto no-scrollbar">
+            <div className="mt-4 flex flex-col gap-6">
                 {usersToFollow.map((user) => (
-                    <div key={user.id} className="flex items-center space-x-3 my-6">
+                    <div key={user.id} className="flex items-center justify-between w-full">
                         <Link
                             href={`/profile/${user.username}`}
-                            className="flex items-center gap-3"
+                            className="flex items-center gap-3 flex-1 min-w-0"
                             prefetch={true}
                         >
-                            <UserAvatar avatarUrl={user.avatarUrl} size={500} className="w-[52px] h-[52px]" />
-                            <div>
-                                <div className="flex flex-col">
-                                    <p className="font-semibold font-[Gotham] text-[14px] text-[#181818] leading-[17.5px] w-[132px] line-clamp-1 break-all hover:underline">{user.displayName}</p>
-                                    <span className="font-[Gotham] text-[10px] leading-[15px]">{user.profileHeadline}</span>
-                                </div>
+                            <UserAvatar avatarUrl={user.avatarUrl} size={500} className="w-[52px] h-[52px] flex-shrink-0" />
+                            <div className="flex flex-col flex-1 min-w-0">
+                                <p className="font-semibold font-[Gotham] text-[14px] text-[#181818] leading-[17.5px] truncate hover:underline">{user.displayName}</p>
+                                <span className="font-[Gotham] text-[10px] leading-[15px] truncate text-gray-500">{user.profileHeadline}</span>
                             </div>
                         </Link>
-                        {user.id !== loggedInUser.id && ( // If the user is not the authenticated user show the follow button
-                            <FollowButton
-                                userId={user.id}
-                                initialState={{
-                                    followers: user._count.followers,
-                                    following: user._count.following,
-                                    hasPendingRequest: false,
-                                    isFollowedByUser: false,
-                                }}
-                            />
-                        )}
+                        <div className="flex-shrink-0 ml-2">
+                            {user.id !== loggedInUser.id && ( // If the user is not the authenticated user show the follow button
+                                <FollowButton
+                                    userId={user.id}
+                                    initialState={{
+                                        followers: user._count.followers,
+                                        following: user._count.following,
+                                        hasPendingRequest: false,
+                                        isFollowedByUser: false,
+                                    }}
+                                />
+                            )}
+                        </div>
                     </div>
                 ))}
             </div>

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 export default function HeroSection() {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
   const router = useRouter();
 
   const navLinks = [
@@ -148,45 +149,45 @@ export default function HeroSection() {
             Register Now
           </Link>
 
-          {/* Stats Row */}
-          <div className="flex flex-wrap items-center gap-8 pt-4">
-            <div className="space-y-0.5">
-              <div className="text-2xl font-black text-[#1e293b]">2.1M+</div>
-              <div className="text-gray-400 font-medium text-xs uppercase tracking-wide">Jobs Posted</div>
-            </div>
-            <div className="h-8 w-px bg-gray-200 hidden md:block"></div>
-            <div className="space-y-0.5">
-              <div className="text-2xl font-black text-[#1e293b]">98%</div>
-              <div className="text-gray-400 font-medium text-xs uppercase tracking-wide">Match Accuracy</div>
-            </div>
-            <div className="h-8 w-px bg-gray-200 hidden md:block"></div>
-            <div className="flex items-center space-x-2 bg-white px-3 py-2 rounded-xl shadow-sm border border-gray-100">
-              <div className="w-7 h-7 bg-blue-100 rounded-full flex items-center justify-center text-[#0062ff]">
-                <CheckCircle className="w-4 h-4" />
-              </div>
-              <span className="text-[#1e293b] font-bold text-sm">Verified Recruiters</span>
-            </div>
-          </div>
         </div>
 
         {/* Right Side: Simple 3x3 Frame - Scaled & Aligned */}
         <div className="w-full lg:w-1/2 mt-16 lg:mt-2 flex justify-center items-start lg:pl-10">
-          <div className="grid grid-cols-3 gap-3 w-full max-w-[440px]">
-            {[
-              "https://plus.unsplash.com/premium_photo-1683141084792-510897cbca07?w=600&auto=format&fit=crop&q=60",
-              "https://images.unsplash.com/photo-1653976499578-2d494b63c7be?w=600&auto=format&fit=crop&q=60",
-              "https://images.unsplash.com/photo-1476357471311-43c0db9fb2b4?w=600&auto=format&fit=crop&q=60",
-              "https://plus.unsplash.com/premium_photo-1674718916340-2cb0f69e61ab?w=600&auto=format&fit=crop&q=60",
-              "https://images.unsplash.com/photo-1587614313085-5da51cebd8ac?w=600&auto=format&fit=crop&q=60",
-              "https://plus.unsplash.com/premium_photo-1720903984909-04be5b4cda06?w=600&auto=format&fit=crop&q=60",
-              "https://images.unsplash.com/photo-1656618724305-a4257e46e847?w=600&auto=format&fit=crop&q=60",
-              "https://images.unsplash.com/photo-1617777938240-9a1d8e51a47d?w=600&auto=format&fit=crop&q=60",
-              "https://plus.unsplash.com/premium_photo-1678566153919-86c4ba4216f1?w=600&auto=format&fit=crop&q=60"
-            ].map((url, i) => (
-              <div key={i} className="relative aspect-square rounded-2xl overflow-hidden shadow-lg border-2 border-white transform hover:scale-105 hover:z-10 transition-all duration-300">
-                <Image src={url} alt={`Design ${i + 1}`} fill className="object-cover" />
+          <div className="relative w-full max-w-[440px]">
+            <div className="grid grid-cols-3 gap-3 w-full">
+              {[
+                "https://plus.unsplash.com/premium_photo-1683141084792-510897cbca07?w=600&auto=format&fit=crop&q=60",
+                "https://images.unsplash.com/photo-1653976499578-2d494b63c7be?w=600&auto=format&fit=crop&q=60",
+                "https://images.unsplash.com/photo-1476357471311-43c0db9fb2b4?w=600&auto=format&fit=crop&q=60",
+                "https://plus.unsplash.com/premium_photo-1674718916340-2cb0f69e61ab?w=600&auto=format&fit=crop&q=60",
+                "https://images.unsplash.com/photo-1587614313085-5da51cebd8ac?w=600&auto=format&fit=crop&q=60",
+                "https://plus.unsplash.com/premium_photo-1720903984909-04be5b4cda06?w=600&auto=format&fit=crop&q=60",
+                "https://images.unsplash.com/photo-1656618724305-a4257e46e847?w=600&auto=format&fit=crop&q=60",
+                "https://plus.unsplash.com/premium_photo-1661281204316-dddcfca37f75?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTUzfHxncmFwaGljJTIwZGVzaWdufGVufDB8fDB8fHww",
+                "https://plus.unsplash.com/premium_photo-1678566153919-86c4ba4216f1?w=600&auto=format&fit=crop&q=60"
+              ].map((url, i) => (
+                <div 
+                  key={i} 
+                  onClick={() => setSelectedImage(url)}
+                  className="relative aspect-square rounded-2xl overflow-hidden shadow-lg border-2 border-white transform hover:scale-105 hover:z-10 transition-all duration-300 cursor-pointer"
+                >
+                  <Image src={url} alt={`Design ${i + 1}`} fill className="object-cover" />
+                </div>
+              ))}
+            </div>
+
+            {/* Expanded Image Overlay */}
+            {selectedImage && (
+              <div className="absolute inset-0 z-20 bg-white rounded-2xl overflow-hidden shadow-2xl border-2 border-white transition-all duration-300 animate-in fade-in zoom-in-95 duration-200">
+                <Image src={selectedImage} alt="Expanded Design" fill className="object-cover" />
+                <button 
+                  onClick={() => setSelectedImage(null)}
+                  className="absolute top-3 right-3 bg-black/60 hover:bg-black text-white p-2 rounded-full transition-colors duration-200"
+                >
+                  <X size={18} />
+                </button>
               </div>
-            ))}
+            )}
           </div>
         </div>
 

@@ -28,7 +28,7 @@ export default async function Page() {
     <div className="relative flex flex-col min-h-screen">
       {/* Background Image */}
       <div
-        className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
+        className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10 opacity-[0.25]"
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzA4fHxwcmludGVkJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D')" }}
       ></div>
       {/* Overlay for readability */}
@@ -45,7 +45,7 @@ export default async function Page() {
         </div>
 
         {/* Right Section */}
-        <div className="w-full lg:w-[290px] hidden lg:block">
+        <div className="w-full lg:w-[290px] space-y-6">
           <Suspense fallback={<div className="h-64 animate-pulse bg-white mb-4" />}>
             {/* Profile Section */}
             <ProfileSection />

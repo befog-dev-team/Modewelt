@@ -449,7 +449,7 @@ function Page() {
           </div>
 
           {/* Other content area */}
-          <div className="w-full lg:w-[290px] hidden lg:block">
+          <div className="w-full lg:w-[290px] space-y-6">
             <div className="">
               <div className="h-[360px] shadow-lg">
                 <div className="flex justify-between max-w-[230px] w-full ml-5">

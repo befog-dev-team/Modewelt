@@ -35,7 +35,7 @@ export default function UserProfileWrappper({ username, user, loggedinUserId, to
                     </div>
 
                     {/* Sidebar Area */}
-                    <div className="w-full lg:w-[290px] hidden lg:block">
+                    <div className="w-full lg:w-[290px] space-y-6">
                         {/* ProfileDashboard Section */}
                         <ProfileDashboard
                             user={user}

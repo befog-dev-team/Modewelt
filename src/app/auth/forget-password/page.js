@@ -27,8 +27,13 @@ export default function ResetForm() {
     };
 
     return (
-        <div className="h-screen bg-[#dcf59d] flex justify-center items-center">
-            <div className="max-w-md w-full bg-[#dcf59d] p-8 rounded-2xl shadow-lg border border-gray-200 relative">
+        <div
+            className="h-screen flex justify-center items-center bg-cover bg-center bg-no-repeat relative"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1560780552-ba54683cb263?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGlnaHQlMjBncmV5JTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D')" }}
+        >
+            <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px]"></div>
+
+            <div className="max-w-md w-full bg-[#ffffff] p-8 rounded-2xl shadow-lg border border-gray-200 relative z-10">
                 {/* Error message at the top */}
                 {error && (
                     <div className="bg-red-100 text-center text-red-600 p-3 rounded-md text-sm font-medium mb-4">

@@ -128,7 +128,7 @@ const Auth = () => {
 
       {/* AUTH CONTAINER */}
       <div
-        className={`auth-container relative z-10 h-[524px] w-[957px] border-gray-800 border flex bg-[#0a0a0a] shadow-2xl rounded-2xl max-w-4xl ${active ? "active" : ""}`}
+        className={`auth-container relative z-10 h-[524px] w-[957px] border-gray-200 border flex bg-[#ffffff] shadow-2xl rounded-2xl max-w-4xl ${active ? "active" : ""}`}
       >
         <div className="curved-shape1"></div>
         <div className="curved-shape2"></div>
@@ -137,19 +137,19 @@ const Auth = () => {
         <div
           className={`form-box Login w-full px-8 py-10 md:px-12 absolute transition-all duration-500 ${active ? "opacity-0 -z-10 pointer-events-none" : "opacity-100 z-20 pointer-events-auto"}`}
         >
-          <div className="flex flex-col items-center mb-8">
+          <div className="flex flex-col items-center mb-6">
             {/* Logo Placeholder */}
-            <div className="w-14 h-14 bg-gradient-to-br from-[#fc3fb4] to-[#9466FF] rounded-2xl mb-4 shadow-xl flex items-center justify-center transform rotate-12">
-              <span className="text-white font-black text-2xl -rotate-12">MW</span>
+            <div className="w-12 h-12 bg-gradient-to-br from-[#fc3fb4] to-[#9466FF] rounded-2xl mb-2 shadow-xl flex items-center justify-center transform rotate-12">
+              <span className="text-white font-black text-xl transform -rotate-12 inline-block">MW</span>
             </div>
-            <h2 className="text-3xl font-bold text-white tracking-tight">Welcome</h2>
+            <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Welcome</h2>
           </div>
 
           {/* Social Login */}
-          <div className="mb-6">
+          <div className="mb-4">
             <button
               type="button"
-              className="w-full h-14 bg-[#1a1a1a] hover:bg-[#252525] border border-gray-800 rounded-xl flex items-center justify-center gap-3 text-gray-200 font-medium transition-all duration-300"
+              className="w-full h-12 bg-[#ffffff] hover:bg-gray-50 border border-gray-200 rounded-xl flex items-center justify-center gap-3 text-gray-800 font-medium transition-all duration-300"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path
@@ -173,20 +173,20 @@ const Auth = () => {
             </button>
           </div>
 
-          <div className="flex items-center gap-4 mb-6">
-            <div className="h-[1px] flex-1 bg-gray-800"></div>
+          <div className="flex items-center gap-4 mb-4">
+            <div className="h-[1px] flex-1 bg-gray-300"></div>
             <span className="text-gray-500 text-xs font-bold uppercase tracking-widest">or email</span>
-            <div className="h-[1px] flex-1 bg-gray-800"></div>
+            <div className="h-[1px] flex-1 bg-gray-300"></div>
           </div>
 
-          <form onSubmit={handleLoginSubmit(handleLogin)} className="space-y-4">
+          <form onSubmit={handleLoginSubmit(handleLogin)} className="space-y-3">
             <div className="relative group">
               <input
                 type="text"
                 {...loginRegister("email")}
                 placeholder="Email address"
                 required
-                className="w-full h-14 bg-[#0f0f0f] border border-gray-800 rounded-xl px-4 text-white placeholder-gray-600 focus:border-[#9466FF] focus:ring-1 focus:ring-[#9466FF] transition-all outline-none"
+                className="w-full h-12 bg-white border border-gray-300 rounded-xl px-4 text-gray-900 placeholder-gray-500 focus:border-[#9466FF] focus:ring-1 focus:ring-[#9466FF] transition-all outline-none"
               />
             </div>
             <div className="relative group">
@@ -195,9 +195,9 @@ const Auth = () => {
                 {...loginRegister("password")}
                 placeholder="Password"
                 required
-                className="w-full h-14 bg-[#0f0f0f] border border-gray-800 rounded-xl px-4 pr-12 text-white placeholder-gray-600 focus:border-[#9466FF] focus:ring-1 focus:ring-[#9466FF] transition-all outline-none"
+                className="w-full h-12 bg-white border border-gray-300 rounded-xl px-4 pr-12 text-gray-900 placeholder-gray-500 focus:border-[#9466FF] focus:ring-1 focus:ring-[#9466FF] transition-all outline-none"
               />
-              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-300" onClick={togglePassword}>
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700" onClick={togglePassword}>
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </span>
             </div>
@@ -205,7 +205,7 @@ const Auth = () => {
             <button
               type="submit"
               disabled={isLoginSubmitting}
-              className="w-full h-14 bg-[#9466FF] hover:bg-[#8354f5] text-white font-bold rounded-xl shadow-lg shadow-purple-500/20 transition-all duration-300 flex items-center justify-center transform active:scale-[0.98]"
+              className="w-full h-12 bg-[#9466FF] hover:bg-[#8354f5] text-white font-bold rounded-xl shadow-lg shadow-purple-500/20 transition-all duration-300 flex items-center justify-center transform active:scale-[0.98]"
             >
               {pending ? (
                 <Loader2 className="animate-spin" />
@@ -214,15 +214,15 @@ const Auth = () => {
               )}
             </button>
 
-            <div className="flex flex-col items-center gap-3 pt-4">
+            <div className="flex flex-col items-center gap-2 pt-2">
               <button
                 type="button"
-                className="text-gray-400 hover:text-white text-sm transition-colors"
+                className="w-full h-12 bg-white border border-gray-300 hover:bg-gray-50 text-gray-900 font-medium rounded-xl shadow-sm transition-all duration-300 flex items-center justify-center transform active:scale-[0.98]"
                 onClick={() => setActive(true)}
               >
                 Create account
               </button>
-              <Link href="/auth/forget-password" prefetch={true} className="text-gray-500 hover:text-gray-300 text-xs transition-colors">
+              <Link href="/auth/forget-password" prefetch={true} className="text-gray-500 hover:text-gray-800 font-medium text-sm transition-colors mt-1">
                 Reset password
               </Link>
             </div>
@@ -246,22 +246,16 @@ const Auth = () => {
         <div
           className={`form-box Register w-full md:w-full absolute transition-all duration-500 ${active ? "opacity-100 z-20 pointer-events-auto" : "opacity-0 -z-10 pointer-events-none"}`}
         >
-          <div className="relative">
-            <h2
-              className="animation text-center text-[2.5rem] font-[800] text-[#fc3fb4] uppercase"
-              style={{ "--li": 17, "--S": 0 }}
-            >
-              Sign Up
-            </h2>
-            {/* Signup heading underline */}
-            <div
-              className="animation h-[0.4rem] w-[6rem] top-[3.5rem] rounded-[10px] left-[8.5rem] bg-[#fc3fb4] absolute"
-              style={{ "--li": 18, "--S": 1 }}
-            ></div>
+          <div className="flex flex-col items-center mb-6">
+            {/* Logo Placeholder */}
+            <div className="w-12 h-12 bg-gradient-to-br from-[#fc3fb4] to-[#9466FF] rounded-2xl mb-2 shadow-xl flex items-center justify-center transform rotate-12">
+              <span className="text-white font-black text-xl transform -rotate-12 inline-block">MW</span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Sign up</h2>
           </div>
           <form onSubmit={handleSignupSubmit(handleSignup)}>
             <div
-              className="input-box animation"
+              className="input-box animation !h-[45px] !mt-3"
               style={{ "--li": 19, "--S": 2 }}
             >
               <input type="text" {...signupRegister("username")} required />
@@ -269,7 +263,7 @@ const Auth = () => {
               <i className="bx bxs-user-rectangle"></i>
             </div>
             <div
-              className="input-box animation"
+              className="input-box animation !h-[45px] !mt-3"
               style={{ "--li": 20, "--S": 3 }}
             >
               <input type="email" {...signupRegister("email")} required />
@@ -277,7 +271,7 @@ const Auth = () => {
               <i className="bx bxs-envelope"></i>
             </div>
             <div
-              className="input-box animation"
+              className="input-box animation !h-[45px] !mt-3"
               style={{ "--li": 21, "--S": 4 }}
             >
               <input type="text" {...signupRegister("phone")} required />
@@ -285,7 +279,7 @@ const Auth = () => {
               <i className="bx bxs-phone"></i>
             </div>
             <div
-              className="input-box animation"
+              className="input-box animation !h-[45px] !mt-3"
               style={{ "--li": 22, "--S": 5 }}
             >
               <input
@@ -300,7 +294,7 @@ const Auth = () => {
               {/* <i className="bx bxs-lock-alt"></i> */}
             </div>
             <div
-              className="input-box animation"
+              className="input-box animation !h-[45px] !mt-3"
               style={{ "--li": 23, "--S": 6 }}
             >
               <input
@@ -318,16 +312,16 @@ const Auth = () => {
             </div>
 
             <div
-              className="input-box animation"
+              className="input-box animation !h-[45px] !mt-4"
               style={{ "--li": 24, "--S": 7 }}
             >
               <button
                 type="submit"
                 disabled={isSignupSubmitting}
                 className={`uppercase w-full ${pending
-                  ? "bg-[#fc3fb4] hover:bg-[#fc3fb4] cursor-not-allowed"
-                  : "bg-[#fc3fb4] hover:bg-[#fc3fb4"
-                  } text-white py-3 px-4 rounded-full transition duration-300`}
+                  ? "bg-[#9466FF] hover:bg-[#9466FF] cursor-not-allowed"
+                  : "bg-[#9466FF] hover:bg-[#8354f5]"
+                  } text-white py-2 px-4 rounded-full transition duration-300`}
               >
                 {pending ? (
                   <Loader2 className="mx-auto animate-spin" />
@@ -339,7 +333,7 @@ const Auth = () => {
 
             {/* Registration link */}
             <div
-              className="regi-link animation mt-6 text-center text-sm text-gray-600 uppercase"
+              className="regi-link animation mt-4 text-center text-sm text-gray-600 uppercase"
               style={{ "--li": 25, "--S": 8 }}
             >
               <p>

@@ -86,7 +86,7 @@ export default async function Layout({
             </Head>
             <NProgressLoader /> {/* Include the NProgressLoader here */}
             <Navbar />
-            <main className="pt-16">
+            <main className="pt-16 pb-20 lg:pb-0">
                 {children}
             </main>
             {/* <Suspense fallback={<div>Loading Footer...</div>}>

@@ -58,7 +58,7 @@ export default function Network() {
         <div className="relative min-h-screen">
             {/* Background Image */}
             <div 
-                className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
+                className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10 opacity-[0.25]"
                 style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?q=80&w=2000&auto=format&fit=crop')" }}
             ></div>
             {/* Overlay for readability */}
@@ -84,17 +84,17 @@ export default function Network() {
                         <div className="bg-white p-6 rounded-lg shadow-sm">
                             <h2 className="text-xl font-semibold mb-4">Account Settings</h2>
                             <div className="border-t border-gray-200 pt-6">
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center space-x-4">
-                                        <AlertTriangle className="w-6 h-6 text-red-500" />
-                                        <div>
+                                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                                    <div className="flex items-start sm:items-center space-x-4 w-full">
+                                        <AlertTriangle className="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5 sm:mt-0" />
+                                        <div className="flex-1">
                                             <h3 className="text-lg font-medium">Delete Account</h3>
                                             <p className="text-sm text-gray-500">
                                                 This action is irreversible. All your data will be permanently deleted.
                                             </p>
                                         </div>
                                     </div>
-                                    <Button variant="destructive" onClick={() => setOpen(true)}>
+                                    <Button variant="destructive" className="w-full sm:w-auto flex-shrink-0" onClick={() => setOpen(true)}>
                                         Delete Account
                                     </Button>
                                 </div>

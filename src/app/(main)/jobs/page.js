@@ -26,7 +26,7 @@ export default function Jobs() {
     <div className="relative flex flex-col min-h-screen">
       {/* Background Image */}
       <div
-        className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
+        className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10 opacity-[0.25]"
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?q=80&w=2000&auto=format&fit=crop')" }}
       ></div>
       {/* Overlay for readability */}
@@ -49,7 +49,7 @@ export default function Jobs() {
         </div>
 
         {/* Right Section */}
-        <div className="w-full lg:w-[290px] hidden lg:block">
+        <div className="w-full lg:w-[290px] space-y-4">
           {/* Post Job Section */}
           {/* <PostJobSection /> */}
 

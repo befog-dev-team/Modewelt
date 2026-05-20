@@ -41,9 +41,9 @@ export default function LandingPage() {
       <div className="relative overflow-hidden">
         {/* Unified Background for Hero and ScrollingText */}
         <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 z-0"
           style={{
-            backgroundImage: "url('https://plus.unsplash.com/premium_photo-1666266623828-6513752e6655?w=1200&auto=format&fit=crop&q=80')"
+            backgroundColor: "#F2EEED"
           }}
         />
         <div className="absolute inset-0 z-0 bg-white/30" />

@@ -51,63 +51,65 @@ function Navbar({ unreadNotificationCount }) {
   const adminNavItem = { href: "/admin", icon: RiAdminLine, label: "Admin" };
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[100] bg-white/80 dark:bg-gray-900/80 backdrop-blur-md w-full h-16 flex flex-col lg:flex-row items-center text-sm text-gray-600 shadow-sm border-b border-gray-200/50 dark:border-gray-800/50 transition-all duration-300">
-      <div className="container mx-auto flex items-center px-2 lg:px-6">
-        <Link href="/feed" className="flex flex-col items-center" prefetch={true}>
-          <Image src={logo} alt="Company Logo" className="h-10 w-10 lg:mx-10 sm:mx-1" />
-        </Link>
+    <>
+      <div className="fixed top-0 left-0 right-0 z-[100] bg-white/80 dark:bg-gray-900/80 backdrop-blur-md w-full h-16 flex items-center text-sm text-gray-600 shadow-sm border-b border-gray-200/50 dark:border-gray-800/50 transition-all duration-300">
+        <div className="container mx-auto flex items-center justify-between px-2 lg:px-6 w-full">
+          <Link href="/feed" className="flex flex-col items-center flex-shrink-0" prefetch={true}>
+            <Image src={logo} alt="Company Logo" className="h-8 w-8 lg:h-10 lg:w-10 lg:mx-10 flex-shrink-0" />
+          </Link>
 
-        {/* Desktop View */}
-        <div className="hidden lg:flex flex-grow items-center space-x-6">
-          {navItems.map(({ href, icon: Icon, label }) => (
-            <Link key={href} href={href} className="flex flex-col items-center relative" prefetch={true}>
-              <Icon className={`h-6 w-6 ${pathname === href ? "text-[#fc3fb4]" : "text-gray-600 dark:text-gray-300"}`} />
-              <span className="text-xs">{label}</span>
-              {pathname === href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />}
+          {/* Desktop View */}
+          <div className="hidden lg:flex flex-grow items-center space-x-6">
+            {navItems.map(({ href, icon: Icon, label }) => (
+              <Link key={href} href={href} className="flex flex-col items-center relative" prefetch={true}>
+                <Icon className={`h-6 w-6 ${pathname === href ? "text-[#fc3fb4]" : "text-gray-600 dark:text-gray-300"}`} />
+                <span className="text-xs">{label}</span>
+                {pathname === href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />}
+              </Link>
+            ))}
+
+            <Link
+              href="/notifications"
+              className={`flex flex-col items-center relative text-gray-600`}
+              prefetch={true}
+            >
+              <NotificationsButton initialState={{ unreadCount: unreadNotificationCount }} />
+              <span className="text-xs">Notifications</span>
+              {pathname === "/notifications" && (
+                <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />
+              )}
             </Link>
-          ))}
 
-          <Link
-            href="/notifications"
-            className={`flex flex-col items-center relative text-gray-600`}
-            prefetch={true}
-          >
-            <NotificationsButton initialState={{ unreadCount: unreadNotificationCount }} />
-            <span className="text-xs">Notifications</span>
-            {pathname === "/notifications" && (
-              <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />
+            {user.role === "ADMIN" && (
+              <Link href={adminNavItem.href} className="flex flex-col items-center relative" prefetch={true}>
+                <adminNavItem.icon className={`h-6 w-6  text-gray-600`} />
+                <span className="text-xs">{adminNavItem.label}</span>
+                {pathname === adminNavItem.href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />}
+              </Link>
             )}
-          </Link>
+          </div>
 
-          {user.role === "ADMIN" && (
-            <Link href={adminNavItem.href} className="flex flex-col items-center relative" prefetch={true}>
-              <adminNavItem.icon className={`h-6 w-6  text-gray-600`} />
-              <span className="text-xs">{adminNavItem.label}</span>
-              {pathname === adminNavItem.href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />}
+          <div className="flex-1 max-w-[240px] sm:max-w-xs md:max-w-md mx-1 sm:mx-2 lg:mx-4 flex items-center relative min-w-0">
+            <SearchField />
+          </div>
+
+          <div className="flex items-center space-x-1 sm:space-x-2 lg:space-x-4 flex-shrink-0">
+            <Link href={`/profile/${user.username}`} className="flex items-center space-x-2 flex-shrink-0" prefetch={true}>
+              <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full overflow-hidden flex-shrink-0">
+                <UserAvatar avatarUrl={user.avatarUrl} size={500} />
+              </div>
+              <div className="hidden md:block">
+                <h3 className="text-sm font-semibold">{user.displayName}</h3>
+                <p className="text-xs text-gray-500">{user.totalProfileViews} views</p>
+              </div>
             </Link>
-          )}
-        </div>
 
-        <div className="flex flex-grow items-center relative mx-4">
-          <SearchField />
-        </div>
-
-        <div className="flex items-center space-x-4">
-          <Link href={`/profile/${user.username}`} className="flex items-center space-x-2" prefetch={true}>
-            <div className="w-[3rem] h-[3rem] rounded-full overflow-hidden">
-              <UserAvatar avatarUrl={user.avatarUrl} size={500} />
-            </div>
-            <div className="hidden md:block">
-              <h3 className="text-sm font-semibold">{user.displayName}</h3>
-              <p className="text-xs text-gray-500">{user.totalProfileViews} views</p>
-            </div>
-          </Link>
-
-          <button className="flex flex-col items-center text-sm text-gray-600 dark:text-gray-300 hover:text-[#fc3fb4]" onClick={toggleModal}>
-            <FaEllipsisH className="text-2xl" />
-            <span className="hidden md:block">More</span>
-          </button>
-          <OtherModal isModalOpen={isModalOpen} closeModal={closeModal} />
+            <button className="flex flex-col items-center text-sm text-gray-600 dark:text-gray-300 hover:text-[#fc3fb4] flex-shrink-0" onClick={toggleModal}>
+              <FaEllipsisH className="text-xl lg:text-2xl" />
+              <span className="hidden md:block">More</span>
+            </button>
+            <OtherModal isModalOpen={isModalOpen} closeModal={closeModal} />
+          </div>
         </div>
       </div>
 
@@ -140,10 +142,8 @@ function Navbar({ unreadNotificationCount }) {
             {pathname === adminNavItem.href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />}
           </Link>
         )}
-
-
       </div>
-    </div>
+    </>
   );
 }
 

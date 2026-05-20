@@ -10,10 +10,10 @@ export default function FooterSection() {
       <div className="relative flex flex-col items-center justify-center p-6 py-16 overflow-hidden">
         {/* Background Image */}
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.3]"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1712264246749-a9be728ea874?q=80&w=2000&auto=format&fit=crop')" }}
         ></div>
-        <div className="absolute inset-0 bg-white/90 backdrop-blur-[2px]"></div>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px]"></div>
 
         <div className="relative z-10 w-full flex flex-col items-center">
           <div className="max-w-[1192px] w-full my-8 border-t border-[#fc3fb4] p-[4px]" />

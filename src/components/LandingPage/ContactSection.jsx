@@ -4,11 +4,11 @@ import { Mail, Phone, MapPin } from "lucide-react";
 export default function ContactSection() {
   return (
     <section id="contact" className="relative py-32 min-h-[80vh] flex items-center overflow-hidden">
-      {/* Background Image */}
+      {/* Background Image
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1746292184556-04b7eaefe97d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGVtYWlsJTIwYW5kJTIwY2FsbHxlbnwwfHwwfHx8MA%3D%3D')" }}
-      ></div>
+      ></div> */}
       {/* Overlay for readability */}
       <div className="absolute inset-0 bg-white/50 backdrop-blur-[3px]"></div>
 

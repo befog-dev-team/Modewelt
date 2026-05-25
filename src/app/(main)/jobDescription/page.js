@@ -127,7 +127,7 @@ export default function JobDescriptionForm() {
     }
 
     return (
-        <div className="bg-[#dcf59d] min-h-screen">
+        <div className="bg-[#F9F6EE] min-h-screen">
             <Navbar />
             <div className="max-w-3xl mx-auto p-6 space-y-6">
                 {/* Job Details Section */}

@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
-import toast  from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useSubmitJobMutation } from "./mutation";
 
 // Currency options based on country
@@ -81,6 +81,8 @@ export default function JobSettingsForm() {
             { field: formData.description, message: "Please enter a job description" },
             { field: formData.requirements, message: "Please enter job requirements" },
             { field: formData.benefits, message: "Please enter job benefits" },
+            { field: formData.salaryCountry, message: "Please select a country" },
+            { field: formData.salaryAmount, message: "Please enter a salary amount" },
         ];
 
         for (const { field, message } of requiredFields) {
@@ -118,17 +120,17 @@ export default function JobSettingsForm() {
     };
 
     return (
-        <div className="bg-[#dcf59d]">
+        <div className="bg-[#F9F6EE]">
             <div className="mb-8">
                 <Navbar />
             </div>
             <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-xl">
-                <h2 className="text-xl font-semibold mb-4">Confirm Job Settings</h2>
+                <h2 className="text-xl font-bold mb-4 text-center">Confirm Job Settings</h2>
                 <div className="space-y-4">
-                    {/* Salary Section */}
-                    <h3 className="text-lg font-semibold">Salary</h3>
-                    <label className="block font-medium">Country</label>
+
+                    <label htmlFor="salaryCountry" className="block font-medium cursor-pointer">Country</label>
                     <select
+                        id="salaryCountry"
                         className="w-full p-2 border rounded-md"
                         value={formData.salaryCountry}
                         onChange={handleCountryChange}
@@ -141,30 +143,33 @@ export default function JobSettingsForm() {
 
                     <div className="flex gap-4">
                         <div className="w-1/2">
-                            <label className="block font-medium">Currency</label>
+                            <label htmlFor="salaryCurrency" className="block font-medium">Currency</label>
                             <input
+                                id="salaryCurrency"
                                 type="text"
-                                className="w-full p-2 border rounded-md"
+                                className="w-full p-2 border rounded-md bg-gray-50"
                                 value={formData.salaryCurrency}
-                                disabled={true} 
+                                disabled={true}
                             />
                         </div>
                         <div className="w-1/2">
-                            <label className="block font-medium">Amount</label>
+                            <label htmlFor="salaryAmount" className="block font-medium cursor-pointer">Amount</label>
                             <input
+                                id="salaryAmount"
                                 type="number"
                                 className="w-full p-2 border rounded-md"
                                 value={formData.salaryAmount}
-                                onChange={(e) => setFormData({ ...formData, salaryAmount: e.target.value })}
+                                onChange={(e) => setFormData(prev => ({ ...prev, salaryAmount: e.target.value }))}
                             />
                         </div>
                     </div>
 
-                    <label className="block font-medium">Salary Type</label>
+                    <label htmlFor="salaryType" className="block font-medium cursor-pointer">Salary Type</label>
                     <select
+                        id="salaryType"
                         className="w-full p-2 border rounded-md"
                         value={formData.salaryType}
-                        onChange={(e) => setFormData({ ...formData, salaryType: e.target.value })}
+                        onChange={(e) => setFormData(prev => ({ ...prev, salaryType: e.target.value }))}
                     >
                         <option value="yearly">Yearly</option>
                         <option value="monthly">Monthly</option>
@@ -172,19 +177,21 @@ export default function JobSettingsForm() {
 
                     {/* Job Overview */}
                     <h3 className="text-lg font-semibold mt-6">Job Overview</h3>
-                    <label className="block font-medium">Job Expiration Date</label>
+                    <label htmlFor="expirationDate" className="block font-medium cursor-pointer">Job Expiry Date</label>
                     <input
+                        id="expirationDate"
                         type="date"
                         className="w-full p-2 border rounded-md"
                         value={formData.expirationDate}
-                        onChange={(e) => setFormData({ ...formData, expirationDate: e.target.value })}
+                        onChange={(e) => setFormData(prev => ({ ...prev, expirationDate: e.target.value }))}
                     />
 
-                    <label className="block font-medium">Job Level</label>
+                    <label htmlFor="jobLevel" className="block font-medium cursor-pointer">Job Level</label>
                     <select
+                        id="jobLevel"
                         className="w-full p-2 border rounded-md"
                         value={formData.jobLevel}
-                        onChange={(e) => setFormData({ ...formData, jobLevel: e.target.value })}
+                        onChange={(e) => setFormData(prev => ({ ...prev, jobLevel: e.target.value }))}
                     >
                         <option value="Beginner">Beginner</option>
                         <option value="Intermediate">Intermediate</option>
@@ -193,8 +200,7 @@ export default function JobSettingsForm() {
                 </div>
 
                 {/* Navigation Buttons */}
-                <div className="mt-6 flex justify-between">
-                    <button className="text-[#fc3fb4]"></button>
+                <div className="mt-6 flex justify-end">
                     <div>
                         <button onClick={() => router.back()} className="mr-2 px-4 py-2 border rounded-md">
                             Back

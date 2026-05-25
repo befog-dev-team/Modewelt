@@ -2,12 +2,7 @@ import { validateRequest } from "@/auth"; // Import the validateRequest function
 import { redirect } from "next/navigation"; // Import the redirect function
 import SessionProvider from "./SessionProvider"; // Import the SessionProvider component
 import NProgressLoader from "@/components/NProgressLoader"; // Import the NProgressLoader component
-import Head from "next/head";
-import 'stream-chat-react/dist/css/v2/index.css'; // Import the Stream Chat React CSS
 import { Metadata } from "next";
-
-// import { Suspense } from "react";
-// import dynamic from "next/dynamic";
 
 import Navbar from "@/components/Navbar";
 // import Footer from "@/components/Footer";
@@ -54,44 +49,11 @@ export default async function Layout({
     return (
         // Pass the session to the SessionProvider
         (<SessionProvider value={session}>
-            <Head>
-                <meta charSet="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta name="description" content={metadata.description ?? undefined} />
-                <meta name="keywords" content={Array.isArray(metadata.keywords) ? metadata.keywords.join(", ") : metadata.keywords ?? undefined} />
-                <meta name="author" content={metadata.publisher ?? undefined} />
-                <meta name="robots" content="index, follow" />
-
-                {/* Open Graph Tags */}
-                <meta property="og:title" content="Modeweltjob - Connect to Fashion" />
-                <meta property="og:description" content={metadata.description ?? ''} />
-                <meta property="og:image" content="/img/og-image.png" />
-                <meta property="og:url" content="https://www.modeweltjob.com" />
-
-                {/* Twitter Cards */}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="Modeweltjob - Connect to Fashion" />
-                <meta name="twitter:description" content={metadata.description ?? ''} />
-                <meta name="twitter:image" content="/img/twitter-image.png" />
-                <meta name="twitter:url" content="https://www.modeweltjob.com" />
-
-                {/* Favicon */}
-                <link rel="icon" href="Favicon/favicon.ico" />
-                <link rel="apple-touch-icon" sizes="180x180" href="Favicon/apple-touch-icon.png" />
-                <link rel="icon" type="image/png" sizes="192x192" href="Favicon/android-chrome-192x192.png" />
-                <link rel="icon" type="image/png" sizes="512x512" href="Favicon/android-chrome-512x512.png" />
-                <meta name="msapplication-TileColor" content="#ffffff" />
-                <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
-                <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-            </Head>
-            <NProgressLoader /> {/* Include the NProgressLoader here */}
-            <Navbar />
+            <NProgressLoader />
+            <Navbar unreadNotificationCount={0} />
             <main className="pt-16 pb-20 lg:pb-0">
                 {children}
             </main>
-            {/* <Suspense fallback={<div>Loading Footer...</div>}>
-                <Footer />
-            </Suspense> */}
         </SessionProvider>)
     );
 }

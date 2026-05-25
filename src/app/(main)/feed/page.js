@@ -1,9 +1,13 @@
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
-// Left Sections
-import CreatePostSection from "../../../components/Feed/CreatePostSection";
-import SortBySection from "../../../components/Feed/SortBySection";
+// Left Sections (Lazy Loaded)
+const CreatePostSection = dynamic(() => import("../../../components/Feed/CreatePostSection"), {
+  loading: () => <div className="h-40 animate-pulse bg-white mb-4 rounded-lg" />,
+});
+const SortBySection = dynamic(() => import("../../../components/Feed/SortBySection"), {
+  loading: () => <div className="h-10 animate-pulse bg-white mb-4 rounded-lg" />,
+});
 
 // Right Sections (Lazy Loaded)
 const ProfileSection = dynamic(() => import("../../../components/Feed/ProfileSection"), {
@@ -37,11 +41,15 @@ export default async function Page() {
       <div className="flex flex-col lg:flex-row justify-center mt-12 space-y-10 lg:space-y-0 lg:space-x-14 px-4 lg:px-8">
         {/* Left Section */}
         <div className="flex flex-col w-full lg:w-[850px] mb-8 lg:mb-0">
-          {/* Create Post Section */}
-          <CreatePostSection />
+          <Suspense fallback={<div className="h-40 animate-pulse bg-white mb-4 rounded-lg" />}>
+            {/* Create Post Section */}
+            <CreatePostSection />
+          </Suspense>
 
-          {/* Sort By Section */}
-          <SortBySection />
+          <Suspense fallback={<div className="h-10 animate-pulse bg-white mb-4 rounded-lg" />}>
+            {/* Sort By Section */}
+            <SortBySection />
+          </Suspense>
         </div>
 
         {/* Right Section */}

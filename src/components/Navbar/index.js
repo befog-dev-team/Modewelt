@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import logo from "../../../public/Images/logo.svg";
+
 import { SlFeed } from "react-icons/sl";
 import { GoPeople } from "react-icons/go";
 import { FiBriefcase } from "react-icons/fi";
@@ -13,7 +13,8 @@ import { FaEllipsisH } from "react-icons/fa";
 import { RiAdminLine } from "react-icons/ri";
 import { FiSun, FiMoon } from "react-icons/fi";
 import { useTheme } from "next-themes";
-import OtherModal from "../Other/index";
+import dynamic from "next/dynamic";
+const OtherModal = dynamic(() => import("../Other/index"), { ssr: false });
 import { useSession } from "@/app/(main)/SessionProvider";
 import UserAvatar from "../UserAvatar";
 import NotificationsButton from "@/app/(main)/notifications/NotificationsButton";
@@ -54,12 +55,35 @@ function Navbar({ unreadNotificationCount }) {
     <>
       <div className="fixed top-0 left-0 right-0 z-[100] bg-white/80 dark:bg-gray-900/80 backdrop-blur-md w-full h-16 flex items-center text-sm text-gray-600 shadow-sm border-b border-gray-200/50 dark:border-gray-800/50 transition-all duration-300">
         <div className="container mx-auto flex items-center justify-between px-2 lg:px-6 w-full">
-          <Link href="/feed" className="flex flex-col items-center flex-shrink-0" prefetch={true}>
-            <Image src={logo} alt="Company Logo" className="h-8 w-8 lg:h-10 lg:w-10 lg:mx-10 flex-shrink-0" />
+          <Link href="/feed" className="flex items-center space-x-3 flex-shrink-0 hover:opacity-90 transition-opacity" prefetch={true}>
+            <div className="relative group">
+              <div className="absolute -inset-1.5 bg-gradient-to-r from-[#fc3fb4] to-[#0062ff] rounded-xl blur-md opacity-20 group-hover:opacity-40 transition duration-500"></div>
+              <div className="relative w-9 h-9 bg-white dark:bg-gray-800 rounded-lg flex items-center justify-center shadow-sm border border-black/5 transform transition-transform duration-300">
+                <svg viewBox="0 0 40 40" className="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="nav-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#fc3fb4" />
+                      <stop offset="100%" stopColor="#0062ff" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    d="M8 28V12L14 20L20 12L26 20L32 12V28"
+                    stroke="url(#nav-logo-grad)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div className="hidden sm:flex flex-col -space-y-1">
+              <span className="text-lg font-black text-[#1e293b] dark:text-white tracking-tighter uppercase">Modewelt</span>
+              <span className="text-[8px] font-bold text-[#fc3fb4] tracking-[0.2em] uppercase opacity-80">Fashion World</span>
+            </div>
           </Link>
 
           {/* Desktop View */}
-          <div className="hidden lg:flex flex-grow items-center space-x-6">
+          <div className="hidden lg:flex flex-grow items-center space-x-6 ml-8 lg:ml-14">
             {navItems.map(({ href, icon: Icon, label }) => (
               <Link key={href} href={href} className="flex flex-col items-center relative" prefetch={true}>
                 <Icon className={`h-6 w-6 ${pathname === href ? "text-[#fc3fb4]" : "text-gray-600 dark:text-gray-300"}`} />
@@ -108,7 +132,7 @@ function Navbar({ unreadNotificationCount }) {
               <FaEllipsisH className="text-xl lg:text-2xl" />
               <span className="hidden md:block">More</span>
             </button>
-            <OtherModal isModalOpen={isModalOpen} closeModal={closeModal} />
+            {isModalOpen && <OtherModal isModalOpen={isModalOpen} closeModal={closeModal} />}
           </div>
         </div>
       </div>

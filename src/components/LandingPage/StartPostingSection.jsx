@@ -13,7 +13,7 @@ export default function StartPostingSection() {
           </h1>
           <p className="text-lg mb-6">Start posting jobs for only Free.</p>
           <Link 
-            href="/auth" 
+            href="/auth?mode=signup" 
             prefetch={true}
             className="inline-block bg-white text-blue-600 px-6 py-3 rounded-md font-semibold hover:bg-gray-200 transition"
           >

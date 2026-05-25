@@ -10,7 +10,9 @@ export default function Page() {
     
   return (
     <div>
-      <AuthForm  />
+      <Suspense fallback={<div>Loading...</div>}>
+        <AuthForm />
+      </Suspense>
     </div>
   )
 }

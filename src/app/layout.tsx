@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Sora } from "next/font/google";
 import "./globals.css";
 import ReactQueryProvider from "./ReactQueryProvider";
 import { Toaster } from "react-hot-toast";
@@ -46,6 +47,12 @@ const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
+  display: "swap",
+});
+
+const sora = Sora({
+  subsets: ["latin"],
+  variable: "--font-sora",
   display: "swap",
 });
 
@@ -200,7 +207,7 @@ export default function RootLayout({
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
       </head>
 
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[--background-color] overflow-x-hidden`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${sora.variable} antialiased bg-[--background-color] overflow-x-hidden font-sans`}>
         <ReactQueryProvider>
           <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} />
           {/* <!-- Google Tag Manager (noscript) --> */}

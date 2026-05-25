@@ -11,7 +11,7 @@ export default function Index() {
     <div>
       <div className="bg-white h-[135px] p-5 my-4 rounded-[4px]">
         <div className="flex items-center space-x-4">
-          <p className="text-[12px] pl-3 font-semibold font-[Gotham] text-[#181818] uppercase">
+          <p className="text-[15px] pl-3 font-semibold font-[Gotham] text-[#181818]">
             Your dream job is here
           </p>
         </div>

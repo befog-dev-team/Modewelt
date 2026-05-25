@@ -9,7 +9,16 @@ export default function ReactQueryProvider({
 }: {
     children: React.ReactNode; // The children of the component
 }) {
-    const [client] = useState(new QueryClient()); // Create a new query client
+    const [client] = useState(
+        () =>
+            new QueryClient({
+                defaultOptions: {
+                    queries: {
+                        staleTime: 1000 * 60, // 1 minute
+                    },
+                },
+            })
+    ); // Create a new query client
 
     return (
         // QueryClientProvider is a context provider that accepts a client prop and client prop is the query client

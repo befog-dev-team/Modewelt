@@ -9,7 +9,5 @@ export default async function Layout({
 }) {
     const { user } = await validateRequest(); // Validate the request
 
-    if (user) redirect("/feed"); // Redirect to home if the user is already logged in
-
     return <>{children}</>; // Return the children
 }

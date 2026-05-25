@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import "@/app/(main)/css/Auth.css";
 import toast from "react-hot-toast";
 import Link from "next/link";
@@ -11,10 +11,22 @@ import { signUp } from "./signupActions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, signupSchema } from "@/lib/validation";
 import { Loader2, Eye, EyeOff } from "lucide-react";
+import { useEffect } from "react";
 
 const Auth = () => {
-  const [active, setActive] = useState(false); // for switching between login and signup form
+  const searchParams = useSearchParams();
+  const [active, setActive] = useState(searchParams.get("mode") === "signup"); // for switching between login and signup form
   const router = useRouter(); // for navigation
+
+  useEffect(() => {
+    const mode = searchParams.get("mode");
+    if (mode === "signup") {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  }, [searchParams]);
+
   const [pending, startTransition] = useTransition(); // for transition
   const [error, setError] = useState(undefined); // for error handling
   const [showPassword, setShowPassword] = useState(false);
@@ -147,8 +159,8 @@ const Auth = () => {
 
           {/* Social Login */}
           <div className="mb-4">
-            <button
-              type="button"
+            <a
+              href="/auth/google"
               className="w-full h-12 bg-[#ffffff] hover:bg-gray-50 border border-gray-200 rounded-xl flex items-center justify-center gap-3 text-gray-800 font-medium transition-all duration-300"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -170,7 +182,7 @@ const Auth = () => {
                 />
               </svg>
               Sign in with Google
-            </button>
+            </a>
           </div>
 
           <div className="flex items-center gap-4 mb-4">

@@ -90,7 +90,7 @@ export default function HireActiveSection() {
           </div>
 
           <Link 
-            href="/auth"
+            href="/auth?mode=signup"
             prefetch={true}
             className="block mt-4 text-center bg-[#fc3fb4] text-white px-6 py-2 rounded-md shadow-md hover:bg-[#e635a3] transition-all duration-300 font-bold"
           >

@@ -9,9 +9,10 @@ export function useDeleteJobMutation() {
         mutationFn: deleteJob,
         onSuccess: async (deletedJob) => {
             await queryClient.cancelQueries(["job-feed"]);
+            await queryClient.cancelQueries(["userJobs"]);
 
             queryClient.setQueriesData(["job-feed"], (oldData) => {
-                if (!oldData || !oldData.pages) return oldData; // Ensure oldData exists
+                if (!oldData || !oldData.pages) return oldData;
 
                 return {
                     ...oldData,
@@ -21,6 +22,8 @@ export function useDeleteJobMutation() {
                     })),
                 };
             });
+
+            queryClient.invalidateQueries(["userJobs"]);
 
             toast.success("Job post deleted successfully.");
         },

@@ -15,7 +15,7 @@ export default function MyJobSection() {
         hasNextPage,
         isFetchingNextPage,
         status,
-        // error,
+        error,
     } = useInfiniteQuery({
         queryKey: ["userJobs", user?.id],
         queryFn: ({ pageParam = null }) =>
@@ -37,9 +37,10 @@ export default function MyJobSection() {
     }
 
     if (status === "error") {
+        console.error("MyJobSection Query Error:", error);
         return (
             <p className="text-center text-destructive">
-              Something went wrong. Please try again later.
+                Something went wrong. Please try again later.
             </p>
         );
     }

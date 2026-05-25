@@ -13,7 +13,7 @@ import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "../../SessionProvider";
-import toast  from "react-hot-toast";
+import toast from "react-hot-toast";
 
 // Input Field Component 
 function InputField({ label, type, placeholder, required = false, value, onChange }) {
@@ -378,7 +378,7 @@ export default function Home() {
     };
 
     return (
-        <div className="min-h-screen bg-[#dcf59d]">
+        <div className="min-h-screen bg-[#F9F6EE]">
             {/* Navbar */}
             <Navbar />
 
@@ -391,7 +391,7 @@ export default function Home() {
             </header>
 
             {/* Form Section */}
-            <main className="max-w-4xl mx-auto bg-[#dcf59d] rounded-lg shadow-lg p-6 md:p-10 mt-6">
+            <main className="max-w-4xl mx-auto bg-[#ffffff] rounded-lg shadow-lg p-6 md:p-10 mt-6">
                 <form className="space-y-6" noValidate>
                     {/* /* Upload Resume  */}
                     <FileUpload
@@ -657,7 +657,7 @@ export default function Home() {
                             />
                             <input
                                 type="text"
-                                placeholder="Enter Company"
+                                placeholder="Company Name"
                                 value={formData.company}
                                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                                 className="w-full p-2 border border-gray-300 rounded-md"
@@ -676,7 +676,7 @@ export default function Home() {
                     {/* Education Details */}
                     <div className="w-full max-w-lg p-4 bg-white shadow-md rounded-lg">
                         <h3 className="text-gray-800 font-medium text-sm md:text-base lg:text-lg mb-2 md:mb-3">
-                            Education Details
+                            Higher Education
                         </h3>
 
                         {/* Dynamic List of Education */}

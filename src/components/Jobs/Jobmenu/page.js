@@ -9,13 +9,13 @@ export default function JobMenu() {
   const menuItems = [
     {
       icon: "ri-file-add-line",
-      text: "POST JOB",
+      text: "Post Job",
       action: () => router.push("/postJob"),
       color: "text-blue-500",
     },
     {
       icon: "ri-briefcase-line",
-      text: "MANAGE YOUR JOBS",
+      text: "Manage Your Jobs",
       action: () => router.push("/jobManagement"),
       color: "text-purple-500",
     },

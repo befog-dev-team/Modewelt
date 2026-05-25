@@ -59,11 +59,12 @@ export default function HeroSection() {
 
         <div className="flex items-center space-x-3 md:space-x-6">
           <div className="hidden sm:flex items-center space-x-3">
-            <Link href="/auth" className="px-5 py-2 text-[#fc3fb4] font-bold border border-pink-100 rounded-xl hover:bg-pink-50 transition-all text-sm">
-              Sign In
-            </Link>
-            <Link href="/auth" className="px-5 py-2 bg-[#fc3fb4] text-white font-bold rounded-xl shadow-lg shadow-pink-200 hover:bg-[#e0359f] hover:scale-105 transition-all text-sm">
+
+            <Link href="/auth?mode=signup" className="px-5 py-2 bg-[#fc3fb4] text-white font-bold rounded-xl shadow-lg shadow-pink-200 hover:bg-[#e0359f] hover:scale-105 transition-all text-sm">
               Get Started
+            </Link>
+            <Link href="/auth?mode=signup" className="px-5 py-2 text-[#fc3fb4] font-bold border border-pink-100 rounded-xl hover:bg-pink-50 transition-all text-sm">
+              Sign Up
             </Link>
           </div>
 
@@ -110,7 +111,7 @@ export default function HeroSection() {
 
               <div className="p-6 border-t border-gray-50 space-y-4">
                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2">Account</p>
-                <Link href="/auth" className="flex items-center justify-center w-full py-4 bg-[#fc3fb4] text-white font-bold rounded-2xl shadow-lg shadow-pink-200">
+                <Link href="/auth?mode=signup" className="flex items-center justify-center w-full py-4 bg-[#fc3fb4] text-white font-bold rounded-2xl shadow-lg shadow-pink-200">
                   Get Started
                 </Link>
                 <Link href="/auth" className="flex items-center justify-center w-full py-4 text-[#fc3fb4] font-bold border border-pink-50 rounded-2xl">
@@ -145,7 +146,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <Link href="/auth" className="inline-flex items-center justify-center px-8 py-3 bg-[#fc3fb4] text-white font-bold text-base rounded-xl shadow-lg shadow-pink-200 hover:bg-[#e0359f] hover:scale-105 transition-all transform active:scale-95">
+          <Link href="/auth?mode=signup" className="inline-flex items-center justify-center px-8 py-3 bg-[#fc3fb4] text-white font-bold text-base rounded-xl shadow-lg shadow-pink-200 hover:bg-[#e0359f] hover:scale-105 transition-all transform active:scale-95">
             Register Now
           </Link>
 
@@ -166,8 +167,8 @@ export default function HeroSection() {
                 "https://plus.unsplash.com/premium_photo-1661281204316-dddcfca37f75?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTUzfHxncmFwaGljJTIwZGVzaWdufGVufDB8fDB8fHww",
                 "https://plus.unsplash.com/premium_photo-1678566153919-86c4ba4216f1?w=600&auto=format&fit=crop&q=60"
               ].map((url, i) => (
-                <div 
-                  key={i} 
+                <div
+                  key={i}
                   onClick={() => setSelectedImage(url)}
                   className="relative aspect-square rounded-2xl overflow-hidden shadow-lg border-2 border-white transform hover:scale-105 hover:z-10 transition-all duration-300 cursor-pointer"
                 >
@@ -180,7 +181,7 @@ export default function HeroSection() {
             {selectedImage && (
               <div className="absolute inset-0 z-20 bg-white rounded-2xl overflow-hidden shadow-2xl border-2 border-white transition-all duration-300 animate-in fade-in zoom-in-95 duration-200">
                 <Image src={selectedImage} alt="Expanded Design" fill className="object-cover" />
-                <button 
+                <button
                   onClick={() => setSelectedImage(null)}
                   className="absolute top-3 right-3 bg-black/60 hover:bg-black text-white p-2 rounded-full transition-colors duration-200"
                 >

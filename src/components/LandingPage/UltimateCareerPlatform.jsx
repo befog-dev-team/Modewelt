@@ -48,7 +48,7 @@ export default function UltimateCareerPlatform() {
               showcase your talent and get hired.
             </p>
             <Link
-              href="/auth"
+              href="/auth?mode=signup"
               prefetch={true}
               className="inline-block mt-6 bg-[#fc3fb4] font-bold text-white px-6 py-2 rounded-md shadow-md hover:bg-[#fc3fb4] transition-all duration-300"
             >

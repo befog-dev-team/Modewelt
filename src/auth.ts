@@ -106,19 +106,5 @@ export const validateRequest = cache(async (): Promise<
     }
   } catch { }
 
-  if (result.user) {
-    const user = await prisma.user.findUnique({
-      where: { id: result.user.id },
-      select: { role: true }, // Fetch the role
-    });
-
-    if (!user) return { user: null, session: null };
-
-    return {
-      user: { ...result.user, role: user.role }, // Include the role
-      session: result.session,
-    };
-  }
-
   return result;
-});
+});

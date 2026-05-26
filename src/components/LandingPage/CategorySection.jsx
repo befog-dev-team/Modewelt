@@ -52,16 +52,17 @@ const jobCategories = [
 
 export default function CategorySection() {
   return (
-    <section className="relative py-12 md:py-24 px-5 overflow-hidden">
-      {/* Background Image flipped horizontally */}
+    <section className="relative z-10 py-12 md:py-24 px-5 overflow-visible">
+      {/* Unique Transition: Feathered Edge to blend into next section */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-x-[-1]"
+        className="absolute -top-24 left-0 right-0 -bottom-24 z-0"
         style={{
-          backgroundImage: "url('https://plus.unsplash.com/premium_photo-1771875978337-543eadae2a5c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dGltcyB0aGVhdHJlJTIwc2VjdGlvbnxlbnwwfHwwfHx8MA%3D%3D')"
+          background: "linear-gradient(to bottom, #F2EEED 0%, #edf2f7 20%, #edf2f7 80%, transparent 100%)",
+          maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
         }}
       ></div>
-      {/* Semi-transparent overlay */}
-      <div className="absolute inset-0 bg-white/80 backdrop-blur-[4px]"></div>
+
 
       <div className="relative z-10 max-w-6xl mx-auto text-center">
         <h2 className="text-4xl md:text-4xl lg:text-[42px] font-bold tracking-tight text-[#7b4fff] mb-6 text-center leading-tight">

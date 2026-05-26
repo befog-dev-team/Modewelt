@@ -27,9 +27,24 @@ export default async function NetworkPage() {
         },
     });
 
+    // Fetch trending topics (hashtags)
+    const hashtags = await prisma.post.findMany({
+        select: {
+            content: true,
+        },
+    });
+
+    const trendingTopics = Array.from(
+        new Set(
+            hashtags
+                .flatMap((post) => post.content.match(/#\w+/g) || [])
+                .map((tag) => tag.toLowerCase())
+        )
+    );
+
     return (
         <div>
-            <NetworkClientWrapper users={users} />
+            <NetworkClientWrapper users={users} trendingTopics={trendingTopics} />
         </div>
     );
 }

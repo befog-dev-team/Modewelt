@@ -37,7 +37,15 @@ const FooterSection = dynamic(() => import("@/components/LandingPage/FooterSecti
 
 export default function LandingPage() {
   return (
-    <div className="bg-white">
+    <div className="bg-[#f8f9fa] relative overflow-hidden">
+      {/* Unique Mesh Background Blobs for Seamless Mixing */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#f2eeed] rounded-full blur-[120px] opacity-70 animate-pulse"></div>
+        <div className="absolute top-[20%] right-[-5%] w-[45%] h-[45%] bg-[#edf2f7] rounded-full blur-[120px] opacity-60"></div>
+        <div className="absolute top-[50%] left-[-5%] w-[40%] h-[40%] bg-[#ffeefd] rounded-full blur-[120px] opacity-50"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-[#f0f4ff] rounded-full blur-[120px] opacity-60"></div>
+      </div>
+
       <div className="relative overflow-hidden">
         {/* Unified Background for Hero and ScrollingText */}
         <div
@@ -47,6 +55,14 @@ export default function LandingPage() {
           }}
         />
         <div className="absolute inset-0 z-0 bg-white/30" />
+        
+        {/* Bottom Blend to CategorySection */}
+        <div 
+          className="absolute bottom-0 left-0 right-0 h-48 z-0 pointer-events-none"
+          style={{
+            background: "linear-gradient(to top, #edf2f7 0%, rgba(237, 242, 247, 0) 100%)"
+          }}
+        />
 
         <div className="relative z-10 pb-10 md:pb-16">
           <HeroSection />
@@ -55,7 +71,9 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
-      <CategorySection />
+      <div className="relative z-10 -mt-24 pt-24">
+        <CategorySection />
+      </div>
 
       <Suspense fallback={<div className="h-96 animate-pulse bg-white" />}>
         <UltimateCareerPlatform />
@@ -65,7 +83,7 @@ export default function LandingPage() {
         <WhyChooseSection />
       </Suspense>
 
-      <div className="relative overflow-hidden mt-10 md:mt-20">
+      <div className="relative overflow-hidden">
         {/* Continuous Background for the next 3 sections */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-x-[-1]"
@@ -73,7 +91,12 @@ export default function LandingPage() {
             backgroundImage: "url('https://images.unsplash.com/photo-1566924119080-9b37796cb157?q=80&w=2071&auto=format&fit=crop')"
           }}
         ></div>
-        <div className="absolute inset-0 bg-white/80 backdrop-blur-[4px]"></div>
+        <div 
+          className="absolute inset-0 z-0 backdrop-blur-[4px]"
+          style={{
+            background: "linear-gradient(to bottom, white 0%, rgba(255, 255, 255, 0.8) 15%, rgba(255, 255, 255, 0.8) 100%)"
+          }}
+        ></div>
 
         <div className="relative z-10">
           <Suspense fallback={<div className="h-96 animate-pulse bg-white" />}>

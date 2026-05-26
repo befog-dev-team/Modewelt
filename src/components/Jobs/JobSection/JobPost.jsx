@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { IoLocationOutline } from "react-icons/io5";
+import { HiOutlineOfficeBuilding, HiOutlineTrash, HiOutlineFlag, HiOutlineInformationCircle } from "react-icons/hi";
 import { FaEllipsisH } from "react-icons/fa";
 import DeleteJobDialog from "./DeleteJobDialog";
 import ReportJobModal from "./ReportJobModal";
@@ -26,9 +28,15 @@ export default function JobPost({ job }) {
             <div className="flex items-center space-x-4 w-full sm:w-auto">
                 <div className="flex flex-col space-y-2">
                     <p className="font-bold text-[16px] sm:text-[18px] leading-tight">{job.jobTitle}</p>
-                    <div className="flex gap-3 text-sm text-gray-600">
-                        <span>{job.company}</span>
-                        <span className="text-gray-800">{job.location}</span>
+                    <div className="flex gap-6 items-center text-sm text-gray-600">
+                        <div className="flex items-center gap-1">
+                            <HiOutlineOfficeBuilding className="text-[#a45286] text-lg" />
+                            <span>{job.company}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <IoLocationOutline className="text-[#fc3fb4] text-lg" />
+                            <span className="text-gray-800">{job.location}</span>
+                        </div>
                     </div>
                     <span className="text-[12px] sm:text-[14px] leading-[20px] mt-2 w-full sm:w-[350px]">
                         {job.description.length > maxDescriptionLength ? `${job.description.slice(0, maxDescriptionLength)}...` : job.description}
@@ -42,18 +50,21 @@ export default function JobPost({ job }) {
                 <div className="relative">
                     <FaEllipsisH className="text-gray-700 cursor-pointer w-6 h-6" onClick={toggleMenu} />
                     {isMenuOpen && (
-                        <div className="absolute right-0 mt-2 w-[150px] bg-white border border-gray-300 shadow-lg rounded-lg z-10">
+                        <div className="absolute right-0 mt-2 w-[160px] bg-white border border-gray-300 shadow-xl rounded-lg z-10 overflow-hidden">
                             {job.userId === user.id && (
-                                <button onClick={handleDeleteClick} className="block w-full text-left px-4 py-2 text-sm hover:bg-red-500 hover:text-white">
+                                <button onClick={handleDeleteClick} className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-600 hover:text-white transition-colors">
+                                    <HiOutlineTrash className="text-lg" />
                                     Delete
                                 </button>
                             )}
-                            <button onClick={handleReportClick} className="block w-full text-left px-4 py-2 text-sm hover:bg-red-500 hover:text-white">
+                            <button onClick={handleReportClick} className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                <HiOutlineFlag className="text-lg" />
                                 Report
                             </button>
 
-                            <Link href={`/jobDetails/${job.id}`} prefetch={true}>
-                                <button className="block w-full text-left px-4 py-2 text-sm bg-[#fc3fb4] text-white text-[14px] font-semibold hover:bg-gradient-to-l hover:from-[#fc3fb4] hover:to-[#fc3fb4] transition duration-300 ease-in-out hover:text-white">
+                            <Link href={`/jobDetails/${job.id}`} prefetch={true} className="block">
+                                <button className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm bg-[#fc3fb4] text-white font-semibold hover:bg-[#e037a1] transition-colors">
+                                    <HiOutlineInformationCircle className="text-lg" />
                                     More Info
                                 </button>
                             </Link>

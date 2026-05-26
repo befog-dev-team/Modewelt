@@ -5,16 +5,11 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function logout() {
-  // Validate the request
-  const { session } = await validateRequest();
+  const sessionId = (await cookies()).get(lucia.sessionCookieName)?.value;
 
-  // If the session is not found, throw an error
-  if (!session) {
-    throw new Error("Unauthorized");
+  if (sessionId) {
+    await lucia.invalidateSession(sessionId);
   }
-
-  // Invalidate the session
-  await lucia.invalidateSession(session.id);
 
   // Create a new session cookie
   const sessionCookie = lucia.createBlankSessionCookie();

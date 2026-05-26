@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { HiOutlineHashtag } from "react-icons/hi";
 
-export default function Hashtag() {
-  const [hashtags, setHashtags] = useState([]);
+export default function Hashtag({ trendingTopics = [] }) {
+  const [hashtags, setHashtags] = useState(trendingTopics);
 
   useEffect(() => {
     // Fetch hashtags from the server-side API
@@ -13,14 +13,15 @@ export default function Hashtag() {
       try {
         const res = await fetch("/api/posts/hashtags");
         const data = await res.json();
-        setHashtags(data);
+        // Merge fetched hashtags with passed trendingTopics
+        setHashtags(Array.from(new Set([...trendingTopics, ...data])));
       } catch (error) {
         console.error("Error fetching hashtags:", error);
       }
     }
 
     fetchHashtags();
-  }, []);
+  }, [trendingTopics]);
 
   return (
     <div>

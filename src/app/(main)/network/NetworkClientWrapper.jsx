@@ -25,7 +25,7 @@ export default function Network({ users, trendingTopics }) {
         const params = new URLSearchParams(window.location.search);
         const tab = params.get('tab');
         if (tab) {
-            setActiveSection(tab);
+            setActiveSection(tab.toLowerCase());
         }
     }, []);
 
@@ -40,7 +40,7 @@ export default function Network({ users, trendingTopics }) {
         };
 
         const activeRef = sectionRefs[activeSection];
-        if (activeRef.current && scrollerRef.current) {
+        if (activeRef && activeRef.current && scrollerRef.current) {
             const topPosition = activeRef.current.offsetTop;
             scrollerRef.current.style.top = `${topPosition}px`;
         }
@@ -105,10 +105,13 @@ export default function Network({ users, trendingTopics }) {
                 <div className="flex-1 mt-6 md:mt-0 px-4">
                     {activeSection === 'connections' && <Connections users={users} />}
                     {activeSection === 'invitations' && <Invitations users={users} />}
-                    {/* {activeSection === 'pages' && <Pages />} */}
-                    {/* {activeSection === 'groups' && <Groups />} */}
-                    {/* {activeSection === 'teammates' && <Teammates />} */}
                     {activeSection === 'hashtags' && <Hashtag trendingTopics={trendingTopics} />}
+                    
+                    {!['connections', 'invitations', 'hashtags'].includes(activeSection) && (
+                        <div className="flex items-center justify-center p-10 bg-white shadow-sm rounded-lg">
+                            <p className="text-gray-500 font-semibold italic">Select a section to view content</p>
+                        </div>
+                    )}
                 </div>
             </div>
             {/* <Footer /> */}

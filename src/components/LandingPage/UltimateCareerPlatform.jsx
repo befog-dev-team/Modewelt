@@ -5,7 +5,7 @@ import Professionals from "../../../public/Images/landing1.png";
 
 export default function UltimateCareerPlatform() {
   return (
-    <div className="relative bg-white lg:min-h-[718px] flex flex-col items-center p-6 lg:pb-20 sm:pb-10 overflow-hidden mt-10 md:mt-20">
+    <div className="relative bg-white lg:min-h-[718px] flex flex-col items-center p-6 pt-32 md:pt-48 lg:pb-20 sm:pb-10 overflow-visible -mt-24 z-0">
       {/* Background Image flipped horizontally */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-x-[-1]"
@@ -13,8 +13,23 @@ export default function UltimateCareerPlatform() {
           backgroundImage: "url('https://images.unsplash.com/photo-1566924119080-9b37796cb157?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTE0fHx3b3JraW5nJTIwY29ycG9yYXRlJTIwbmFtZXN8ZW58MHx8MHx8fDA%3D')"
         }}
       ></div>
-      {/* Semi-transparent overlay with blur */}
-      <div className="absolute inset-0 bg-white/80 backdrop-blur-[4px]"></div>
+      {/* Unique Transition: Feathered Top Edge */}
+      <div 
+        className="absolute inset-0 z-0 backdrop-blur-[4px]"
+        style={{
+          background: "linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.8) 15%, rgba(255, 255, 255, 0.8) 100%)",
+          maskImage: "linear-gradient(to top, black 85%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to top, black 85%, transparent 100%)",
+        }}
+      ></div>
+
+      {/* Bottom Gradient Blend (to WhyChooseSection background) */}
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-32 z-0"
+        style={{
+          background: "linear-gradient(to top, white, transparent)"
+        }}
+      />
 
       <div className="relative z-10 w-full flex flex-col items-center">
         <div className="max-w-[750px] w-full text-center lg:px-[90px] lg:py-[101px] p-6 md:p-12 rounded-xl">

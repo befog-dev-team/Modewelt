@@ -7,13 +7,16 @@ export default function FooterSection() {
   const router = useRouter();
   return (
     <>
-      <div className="relative flex flex-col items-center justify-center p-6 py-16 overflow-hidden">
-        {/* Background Image */}
+      <div className="relative -mt-24 z-0 overflow-visible">
+        {/* Background Color with feathering */}
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.3]"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1712264246749-a9be728ea874?q=80&w=2000&auto=format&fit=crop')" }}
+          className="absolute -top-24 left-0 right-0 bottom-0 z-0"
+          style={{ 
+            backgroundColor: "#edf2f7",
+            maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 100%)",
+          }}
         ></div>
-        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px]"></div>
 
         <div className="relative z-10 w-full flex flex-col items-center">
           <div className="max-w-[1192px] w-full my-8 border-t border-[#fc3fb4] p-[4px]" />
@@ -44,7 +47,7 @@ export default function FooterSection() {
           </div>
         </div>
       </div>
-      <footer className="w-full flex justify-center items-center bg-gray-900 text-gray-400 mt-16 py-8">
+      <footer className="w-full flex justify-center items-center bg-[#edf2f7] text-gray-600 py-8 border-t border-[#fc3fb4]/20">
         <div className="border-gray-700 text-sm">
           <p>© {getCurrentYear()} Modeweltjob | All rights reserved.</p>
         </div>

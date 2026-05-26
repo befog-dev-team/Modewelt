@@ -26,9 +26,9 @@ export default function OtherModal({ isModalOpen, closeModal }) {
     const handleLogout = async () => {
         setLoading(true);
         try {
-            await logout();
+            logout(); // Fire the session invalidation in the background
             queryClient.clear();
-            router.push("/"); // Redirect after logout
+            window.location.href = "/"; // Instant hard redirect
         } catch (error) {
             console.error("Logout failed:", error);
         } finally {

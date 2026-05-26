@@ -32,7 +32,7 @@ export default function JobMenu() {
                 className="flex items-center w-full p-2 space-x-3 hover:bg-gray-50 rounded-md transition-colors"
                 aria-label={item.text}
               >
-                <li className={`${item.icon} ${item.color} text-lg`} />
+                <i className={`${item.icon} ${item.color} text-xl`} />
                 <span className="font-semibold text-gray-700">{item.text}</span>
               </button>
             </li>

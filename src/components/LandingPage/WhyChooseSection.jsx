@@ -32,8 +32,13 @@ export default function WhyChooseSection() {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1712264246749-a9be728ea874?q=80&w=2000&auto=format&fit=crop')" }}
       ></div>
-      {/* Overlay for readability */}
-      <div className="absolute inset-0 bg-white/90 backdrop-blur-[2px]"></div>
+      {/* Overlay with Top and Bottom Blends for Seamlessness */}
+      <div 
+        className="absolute inset-0 z-0 backdrop-blur-[2px]"
+        style={{
+          background: "linear-gradient(to bottom, white 0%, rgba(255, 255, 255, 0.9) 15%, rgba(255, 255, 255, 0.9) 85%, white 100%)"
+        }}
+      ></div>
 
       <div className="relative z-10">
         <h2 className="text-3xl text-[#7b4fff] md:text-4xl font-bold text-center mb-12">

@@ -4,7 +4,8 @@ import Link from "next/link";
 // import { FaRegBookmark } from "react-icons/fa6";
 // import fb from "../../../../../public/assets/jobs/facebook.png";
 import { MdOutlineCalendarToday } from "react-icons/md";
-import { IoLocationOutline } from "react-icons/io5";
+import { IoLocationOutline, IoClose } from "react-icons/io5";
+import { HiOutlineDocumentText } from "react-icons/hi";
 import { IoMdStopwatch } from "react-icons/io";
 import { LuLayers } from "react-icons/lu";
 import { MdWorkOutline } from "react-icons/md";
@@ -119,8 +120,8 @@ export default async function JobListing(props) {
             </div> */}
 
             {/* Job Details Section */}
-            <div className="w-full min-h-[88vh] flex justify-center items-center mt-6">
-                <div className="container mx-8 px-8 bg-white shadow-md rounded-lg w-full p-6">
+            <div className="w-full min-h-[88vh] flex flex-col items-center mt-6 relative px-4 sm:px-8">
+                <div className="container bg-white shadow-md rounded-lg w-full p-6 relative">
                     <div className="flex flex-col md:flex-row items-start md:items-center md:justify-between">
                         <div className="flex items-center gap-4">
                             {/* <Image src={fb} alt="Velstar" width={90} height={90} /> */}
@@ -133,18 +134,15 @@ export default async function JobListing(props) {
                                     <span className="bg-[#08a12c] text-[12px] font-semibold p-[2px] text-[#fff] rounded-sm uppercase">
                                         {job.jobType}
                                     </span>{" "}
-                                    {/* <span className="bg-[#ffeded] text-[12px] font-semibold p-[2px] text-[#e05151] px-2 rounded-full">
-                                    Featured
-                                </span> */}
                                 </p>
                             </div>
                         </div>
-                        <div className="flex gap-4 mt-4 md:mt-0">
-                            {/* <div className="w-10 h-10 bg-[#ffe3ef] justify-center items-center flex rounded-md">
-                            <FaRegBookmark className="text-[#a35284]" />
-                        </div> */}
+                        <div className="flex flex-col items-end gap-2 mt-4 md:mt-0">
+                            <Link href="/jobs" prefetch={true} className="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-400 hover:text-red-500">
+                                <IoClose className="text-2xl" />
+                            </Link>
                             <Link href={`/jobform/${job.id}`} prefetch={true}>
-                                <button className="mt-4 md:mt-0 bg-[#fc3fb4] text-white py-2 px-4 rounded-md text-xs sm:text-sm">
+                                <button className="bg-[#fc3fb4] text-white py-2 px-4 rounded-md text-xs sm:text-sm shadow-sm hover:bg-[#e037a1] transition-colors">
                                     Apply Now →
                                 </button>
                             </Link>
@@ -155,7 +153,8 @@ export default async function JobListing(props) {
                         <div className="w-full lg:w-2/3">
                             {/* Job Description */}
                             <div>
-                                <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
+                                <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 flex items-center gap-2">
+                                    <HiOutlineDocumentText className="text-[#fc3fb4]" />
                                     Job Description
                                 </h2>
                                 <p className="text-gray-700 mt-2 text-sm sm:text-base">
@@ -215,7 +214,7 @@ export default async function JobListing(props) {
                                 </div>
 
                                 <div className="bg-[#faf2f5] rounded-md p-4 mb-4">
-                                    <h1 className="font-bold mb-2 text-sm sm:text-base">
+                                    <h1 className="font-bold mb-2 text-sm sm:text-base text-center">
                                         Job Overview
                                     </h1>
                                     <div className="grid grid-cols-2 gap-4">

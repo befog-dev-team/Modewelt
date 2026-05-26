@@ -108,8 +108,11 @@ export default function Index() {
 
   // Remove file
   const removeFile = (index) => {
-    setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index)); // Remove file from selected files by index
-    removeAttachment(attachments[index].mediaId); // Remove attachment by media ID
+    const attachment = attachments[index];
+    if (attachment) {
+      removeAttachment(attachment.file.name);
+    }
+    setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
   };
 
   // Handle onSubmit

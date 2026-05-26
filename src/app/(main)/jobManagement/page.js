@@ -44,7 +44,7 @@ export default function JobManagementPage() {
 
           {/* Main Content */}
           <main className="flex-1">
-            <h3 className="text-xl font-semibold text-center text-[#f26744] mb-4">
+            <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-center text-[#f26744] mb-4 leading-tight">
               My Jobs
             </h3>
 

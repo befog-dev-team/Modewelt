@@ -39,25 +39,27 @@ export default function CropImageDialog({
 
     return (
         <Dialog open onOpenChange={onClose}>
-            <DialogContent>
+            <DialogContent className="dark:bg-gray-900 dark:text-white border dark:border-gray-800 transition-colors">
                 <DialogHeader>
                     <DialogTitle>
                         Crop Image
                     </DialogTitle>
                 </DialogHeader>
-                <Cropper
-                    src={src} // Set the source of the image to crop
-                    aspectRatio={cropAspectRatio} // Set the aspect ratio of the crop
-                    guides={false} // Disable the guides
-                    zoomable={false} // Disable zooming
-                    ref={cropperRef} // Set the ref to the cropperRef
-                    className="mx-auto size-fit" // Set the class name to "mx-auto size-fit" to center the cropper
-                />
+                <div className="bg-gray-100 dark:bg-gray-800 p-1 rounded-md overflow-hidden transition-colors">
+                    <Cropper
+                        src={src} // Set the source of the image to crop
+                        aspectRatio={cropAspectRatio} // Set the aspect ratio of the crop
+                        guides={false} // Disable the guides
+                        zoomable={false} // Disable zooming
+                        ref={cropperRef} // Set the ref to the cropperRef
+                        className="mx-auto size-fit max-h-[50vh]" // Set the class name to "mx-auto size-fit" to center the cropper
+                    />
+                </div>
                 <DialogFooter>
-                    <Button variant="secondary" onClick={onClose}>
+                    <Button variant="secondary" onClick={onClose} className="dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 transition-colors">
                         Cancel
                     </Button>
-                    <Button onClick={crop} className='text-white'>Crop</Button>
+                    <Button onClick={crop} className='bg-[#fc3fb4] hover:bg-[#fc3fb4]/90 text-white border-none'>Crop</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

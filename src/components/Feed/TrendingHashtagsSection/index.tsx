@@ -32,11 +32,11 @@ export default async function Index() {
 
     return (
         (<div>
-            <div className="bg-white min-h-[265px] p-4 mb-3 rounded-[4px]">
-                <p className="font-[600] text-[12px] uppercase leading-[11.48px] font-[Gotham]">Trending Hashtags</p>
+            <div className="bg-white dark:bg-gray-900 min-h-[265px] p-4 mb-3 rounded-[4px] border dark:border-gray-800 transition-colors">
+                <p className="font-[600] text-[12px] uppercase leading-[11.48px] font-[Gotham] text-gray-900 dark:text-white">Trending Hashtags</p>
 
                 {/* Divider */}
-                <hr className="border-t border-[#F4F4F4] mt-4" />
+                <hr className="border-t border-gray-100 dark:border-gray-800 mt-4 transition-colors" />
                 <div className="flex flex-wrap items-center w-[240px] mt-4 gap-[0.5rem]">
                     {trendingTopics.map(({ hashtag, count }) => { // Map over the trending topics
                         const title = hashtag.split("#")[1]; // Get the title of the hashtag without the #

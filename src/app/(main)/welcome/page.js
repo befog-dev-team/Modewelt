@@ -106,7 +106,7 @@ export default function Welcome() {
   }, []); // Empty dependency array ensures effect runs only once on mount
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-[#daf59d]">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-[#daf59d] dark:bg-gray-950 transition-colors">
       {/* Progress circle and stars container */}
       <div className="text-center">
         <div
@@ -162,13 +162,13 @@ export default function Welcome() {
       <div className="text-center mt-12 transition transition-300">
         <h1
           id="welcome-heading"
-          className="uppercase text-3xl md:text-5xl font-bold text-[#7b4fff] hidden transition transition-300"
+          className="uppercase text-3xl md:text-5xl font-bold text-[#7b4fff] dark:text-[#a78bfa] hidden transition transition-300"
         >
           WELCOME BACK! TO ModeweltJob
         </h1>
         <p
           id="welcome-para"
-          className="mt-4 uppercase text-sm w-[60%] mx-auto hidden transition transition-300"
+          className="mt-4 uppercase text-sm w-[60%] mx-auto hidden transition transition-300 text-gray-800 dark:text-gray-300"
         >
           ModeweltJob.com is an emerging platform dedicated to connecting
           professionals with career opportunities in the fashion industry.

@@ -40,13 +40,13 @@ export default function OtherModal({ isModalOpen, closeModal }) {
     return (
         <div>
             {/* Modal Overlay */}
-            <div className={`${isModalOpen ? "flex" : "hidden"} fixed inset-0 bg-black bg-opacity-50 z-40`}>
+            <div className={`${isModalOpen ? "flex" : "hidden"} fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-all`}>
                 {/* Profile Content */}
-                <div className="bg-white rounded-lg shadow-lg p-6 min-w-[342px] max-h-[450px] fixed top-[120px] right-5 z-50">
+                <div className="bg-white dark:bg-gray-900 border dark:border-gray-800 rounded-lg shadow-xl p-6 min-w-[342px] max-h-[450px] fixed top-[120px] right-5 z-50 transition-all">
                     {/* Close Button */}
                     <button
                         type="button"
-                        className="absolute -left-11 top-0 bg-white text-gray-600 rounded-full w-8 h-8 flex items-center justify-center shadow-md hover:bg-gray-200 hover:text-gray-900"
+                        className="absolute -left-11 top-0 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full w-8 h-8 flex items-center justify-center shadow-md hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-all"
                         onClick={closeModal}
                     >
                         <IoClose />
@@ -61,8 +61,8 @@ export default function OtherModal({ isModalOpen, closeModal }) {
                                 <UserAvatar avatarUrl={user.avatarUrl} size={500} className="rounded-full h-20 w-20 object-cover" />
                             </Link>
                             <div className="text-left">
-                                <h1 className="text-[16px] font-semibold">{user.displayName}</h1>
-                                <span className="text-[12px] text-gray-500">{user.profileHeadline}</span>
+                                <h1 className="text-[16px] font-semibold text-gray-900 dark:text-white transition-colors">{user.displayName}</h1>
+                                <span className="text-[12px] text-gray-500 dark:text-gray-400">{user.profileHeadline}</span>
                             </div>
                         </div>
 
@@ -83,28 +83,28 @@ export default function OtherModal({ isModalOpen, closeModal }) {
                         <div className="space-y-4 text-left">
                             <div className="space-y-2">
                                 <Link href={"/setting"} onClick={closeModal}>
-                                    <p className="text-[11px] cursor-pointer">Setting</p>
+                                    <p className="text-[11px] cursor-pointer text-gray-600 dark:text-gray-400 hover:text-[#fc3fb4] transition-colors">Setting</p>
                                 </Link>
                                 <Link href={"/Help"} prefetch={true} onClick={closeModal}>
-                                    <p className="text-[11px] cursor-pointer">Help</p>
+                                    <p className="text-[11px] cursor-pointer text-gray-600 dark:text-gray-400 hover:text-[#fc3fb4] transition-colors">Help</p>
                                 </Link>
                                 <Link href={"/Terms&Condition"} prefetch={true} onClick={closeModal}>
-                                    <p className="text-[11px] cursor-pointer">Terms and Conditions</p>
+                                    <p className="text-[11px] cursor-pointer text-gray-600 dark:text-gray-400 hover:text-[#fc3fb4] transition-colors">Terms and Conditions</p>
                                 </Link>
                             </div>
-                            <hr />
+                            <hr className="dark:border-gray-800" />
                             <div className="space-y-2">
-                                <h1 className="font-medium text-[14px] cursor-pointer">Manage</h1>
+                                <h1 className="font-medium text-[14px] cursor-pointer text-gray-900 dark:text-white transition-colors">Manage</h1>
                                 <div className="space-y-1">
                                     <Link href={"/feed"} prefetch={true} onClick={closeModal}>
-                                        <p className="text-[11px] cursor-pointer">Posts & Activities</p>
+                                        <p className="text-[11px] cursor-pointer text-gray-600 dark:text-gray-400 hover:text-[#fc3fb4] transition-colors">Posts & Activities</p>
                                     </Link>
                                     <Link href={"/jobs"} prefetch={true} onClick={closeModal}>
-                                        <p className="text-[11px] cursor-pointer">Job post account</p>
+                                        <p className="text-[11px] cursor-pointer text-gray-600 dark:text-gray-400 hover:text-[#fc3fb4] transition-colors">Job post account</p>
                                     </Link>
                                 </div>
                             </div>
-                            <hr />
+                            <hr className="dark:border-gray-800" />
                         </div>
 
                         {/* Logout Button with Confirmation Dialog */}

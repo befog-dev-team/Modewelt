@@ -2,8 +2,8 @@
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import HeroSection from "@/components/LandingPage/HeroSection";
-import ScrollingText from "@/components/LandingPage/ScrollingText";
-import CategorySection from "@/components/LandingPage/CategorySection";
+const ScrollingText = dynamic(() => import("@/components/LandingPage/ScrollingText"), { ssr: true });
+const CategorySection = dynamic(() => import("@/components/LandingPage/CategorySection"), { ssr: true });
 
 // Lazy load sections below the fold
 const UltimateCareerPlatform = dynamic(() => import("@/components/LandingPage/UltimateCareerPlatform"), {

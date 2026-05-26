@@ -9,20 +9,20 @@ export default function Index() {
 
   return (
     <div>
-      <div className="bg-white h-[135px] p-5 my-4 rounded-[4px]">
+      <div className="bg-white dark:bg-gray-900 h-[135px] p-5 my-4 rounded-[4px] border dark:border-gray-800 transition-colors">
         <div className="flex items-center space-x-4">
-          <p className="text-[15px] pl-3 font-semibold font-[Gotham] text-[#181818]">
+          <p className="text-[15px] pl-3 font-semibold font-[Gotham] text-gray-900 dark:text-gray-300">
             Your dream job is here
           </p>
         </div>
-        <hr className=" w-[790px] h-[1px] mx-auto mt-4 bg-[#D7D7D7] mb-4" />
+        <hr className="w-full h-[1px] mx-auto mt-4 bg-gray-200 dark:bg-gray-800 mb-4 border-none transition-colors" />
         <div className="flex items-center px-2 justify-between text-[18px]">
           <input
             type="text"
             placeholder="Search jobs"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-grow mt-[-11px] p-1 text-[18px] rounded-md focus:outline-none placeholder:text-[#18181833] placeholder:text-[18px]"
+            className="flex-grow mt-[-11px] p-1 text-[18px] rounded-md focus:outline-none bg-transparent text-gray-900 dark:text-white placeholder:text-gray-400"
           />
           <div className="flex space-x-4 items-center">
             {/* <IoFilterSharp size={24} className="text-[#e3e3e3] hover:text-gray-500" /> */}

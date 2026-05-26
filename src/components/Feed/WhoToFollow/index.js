@@ -6,37 +6,32 @@ import Link from 'next/link';
 import UserAvatar from '@/components/UserAvatar';
 
 export default async function WhoToFollow() {
-    const { user } = await validateRequest(); // Validate the request and get the user
-
-    if (!user) return null; // If the user is not authenticated, return null
-
     const { user: loggedInUser } = await validateRequest(); // Get the authenticated user
-
     if (!loggedInUser) return null; // If the authenticated user is not found, return null
 
     // Get the users to follow
     const usersToFollow = await prisma.user.findMany({
         where: {
             NOT: {
-                id: user.id, // Exclude the authenticated user
+                id: loggedInUser.id, // Exclude the authenticated user
             },
             followers: {
                 none: {
-                    followerId: user.id, // Exclude users that are followed by the authenticated user
+                    followerId: loggedInUser.id, // Exclude users that are followed by the authenticated user
                 },
             },
         },
-        select: getUserDataSelect(user.id), // Pass the user-specific selection logic here
+        select: getUserDataSelect(loggedInUser.id), // Pass the user-specific selection logic here
         take: 5,
     });
 
     return (
-        <div className="bg-white min-h-[300px] p-4 mb-3 rounded-[4px]">
+        <div className="bg-white dark:bg-gray-900 min-h-[300px] p-4 mb-3 rounded-[4px] border dark:border-gray-800 transition-colors">
             {/* Heading */}
-            <p className="font-[600] text-[12px] uppercase text-center leading-[11.48px] font-[Gotham]">Who To Follow</p>
+            <p className="font-[600] text-[12px] text-center leading-[11.48px] font-[Gotham] text-gray-900 dark:text-white transition-colors uppercase tracking-wider">Who To Follow</p>
 
             {/* Divider */}
-            <hr className="border-t border-[#F4F4F4] mt-4" />
+            <hr className="border-t border-gray-100 dark:border-gray-800 mt-4 transition-colors" />
 
             {/* Users to follow */}
             <div className="mt-4 flex flex-col gap-6">
@@ -49,8 +44,8 @@ export default async function WhoToFollow() {
                         >
                             <UserAvatar avatarUrl={user.avatarUrl} size={500} className="w-[52px] h-[52px] flex-shrink-0" />
                             <div className="flex flex-col flex-1 min-w-0">
-                                <p className="font-semibold font-[Gotham] text-[14px] text-[#181818] leading-[17.5px] truncate hover:underline">{user.displayName}</p>
-                                <span className="font-[Gotham] text-[10px] leading-[15px] truncate text-gray-500">{user.profileHeadline}</span>
+                                <p className="font-semibold font-[Gotham] text-[14px] text-gray-900 dark:text-gray-100 leading-[17.5px] truncate hover:underline transition-colors">{user.displayName}</p>
+                                <span className="font-[Gotham] text-[10px] leading-[15px] truncate text-gray-500 dark:text-gray-400">{user.profileHeadline}</span>
                             </div>
                         </Link>
                         <div className="flex-shrink-0 ml-2">

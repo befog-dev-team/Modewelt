@@ -63,7 +63,7 @@ export default function EditProfile({ user, closeModal }) {
         <div>
             {/* Background Image Upload */}
             <div className="space-y-2.5">
-                <label className="block text-sm font-medium text-gray-600">Background Image</label>
+                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">Background Image</label>
                 <BackgroundInput
                     src={croppedBackground ? URL.createObjectURL(croppedBackground) : user.backgroundImageUrl || backgroundPlaceholder}
                     onImageCropped={setCroppedBackground}
@@ -71,7 +71,7 @@ export default function EditProfile({ user, closeModal }) {
             </div>
 
             <div className="space-y-2.5 my-4">
-                <label className="block text-sm font-medium text-gray-600">Avatar</label>
+                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">Avatar</label>
                 <AvatarInput
                     src={croppedAvatar
                         ? URL.createObjectURL(croppedAvatar) // createObjectURL is a function that creates a URL for a blob object
@@ -82,37 +82,37 @@ export default function EditProfile({ user, closeModal }) {
             </div>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 max-h-[80vh] overflow-y-auto">
                 <div>
-                    <label className="block text-sm font-medium text-gray-600">Name</label>
+                    <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">Name</label>
                     <input
                         {...form.register("displayName")} // Register the displayName field
-                        className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                        className="w-full mt-1 p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-transparent dark:text-white focus:ring-1 focus:ring-[#a35285] transition-colors"
                         placeholder="Your name"
                     />
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-600">Profile Headline</label>
+                    <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">Profile Headline</label>
                     <input
                         {...form.register("profileHeadline")}
-                        className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                        className="w-full mt-1 p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-transparent dark:text-white focus:ring-1 focus:ring-[#a35285] transition-colors"
                         placeholder="Your headline"
                     />
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-600">Location</label>
+                    <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">Location</label>
                     <input
                         {...form.register("location")} // Register the location field
-                        className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                        className="w-full mt-1 p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-transparent dark:text-white focus:ring-1 focus:ring-[#a35285] transition-colors"
                         placeholder="Your location"
                     />
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-600">Bio</label>
+                    <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">Bio</label>
                     <textarea
                         {...form.register("bio")} // Register the bio field
-                        className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                        className="w-full mt-1 p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-transparent dark:text-white focus:ring-1 focus:ring-[#a35285] transition-colors h-24"
                         placeholder="Write a short bio..."
                     />
                 </div>
@@ -166,9 +166,9 @@ function BackgroundInput({ src, onImageCropped }) {
                 ref={fileInputRef}
                 className="hidden"
             />
-            <button onClick={() => fileInputRef.current?.click()} className="relative group">
-                <Image src={src} alt="Background preview" width={500} height={500} className="rounded object-cover w-[15rem] h-[5rem]" />
-                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <button onClick={() => fileInputRef.current?.click()} className="relative group block">
+                <Image src={src} alt="Background preview" width={500} height={500} className="rounded object-cover w-[15rem] h-[5rem] bg-gray-200 dark:bg-gray-800 transition-colors" />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded">
                     <Camera size={24} />
                 </div>
             </button>
@@ -226,9 +226,9 @@ function AvatarInput({ src, onImageCropped }) {
                     alt="Avatar preview"
                     width={100}
                     height={100}
-                    className="size-24 flex-none rounded-full object-cover"
+                    className="size-24 flex-none rounded-full object-cover bg-gray-200 dark:bg-gray-800 transition-colors border-2 border-white dark:border-gray-700"
                 />
-                <span className="absolute inset-0 m-auto hidden group-hover:flex size-12 items-center justify-center rounded-full bg-black bg-opacity-30 text-white transition-colors duration-200">
+                <span className="absolute inset-0 m-auto hidden group-hover:flex size-12 items-center justify-center rounded-full bg-black/40 text-white transition-opacity duration-200">
                     <Camera size={24} />
                 </span>
             </button>

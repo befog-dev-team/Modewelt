@@ -62,7 +62,7 @@ export default function Post({ post }) {
   };
 
   return (
-    <div className="bg-white mx-auto my-4 rounded-md shadow-md w-full max-w-4xl">
+    <div className="bg-white dark:bg-gray-900 mx-auto my-4 rounded-md shadow-md w-full max-w-4xl border dark:border-gray-800 transition-colors">
       {/* Header */}
       <div className="flex justify-between items-center px-4 py-2">
         {/* <Link
@@ -77,7 +77,7 @@ export default function Post({ post }) {
         </Link> */}
 
         <div>
-          <p className="leading-[15px] text-xs font-[Gotham] text-[#181818]">
+          <p className="leading-[15px] text-xs font-[Gotham] text-gray-900 dark:text-gray-300">
             Post created by{" "}
             <span className="text-primary">{post.user.displayName}</span>{" "}
             <span className="text-primary">
@@ -88,12 +88,12 @@ export default function Post({ post }) {
 
         <div className="relative">
           <FaEllipsisH
-            className="text-[#181818] hover:text-primary cursor-pointer w-[20px] h-[24px]"
+            className="text-gray-900 dark:text-gray-300 hover:text-primary cursor-pointer w-[20px] h-[24px]"
             onClick={togglePopup}
           />
           {/* Delete Post Button */}
           {isPopupOpen && ( // Display the popup if isPopupOpen is true
-            <div className="absolute right-0 mt-2 w-[200px] bg-white border border-gray-300 shadow-lg rounded-lg z-10">
+            <div className="absolute right-0 mt-2 w-[200px] bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-lg rounded-lg z-10 transition-colors">
               {post.user.id === user.id && ( // Check if the post user ID matches the current user ID
                 <button
                   onClick={handleDeleteClick}
@@ -155,7 +155,7 @@ export default function Post({ post }) {
         </div>
       </div>
 
-      <div className="w-full h-[1px] bg-[#F4F4F4] mb-3" />
+      <div className="w-full h-[1px] bg-gray-100 dark:bg-gray-800 mb-3" />
 
       {/* User Info */}
       <div className="flex items-center mt-3 space-x-4 px-8">
@@ -164,18 +164,18 @@ export default function Post({ post }) {
         </Link>
         <div className="flex flex-col">
           <Link href={`/profile/${post.user.username}`} prefetch={true}>
-            <h1 className="text-sm font-bold line-clamp-1 break-all hover:underline">
+            <h1 className="text-sm font-bold line-clamp-1 break-all hover:underline text-gray-900 dark:text-white transition-colors">
               {post.user.displayName}
             </h1>
           </Link>
-          <span className="text-xs font-light">
+          <span className="text-xs font-light text-gray-500 dark:text-gray-400 transition-colors">
             {post.user.profileHeadline}
           </span>
         </div>
       </div>
 
       {/* Post Description */}
-      <div className="mt-1 text-gray-600">
+      <div className="mt-1 text-gray-700 dark:text-gray-200 transition-colors">
         {post.content.trim() && (
           <div>
             <div
@@ -185,7 +185,7 @@ export default function Post({ post }) {
               {expanded ? text : trimmedText + "..."}
             </div>
             <button
-              className="px-8 my-2 mt-4 text-[#A45286] text-xs font-semibold uppercase cursor-pointer transition-all duration-300"
+              className="px-8 my-2 mt-4 text-[#A45286] dark:text-[#fc3fb4] text-xs font-semibold uppercase cursor-pointer transition-all duration-300"
               onClick={() => setExpanded(!expanded)}
             >
               {expanded ? "Read Less" : "Read More"}
@@ -200,7 +200,7 @@ export default function Post({ post }) {
         )}
       </div>
 
-      <div className="w-full h-[1px] bg-[#F4F4F4] mt-1 mb-3" />
+      <div className="w-full h-[1px] bg-gray-100 dark:bg-gray-800 mt-1 mb-3" />
 
       {/* Stats & Share */}
       <div className="flex justify-between items-center pb-[16px] px-8 mb-4 mt-4">

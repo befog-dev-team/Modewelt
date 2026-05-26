@@ -3,21 +3,21 @@ import { Suspense } from "react";
 
 // Left Sections (Lazy Loaded)
 const CreatePostSection = dynamic(() => import("../../../components/Feed/CreatePostSection"), {
-  loading: () => <div className="h-40 animate-pulse bg-white mb-4 rounded-lg" />,
+  loading: () => <div className="h-40 animate-pulse bg-white dark:bg-gray-800 mb-4 rounded-lg" />,
 });
 const SortBySection = dynamic(() => import("../../../components/Feed/SortBySection"), {
-  loading: () => <div className="h-10 animate-pulse bg-white mb-4 rounded-lg" />,
+  loading: () => <div className="h-10 animate-pulse bg-white dark:bg-gray-800 mb-4 rounded-lg" />,
 });
 
 // Right Sections (Lazy Loaded)
 const ProfileSection = dynamic(() => import("../../../components/Feed/ProfileSection"), {
-  loading: () => <div className="h-64 animate-pulse bg-white mb-4" />,
+  loading: () => <div className="h-64 animate-pulse bg-white dark:bg-gray-800 mb-4" />,
 });
 const WhoToFollow = dynamic(() => import("../../../components/Feed/WhoToFollow"), {
-  loading: () => <div className="h-64 animate-pulse bg-white mb-4" />,
+  loading: () => <div className="h-64 animate-pulse bg-white dark:bg-gray-800 mb-4" />,
 });
 const TrendingHashtagsSection = dynamic(() => import("../../../components/Feed/TrendingHashtagsSection"), {
-  loading: () => <div className="h-64 animate-pulse bg-white mb-4" />,
+  loading: () => <div className="h-64 animate-pulse bg-white dark:bg-gray-800 mb-4" />,
 });
 
 
@@ -36,7 +36,7 @@ export default async function Page() {
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzA4fHxwcmludGVkJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D')" }}
       ></div>
       {/* Overlay for readability */}
-      <div className="fixed inset-0 bg-white/75 backdrop-blur-[0px] -z-10"></div>
+      <div className="fixed inset-0 bg-white/75 dark:bg-black/80 backdrop-blur-[0px] -z-10"></div>
 
       <div className="flex flex-col lg:flex-row justify-center mt-12 space-y-10 lg:space-y-0 lg:space-x-14 px-4 lg:px-8">
         {/* Left Section */}

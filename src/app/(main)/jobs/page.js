@@ -2,11 +2,13 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
 // Left Sections
-import NewJobSection from "../../../components/Jobs/NewJobSection";
+const NewJobSection = dynamic(() => import("../../../components/Jobs/NewJobSection"), {
+  loading: () => <div className="h-64 animate-pulse bg-white mb-4 rounded-lg" />,
+});
 
 // Right Sections
 const JobMenu = dynamic(() => import("../../../components/Jobs/Jobmenu/page"), {
-  loading: () => <div className="h-64 animate-pulse bg-white mb-4" />,
+  loading: () => <div className="h-64 animate-pulse bg-white dark:bg-gray-800 mb-4" />,
 });
 
 
@@ -30,13 +32,15 @@ export default function Jobs() {
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?q=80&w=2000&auto=format&fit=crop')" }}
       ></div>
       {/* Overlay for readability */}
-      <div className="fixed inset-0 bg-white/75 backdrop-blur-[1px] -z-10"></div>
+      <div className="fixed inset-0 bg-white/75 dark:bg-black/80 backdrop-blur-[1px] -z-10"></div>
 
       <div className="flex flex-col lg:flex-row justify-center mt-12 space-y-10 lg:space-y-0 lg:space-x-14 px-4 lg:px-8">
         {/* Left Section */}
         <div className="flex flex-col w-full lg:w-[850px] mb-8 lg:mb-0">
-          {/* New Job Section */}
-          <NewJobSection />
+          <Suspense fallback={<div className="h-64 animate-pulse bg-white mb-4 rounded-lg" />}>
+            {/* New Job Section */}
+            <NewJobSection />
+          </Suspense>
 
           {/* Sort By Section */}
           {/* <SortBySection headingText="Jobs For You" /> */}

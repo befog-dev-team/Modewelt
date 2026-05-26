@@ -15,10 +15,10 @@ import { FiSun, FiMoon } from "react-icons/fi";
 import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
 const OtherModal = dynamic(() => import("../Other/index"), { ssr: false });
+const SearchField = dynamic(() => import("../SearchField"), { ssr: false });
+const NotificationsButton = dynamic(() => import("@/app/(main)/notifications/NotificationsButton"), { ssr: false });
 import { useSession } from "@/app/(main)/SessionProvider";
 import UserAvatar from "../UserAvatar";
-import NotificationsButton from "@/app/(main)/notifications/NotificationsButton";
-import SearchField from "../SearchField";
 
 function Navbar({ unreadNotificationCount }) {
   const { user } = useSession();
@@ -85,8 +85,11 @@ function Navbar({ unreadNotificationCount }) {
           {/* Desktop View */}
           <div className="hidden lg:flex flex-grow items-center space-x-6 ml-8 lg:ml-14">
             {navItems.map(({ href, icon: Icon, label }) => (
-              <Link key={href} href={href} className="flex flex-col items-center relative" prefetch={true}>
-                <Icon className={`h-6 w-6 ${pathname === href ? "text-[#fc3fb4]" : "text-gray-600 dark:text-gray-300"}`} />
+              <Link key={href} href={href} 
+                className={`flex flex-col items-center relative ${pathname === href ? "text-[#fc3fb4]" : "text-gray-600 dark:text-gray-300 hover:text-[#fc3fb4]"}`} 
+                prefetch={true}
+              >
+                <Icon className="h-6 w-6" />
                 <span className="text-xs">{label}</span>
                 {pathname === href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />}
               </Link>
@@ -94,7 +97,7 @@ function Navbar({ unreadNotificationCount }) {
 
             <Link
               href="/notifications"
-              className={`flex flex-col items-center relative text-gray-600`}
+              className={`flex flex-col items-center relative text-gray-600 dark:text-gray-300`}
               prefetch={true}
             >
               <NotificationsButton initialState={{ unreadCount: unreadNotificationCount }} />
@@ -106,7 +109,7 @@ function Navbar({ unreadNotificationCount }) {
 
             {user.role === "ADMIN" && (
               <Link href={adminNavItem.href} className="flex flex-col items-center relative" prefetch={true}>
-                <adminNavItem.icon className={`h-6 w-6  text-gray-600`} />
+                <adminNavItem.icon className={`h-6 w-6 text-gray-600 dark:text-gray-300`} />
                 <span className="text-xs">{adminNavItem.label}</span>
                 {pathname === adminNavItem.href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />}
               </Link>
@@ -123,8 +126,8 @@ function Navbar({ unreadNotificationCount }) {
                 <UserAvatar avatarUrl={user.avatarUrl} size={500} />
               </div>
               <div className="hidden md:block">
-                <h3 className="text-sm font-semibold">{user.displayName}</h3>
-                <p className="text-xs text-gray-500">{user.totalProfileViews} views</p>
+                <h3 className="text-sm font-semibold dark:text-white">{user.displayName}</h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{user.totalProfileViews} views</p>
               </div>
             </Link>
 
@@ -140,8 +143,11 @@ function Navbar({ unreadNotificationCount }) {
       {/* Mobile View */}
       <div className="fixed bottom-0 left-0 w-full bg-white dark:bg-gray-900 dark:text-white border-t border-gray-300 dark:border-gray-800 flex justify-around items-center py-2 lg:hidden z-10 transition-colors duration-300">
         {navItems.map(({ href, icon: Icon, label }) => (
-          <Link key={href} href={href} className="flex flex-col items-center relative" prefetch>
-            <Icon className={`h-6 w-6 ${pathname === href ? "text-[#fc3fb4]" : "text-gray-600 dark:text-gray-300"}`} />
+          <Link key={href} href={href} 
+            className={`flex flex-col items-center relative ${pathname === href ? "text-[#fc3fb4]" : "text-gray-600 dark:text-gray-300"}`} 
+            prefetch
+          >
+            <Icon className="h-6 w-6" />
             <span className="text-xs">{label}</span>
             {pathname === href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />}
           </Link>
@@ -149,7 +155,7 @@ function Navbar({ unreadNotificationCount }) {
 
         <Link
           href="/notifications"
-          className={`flex flex-col items-center relative text-gray-600`}
+          className={`flex flex-col items-center relative text-gray-600 dark:text-gray-300`}
           prefetch
         >
           <NotificationsButton initialState={{ unreadCount: unreadNotificationCount }} />
@@ -161,7 +167,7 @@ function Navbar({ unreadNotificationCount }) {
 
         {user.role === "ADMIN" && (
           <Link href={adminNavItem.href} className="flex flex-col items-center relative" prefetch={true}>
-            <adminNavItem.icon className={`h-6 w-6  text-gray-600`} />
+            <adminNavItem.icon className={`h-6 w-6 text-gray-600 dark:text-gray-300`} />
             <span className="text-xs">{adminNavItem.label}</span>
             {pathname === adminNavItem.href && <div className="absolute bottom-[-4px] w-full h-1 bg-[#fc3fb4] rounded-full" />}
           </Link>

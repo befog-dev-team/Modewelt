@@ -4,7 +4,7 @@ import { Avatar } from "@mui/material";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import { LuPlus } from "react-icons/lu";
 import { MdDelete } from "react-icons/md"; // Import delete icon
-import { Loader2 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import profileimg from "../../../../public/assets/profile/imgarticle.png";
 import toast from "react-hot-toast";
 
@@ -171,31 +171,45 @@ export default function SkillsPage({ user, username, loggedinUserId }) {
   };
 
   return (
-    <div className="max-w-[850px] bg-[#ffffff] w-full mt-4 shadow-lg min-h-fit p-4">
+    <div className="max-w-[850px] bg-[#ffffff] dark:bg-gray-900 w-full mt-4 shadow-lg min-h-fit p-4 border dark:border-gray-800 transition-colors">
       {/* Header Section */}
       <div className="flex justify-between">
         <div className="flex space-x-5 mt-3">
-          <h1 className="font-bold font-[Gotham]">Skills & Endorsements</h1>
+          <h1 className="font-bold font-[Gotham] dark:text-gray-100">Skills & Endorsements</h1>
         </div>
         {loggedinUserId === user?.id && skills.length < MAX_SKILLS_LIMIT && (
-          <div className="cursor-pointer" onClick={handleAddSkillClick}>
+          <div className="cursor-pointer dark:text-gray-400 dark:hover:text-white transition-colors" onClick={handleAddSkillClick}>
             <LuPlus className="text-2xl" />
           </div>
         )}
       </div>
 
-      {/* 🔹 Show Loading Indicator */}
-      {isLoading && <Loader2 className="mx-auto animate-spin size-6" />}
+      {isLoading && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 px-4">
+          {[1, 2].map((i) => (
+            <div key={i} className="w-full h-[100px] bg-gray-100 dark:bg-gray-800 p-4 rounded-lg animate-pulse">
+                <div className="flex justify-between items-center mb-3">
+                    <Skeleton className="h-3 w-1/2" />
+                    <Skeleton className="h-3 w-1/6" />
+                </div>
+                <div className="flex space-x-1">
+                    <Skeleton className="h-6 w-6 rounded-full" />
+                    <Skeleton className="h-6 w-6 rounded-full" />
+                </div>
+            </div>
+          ))}
+        </div>
+      )}
       {error && <p className="text-red-500">{error}</p>}
       {!isLoading && !error && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 px-4">
           {skills.slice(0, visibleSkills).map((skill) => (
             <div
               key={skill.id}
-              className="w-full h-auto bg-gray-200 p-4 rounded-lg"
+              className="w-full h-auto bg-gray-200 dark:bg-gray-800 p-4 rounded-lg transition-colors"
             >
               <div className="flex justify-between items-center">
-                <span className="font-semibold text-sm">{skill.title}</span>
+                <span className="font-semibold text-sm dark:text-gray-200">{skill.title}</span>
                 <span className="text-[#fa43b4] font-bold">
                   {skill.endorsements}
                 </span>
@@ -254,9 +268,9 @@ export default function SkillsPage({ user, username, loggedinUserId }) {
 
       {/* Add Skill Modal */}
       {isPopupOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded shadow-lg w-[500px]">
-            <h2 className="text-lg font-bold mb-4">Add New Skill</h2>
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white dark:bg-gray-900 p-6 rounded shadow-lg w-[500px] border dark:border-gray-800">
+            <h2 className="text-lg font-bold mb-4 dark:text-white">Add New Skill</h2>
 
             <input
               type="text"
@@ -264,12 +278,12 @@ export default function SkillsPage({ user, username, loggedinUserId }) {
               placeholder="Skill Title"
               value={newSkill.title}
               onChange={handleInputChange}
-              className="w-full border p-2 mb-3 rounded"
+              className="w-full border dark:border-gray-700 bg-transparent dark:text-white p-2 mb-3 rounded focus:outline-none focus:ring-1 focus:ring-[#fa43b4]"
             />
 
             <div className="flex justify-end mt-4">
               <button
-                className="bg-gray-300 text-black px-4 py-2 rounded mr-2"
+                className="bg-gray-300 dark:bg-gray-700 text-black dark:text-gray-200 px-4 py-2 rounded mr-2"
                 onClick={() => setIsPopupOpen(false)}
               >
                 Cancel

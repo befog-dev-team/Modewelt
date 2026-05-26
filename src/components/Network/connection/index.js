@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 // import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -9,14 +10,26 @@ export default function Connection() {
   const [connectionsLastWeek, setConnectionsLastWeek] = useState([]);
   const [connectionsLastMonth, setConnectionsLastMonth] = useState([]);
 
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  useEffect(() => {
+    const handleClickOutside = () => setOpenDropdown(null);
+    window.addEventListener("click", handleClickOutside);
+    return () => window.removeEventListener("click", handleClickOutside);
+  }, []);
+
   useEffect(() => {
     const fetchConnections = async (period) => {
-      const res = await fetch(`/api/connections?period=${period}`);
-      const data = await res.json();
-      return data.connections || [];
+      try {
+        const res = await fetch(`/api/connections?period=${period}`);
+        const data = await res.json();
+        return data.connections || [];
+      } catch (error) {
+        console.error("Error fetching connections:", error);
+        return [];
+      }
     };
 
-    // Fetch connections for each period
     const fetchData = async () => {
       const todayConnections = await fetchConnections("today");
       const lastWeekConnections = await fetchConnections("last-week");
@@ -49,20 +62,36 @@ export default function Connection() {
           ].map((item, index) => (
             <div
               key={index}
-              className="bg-white w-full sm:w-[300px] h-auto rounded-[4px] p-4 shadow-md hover:shadow-lg transition-shadow ease-in-out duration-300"
+              className="bg-white w-full sm:w-[300px] h-auto rounded-[4px] p-4 shadow-md hover:shadow-lg transition-shadow ease-in-out duration-300 relative"
             >
               {/* Card Header */}
               <div className="flex justify-between items-center mb-4">
                 <div className="font-[Arial] font-bold text-[13px] uppercase">
                   {item.period}
                 </div>
-                <Image
-                  alt="three dots"
-                  height={24}
-                  width={24}
-                  src="/assets/network/connections/threedots.png"
-                  className="cursor-pointer"
-                />
+                <div className="relative">
+                  <Image
+                    alt="three dots"
+                    height={24}
+                    width={24}
+                    src="/assets/network/connections/threedots.png"
+                    className="cursor-pointer hover:bg-gray-100 rounded-full transition-colors"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setOpenDropdown(openDropdown === index ? null : index);
+                    }}
+                  />
+                  {openDropdown === index && (
+                    <div className="absolute right-0 top-full mt-1 w-32 bg-white border border-gray-100 rounded-md shadow-xl z-20 py-1 transition-all duration-200">
+                      <button className="w-full px-4 py-2 text-left text-[12px] hover:bg-gray-50 text-gray-700 font-medium">
+                        See Stats
+                      </button>
+                      <button className="w-full px-4 py-2 text-left text-[12px] hover:bg-gray-50 text-gray-700 font-medium">
+                        See All
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
               {/* New Connection Info */}
               <div className="flex items-center gap-2 mb-4">
@@ -72,24 +101,6 @@ export default function Connection() {
                 <div className="text-[#fc3fb4] font-bold text-[12px] uppercase">
                   New Connection
                 </div>
-              </div>
-
-              {/* Card Actions */}
-              <div className="flex justify-between space-x-2">
-                {/* <Link href='/states'>
-                  <button
-                    className="w-1/2 border-t text-sm py-2 hover:text-[#a35285] hover:bg-slate-50 transition-all"
-                  >
-                    See Stats
-                  </button>
-                </Link> */}
-                {/* <Link href='/states'>
-                  <button
-                    className="w-1/2 border-t text-sm py-2 hover:text-[#a35285] hover:bg-slate-50 transition-all"
-                  >
-                    See All
-                  </button>
-                </Link> */}
               </div>
             </div>
           ))}

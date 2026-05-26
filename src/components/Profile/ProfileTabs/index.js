@@ -76,7 +76,7 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
                     onClick={() => setActiveSection("profile")}
                     className={`flex-1 min-w-[100px] flex justify-center items-center font-[Arial] text-[14px] md:text-[16px] font-bold transition-all duration-300 leading-[13.8px] ${activeSection === "profile"
                         ? "bg-[#fc3fb4] text-white rounded-t-[4px] cursor-pointer h-[51px]"
-                        : "bg-white text-black h-[40px] cursor-pointer"
+                        : "bg-white dark:bg-gray-800 text-black dark:text-gray-200 h-[40px] cursor-pointer"
                         }`}
                 >
                     Profile
@@ -96,7 +96,7 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
                     onClick={() => setActiveSection("your-posts")}
                     className={`flex-1 min-w-[100px] flex justify-center items-center font-[Arial] text-[14px] md:text-[16px] font-semibold transition-all duration-300 leading-[13.8px] ${activeSection === "your-posts"
                         ? "h-[50px] bg-[#fc3fb4] text-white rounded-t-[4px] cursor-pointer"
-                        : "bg-white text-black h-[40px] cursor-pointer"
+                        : "bg-white dark:bg-gray-800 text-black dark:text-gray-200 h-[40px] cursor-pointer"
                         }`}
                 >
                     Your Posts
@@ -134,8 +134,8 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
             {/* Activities and Interests Section */}
             {activeSection === "activities" && (
                 <div>
-                    <div
-                        className="w-full max-w-[850px] mt-8 bg-[#ffffff] mx-auto"
+                        <div
+                        className="w-full max-w-[850px] mt-8 bg-[#ffffff] dark:bg-gray-900 mx-auto border dark:border-gray-800 transition-colors"
                         style={{
                             height:
                                 activeSectionPost === "post" ||
@@ -149,7 +149,7 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
                         }}
                     >
                         <div>
-                            <h1 className="text-lg sm:text-xl font-semibold py-3 px-4">
+                            <h1 className="text-lg sm:text-xl font-semibold py-3 px-4 dark:text-gray-100">
                                 Recent Activities
                             </h1>
                         </div>
@@ -158,9 +158,9 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
                         <div className="px-4 flex flex-wrap gap-4">
                             <button
                                 onClick={() => setActiveSectionPost("post")}
-                                className={`border-2 border-[#fa43b4] rounded-md px-4 py-2 text-sm md:text-lg ${activeSectionPost === "post"
+                                className={`border-2 border-[#fa43b4] rounded-md px-4 py-2 text-sm md:text-lg dark:text-gray-200 transition-colors ${activeSectionPost === "post"
                                     ? "bg-[#fa43b4] text-white"
-                                    : ""
+                                    : "hover:bg-gray-100 dark:hover:bg-gray-800"
                                     }`}
                             >
                                 Post
@@ -213,9 +213,9 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
                             {activeSectionPost === "documents" && <Documentpage />}
                         </div>
                     </div>
-                    <div className="p-6 bg-[#FFFFFF] max-w-[850px] w-full min-h-fit">
+                    <div className="p-6 bg-[#FFFFFF] dark:bg-gray-900 max-w-[850px] w-full min-h-fit border dark:border-gray-800 mt-8 transition-colors">
                         {/* Header */}
-                        <h1 className="text-xl font-bold mb-4">Events / Reminders</h1>
+                        <h1 className="text-xl font-bold mb-4 dark:text-white">Events / Reminders</h1>
 
                         {/* Tabs */}
                         <div className="flex space-x-4 mb-6">
@@ -316,13 +316,13 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
                                             key={reminder.id}
                                             className="border-b border-gray-200 pb-4"
                                         >
-                                            <h2 className="text-lg font-semibold">
+                                            <h2 className="text-lg font-semibold dark:text-gray-100">
                                                 {reminder.title}
                                             </h2>
-                                            <p className="text-sm text-gray-500 mt-1">
+                                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                                                 📅 Due: {reminder.dueDate}
                                             </p>
-                                            <p className="text-sm text-gray-500 mt-2">
+                                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
                                                 {reminder.details}
                                             </p>
                                         </div>
@@ -341,13 +341,13 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
 
             {/* Articles Section */}
             {activeSection === "articles" && (
-                <div className="mt-10 bg-[#ffffff] rounded-md min-h-min max-w-full w-full shadow-lg p-6">
+                <div className="mt-10 bg-[#ffffff] dark:bg-gray-900 rounded-md min-h-min max-w-full w-full shadow-lg p-6 border dark:border-gray-800 transition-colors">
                     {/* Article Header */}
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                        <h1 className="m-1 font-semibold text-lg sm:text-xl md:text-2xl">
+                        <h1 className="m-1 font-semibold text-lg sm:text-xl md:text-2xl dark:text-gray-100">
                             Article
                         </h1>
-                        <FaEllipsisVertical className="m-1 font-semibold text-lg sm:text-xl md:text-2xl" />
+                        <FaEllipsisVertical className="m-1 font-semibold text-lg sm:text-xl md:text-2xl dark:text-gray-400" />
                     </div>
 
                     {/* Author Information */}
@@ -360,10 +360,10 @@ const ProfileTabs = ({ username, imageArticle, users, loggedinUserId }) => {
                             className="w-[52px] h-[52px] rounded-full mb-3 sm:mb-0 sm:mr-4"
                         />
                         <div className="flex flex-col">
-                            <p className="font-[Gotham] text-md text-[#181818] font-bold text-[14px] sm:text-lg leading-[13.4px]">
+                            <p className="font-[Gotham] text-md text-[#181818] dark:text-gray-100 font-bold text-[14px] sm:text-lg leading-[13.4px]">
                                 UX/UI designer
                             </p>
-                            <p className="text-sm sm:text-base text-[#666]">
+                            <p className="text-sm sm:text-base text-[#666] dark:text-gray-400">
                                 product designer at company name
                             </p>
                         </div>

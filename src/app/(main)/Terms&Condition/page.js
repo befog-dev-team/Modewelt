@@ -13,27 +13,27 @@ const TermsAndConditions = () => {
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?q=80&w=2000&auto=format&fit=crop')" }}
         ></div>
         {/* Overlay for readability */}
-        <div className="fixed inset-0 bg-white/75 backdrop-blur-[1px] -z-10"></div>
-        <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-6 relative z-10">
+        <div className="fixed inset-0 bg-white/75 dark:bg-black/80 backdrop-blur-[1px] -z-10 transition-colors"></div>
+        <div className="max-w-4xl w-full bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 relative z-10 border dark:border-gray-800 transition-colors">
           <h1 className="text-3xl font-bold mb-4 text-[#fc3fb4]">Modeweltjob Terms and Conditions</h1>
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors">
             Welcome to Modeweltjob, a job portal application specifically designed for the fashion industry. By accessing or using Modeweltjob, you agree to comply with and be bound by these Terms and Conditions (&quot;Terms&quot;). Please read them carefully.
           </p>
 
           <h2 className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">1. Acceptance of Terms</h2>
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors">
             By creating an account or using our services, you agree to these Terms and our Privacy Policy. If you do not agree, you must not access or use our platform. Your continued use constitutes acceptance of these Terms, including any amendments or updates. We recommend regularly reviewing these Terms for any updates.
           </p>
 
           <h2 className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">2. Eligibility</h2>
-          <ul className="list-disc pl-6 text-gray-600 mb-4">
+          <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
             <li>You must be at least 18 years old to use Modeweltjob.</li>
             <li>Employers and recruiters must comply with applicable employment laws and must be authorized to post job listings on behalf of their organization.</li>
             <li>Any accounts created or accessed in violation of this section may be suspended or terminated without notice, and Modeweltjob reserves the right to take legal action where applicable.</li>
           </ul>
 
           <h2 className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">3. User Responsibilities</h2>
-          <ul className="list-disc pl-6 text-gray-600 mb-4">
+          <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
             <li>
               <strong>Account Security:</strong>
               <ul className="list-disc pl-6">
@@ -60,15 +60,15 @@ const TermsAndConditions = () => {
           </ul>
 
           <h2 className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">4. Content Ownership and Use</h2>
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors">
             <strong>User Content:</strong> You retain ownership of the content you upload to Modeweltjob, such as resumes, job postings, or messages. By submitting content, you grant Modeweltjob a perpetual, non-exclusive, worldwide, royalty-free license to use, reproduce, display, distribute, and modify your content as necessary to operate and improve the platform.
           </p>
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors">
             <strong>Modeweltjob Content:</strong> All intellectual property, including but not limited to trademarks, logos, designs, and software, is owned by Modeweltjob or its licensors. Users may not copy, distribute, or modify Modeweltjob’s proprietary content without explicit permission.
           </p>
 
           <h2 className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">5. Job Posting and Application Guidelines</h2>
-          <ul className="list-disc pl-6 text-gray-600 mb-4">
+          <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
             <li>
               <strong>For Employers:</strong>
               <ul className="list-disc pl-6">
@@ -95,12 +95,12 @@ const TermsAndConditions = () => {
           </ul>
 
           <h2 className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">6. Privacy</h2>
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors">
             Modeweltjob is committed to safeguarding user data. Refer to our Privacy Policy for detailed information on the types of data we collect, how we store and process personal information, and how we share data with third-party service providers. You also have rights regarding access, correction, and deletion of data.
           </p>
 
           <h2 className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">7. Termination</h2>
-          <ul className="list-disc pl-6 text-gray-600 mb-4">
+          <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
             <li>
               <strong>Termination by Users:</strong> You may delete your account at any time through your account settings. Note that some data may be retained in accordance with legal obligations.
             </li>
@@ -110,30 +110,30 @@ const TermsAndConditions = () => {
           </ul>
 
           <h2 className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">8. Disclaimers and Limitations of Liability</h2>
-          <ul className="list-disc pl-6 text-gray-600 mb-4">
+          <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
             <li><strong>No Employment Guarantee:</strong> Modeweltjob acts as an intermediary and does not guarantee employment or successful hiring for any user.</li>
             <li><strong>Platform Availability:</strong> We strive to maintain a reliable platform but do not guarantee uninterrupted or error-free access. Scheduled maintenance or technical issues may affect availability.</li>
             <li><strong>Limitation of Liability:</strong> To the fullest extent permitted by law, Modeweltjob and its affiliates are not liable for any indirect, incidental, or consequential damages arising from your use of the platform.</li>
           </ul>
 
           <h2 className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">9. Indemnification</h2>
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors">
             You agree to indemnify and hold harmless Modeweltjob, its employees, and affiliates from any claims, losses, or damages arising from your violation of these Terms, misuse of the platform, or any breach of intellectual property or third-party rights.
           </p>
 
           <h2 className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">10. Changes to Terms</h2>
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors">
             Modeweltjob reserves the right to update these Terms at any time. Updates will be communicated through email notifications or prominent notices on the platform. Continued use of the platform after updates signifies your acceptance of the new Terms.
           </p>
 
           <h2 className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">11. Governing Law and Dispute Resolution</h2>
-          <ul className="list-disc pl-6 text-gray-600 mb-4">
+          <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
             <li><strong>Jurisdiction:</strong> These Terms are governed by the laws of the United States.</li>
             <li><strong>Arbitration:</strong> All disputes will be resolved through binding arbitration in accordance with the American Arbitration Association rules. Users waive the right to participate in class actions.</li>
           </ul>
 
           <h2 className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">12. Additional Provisions</h2>
-          <ul className="list-disc pl-6 text-gray-600 mb-4">
+          <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
             <li><strong>Severability:</strong> If any provision of these Terms is deemed invalid or unenforceable, the remaining provisions will remain effective.</li>
             <li><strong>No Waiver:</strong> Modeweltjob’s failure to enforce any provision of these Terms does not constitute a waiver of its rights.</li>
             <li><strong>Entire Agreement:</strong> These Terms, along with the Privacy Policy, constitute the entire agreement between you and Modeweltjob regarding your use of the platform.</li>
@@ -147,7 +147,7 @@ const TermsAndConditions = () => {
             Email: <a href="mailto:contact.us@befog.in" className="text-[#fc3fb4] underline">contact.us@befog.in</a><br />
           </p>
 
-          <p className="text-gray-600 mt-6">
+          <p className="text-gray-600 dark:text-gray-300 mt-6 transition-colors">
             By using Modeweltjob, you acknowledge that you have read, understood, and agree to these Terms and Conditions.
           </p>
         </div>

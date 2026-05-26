@@ -2,12 +2,10 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from "next/image";
-import Connections from '../../../components/Network/connection';
-import Invitations from '../../../components/Network/invitation';
-// import Pages from '../../../components/Network/pages';
-// import Groups from '../../../components/Network/groups';
-// import Teammates from '../../../components/Network/teammates';
-import Hashtag from '../../../components/Network/Hashtag';
+import dynamic from "next/dynamic";
+const Connections = dynamic(() => import('../../../components/Network/connection'), { ssr: false });
+const Invitations = dynamic(() => import('../../../components/Network/invitation'), { ssr: false });
+const Hashtag = dynamic(() => import('../../../components/Network/Hashtag'), { ssr: false });
 // import Footer from '@/components/Footer';
 
 export default function Network({ users, trendingTopics }) {
@@ -54,11 +52,11 @@ export default function Network({ users, trendingTopics }) {
                 style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?q=80&w=2000&auto=format&fit=crop')" }}
             ></div>
             {/* Overlay for readability */}
-            <div className="fixed inset-0 bg-white/75 backdrop-blur-[0px] -z-10"></div>
+            <div className="fixed inset-0 bg-white/75 dark:bg-black/80 backdrop-blur-[0px] -z-10"></div>
 
             <div className="flex flex-col lg:flex-row mt-4 md:mt-[45px] lg:ml-[134px]">
                 {/* Left Sidebar */}
-                <div className="w-full sm:w-[240px] md:w-[290px] h-min bg-white shadow-md">
+                <div className="w-full sm:w-[240px] md:w-[290px] h-min bg-white dark:bg-gray-900 border dark:border-gray-800 shadow-md">
                     <ul className="relative">
                         {/* Scroller Indicator */}
                         <div
@@ -77,22 +75,25 @@ export default function Network({ users, trendingTopics }) {
                             <li
                                 key={item.label}
                                 ref={item.ref}
-                                className={`flex items-center p-4 border-b-2 border-slate-300 cursor-pointer ${activeSection === item.label.toLowerCase() ? 'opacity-60' : ''
-                                    }`}
+                                className={`flex items-center p-4 border-b-2 border-slate-300 dark:border-gray-800 cursor-pointer ${
+                                    activeSection === item.label.toLowerCase() 
+                                    ? 'bg-pink-50/50 dark:bg-pink-950/20 text-[#fc3fb4]' 
+                                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                                }`}
                                 onClick={() => setActiveSection(item.label.toLowerCase())}
                             >
                                 <div className="flex items-center">
                                     <Image
                                         width={16}
                                         height={16}
-                                        className="w-4 h-4 md:w-[16px] md:h-[16px]"
+                                        className={`w-4 h-4 md:w-[16px] md:h-[16px] ${activeSection === item.label.toLowerCase() ? '' : 'opacity-70 dark:invert-[.75]'}`}
                                         src={`/assets/network/${item.icon}.png`}
                                         alt={item.label}
                                     />
                                     <span className="ml-2 text-[12px] md:text-[14px] font-bold uppercase">{item.label}</span>
                                 </div>
                                 {item.count && (
-                                    <span className="ml-auto text-[12px] md:text-[14px] font-bold text-gray-600">
+                                    <span className="ml-auto text-[12px] md:text-[14px] font-bold text-gray-600 dark:text-gray-400">
                                         {item.count}
                                     </span>
                                 )}

@@ -78,3 +78,36 @@ export async function submitJob(formData) {
 //     }
 // }
 
+// Update an existing job
+export async function updateJob(jobId, formData) {
+    const { user } = await validateRequest();
+    if (!user) throw Error("Unauthorized");
+
+    try {
+        const updatedJob = await prisma.job.update({
+            where: { id: jobId },
+            data: {
+                jobTitle: formData.jobTitle,
+                company: formData.company,
+                workplaceType: formData.workplaceType,
+                location: formData.location,
+                jobType: formData.jobType,
+                description: formData.description,
+                requirements: formData.requirements,
+                benefits: formData.benefits,
+                skills: formData.skills,
+                salaryCountry: formData.salaryCountry,
+                salaryCurrency: formData.salaryCurrency,
+                salaryAmount: formData.salaryAmount,
+                salaryType: formData.salaryType,
+                jobLevel: formData.jobLevel,
+                expirationDate: formData.expirationDate,
+            },
+        });
+
+        return updatedJob;
+    } catch (error) {
+        console.error("Error updating job:", error);
+        throw new Error("Failed to update job. Please try again.");
+    }
+}

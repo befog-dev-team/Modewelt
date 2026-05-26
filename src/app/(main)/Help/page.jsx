@@ -13,16 +13,16 @@ const HelpCenter = () => {
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?q=80&w=2000&auto=format&fit=crop')" }}
         ></div>
         {/* Overlay for readability */}
-        <div className="fixed inset-0 bg-white/75 backdrop-blur-[1px] -z-10"></div>
-        <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-6 relative z-10">
+        <div className="fixed inset-0 bg-white/75 dark:bg-black/80 backdrop-blur-[1px] -z-10 transition-colors"></div>
+        <div className="max-w-4xl w-full bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 relative z-10 border dark:border-gray-800 transition-colors">
         <h1 className="text-3xl font-bold mb-4 text-[#fc3fb4]">Modeweltjob Help Center</h1>
-        <p className="text-gray-600 mb-6">
+        <p className="text-gray-600 dark:text-gray-300 mb-6 transition-colors">
           Welcome to the Modeweltjob Help Center! We are dedicated to ensuring your experience on Modeweltjob is smooth and productive. Whether you’re a job seeker passionate about the fashion industry or an employer seeking creative talent, this guide will help you navigate the platform effectively.
         </p>
 
         <h2 className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">For Job Seekers</h2>
         <h3 className="text-xl font-semibold mt-4 mb-2 text-[#fc3fb4]">1. Getting Started</h3>
-        <ul className="list-disc pl-6 text-gray-600 mb-4">
+        <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
           <li><strong>Create Your Account:</strong>
             <ul className="list-disc pl-6">
               <li>Sign up with your email address.</li>
@@ -39,13 +39,13 @@ const HelpCenter = () => {
         </ul>
 
         <h3 className="text-xl font-semibold mt-4 mb-2 text-[#fc3fb4]">2. Finding Jobs</h3>
-        <ul className="list-disc pl-6 text-gray-600 mb-4">
+        <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
           <li><strong>Search Tools:</strong> Use filters such as Job Type, Location, Experience Level, Salary Range, and Company Type to find relevant roles.</li>
           <li><strong>Save Jobs:</strong> Bookmark jobs of interest to apply later.</li>
         </ul>
 
         <h3 className="text-xl font-semibold mt-4 mb-2 text-[#fc3fb4]">3. Applying for Jobs</h3>
-        <ul className="list-disc pl-6 text-gray-600 mb-4">
+        <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
           <li><strong>Tailored Applications:</strong>
             <ul className="list-disc pl-6">
               <li>Review job requirements carefully.</li>
@@ -55,26 +55,26 @@ const HelpCenter = () => {
         </ul>
 
         <h3 className="text-xl font-semibold mt-4 mb-2 text-[#fc3fb4]">4. Application Tracking</h3>
-        <ul className="list-disc pl-6 text-gray-600 mb-4">
+        <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
           <li>Monitor your application status via the Application Tracker in your dashboard.</li>
           <li>Receive updates and interview invites through notifications.</li>
         </ul>
 
         <h3 className="text-xl font-semibold mt-4 mb-2 text-[#fc3fb4]">5. Showcase Your Expertise</h3>
-        <ul className="list-disc pl-6 text-gray-600 mb-4">
+        <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
           <li>Enroll in skill certification courses available on Modeweltjob to make your profile stand out.</li>
           <li>Keep your profile updated to improve visibility to recruiters.</li>
         </ul>
 
         <h2 className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">For Employers</h2>
         <h3 className="text-xl font-semibold mt-4 mb-2 text-[#fc3fb4]">1. Setting Up Your Account</h3>
-        <ul className="list-disc pl-6 text-gray-600 mb-4">
+        <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
           <li><strong>Sign Up:</strong> Register with your company email to access employer features.</li>
           <li>Verify your account and complete your company profile.</li>
         </ul>
 
         <h3 className="text-xl font-semibold mt-4 mb-2 text-[#fc3fb4]">2. Posting Jobs</h3>
-        <ul className="list-disc pl-6 text-gray-600 mb-4">
+        <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
           <li><strong>Create Listings:</strong>
             <ul className="list-disc pl-6">
               <li>Add job details, skill requirements, and application instructions.</li>
@@ -85,44 +85,44 @@ const HelpCenter = () => {
         </ul>
 
         <h3 className="text-xl font-semibold mt-4 mb-2 text-[#fc3fb4]">3. Reviewing Applications</h3>
-        <ul className="list-disc pl-6 text-gray-600 mb-4">
+        <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
           <li>Use the Applicant Dashboard to view and organize candidate profiles.</li>
           <li>Filter candidates based on skills, experience, and qualifications.</li>
         </ul>
 
         <h3 className="text-xl font-semibold mt-4 mb-2 text-[#fc3fb4]">4. Branding Opportunities</h3>
-        <ul className="list-disc pl-6 text-gray-600 mb-4">
+        <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
           <li>Create a compelling company profile with photos, videos, and success stories.</li>
           <li>Showcase your work culture and attract top creative talent.</li>
         </ul>
 
         <h3 className="text-xl font-semibold mt-4 mb-2 text-[#fc3fb4]">5. Subscriptions and Add-Ons</h3>
-        <ul className="list-disc pl-6 text-gray-600 mb-4">
+        <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
           <li>Explore premium features like analytics, targeted campaigns, and priority support.</li>
         </ul>
 
         <h2 className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">Common Questions (FAQs)</h2>
         <h3 className="text-xl font-semibold mt-4 mb-2 text-[#fc3fb4]">Job Seekers</h3>
-        <ul className="list-disc pl-6 text-gray-600 mb-4">
+        <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
           <li>How can I make my profile more appealing?</li>
           <li>What file formats are supported for resumes and portfolios?</li>
         </ul>
         <h3 className="text-xl font-semibold mt-4 mb-2 text-[#fc3fb4]">Employers</h3>
-        <ul className="list-disc pl-6 text-gray-600 mb-4">
+        <ul className="list-disc pl-6 text-gray-600 dark:text-gray-400 mb-4 transition-colors">
           <li>How do I purchase a subscription?</li>
           <li>What is the difference between standard and sponsored job postings?</li>
         </ul>
 
         <h2 id="contact" className="text-2xl font-semibold mt-6 mb-2 text-[#fc3fb4]">Contact Us</h2>
-        <p className="text-gray-600 mb-4">
+        <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors">
           Still have questions? Reach out to our support team!
         </p>
-        <p className="text-gray-600 mb-4">
+        <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors">
           Email: <a href="mailto:contact.us@befog.in" className="text-[#fc3fb4] underline">contact.us@befog.in</a><br />
           Live Chat: Available 24/7 via your dashboard.
         </p>
 
-        <p className="text-gray-600 mt-6">
+        <p className="text-gray-600 dark:text-gray-300 mt-6 transition-colors">
           Thank you for choosing Modeweltjob—your ultimate platform for connecting the fashion industry’s talent and opportunities!
         </p>
       </div>

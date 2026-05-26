@@ -6,7 +6,7 @@ import Image from "next/image";
 import profileimg from "../../../../public/assets/profile/backgroundImageBackrgound.png";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { LuPlus } from "react-icons/lu";
-import { Loader2 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import toast from "react-hot-toast";
 
 export default function ProjectPage({ user, username, loggedinUserId }) {
@@ -227,9 +227,9 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
 
       {/* Project details */}
       <div className="mt-2">
-        <span className="font-arial">{project.name}</span>
+        <span className="font-arial dark:text-gray-200">{project.name}</span>
         {project.date && (
-          <p className="text-[#5A5A5A] text-[10px]">
+          <p className="text-[#5A5A5A] dark:text-gray-400 text-[10px]">
             {new Date(project.date).toLocaleDateString("en-US", {
               year: "numeric",
               month: "short",
@@ -237,23 +237,23 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
             })}
           </p>
         )}
-        <p className="text-[#5A5A5A] text-[10px]">{project.description}</p>
+        <p className="text-[#5A5A5A] dark:text-gray-400 text-[10px]">{project.description}</p>
       </div>
     </div>
   );
 
   return (
-    <div className="bg-white mt-12 h-auto max-w-[850px] w-full shadow-lg p-6">
+    <div className="bg-white dark:bg-gray-900 mt-12 h-auto max-w-[850px] w-full shadow-lg p-6 border dark:border-gray-800 transition-colors">
       {/* Header section */}
       <div className="flex justify-between">
         <div className="flex items-center mb-3 space-x-5">
-          <h1 className="font-bold">Projects</h1>
+          <h1 className="font-bold dark:text-white">Projects</h1>
         </div>
         {/* Add button: Show only for logged-in user's profile */}
         {loggedinUserId === user?.id && projects.length < 6 && (
           <LuPlus
             aria-label="Add project"
-            className="cursor-pointer text-2xl"
+            className="cursor-pointer text-2xl dark:text-gray-400 dark:hover:text-white transition-colors"
             onClick={() => {
               setCurrentProject(null); // Ensure fresh state
               setFile(null);
@@ -264,7 +264,19 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
       </div>
 
       {/* Loading and error states */}
-      {isLoading && <Loader2 className="mx-auto animate-spin size-6" />}
+      {isLoading && (
+        <div className="flex flex-wrap gap-4 p-4">
+          {[1, 2].map((i) => (
+            <div key={i} className="flex flex-col w-[250px] space-y-3">
+              <Skeleton className="w-[250px] h-[187.5px] rounded-md" />
+              <div className="space-y-2">
+                <Skeleton className="h-3 w-1/2" />
+                <Skeleton className="h-2 w-1/4" />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
       {error && <p className="text-red-500">{error}</p>}
 
       {/* Projects grid */}
@@ -290,15 +302,15 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
 
       {/* Add/Edit modal */}
       {isPopupOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded shadow-lg w-[500px]">
-            <h2 className="text-lg font-bold">
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white dark:bg-gray-900 p-6 rounded shadow-lg w-[500px] border dark:border-gray-800">
+            <h2 className="text-lg font-bold dark:text-white mb-4">
               {currentProject?.id ? "Edit Project" : "Add Project"}
             </h2>
             <input
               type="text"
               placeholder="Project Name"
-              className="w-full border p-2 mb-3 rounded"
+              className="w-full border dark:border-gray-700 bg-transparent dark:text-white p-2 mb-3 rounded focus:outline-none focus:ring-1 focus:ring-[#fc3fb4]"
               value={currentProject?.name || ""}
               onChange={(e) =>
                 setCurrentProject({ ...currentProject, name: e.target.value })
@@ -306,7 +318,7 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
             />
             <textarea
               placeholder="Description"
-              className="w-full border p-2 mb-3 rounded"
+              className="w-full border dark:border-gray-700 bg-transparent dark:text-white p-2 mb-3 rounded focus:outline-none focus:ring-1 focus:ring-[#fc3fb4]"
               value={currentProject?.description || ""}
               onChange={(e) =>
                 setCurrentProject({
@@ -346,13 +358,13 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
             <input
               type="file"
               accept="image/*,video/*"
-              className="w-full border p-2 rounded"
+              className="w-full border dark:border-gray-700 bg-transparent dark:text-gray-400 p-2 rounded"
               onChange={handleMediaChange}
             />
 
             <div className="flex justify-end mt-4">
               <button
-                className="bg-gray-300 px-4 py-2 rounded mr-2"
+                className="bg-gray-300 dark:bg-gray-700 dark:text-gray-200 px-4 py-2 rounded mr-2"
                 onClick={() => {
                   setIsPopupOpen(false);
                   setCurrentProject(null); // Reset current project

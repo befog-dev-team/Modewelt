@@ -10,36 +10,40 @@ import { updateUserProfileSchema, UpdateUserProfileValues } from "@/lib/validati
 export async function updateUserProfile(values: UpdateUserProfileValues) {
     try {
         // Validate input using Zod schema
-        const validatedValues = updateUserProfileSchema.parse(values); // Parse the values using the updateUserProfileSchema
+        const validatedValues = updateUserProfileSchema.parse(values);
 
         // Ensure user is authenticated
         const { user } = await validateRequest();
-        if (!user) { // If the user does not exist
-            throw new Error("Unauthorized"); // Throw an unauthorized error
+        if (!user) {
+            throw new Error("Unauthorized");
         }
 
-        // Update the user in the database
-        const updatedUser = await prisma.$transaction(async (tx) => {
-            // Update the user in the database
-            const updatedUser = await tx.user.update({ // update the user in the database
-                where: { id: user.id }, // find the user by id
-                data: validatedValues, // set the user's data to the validated values
-                select: getUserDataSelect(user.id), // select the user's data
-            });
-
-            // Update the user on the Stream server
-            await streamServerClient.partialUpdateUser({ // update the user on the stream server
-                id: user.id, // find the user by id
-                set: { // set the user's name
-                    name: validatedValues.displayName  // set the user's display name to the validated values
-                }
-            })
-            return updatedUser; // return the updated user
+        // Update the user in the database (Stream update is outside the transaction
+        // so a Stream failure doesn't roll back the Prisma update)
+        const updatedUser = await prisma.user.update({
+            where: { id: user.id },
+            data: validatedValues,
+            select: getUserDataSelect(user.id),
         });
 
-        return updatedUser; // Return the updated user
+        // Sync display name to Stream — non-blocking, failure is logged but won't 
+        // cause the entire profile update to fail
+        try {
+            await streamServerClient.partialUpdateUser({
+                id: user.id,
+                set: {
+                    name: validatedValues.displayName,
+                },
+            });
+        } catch (streamError) {
+            // Stream sync is best-effort; profile is already saved in DB
+            console.warn("Stream user sync failed (profile saved successfully):", streamError);
+        }
+
+        return updatedUser;
     } catch (error) {
-        console.error("Profile update error:", error);
+        // Log the real error so it's visible in the server console
+        console.error("Profile update error:", (error as Error)?.message ?? error);
         throw new Error("Failed to update profile.");
     }
 }

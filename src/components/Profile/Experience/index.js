@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { LuPlus } from "react-icons/lu";
 import { MdEdit, MdDelete } from "react-icons/md";
-import { Loader2 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import profileimg from "../../../../public/assets/profile/imgarticle.png";
 import toast from "react-hot-toast";
 
@@ -163,20 +163,32 @@ export default function ExperiencePage({ user, username, loggedinUserId }) {
     };
 
     return (
-    <div className="max-w-[850px] bg-[#ffffff] w-full min-h-fit shadow-lg mt-8 p-4">
+    <div className="max-w-[850px] bg-[#ffffff] dark:bg-gray-900 w-full min-h-fit shadow-lg mt-8 p-4 border dark:border-gray-800 transition-colors">
     <div className="flex justify-between">
-        <h1 className="font-bold p-2">Experience</h1>
+        <h1 className="font-bold p-2 dark:text-gray-100">Experience</h1>
         {loggedinUserId === user?.id && experienceList.length < MAX_EXPERIENCE_LIMIT && (
-            <LuPlus className="cursor-pointer text-2xl" onClick={handleAddExperienceClick} />
+            <LuPlus className="cursor-pointer text-2xl dark:text-gray-400 dark:hover:text-white transition-colors" onClick={handleAddExperienceClick} />
         )}
     </div>
 
-    {isLoading && <Loader2 className="mx-auto animate-spin size-6" />}
+    {isLoading && (
+        <div className="space-y-4 p-2">
+            {[1, 2].map((i) => (
+                <div key={i} className="flex items-center space-x-4 p-2">
+                    <Skeleton className="w-[54px] h-[54px] rounded-full" />
+                    <div className="flex-1 space-y-2">
+                        <Skeleton className="h-3 w-1/4" />
+                        <Skeleton className="h-2 w-1/3" />
+                    </div>
+                </div>
+            ))}
+        </div>
+    )}
     {error && <p className="text-red-500">{error}</p>}
     {!isLoading && !error && (
                 <div className="w-full h-full">
                     {experienceList.map((experience) => (
-                                           <div key={experience.id} className="flex items-center justify-between p-2 rounded-lg shadow-md relative group">
+                                           <div key={experience.id} className="flex items-center justify-between p-2 rounded-lg shadow-md bg-white dark:bg-gray-800 relative group transition-colors border dark:border-gray-700 mb-3">
                             <div className="flex items-center space-x-4">
                                 <div className="w-[54px] h-[54px]">
                                     <Image
@@ -189,16 +201,16 @@ export default function ExperiencePage({ user, username, loggedinUserId }) {
                                 </div>
 
                                 <div className="flex-1">
-                                    <h1 className="text-sm font-normal mb-1">{experience.jobTitle}</h1>
-                                    <p className="text-[10px]">{experience.company} | {experience.location}</p>
-                                    <p className="text-[10px]">{experience.duration}</p>
-                                    <p className="text-[10px]">{experience.description}</p>
+                                    <h1 className="text-sm font-normal mb-1 dark:text-gray-100">{experience.jobTitle}</h1>
+                                    <p className="text-[10px] text-gray-700 dark:text-gray-400">{experience.company} | {experience.location}</p>
+                                    <p className="text-[10px] text-gray-700 dark:text-gray-400">{experience.duration}</p>
+                                    <p className="text-[10px] text-gray-700 dark:text-gray-400">{experience.description}</p>
                                 </div>
                             </div>
 
 {loggedinUserId === user?.id && (
     <div className="absolute top-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
-        <MdEdit className="text-gray-600 cursor-pointer hover:text-blue-500" size={20} onClick={() => handleEditExperience(experience)} />
+        <MdEdit className="text-gray-600 dark:text-gray-400 cursor-pointer hover:text-blue-500" size={20} onClick={() => handleEditExperience(experience)} />
         <MdDelete className="text-red-500 cursor-pointer hover:text-red-700" size={20} onClick={() => handleDeleteExperience(experience.id)} />
     </div>
 )}
@@ -208,18 +220,18 @@ export default function ExperiencePage({ user, username, loggedinUserId }) {
             )}
 
             {isPopupOpen && (
-                <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-white p-6 rounded shadow-lg w-[500px]">
-                        <h2 className="text-lg font-bold">{currentExperience?.id ? "Edit Experience" : "Add Experience"}</h2>
-                        <input type="text" name="jobTitle" placeholder="Job Title" value={currentExperience?.jobTitle || ""} onChange={handleInputChange} className="w-full border p-2 mb-3 rounded" />
-                        <input type="text" name="company" placeholder="Company" value={currentExperience?.company || ""} onChange={handleInputChange} className="w-full border p-2 mb-3 rounded" />
-                        <input type="text" name="location" placeholder="Location" value={currentExperience?.location || ""} onChange={handleInputChange} className="w-full border p-2 mb-3 rounded" />
-                        <input type="text" name="duration" placeholder="Duration" value={currentExperience?.duration || ""} onChange={handleInputChange} className="w-full border p-2 mb-3 rounded" />
-                        <textarea name="description" placeholder="Description" value={currentExperience?.description || ""} onChange={handleInputChange} className="w-full border p-2 mb-3 rounded"></textarea>
-                        <input type="file" accept="image/*" className="w-full border p-2 rounded" onChange={handleImageChange} />
+                <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
+                    <div className="bg-white dark:bg-gray-900 p-6 rounded shadow-lg w-[500px] border dark:border-gray-800">
+                        <h2 className="text-lg font-bold dark:text-white mb-4">{currentExperience?.id ? "Edit Experience" : "Add Experience"}</h2>
+                        <input type="text" name="jobTitle" placeholder="Job Title" value={currentExperience?.jobTitle || ""} onChange={handleInputChange} className="w-full border dark:border-gray-700 bg-transparent dark:text-white p-2 mb-3 rounded focus:outline-none focus:ring-1 focus:ring-[#fc3fb4]" />
+                        <input type="text" name="company" placeholder="Company" value={currentExperience?.company || ""} onChange={handleInputChange} className="w-full border dark:border-gray-700 bg-transparent dark:text-white p-2 mb-3 rounded focus:outline-none focus:ring-1 focus:ring-[#fc3fb4]" />
+                        <input type="text" name="location" placeholder="Location" value={currentExperience?.location || ""} onChange={handleInputChange} className="w-full border dark:border-gray-700 bg-transparent dark:text-white p-2 mb-3 rounded focus:outline-none focus:ring-1 focus:ring-[#fc3fb4]" />
+                        <input type="text" name="duration" placeholder="Duration" value={currentExperience?.duration || ""} onChange={handleInputChange} className="w-full border dark:border-gray-700 bg-transparent dark:text-white p-2 mb-3 rounded focus:outline-none focus:ring-1 focus:ring-[#fc3fb4]" />
+                        <textarea name="description" placeholder="Description" value={currentExperience?.description || ""} onChange={handleInputChange} className="w-full border dark:border-gray-700 bg-transparent dark:text-white p-2 mb-3 rounded focus:outline-none focus:ring-1 focus:ring-[#fc3fb4]"></textarea>
+                        <input type="file" accept="image/*" className="w-full border dark:border-gray-700 bg-transparent dark:text-gray-400 p-2 rounded" onChange={handleImageChange} />
 
                         <div className="flex justify-between mt-3">
-                            <button className="bg-gray-300 text-black px-4 py-2 rounded" onClick={handleCancel}>Cancel</button>
+                            <button className="bg-gray-300 dark:bg-gray-700 text-black dark:text-gray-200 px-4 py-2 rounded" onClick={handleCancel}>Cancel</button>
                             <button className="bg-[#a35285] text-white px-4 py-2 rounded" onClick={handleSaveExperience} disabled={isSaving}>
                                 {isSaving ? "Saving..." : currentExperience?.id ? "Update" : "Save"}
                             </button>

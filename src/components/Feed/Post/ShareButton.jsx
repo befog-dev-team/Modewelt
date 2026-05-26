@@ -54,7 +54,6 @@ export default function ShareButton({ shareUrl }) {
                         {/* Clipboard Button */}
                         <button
                             suppressHydrationWarning
-                            data-networkname="link"
                             onClick={copyToClipboard}
                             className="flex items-center justify-center w-[40px] rounded-full bg-gray-200 hover:bg-gray-300"
                         >

@@ -23,8 +23,8 @@ export default function SearchField() {
           placeholder="Search fashion, jobs..."
           className="h-9 md:h-11 w-full bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded-2xl pl-3 md:pl-5 pr-10 md:pr-12 text-sm md:text-[15px] shadow-inner transition-all duration-500 ease-out 
                      group-hover:border-[#fc3fb4]/50 group-hover:shadow-sm
-                     focus:bg-white focus:border-[#fc3fb4] focus:ring-4 focus:ring-[#fc3fb4]/10 
-                     focus:shadow-[0_8px_30px_rgb(252,63,180,0.12)] placeholder:text-gray-500 font-medium"
+                     focus:bg-white dark:focus:bg-gray-800 focus:border-[#fc3fb4] focus:ring-4 focus:ring-[#fc3fb4]/10 
+                     focus:shadow-[0_8px_30px_rgb(252,63,180,0.12)] text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 font-medium"
         />
         <button 
           type="submit"

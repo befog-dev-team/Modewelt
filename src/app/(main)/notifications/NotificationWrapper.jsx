@@ -43,16 +43,14 @@ export default function NotificationWrapper({ user, todayViews }) {
             <div className="flex flex-col lg:flex-row lg:my-12 lg:ml-32 space-y-8 lg:space-y-0 lg:space-x-8 m-auto">
                 {/* Left Section */}
                 <div className="lg:w-1/4 w-full">
-                    <div className="shadow-md bg-white rounded-md p-4 mb-6">
-                        {/* <h6 className="text-center text-sm font-semibold">Notification Settings</h6> */}
-                        {/* <Divider className="my-2" /> */}
-                        <p className="text-center font-medium">Notification</p>
+                    <div className="shadow-md bg-white dark:bg-gray-900 rounded-md p-4 mb-6 border dark:border-gray-800 transition-colors">
+                        <p className="text-center font-medium dark:text-gray-200">Notification</p>
                     </div>
-                    <div className="shadow-lg bg-white rounded-md p-4">
-                        <h6 className="text-center font-semibold text-sm">
+                    <div className="shadow-lg bg-white dark:bg-gray-900 rounded-md p-4 border dark:border-gray-800 transition-colors">
+                        <h6 className="text-center font-semibold text-sm dark:text-gray-100">
                             Your Dashboard
                         </h6>
-                        <Divider className="my-4" />
+                        <Divider className="my-4 dark:bg-gray-800" />
                         <div className="space-y-8">
                             {[
                                 { count: todayViews, label: "Today views" },
@@ -63,7 +61,7 @@ export default function NotificationWrapper({ user, todayViews }) {
                                     <h3 className="text-[#fc3fb4] text-4xl font-bold">
                                         {item.count}
                                     </h3>
-                                    <p>{item.label}</p>
+                                    <p className="text-gray-600 dark:text-gray-400">{item.label}</p>
                                 </div>
                             ))}
                         </div>

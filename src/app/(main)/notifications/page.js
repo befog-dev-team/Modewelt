@@ -27,7 +27,7 @@ export default async function Page() {
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?q=80&w=2000&auto=format&fit=crop')" }}
       ></div>
       {/* Overlay for readability */}
-      <div className="fixed inset-0 bg-white/75 backdrop-blur-[1px] -z-10"></div>
+      <div className="fixed inset-0 bg-white/75 dark:bg-black/80 backdrop-blur-[1px] -z-10"></div>
 
       <NotificationWrapper todayViews={todayViews} user={user} />
       {/* <Footer /> */}

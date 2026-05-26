@@ -1,30 +1,28 @@
 "use client";
 // import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import React from "react";
 import { useState } from "react";
 import Image from "next/image";
-// import profileimg from "../../../../../public/assets/profile/backgroundImageBackrgound.png";
-// import { MdOutlineFileUpload } from "react-icons/md";
-// import { MdEditSquare } from "react-icons/md";
 import { FaEllipsisVertical } from "react-icons/fa6";
-// import vector from "../../../../public/assets/profile/Vector.png";
 import imageArticle from "../../../../../public/assets/profile/imgarticle.png";
-import About from "../../../../components/userprofile/about";
-// import EditProfile from "@/components/Profile/EditProfile";
-// import { RxCross2 } from "react-icons/rx";
 import Navbar from "@/components/Navbar";
-// import Footer from "@/components/Footer";
-import ProjectPage from "../../../../components/userprofile/project";
-import SkillsPage from "../../../../components/userprofile/skills";
-import Experience from "../../../../components/userprofile/experience";
-import ProjectPage2 from "../../../../components/userprofile/project2";
-import Postpage from "../../../../components/Profile/Post";
-import Commentpage from "../../../../components/Profile/Comment";
-import Videopage from "../../../../components/Profile/Video";
-import Imagepage from "../../../../components/Profile/Images";
-import Documentpage from "../../../../components/Profile/Documents";
-import Userprofile from "../../../../components/userprofile/profile";
-import Side from "../../../../components/userprofile/side";
+
+// Lazy load heavy components
+const Userprofile = dynamic(() => import("../../../../components/userprofile/profile"), { 
+  loading: () => <div className="h-64 animate-pulse bg-gray-100 rounded-lg" />
+});
+const Side = dynamic(() => import("../../../../components/userprofile/side"), { ssr: false });
+const About = dynamic(() => import("../../../../components/userprofile/about"));
+const ProjectPage = dynamic(() => import("../../../../components/userprofile/project"));
+const SkillsPage = dynamic(() => import("../../../../components/userprofile/skills"));
+const Experience = dynamic(() => import("../../../../components/userprofile/experience"));
+const ProjectPage2 = dynamic(() => import("../../../../components/userprofile/project2"));
+const Postpage = dynamic(() => import("../../../../components/Profile/Post"));
+const Commentpage = dynamic(() => import("../../../../components/Profile/Comment"));
+const Videopage = dynamic(() => import("../../../../components/Profile/Video"));
+const Imagepage = dynamic(() => import("../../../../components/Profile/Images"));
+const Documentpage = dynamic(() => import("../../../../components/Profile/Documents"));
 
 function Page() {
   // const router = useRouter();

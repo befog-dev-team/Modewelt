@@ -145,13 +145,13 @@ export default function Index() {
 
   return (
     <div className="sm:min-w-[95%] md:w-[100%] w-full mx-auto">
-      <div className="bg-white p-2 sm:p-4 lg:p-8 my-4 rounded-[4px]">
+      <div className="bg-white dark:bg-gray-900 p-2 sm:p-4 lg:p-8 my-4 rounded-[4px] border dark:border-gray-800 transition-colors">
         <div className="flex items-center space-x-4">
-          <p className="text-xs sm:text-sm lg:text-base pl-3 font-semibold font-[Gotham] text-[#181818] uppercase">
+          <p className="text-xs sm:text-sm lg:text-base pl-3 font-semibold font-[Gotham] text-gray-900 dark:text-gray-300 uppercase">
             NEW POST
           </p>
         </div>
-        <hr className="w-full h-[1px] mx-auto mt-4 bg-[#D7D7D7] mb-4" />
+        <hr className="w-full h-[1px] mx-auto mt-4 bg-gray-200 dark:bg-gray-800 mb-4 border-none" />
         <div className="flex flex-col px-2 text-sm sm:text-base lg:text-lg">
           {/* Editor */}
           <EditorContent editor={editor} />
@@ -169,8 +169,8 @@ export default function Index() {
 
               {/* Modal */}
               {isModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                  <div className="bg-white w-[90%] sm:w-[394px] md:w-[550px] max-w-full rounded-lg shadow-lg p-6 relative">
+                <div className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-50">
+                  <div className="bg-white dark:bg-gray-900 w-[90%] sm:w-[394px] md:w-[550px] max-w-full rounded-lg shadow-lg p-6 relative border dark:border-gray-800 transition-colors">
                     {/* Close button */}
                     <button
                       className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 w-[24px] h-[24px]"
@@ -227,7 +227,7 @@ export default function Index() {
                       {selectedFiles.map((file, index) => (
                         <div
                           key={index}
-                          className="flex items-center justify-between bg-gray-100 p-2 rounded-md mb-2"
+                          className="flex items-center justify-between bg-gray-50 dark:bg-gray-800/50 p-2 rounded-md mb-2"
                         >
                           <div className="flex items-center">
                             {file.type.startsWith("image/") ? (

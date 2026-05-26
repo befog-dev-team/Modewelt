@@ -1,35 +1,30 @@
 // src/app/components/NProgressLoader.tsx
 'use client'; // Mark this component as a client component
 import { useEffect } from 'react';
-// import Router from 'next/router';
-import NProgress from 'nprogress'; // Import NProgress library
+import { usePathname, useSearchParams } from 'next/navigation';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
-// Include NProgress CSS styles
-import 'nprogress/nprogress.css'; // Make sure you have NProgress CSS
-
-NProgress.configure({ showSpinner: false }); // Configure NProgress
+NProgress.configure({ showSpinner: false, speed: 400, minimum: 0.2 });
 
 const NProgressLoader: React.FC = () => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   useEffect(() => {
-    // In Next.js App Router, Router events from 'next/router' are not supported.
-    // To implement a progress bar, you can use a library like 'nextjs-toploader' 
-    // or manually trigger NProgress on Link clicks/navigation hooks.
-    // For now, we disable the listeners to avoid errors.
+    // When the route or search params change, it means the navigation has completed
+    NProgress.done();
     
-    /*
-    const handleStart = () => NProgress.start(); // Start NProgress
-    const handleStop = () => NProgress.done(); // Stop NProgress
+    // Optional: Start progress on unmount if we could detect navigation intent.
+    // Since App Router doesn't have routeChangeStart, we mostly use this to cleanup.
+  }, [pathname, searchParams]);
 
-    Router.events.on('routeChangeStart', handleStart);
-    Router.events.on('routeChangeComplete', handleStop);
-    Router.events.on('routeChangeError', handleStop);
-
+  useEffect(() => {
+    // Global fetch interceptor to show progress on API calls if desired
+    // (Optional and can be noisy, but helps show "something is happening")
     return () => {
-      Router.events.off('routeChangeStart', handleStart);
-      Router.events.off('routeChangeComplete', handleStop);
-      Router.events.off('routeChangeError', handleStop);
+      NProgress.done();
     };
-    */
   }, []);
 
   return null;

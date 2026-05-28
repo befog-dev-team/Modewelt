@@ -48,7 +48,7 @@ export default function FollowButton({
 
             queryClient.setQueryData(queryKey, (prev: FollowerInfo) => {
                 if (!prev) return previousState;
-                if (prev.isFollowedByUser) {
+                if (prev.isFollowedByUser || prev.hasPendingRequest) {
                     return { ...prev, isFollowedByUser: false, hasPendingRequest: false };
                 } else {
                     return { ...prev, isFollowedByUser: true, hasPendingRequest: false };
@@ -82,11 +82,11 @@ export default function FollowButton({
 
     const buttonStyles = {
         Follow:
-            "flex items-center justify-center w-full py-1 px-4 bg-[#fc3fb4] text-white text-sm font-bold rounded",
+            "flex items-center justify-center w-full py-1 px-4 bg-[#fc3fb4] text-white text-sm font-bold rounded transition-colors",
         Requested:
-            "flex items-center justify-center w-full py-1 px-4 text-sm bg-gray-300 text-sm font-semibold rounded",
+            "flex items-center justify-center w-full py-1 px-4 text-sm bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-semibold rounded transition-colors",
         Following:
-            "flex items-center justify-center w-full py-1 px-4 text-sm bg-white text-[#B7B7B7] text-sm font-bold rounded border border-[#E7E7E7]",
+            "flex items-center justify-center w-full py-1 px-4 text-sm bg-white dark:bg-gray-900 text-[#B7B7B7] dark:text-gray-400 font-bold rounded border border-[#E7E7E7] dark:border-gray-700 transition-colors",
     };
 
     return (

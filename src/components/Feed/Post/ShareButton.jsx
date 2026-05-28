@@ -45,7 +45,7 @@ export default function ShareButton({ shareUrl }) {
         <div className="relative" ref={menuRef}>
             <div className="flex items-center space-x-2 cursor-pointer" onClick={() => setShowIcons(!showIcons)}>
                 <FaShareAlt className="text-primary text-lg" />
-                <span className="text-sm font-semibold text-gray-800 hidden sm:inline">SHARE</span>
+                <span className="text-sm font-semibold text-gray-800">SHARE</span>
             </div>
 
             {showIcons && (

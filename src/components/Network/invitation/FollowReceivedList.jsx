@@ -95,7 +95,7 @@ const FollowReceivedList = ({ userId }) => {
                     {receivedRequests.map((request) => (
                         <div
                             key={request.id}
-                            className="w-full max-w-full mx-auto bg-white border border-[#E4E4E4] rounded-lg shadow-lg hover:shadow-2xl p-4 sm:p-6 flex flex-col items-center sm:flex-row justify-between space-y-4 sm:space-y-0 sm:space-x-6 transition-all duration-300 ease-in-out"
+                            className="w-full max-w-full mx-auto bg-white dark:bg-gray-900 border border-[#E4E4E4] dark:border-gray-800 rounded-lg shadow-lg hover:shadow-2xl p-4 sm:p-6 flex flex-col items-center sm:flex-row justify-between space-y-4 sm:space-y-0 sm:space-x-6 transition-all duration-300 ease-in-out"
                         >
                             <div className="flex items-center space-x-4">
                                 <UserAvatar
@@ -105,8 +105,8 @@ const FollowReceivedList = ({ userId }) => {
                                     className="w-14 h-14 sm:w-[52px] sm:h-[52px] rounded-full object-cover"
                                 />
                                 <div className="flex flex-col">
-                                    <p className="font-semibold text-sm sm:text-base">{request.sender.username}</p>
-                                    <p className="text-xs sm:text-sm text-gray-600">
+                                    <p className="font-semibold text-sm sm:text-base text-gray-900 dark:text-gray-100">{request.sender.username}</p>
+                                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                                         {request.sender.profileHeadline}
                                     </p>
                                 </div>
@@ -124,7 +124,7 @@ const FollowReceivedList = ({ userId }) => {
                                 <button
                                     onClick={() => handleDecline(request.id)}
                                     disabled={declinedRequestLoading || acceptedRequestLoading}
-                                    className="border border-gray-300 text-gray-500 hover:border-red-500 hover:text-red-500 text-xs sm:text-sm font-bold py-1 px-4 rounded"
+                                    className="border border-gray-300 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-red-500 hover:text-red-500 text-xs sm:text-sm font-bold py-1 px-4 rounded transition-colors"
                                 >
                                     {declinedRequestLoading ? <Loader2 className="animate-spin" /> : "Decline"}
                                 </button>
@@ -133,7 +133,7 @@ const FollowReceivedList = ({ userId }) => {
                     ))}
                 </div>
             ) : (
-                <p className="text-center text-gray-700 text-sm font-medium mb-4">No Pending Requests Received.</p>
+                <p className="text-center text-gray-700 dark:text-gray-400 text-sm font-medium mb-4">No Pending Requests Received.</p>
             )}
         </div>
     );

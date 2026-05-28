@@ -46,7 +46,7 @@ export default function SentRequests({ userId }) {
                     {sentRequests.map((request) => (
                         <div
                             key={request.id}
-                            className="w-full bg-white border border-[#E4E4E4] rounded-lg shadow-lg hover:shadow-xl p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 sm:space-x-6 transition-all duration-300 ease-in-out"
+                            className="w-full bg-white dark:bg-gray-900 border border-[#E4E4E4] dark:border-gray-800 rounded-lg shadow-lg hover:shadow-xl p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 sm:space-x-6 transition-all duration-300 ease-in-out"
                         >
                             <div className="flex items-center space-x-4">
                                 <Link href={`/profile/${request.receiver.username}`} prefetch={true}>
@@ -58,11 +58,11 @@ export default function SentRequests({ userId }) {
 
                                 <div>
                                     <Link href={`/profile/${request.receiver.username}`} prefetch={true}>
-                                        <div className="font-semibold hover:underline text-sm sm:text-base text-[#181818]">
+                                        <div className="font-semibold hover:underline text-sm sm:text-base text-[#181818] dark:text-gray-100">
                                             {request.receiver.username}
                                         </div>
                                     </Link>
-                                    <div className="text-xs sm:text-sm text-[#181818] mt-1">
+                                    <div className="text-xs sm:text-sm text-[#181818] dark:text-gray-400 mt-1">
                                         {request.receiver.profileHeadline}
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@ export default function SentRequests({ userId }) {
                             <div className="w-[3px] h-[42px] bg-[#A45286] hidden sm:block"></div>
 
                             <div className="flex-1 text-center sm:text-left">
-                                <div className="text-xs sm:text-sm text-[#181818bb]">
+                                <div className="text-xs sm:text-sm text-[#181818bb] dark:text-gray-500">
                                     {request.receiver.bio || 'No bio available.'}
                                 </div>
                             </div>
@@ -88,7 +88,7 @@ export default function SentRequests({ userId }) {
                 </div>
             ) : (
                 // Replacing <p> with <div> to avoid the hydration issue
-                <div className="text-center text-gray-700 text-sm font-medium mb-4">
+                <div className="text-center text-gray-700 dark:text-gray-400 text-sm font-medium mb-4">
                     No Pending Requests Received.
                 </div>
             )}

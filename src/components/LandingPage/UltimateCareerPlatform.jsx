@@ -37,7 +37,7 @@ export default function UltimateCareerPlatform() {
             The Ultimate Career Platform for{" "}
             <span className="gradient-text">Designers</span> Professionals
           </h1>
-          <p className="mt-2 text-lg text-gray-700 font-bold">
+          <p className="mt-2 text-lg text-slate-800 font-bold">
             Build Your Fashion Career with Modeweltjob
           </p>
         </div>
@@ -53,8 +53,8 @@ export default function UltimateCareerPlatform() {
             </div>
           </div>
 
-          <div className=" font-semibold text-center md:text-left">
-            <p className="mt-4 text-gray-1000">
+          <div className="font-semibold text-center md:text-left">
+            <p className="text-gray-600 mt-4 max-w-2xl mx-auto leading-relaxed">
               Are you a fashion designer, stylist, photographer, or industry
               expert looking for the right opportunities? Modeweltjob is here to
               connect you with top brands, recruiters, and creative

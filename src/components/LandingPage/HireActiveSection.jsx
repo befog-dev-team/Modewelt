@@ -68,7 +68,7 @@ export default function HireActiveSection() {
           <p className="text-[#7b4fff] uppercase text-sm font-bold tracking-wider">
             Modeweltjob Database
           </p>
-          <h2 className="text-2xl md:text-3xl font-bold leading-snug">
+          <h2 className="text-2xl md:text-2xl font-bold leading-snug text-gray-800 mt-4 max-w-2xl">
             Quickly hire active jobseekers around your office.
           </h2>
 
@@ -79,7 +79,7 @@ export default function HireActiveSection() {
                 onClick={() => toggleExpand(option.id)}
                 className="cursor-pointer border-b pb-2 transition-all duration-300"
               >
-                <p className="font-semibold">{option.title}</p>
+                <p className="font-bold text-gray-600 mt-4">{option.title}</p>
                 {expanded === option.id && (
                   <p className="text-gray-600 text-sm">
                     {option.description}
@@ -89,7 +89,7 @@ export default function HireActiveSection() {
             ))}
           </div>
 
-          <Link 
+          <Link
             href="/auth?mode=signup"
             prefetch={true}
             className="block mt-4 text-center bg-[#fc3fb4] text-white px-6 py-2 rounded-md shadow-md hover:bg-[#e635a3] transition-all duration-300 font-bold"
@@ -103,8 +103,8 @@ export default function HireActiveSection() {
         {features.map((feature, index) => (
           <div key={index} className="flex flex-col items-center">
             {feature.icon}
-            <h3 className="font-semibold mt-2 text-lg">{feature.title}</h3>
-            <p className="text-black text-sm">{feature.description}</p>
+            <h3 className="font-bold mt-2 text-lg text-slate-900">{feature.title}</h3>
+            <p className="text-gray-600 mt-4 text-sm leading-relaxed">{feature.description}</p>
           </div>
         ))}
       </div>

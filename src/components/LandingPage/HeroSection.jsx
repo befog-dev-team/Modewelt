@@ -2,20 +2,41 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Home, Briefcase, Users, FileText, MessageSquare, Bell, CheckCircle, Search, DollarSign, Zap, X, Menu, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function HeroSection() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const router = useRouter();
+
+  const phrases = [
+    "Where Designers Build Their Future",
+    "The Creative Network for Fashion Innovators",
+    "Built for Designers. Powered by Creativity.",
+    "The Future Hub for Fashion Creators",
+    "Connect. Create. Collaborate.",
+    "Where Fashion Creativity Meets Opportunity",
+    "A Global Community for Creative Professionals",
+    "Empowering the Next Generation of Designers",
+    "Your Creative Career Starts Here",
+    "Design. Network. Grow."
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
 
   const navLinks = [
     { name: "Home", icon: <Home size={18} /> },
     { name: "Careers", icon: <Briefcase size={18} /> },
     { name: "Connections", icon: <Users size={18} /> },
     { name: "Notifications", icon: <Bell size={18} /> },
-
   ];
 
   return (
@@ -129,9 +150,22 @@ export default function HeroSection() {
         {/* Left Side */}
         <div className="w-full lg:w-1/2 space-y-10">
           <div className="space-y-6">
-            <div className="inline-flex items-center space-x-2 bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100">
-              <Zap className="w-3 h-3 text-[#0062ff]" />
-              <span className="text-[10px] font-bold text-[#0062ff] uppercase tracking-wider">Smart Platform for Fashion Professionals</span>
+            <div className="h-8 overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentPhraseIndex}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="flex items-center space-x-2 bg-pink-50 px-3 py-1.5 rounded-full border border-pink-100 w-fit"
+                >
+                  <Zap className="w-3 h-3 text-[#fc3fb4]" />
+                  <span className="text-[10px] font-bold text-[#fc3fb4] uppercase tracking-wider">
+                    {phrases[currentPhraseIndex]}
+                  </span>
+                </motion.div>
+              </AnimatePresence>
             </div>
 
             <h1 className="text-3xl md:text-5xl font-black text-[#1e293b] leading-[1.15]">
@@ -139,8 +173,8 @@ export default function HeroSection() {
             </h1>
 
             <div className="space-y-4 max-w-lg">
-              <h3 className="text-base md:text-lg font-bold text-[#334155]">An Exclusive Platform for Designers</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">
+              <h3 className="text-base md:text-lg font-bold text-slate-800">An Exclusive Platform for Designers</h3>
+              <p className="text-gray-600 mt-4 max-w-2xl leading-relaxed">
                 Connect, Grow, and Thrive in the Global Industry. Modewelt provides the tools and network you need to elevate your creative career.
               </p>
             </div>

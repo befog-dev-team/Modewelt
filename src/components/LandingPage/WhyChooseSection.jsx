@@ -56,7 +56,7 @@ export default function WhyChooseSection() {
                 alt={feature.title}
                 className="rounded-lg w-40 h-40 sm:w-30 sm:h-30 md:w-56 md:h-56 object-cover mt-4 p-4"
               />
-              <figcaption className="text-sm md:text-base font-medium pb-6">
+              <figcaption className="text-sm md:text-base font-bold pb-6 text-gray-600">
                 {feature.title}
               </figcaption>
             </figure>

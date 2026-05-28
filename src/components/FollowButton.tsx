@@ -50,10 +50,8 @@ export default function FollowButton({
                 if (!prev) return previousState;
                 if (prev.isFollowedByUser) {
                     return { ...prev, isFollowedByUser: false, hasPendingRequest: false };
-                } else if (prev.hasPendingRequest) {
-                    return { ...prev, hasPendingRequest: false };
                 } else {
-                    return { ...prev, hasPendingRequest: true };
+                    return { ...prev, isFollowedByUser: true, hasPendingRequest: false };
                 }
             });
 
@@ -84,7 +82,7 @@ export default function FollowButton({
 
     const buttonStyles = {
         Follow:
-            "flex items-center justify-center w-full py-1 px-4 text-sm bg-[#fc3fb4] text-white text-sm font-bold rounded",
+            "flex items-center justify-center w-full py-1 px-4 bg-[#fc3fb4] text-white text-sm font-bold rounded",
         Requested:
             "flex items-center justify-center w-full py-1 px-4 text-sm bg-gray-300 text-sm font-semibold rounded",
         Following:

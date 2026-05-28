@@ -30,26 +30,42 @@ export async function PATCH(req: Request, props: { params: Promise<{ userId: str
                     return new Response(JSON.stringify({ error: "Follow request not found" }), { status: 404 });
                 }
 
-                const updatedRequest = await prisma.followerRequest.update({
-                    where: {
-                        senderId_receiverId: {
-                            senderId: userId,
-                            receiverId: currentUserId,
+                await prisma.$transaction([
+                    prisma.followerRequest.update({
+                        where: {
+                            senderId_receiverId: {
+                                senderId: userId,
+                                receiverId: currentUserId,
+                            },
                         },
-                    },
-                    data: {
-                        status: "ACCEPTED",
-                    },
-                });
+                        data: {
+                            status: "ACCEPTED",
+                        },
+                    }),
+                    prisma.follow.upsert({
+                        where: {
+                            followerId_followingId: {
+                                followerId: userId,
+                                followingId: currentUserId,
+                            },
+                        },
+                        update: {},
+                        create: {
+                            followerId: userId,
+                            followingId: currentUserId,
+                        },
+                    }),
+                    prisma.notification.create({
+                        data: {
+                            issuerId: currentUserId,
+                            recipientId: userId,
+                            type: "FOLLOW_ACCEPTED",
+                            read: false,
+                        },
+                    }),
+                ]);
 
-                await prisma.follow.create({
-                    data: {
-                        followerId: userId,
-                        followingId: currentUserId,
-                    },
-                });
-
-                return new Response(JSON.stringify({ message: "Follow request accepted", updatedRequest }));
+                return new Response(JSON.stringify({ message: "Follow request accepted" }));
             }
 
             case "DECLINE": {
@@ -69,14 +85,22 @@ export async function PATCH(req: Request, props: { params: Promise<{ userId: str
             }
 
             case "CANCEL": {
-                await prisma.followerRequest.delete({
-                    where: {
-                        senderId_receiverId: {
-                            senderId: currentUserId,
-                            receiverId: userId,
+                await prisma.$transaction([
+                    prisma.followerRequest.delete({
+                        where: {
+                            senderId_receiverId: {
+                                senderId: currentUserId,
+                                receiverId: userId,
+                            },
                         },
-                    },
-                });
+                    }),
+                    prisma.follow.deleteMany({
+                        where: {
+                            followerId: currentUserId,
+                            followingId: userId,
+                        },
+                    }),
+                ]);
 
                 return new Response(JSON.stringify({ message: "Follow request canceled" }));
             }

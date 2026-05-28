@@ -13,17 +13,45 @@ export async function GET(req: Request, props: { params: Promise<{ userId: strin
             return Response.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        // ✅ Fetch only accepted followers
-        const followers = await prisma.followerRequest.count({
-            where: { receiverId: userId, status: "ACCEPTED" },
+        // ✅ Fetch followers count from Follow table
+        const followersCount = await prisma.follow.count({
+            where: { followingId: userId },
         });
 
-        // ✅ Get all follow requests involving the logged-in user
+        const followingCount = await prisma.follow.count({
+            where: { followerId: userId },
+        });
+
+        // ✅ Check if the user is followed by the logged-in user from Follow table
+        const followRecord = await prisma.follow.findUnique({
+            where: {
+                followerId_followingId: {
+                    followerId: loggedInUser.id,
+                    followingId: userId,
+                },
+            },
+        });
+
+        const isFollowedByUser = !!followRecord;
+
+        // ✅ Check for any pending requests (though with direct follow these shouldn't exist for new follows)
+        const pendingRequest = await prisma.followerRequest.findUnique({
+            where: {
+                senderId_receiverId: {
+                    senderId: loggedInUser.id,
+                    receiverId: userId,
+                },
+            },
+        });
+
+        const hasPendingRequest = pendingRequest?.status === "PENDING";
+
+        // ✅ Maintain compatibility with existing response structure if needed
         const followRequests = await prisma.followerRequest.findMany({
             where: {
-                OR: [ // Filter by senderId or receiverId
-                    { senderId: loggedInUser.id }, // Requests sent by logged-in user
-                    { receiverId: loggedInUser.id } // Requests received by logged-in user
+                OR: [
+                    { senderId: loggedInUser.id },
+                    { receiverId: loggedInUser.id }
                 ],
             },
             include: {
@@ -32,31 +60,12 @@ export async function GET(req: Request, props: { params: Promise<{ userId: strin
             },
         });
 
-        // ✅ Check if the user is followed by the logged-in user
-        const isFollowedByUser = followRequests.some(
-            (req) =>
-                req.senderId === loggedInUser.id &&
-                req.receiverId === userId && // Check for the specific user
-                req.status === "ACCEPTED"
-        );
-
-        // ✅ Check if the logged-in user has a pending request
-        const hasPendingRequest = followRequests.some(
-            (req) =>
-                req.senderId === loggedInUser.id &&
-                req.receiverId === userId && // Check for the specific user
-                req.status === "PENDING"
-        );
-
-
-        // ✅ Get sent requests (sent by the logged-in user)
         const sentRequests = followRequests.filter(req => req.senderId === loggedInUser.id);
-
-        // ✅ Get received requests (received by the logged-in user)
         const receivedRequests = followRequests.filter(req => req.receiverId === loggedInUser.id);
 
         return Response.json({
-            followers,
+            followers: followersCount,
+            following: followingCount,
             isFollowedByUser,
             hasPendingRequest,
             sentRequests,
@@ -81,27 +90,41 @@ export async function POST(req: Request, props: { params: Promise<{ userId: stri
             return Response.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        // ✅ Check if user is already following
-        const existingRequest = await prisma.followerRequest.findFirst({
+        if (loggedInUser.id === userId) {
+            return Response.json({ error: "You cannot follow yourself" }, { status: 400 });
+        }
+
+        // ✅ Check if already following
+        const existingFollow = await prisma.follow.findUnique({
             where: {
-                senderId: loggedInUser.id,
-                receiverId: userId,
-                status: "PENDING"
+                followerId_followingId: {
+                    followerId: loggedInUser.id,
+                    followingId: userId,
+                },
             },
         });
 
-        // ✅ Check if follow request already sent
-        if (existingRequest) {
-            return Response.json({ error: "Follow request already sent" }, { status: 400 });
+        if (existingFollow) {
+            return Response.json({ error: "Already following" }, { status: 400 });
         }
 
-        // ✅ Create a new follow request
+        // ✅ Create a new follow relationship immediately
         await prisma.$transaction([
-            prisma.followerRequest.create({
-                data: { senderId: loggedInUser.id, receiverId: userId, status: "PENDING" },
+            prisma.followerRequest.upsert({
+                where: {
+                    senderId_receiverId: {
+                        senderId: loggedInUser.id,
+                        receiverId: userId,
+                    },
+                },
+                update: { status: "ACCEPTED" },
+                create: { senderId: loggedInUser.id, receiverId: userId, status: "ACCEPTED" },
+            }),
+            prisma.follow.create({
+                data: { followerId: loggedInUser.id, followingId: userId },
             }),
             prisma.notification.create({
-                data: { issuerId: loggedInUser.id, recipientId: userId, type: "FOLLOW_REQUESTED", read: false },
+                data: { issuerId: loggedInUser.id, recipientId: userId, type: "FOLLOW_ACCEPTED", read: false },
             }),
         ]);
 
@@ -123,19 +146,7 @@ export async function DELETE(req: Request, props: { params: Promise<{ userId: st
             return Response.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        // ✅ Check if user is following OR has a pending request
-        const existingFollow = await prisma.followerRequest.findFirst({
-            where: {
-                senderId: loggedInUser.id,
-                receiverId: userId,
-            },
-        });
-
-        if (!existingFollow) {
-            return Response.json({ error: "No follow relationship found" }, { status: 404 });
-        }
-
-        // ✅ Delete the follow relationship or cancel request
+        // ✅ Delete the follow relationship and request
         await prisma.$transaction([
             prisma.followerRequest.deleteMany({
                 where: {
@@ -143,11 +154,24 @@ export async function DELETE(req: Request, props: { params: Promise<{ userId: st
                     receiverId: userId,
                 },
             }),
+            prisma.follow.deleteMany({
+                where: {
+                    followerId: loggedInUser.id,
+                    followingId: userId,
+                },
+            }),
             prisma.notification.deleteMany({
                 where: {
                     issuerId: loggedInUser.id,
                     recipientId: userId,
                     type: "FOLLOW_REQUESTED",
+                },
+            }),
+            prisma.notification.deleteMany({
+                where: {
+                    issuerId: loggedInUser.id,
+                    recipientId: userId,
+                    type: "FOLLOW_ACCEPTED",
                 },
             }),
         ]);

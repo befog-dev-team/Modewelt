@@ -16,7 +16,7 @@ import { useSession } from "../../SessionProvider";
 import toast from "react-hot-toast";
 
 // Input Field Component 
-function InputField({ label, type, placeholder, required = false, value, onChange }) {
+function InputField({ label, type, placeholder, required = false, value, onChange, list }) {
     return (
         <div className="flex flex-col">
             <label className="text-gray-700 font-medium mb-1">
@@ -29,6 +29,7 @@ function InputField({ label, type, placeholder, required = false, value, onChang
                 required={required}
                 value={value}
                 onChange={onChange}
+                list={list}
             />
         </div>
     );
@@ -79,6 +80,21 @@ function FileUpload({ label, description, accept, onChange }) {
         </div>
     );
 }
+
+// City Data for Autocomplete
+const cities = [
+    "Mumbai", "Delhi", "Bangalore", "Hyderabad", "Ahmedabad", "Chennai", "Kolkata", "Surat", "Pune", "Jaipur",
+    "Lucknow", "Kanpur", "Nagpur", "Indore", "Thane", "Bhopal", "Visakhapatnam", "Pimpri-Chinchwad", "Patna", "Vadodara",
+    "Ghaziabad", "Ludhiana", "Agra", "Nashik", "Faridabad", "Meerut", "Rajkot", "Kalyan-Dombivli", "Vasai-Virar", "Varanasi",
+    "Srinagar", "Aurangabad", "Dhanbad", "Amritsar", "Navi Mumbai", "Allahabad", "Ranchi", "Haora", "Coimbatore", "Jabalpur",
+    "Gwalior", "Vijayawada", "Jodhpur", "Madurai", "Raipur", "Kota", "Guwahati", "Chandigarh", "Solapur", "Hubli-Dharwad",
+    "Bareilly", "Moradabad", "Mysore", "Gurgaon", "Aligarh", "Jalandhar", "Tiruchirappalli", "Bhubaneswar", "Salem", "Mira-Bhayandar",
+    "Warangal", "Guntur", "Bhiwandi", "Saharanpur", "Gorakhpur", "Bikaner", "Amravati", "Noida", "Jamshedpur", "Bhilai",
+    "Cuttack", "Firozabad", "Kochi", "Nellore", "Bhavnagar", "Dehradun", "Durgapur", "Asansol", "Rourkela", "Nanded",
+    "Kolhapur", "Ajmer", "Akola", "Gulbarga", "Jamnagar", "Ujjain", "Loni", "Siliguri", "Jhansi", "Ulhasnagar",
+    "Jammu", "Sangli-Miraj & Kupwad", "Mangalore", "Erode", "Belgaum", "Ambattur", "Tirunelveli", "Malegaon", "Gaya", "Jalgaon",
+    "Udaipur", "Maheshtala", "Tiruppur", "Davanagere", "Kozhikode", "Akola", "Kurnool", "Rajamahendravaram", "Bokaro", "South Dumdum"
+];
 
 // Function to handle 404 error
 export default function Home() {
@@ -557,6 +573,7 @@ export default function Home() {
                             type="text"
                             placeholder="Enter preferred location"
                             onChange={(e) => setFormData({ ...formData, preferredLocation: e.target.value })}
+                            list="city-list"
                         />
                         <InputField
                             label="Available To Join (in days)"
@@ -575,6 +592,7 @@ export default function Home() {
                             type="text"
                             placeholder="Enter current location"
                             onChange={(e) => setFormData({ ...formData, currentLocation: e.target.value })}
+                            list="city-list"
                         />
                         <InputField
                             label="Language"
@@ -830,6 +848,12 @@ export default function Home() {
                     </button>
 
                 </form>
+                {/* City Autocomplete List */}
+                <datalist id="city-list">
+                    {cities.map((city, index) => (
+                        <option key={index} value={city} />
+                    ))}
+                </datalist>
             </main>
         </div>
     );

@@ -26,12 +26,12 @@ export default async function Page(props: PageProps) {
   const { query } = searchParams;
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white dark:bg-gray-950 min-h-screen transition-colors">
       <Navbar unreadNotificationCount={undefined} />
-      <main className="flex w-full justify-center gap-5 mt-6">
-        <div className="flex flex-col justify-center min-w-[70vw] space-y-5">
-          <div className="rounded-2xl min-w-[50vw] bg-card p-5 shadow-sm border">
-            <h1 className="line-clamp-2 break-all text-center text-2xl font-bold">
+      <main className="flex w-full justify-center gap-5 mt-6 px-4">
+        <div className="flex flex-col justify-center min-w-[70vw] max-w-5xl space-y-5">
+          <div className="rounded-2xl bg-white dark:bg-gray-900 p-6 shadow-md border dark:border-gray-800 transition-colors">
+            <h1 className="line-clamp-2 break-all text-center text-2xl font-bold text-gray-900 dark:text-white transition-colors">
               Search results for &quot;{query}&quot;
             </h1>
           </div>

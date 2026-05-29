@@ -8,18 +8,18 @@ import toast from "react-hot-toast";
 
 // Reusable Input Component
 const InputField = ({ label, name, value, onChange, type = "text", options = [], disabled = false }) => (
-    <div className="mb-4">
-        <label className="block font-medium">{label}</label>
+    <div className="mb-4 text-gray-900 dark:text-gray-200 transition-colors">
+        <label className="block font-medium mb-1">{label}</label>
         {type === "select" ? (
             <select
                 name={name}
                 value={value}
                 onChange={onChange}
-                className="w-full p-2 border rounded-md"
-                disabled={disabled} // Apply disabled for select as well
+                className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#fc3fb4] outline-none transition-colors"
+                disabled={disabled}
             >
                 {options.map((option) => (
-                    <option key={option} value={option}>
+                    <option key={option} value={option} className="dark:bg-gray-900">
                         {option}
                     </option>
                 ))}
@@ -30,8 +30,9 @@ const InputField = ({ label, name, value, onChange, type = "text", options = [],
                 name={name}
                 value={value}
                 onChange={onChange}
-                className="w-full p-2 border rounded-md"
-                disabled={disabled} // Apply disabled here
+                className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-[#fc3fb4] outline-none transition-colors disabled:opacity-50 disabled:bg-gray-50 dark:disabled:bg-gray-800/50"
+                disabled={disabled}
+                autoComplete="off"
             />
         )}
     </div>
@@ -127,12 +128,12 @@ export default function JobDescriptionForm() {
     }
 
     return (
-        <div className="bg-[#F9F6EE] min-h-screen">
+        <div className="bg-[#F9F6EE] dark:bg-gray-950 min-h-screen transition-colors">
             <Navbar />
             <div className="max-w-3xl mx-auto p-6 space-y-6">
                 {/* Job Details Section */}
-                <div className="bg-white shadow-lg rounded-xl p-6">
-                    <h2 className="text-xl font-semibold mb-4">Review Job Description</h2>
+                <div className="bg-white dark:bg-gray-900 shadow-md rounded-xl p-6 border dark:border-gray-800 transition-colors">
+                    <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white transition-colors">Review Job Description</h2>
                     <div className="grid gap-4">
                         {[
                             { label: "Job Title", name: "jobTitle", type: "text", disabled: true },
@@ -177,32 +178,32 @@ export default function JobDescriptionForm() {
 
                         {/* Job Description */}
                         <div>
-                            <label className="block font-medium">Description</label>
+                            <label className="block font-medium text-gray-900 dark:text-gray-200 mb-1">Description</label>
                             <textarea
                                 name="description"
                                 value={formData.description}
                                 onChange={handleInputChange}
-                                className="w-full p-2 border rounded-md h-32"
+                                className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md h-32 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#fc3fb4] outline-none transition-colors"
                             />
                         </div>
                         {/* Job Requirements */}
                         <div>
-                            <label className="block font-medium">Requirements</label>
+                            <label className="block font-medium text-gray-900 dark:text-gray-200 mb-1">Requirements</label>
                             <textarea
                                 name="requirements"
                                 value={formData.requirements}
                                 onChange={handleInputChange}
-                                className="w-full p-2 border rounded-md h-32"
+                                className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md h-32 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#fc3fb4] outline-none transition-colors"
                             />
                         </div>
                         {/* Job Benifits */}
                         <div>
-                            <label className="block font-medium">Benefits</label>
+                            <label className="block font-medium text-gray-900 dark:text-gray-200 mb-1">Benefits</label>
                             <textarea
                                 name="benefits"
                                 value={formData.benefits}
                                 onChange={handleInputChange}
-                                className="w-full p-2 border rounded-md h-32"
+                                className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md h-32 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#fc3fb4] outline-none transition-colors"
                             />
                         </div>
                     </div>
@@ -212,9 +213,9 @@ export default function JobDescriptionForm() {
                 </div>
 
                 {/* Skills Section */}
-                <div className="bg-white shadow-lg rounded-xl p-6">
-                    <h2 className="text-lg font-semibold mb-4">Skills</h2>
-                    <p className="text-sm text-gray-600 mb-2">
+                <div className="bg-white dark:bg-gray-900 shadow-md rounded-xl p-6 border dark:border-gray-800 transition-colors">
+                    <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white transition-colors">Skills</h2>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 transition-colors">
                         Add skill keywords (max {MAX_SKILLS}) to make your job more visible
                         to the right candidates.
                     </p>
@@ -243,23 +244,23 @@ export default function JobDescriptionForm() {
                         <input
                             type="text"
                             placeholder="Add skill"
-                            className="flex-1 p-2 border rounded-md"
+                            className="flex-1 p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#fc3fb4] outline-none transition-colors"
                             value={newSkill}
                             onChange={(e) => setNewSkill(e.target.value)}
                             onKeyDown={(e) => e.key === "Enter" && addSkill()}
                         />
                         <button
                             onClick={addSkill}
-                            className="ml-2 bg-[#fc3fb4] px-4 py-2 rounded-md text-white disabled:opacity-50"
+                            className="ml-2 bg-[#fc3fb4] px-4 py-2 rounded-md text-white disabled:opacity-50 hover:bg-[#e037a1] transition-colors"
                             disabled={formData.skills.length >= MAX_SKILLS}
                             aria-label="Add skill"
                         >
                             +
                         </button>
-                        {formData.skills.length >= MAX_SKILLS && (
-                            <p className="text-red-500 text-sm mt-2">You can&apos;t add more than {MAX_SKILLS} skills.</p>
-                        )}
                     </div>
+                    {formData.skills.length >= MAX_SKILLS && (
+                        <p className="text-red-500 text-sm mt-2">You can&apos;t add more than {MAX_SKILLS} skills.</p>
+                    )}
 
                     {/* Dropdown Selection */}
                     {/* <div className="mt-6">
@@ -282,13 +283,12 @@ export default function JobDescriptionForm() {
 
                     {/* Buttons */}
                     <div className="mt-6 flex justify-between">
-                        {/* <button className="text-[#a35284]">Preview</button> */}
                         <button className="text-[#fc3fb4]"></button>
                         <div>
-                            <button onClick={() => router.back()} className="mr-2 px-4 py-2 border rounded-md">
+                            <button onClick={() => router.back()} className="mr-2 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                                 Back
                             </button>
-                            <button onClick={handleNext} className="bg-[#fc3fb4] text-white px-4 py-2 rounded-md hover:bg-[#fc3fb4]">
+                            <button onClick={handleNext} className="bg-[#fc3fb4] text-white px-4 py-2 rounded-md hover:bg-[#e037a1] transition-colors">
                                 Next
                             </button>
                         </div>

@@ -41,12 +41,12 @@ export default async function Page() {
       <div className="flex flex-col lg:flex-row justify-center mt-12 space-y-10 lg:space-y-0 lg:space-x-14 px-4 lg:px-8">
         {/* Left Section */}
         <div className="flex flex-col w-full lg:w-[850px] mb-8 lg:mb-0">
-          <Suspense fallback={<div className="h-40 animate-pulse bg-white mb-4 rounded-lg" />}>
+          <Suspense fallback={<div className="h-40 animate-pulse bg-white dark:bg-gray-800 mb-4 rounded-lg" />}>
             {/* Create Post Section */}
             <CreatePostSection />
           </Suspense>
 
-          <Suspense fallback={<div className="h-10 animate-pulse bg-white mb-4 rounded-lg" />}>
+          <Suspense fallback={<div className="h-10 animate-pulse bg-white dark:bg-gray-800 mb-4 rounded-lg" />}>
             {/* Sort By Section */}
             <SortBySection />
           </Suspense>
@@ -54,17 +54,17 @@ export default async function Page() {
 
         {/* Right Section */}
         <div className="w-full lg:w-[290px] space-y-6">
-          <Suspense fallback={<div className="h-64 animate-pulse bg-white mb-4" />}>
+          <Suspense fallback={<div className="h-64 animate-pulse bg-white dark:bg-gray-800 mb-4" />}>
             {/* Profile Section */}
             <ProfileSection />
           </Suspense>
 
-          <Suspense fallback={<div className="h-64 animate-pulse bg-white mb-4" />}>
+          <Suspense fallback={<div className="h-64 animate-pulse bg-white dark:bg-gray-800 mb-4" />}>
             {/* WhoToFollow Sidebar */}
             <WhoToFollow />
           </Suspense>
 
-          <Suspense fallback={<div className="h-64 animate-pulse bg-white mb-4" />}>
+          <Suspense fallback={<div className="h-64 animate-pulse bg-white dark:bg-gray-800 mb-4" />}>
             {/* Trending Hashtags Section */}
             <TrendingHashtagsSection />
           </Suspense>

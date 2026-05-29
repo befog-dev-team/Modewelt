@@ -20,10 +20,13 @@ export default function SkillsPage({ user, username, loggedinUserId }) {
 
   // 🔹 Fetch all skills from the API when the component loads
   useEffect(() => {
-    fetchSkills();
-  }, []);
+    if (username) {
+      fetchSkills();
+    }
+  }, [username]);
 
   const fetchSkills = async () => {
+    if (!username) return;
     setIsLoading(true);
     try {
       const res = await fetch(`/api/skills/${username}`);
@@ -178,7 +181,7 @@ export default function SkillsPage({ user, username, loggedinUserId }) {
           <h1 className="font-bold font-[Gotham] dark:text-gray-100">Skills & Endorsements</h1>
         </div>
         {loggedinUserId === user?.id && skills.length < MAX_SKILLS_LIMIT && (
-          <div className="cursor-pointer dark:text-gray-400 dark:hover:text-white transition-colors" onClick={handleAddSkillClick}>
+          <div className="cursor-pointer dark:text-gray-200 dark:hover:text-white transition-colors" onClick={handleAddSkillClick}>
             <LuPlus className="text-2xl" />
           </div>
         )}

@@ -21,12 +21,15 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
 
   // Fetch projects on component mount
   useEffect(() => {
-    fetchProjects();
+    if (username) {
+      fetchProjects();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [username]);
 
   // Fetch projects from API
   const fetchProjects = async () => {
+    if (!username) return;
     setIsLoading(true);
     setError(null);
     try {
@@ -253,7 +256,7 @@ export default function ProjectPage({ user, username, loggedinUserId }) {
         {loggedinUserId === user?.id && projects.length < 6 && (
           <LuPlus
             aria-label="Add project"
-            className="cursor-pointer text-2xl dark:text-gray-400 dark:hover:text-white transition-colors"
+            className="cursor-pointer text-2xl dark:text-gray-200 dark:hover:text-white transition-colors"
             onClick={() => {
               setCurrentProject(null); // Ensure fresh state
               setFile(null);

@@ -20,10 +20,10 @@ export default function ExperiencePage({ user, username, loggedinUserId }) {
     // Fetch experiences when the component loads
     useEffect(() => {
         fetchExperiences();
-    }, []);
+    }, [username]);
 
     const fetchExperiences = async () => {
-
+        if (!username) return;
         setIsLoading(true);
         setError(null);
         try {
@@ -167,7 +167,7 @@ export default function ExperiencePage({ user, username, loggedinUserId }) {
     <div className="flex justify-between">
         <h1 className="font-bold p-2 dark:text-gray-100">Experience</h1>
         {loggedinUserId === user?.id && experienceList.length < MAX_EXPERIENCE_LIMIT && (
-            <LuPlus className="cursor-pointer text-2xl dark:text-gray-400 dark:hover:text-white transition-colors" onClick={handleAddExperienceClick} />
+            <LuPlus className="cursor-pointer text-2xl dark:text-gray-200 dark:hover:text-white transition-colors" onClick={handleAddExperienceClick} />
         )}
     </div>
 

@@ -22,18 +22,18 @@ export default function JobMenu() {
   ];
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-4">
+    <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-4 border dark:border-gray-700">
       <ul className="space-y-2">
         {menuItems.map((item) => (
           <React.Fragment key={item.text}>
-            <li className="border-b border-gray-200 last:border-0">
-              <button
+            <li className="border-b border-gray-200 dark:border-gray-700 last:border-0">
+                <button
                 onClick={item.action}
-                className="flex items-center w-full p-2 space-x-3 hover:bg-gray-50 rounded-md transition-colors"
+                className="flex items-center w-full p-2 space-x-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors"
                 aria-label={item.text}
               >
                 <i className={`${item.icon} ${item.color} text-xl`} />
-                <span className="font-semibold text-gray-700">{item.text}</span>
+                <span className="font-semibold text-gray-700 dark:text-gray-300">{item.text}</span>
               </button>
             </li>
           </React.Fragment>

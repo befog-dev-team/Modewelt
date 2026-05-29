@@ -102,27 +102,27 @@ const Post = () => {
   const handleCommentsToggle = () => setShowComments((prev) => !prev);
 
   return (
-    <div className="bg-white mx-auto my-4 rounded-md shadow-md w-full max-w-4xl">
+    <div className="bg-white dark:bg-gray-900 mx-auto my-4 rounded-md shadow-md w-full max-w-4xl border dark:border-gray-800 transition-colors">
       {/* Header */}
       <div className="flex justify-between items-center px-4 py-2">
-        <p className="text-xs sm:text-sm md:text-base leading-4">
+        <p className="text-xs sm:text-sm md:text-base leading-4 text-gray-900 dark:text-gray-300">
           <span className="text-[#A45286]">Audrey Alexander</span> commented
           this
         </p>
         <div className="relative">
           <FaEllipsisH
-            className="text-[#181818] hover:text-primary cursor-pointer w-[20px] h-[24px]"
+            className="text-[#181818] dark:text-gray-400 hover:text-primary cursor-pointer w-[20px] h-[24px] transition-colors"
             onClick={toggleOptions}
           />
           {isOptionsOpen && (
-            <div className="absolute right-0 mt-2 w-[200px] bg-white border border-gray-300 shadow-lg rounded-lg z-10">
-              <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
+            <div className="absolute right-0 mt-2 w-[200px] bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-lg rounded-lg z-10 transition-colors">
+              <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors">
                 Report Post
               </button>
-              <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
+              <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors">
                 Connect
               </button>
-              <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
+              <button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors">
                 Not Interested
               </button>
             </div>
@@ -130,7 +130,7 @@ const Post = () => {
         </div>
       </div>
 
-      <div className="w-full h-px bg-gray-200 mb-3"></div>
+      <div className="w-full h-px bg-gray-200 dark:bg-gray-800 mb-3 transition-colors"></div>
 
       {/* User Info */}
       <div className="flex items-center mt-3 space-x-4 px-4 sm:px-8">
@@ -142,14 +142,14 @@ const Post = () => {
           className="rounded-full"
         />
         <div className="flex flex-col">
-          <h1 className="text-sm sm:text-base font-semibold">Prashant</h1>
-          <span className="text-xs sm:text-sm text-gray-500">
+          <h1 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white transition-colors">Prashant</h1>
+          <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 transition-colors">
             Product Designer at Fashionista
           </span>
         </div>
       </div>
 
-      <div className="mt-1 text-gray-600 px-4 sm:px-8">
+      <div className="mt-1 text-gray-600 dark:text-gray-400 px-4 sm:px-8 transition-colors">
         <p className="text-sm sm:text-base">How’s your day going, guys?</p>
       </div>
 
@@ -163,7 +163,7 @@ const Post = () => {
         />
       </div>
 
-      <div className="w-full h-px bg-gray-200 mt-4 mb-3"></div>
+      <div className="w-full h-px bg-gray-200 dark:bg-gray-800 mt-4 mb-3 transition-colors"></div>
 
       {/* Stats */}
       <div className="flex justify-between items-center pb-4 px-4 sm:px-8">
@@ -182,7 +182,7 @@ const Post = () => {
                 onClick={handleLikeClick}
               />
             )}
-            <span className="text-sm sm:text-base font-semibold">
+            <span className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">
               {likeCount}
             </span>
           </div>
@@ -197,7 +197,7 @@ const Post = () => {
               height={13}
               className="w-4 h-4"
             />
-            <span className="text-sm sm:text-base font-semibold">
+            <span className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">
               {comment.length}
             </span>
           </div>
@@ -208,7 +208,7 @@ const Post = () => {
           onClick={openModal}
         >
           <FaShareAlt className="text-primary text-lg" />
-          <span className="text-sm font-semibold text-gray-800">SHARE</span>
+          <span className="text-sm font-semibold text-gray-800 dark:text-gray-300">SHARE</span>
         </div>
       </div>
 
@@ -217,14 +217,14 @@ const Post = () => {
           {comment.map((comment, index) => (
             <p
               key={index}
-              className="text-sm sm:text-base text-gray-700 border-b pb-2 bg-white"
+              className="text-sm sm:text-base text-gray-700 dark:text-gray-300 border-b dark:border-gray-800 pb-2 bg-white dark:bg-gray-900 transition-colors"
             >
               {comment}
             </p>
           ))}
           <div className="flex min-h-fit flex-col sm:flex-row gap-2 pb-4">
             <textarea
-              className="w-full p-2 text-sm sm:text-base border rounded focus:outline-none focus:ring-2 focus:ring-[#9c4a81] resize-none"
+              className="w-full p-2 text-sm sm:text-base border dark:border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-[#9c4a81] resize-none bg-transparent dark:text-white placeholder:text-gray-500 transition-colors"
               placeholder="Write a comment..."
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}

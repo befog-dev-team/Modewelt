@@ -81,7 +81,7 @@ export default function HeroSection() {
         <div className="flex items-center space-x-3 md:space-x-6">
           <div className="hidden sm:flex items-center space-x-3">
 
-            <Link href="/auth?mode=signup" className="px-5 py-2 bg-[#fc3fb4] text-white font-bold rounded-xl shadow-lg shadow-pink-200 hover:bg-[#e0359f] hover:scale-105 transition-all text-sm">
+            <Link href="/auth" className="px-5 py-2 bg-[#fc3fb4] text-white font-bold rounded-xl shadow-lg shadow-pink-200 hover:bg-[#e0359f] hover:scale-105 transition-all text-sm">
               Get Started
             </Link>
             <Link href="/auth?mode=signup" className="px-5 py-2 text-[#fc3fb4] font-bold border border-pink-100 rounded-xl hover:bg-pink-50 transition-all text-sm">
@@ -132,7 +132,7 @@ export default function HeroSection() {
 
               <div className="p-6 border-t border-gray-50 space-y-4">
                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2">Account</p>
-                <Link href="/auth?mode=signup" className="flex items-center justify-center w-full py-4 bg-[#fc3fb4] text-white font-bold rounded-2xl shadow-lg shadow-pink-200">
+                <Link href="/auth" className="flex items-center justify-center w-full py-4 bg-[#fc3fb4] text-white font-bold rounded-2xl shadow-lg shadow-pink-200">
                   Get Started
                 </Link>
                 <Link href="/auth" className="flex items-center justify-center w-full py-4 text-[#fc3fb4] font-bold border border-pink-50 rounded-2xl">

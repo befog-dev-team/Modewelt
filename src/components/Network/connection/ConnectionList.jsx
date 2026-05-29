@@ -36,7 +36,7 @@ export default function Connection() {
                         connections.map((connection) => (
                             <div
                                 key={connection.id}
-                                className="w-full bg-white border border-[#E4E4E4] rounded-lg shadow-lg hover:shadow-lg p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 sm:space-x-6 transition-all duration-300 ease-in-out"
+                                className="w-full bg-white dark:bg-gray-800 border border-[#E4E4E4] dark:border-gray-700 rounded-lg shadow-lg hover:shadow-lg p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 sm:space-x-6 transition-all duration-300 ease-in-out"
                             >
                                 <div className="flex items-center space-x-4">
                                     <Link href={`/profile/${connection.username}`} prefetch={true}>
@@ -49,20 +49,20 @@ export default function Connection() {
 
                                     <div>
                                         <Link href={`/profile/${connection.username}`} prefetch={true}>
-                                            <p className="font-semibold hover:underline text-sm sm:text-base text-[#181818]">
+                                            <p className="font-semibold hover:underline text-sm sm:text-base text-[#181818] dark:text-white">
                                                 {connection.username}
                                             </p>
                                         </Link>
-                                        <p className="text-xs sm:text-sm  text-[#181818] mt-1">
+                                        <p className="text-xs sm:text-sm  text-[#181818] dark:text-gray-300 mt-1">
                                             {connection.profileHeadline}
                                         </p>
                                     </div>
                                 </div>
 
-                                <div className="w-[3px] h-[42px] bg-[text-[#f26744]] hidden sm:block"></div>
+                                <div className="w-[3px] h-[42px] bg-[#f26744] hidden sm:block"></div>
 
                                 <div className="flex-1 text-center sm:text-left">
-                                    <p className="text-xs sm:text-sm text-[#181818bb]">
+                                    <p className="text-xs sm:text-sm text-[#181818bb] dark:text-gray-400">
                                         {connection.bio || "No bio available."}
                                     </p>
                                 </div>

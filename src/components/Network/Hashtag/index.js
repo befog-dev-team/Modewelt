@@ -34,8 +34,8 @@ export default function Hashtag({ trendingTopics = [] }) {
           </h2>
         </div>
         {/* Hashtag Section */}
-        <div className="mb-10 mt-6 min-h-[576px] md:min-h-[420px] sm:min-h-[220px] max-w-[843px] w-full bg-[#fff]">
-          <div className="max-w-[843px] w-full flex flex-wrap p-5 items-center mt-4 gap-[0.5rem] rounded-[4px]">
+        <div className="mb-10 mt-6 min-h-[576px] md:min-h-[420px] sm:min-h-[220px] max-w-[843px] w-full bg-white dark:bg-gray-900 border dark:border-gray-800 transition-colors">
+          <div className="max-w-[843px] w-full flex flex-wrap p-5 items-center gap-[0.5rem] rounded-[4px]">
             {hashtags.map((hashtag) => (
               <div
                 key={hashtag}

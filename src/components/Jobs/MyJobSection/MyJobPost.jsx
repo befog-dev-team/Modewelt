@@ -31,7 +31,7 @@ export default function MyJobPost({ job }) {
     const jobStatus = expirationDate && expirationDate > currentDate ? "Active" : "Expired";
 
     return (
-        <div className="bg-white hover:shadow-md border rounded-lg p-4 sm:p-6 transition-shadow relative">
+        <div className="bg-white dark:bg-gray-800 hover:shadow-md border dark:border-gray-700 rounded-lg p-4 sm:p-6 transition-all duration-300 relative">
             {job && (
                 <>
                     <div
@@ -39,11 +39,11 @@ export default function MyJobPost({ job }) {
                         onClick={() => router.push(`/Jobpostdetail/${job.id}`)}
                     >
                         <div className="flex-1">
-                            <h3 className="font-semibold text-lg">{job.jobTitle}</h3>
-                            <p className="text-sm">{job.company}</p>
-                            <p className="text-sm text-gray-500">{job.location}</p>
-                            <p className="text-xs text-gray-400">Posted - {formatRelativeDate(job.createdAt)}</p>
-                            <p className={`text-sm font-medium ${jobStatus === "Active" ? "text-green-600" : "text-red-500"}`}>
+                            <h3 className="font-semibold text-lg text-gray-900 dark:text-white transition-colors">{job.jobTitle}</h3>
+                            <p className="text-sm text-gray-700 dark:text-gray-300 transition-colors">{job.company}</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors">{job.location}</p>
+                            <p className="text-xs text-gray-400 dark:text-gray-500 transition-colors">Posted - {formatRelativeDate(job.createdAt)}</p>
+                            <p className={`text-sm font-medium mt-1 ${jobStatus === "Active" ? "text-green-600 dark:text-green-400" : "text-red-500 dark:text-red-400"}`}>
                                 {jobStatus}
                             </p>
                         </div>
@@ -51,27 +51,27 @@ export default function MyJobPost({ job }) {
                         <div className="relative">
                             <button 
                                 onClick={toggleMenu}
-                                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
                             >
-                                <FaEllipsisH className="text-gray-500 text-xl" />
+                                <FaEllipsisH className="text-gray-500 dark:text-gray-400 text-xl" />
                             </button>
                             
                             {isMenuOpen && (
-                                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 shadow-xl rounded-lg z-50 py-1">
+                                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-xl rounded-lg z-50 py-1 transition-colors">
                                     <button 
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             setIsEditDialogOpen(true);
                                             setIsMenuOpen(false);
                                         }}
-                                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
+                                        className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
                                     >
                                         <i className="ri-edit-line text-blue-500"></i>
                                         Edit Job
                                     </button>
                                     <button 
                                         onClick={handleDeleteClick}
-                                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2"
+                                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex items-center gap-2"
                                     >
                                         <i className="ri-delete-bin-line"></i>
                                         Delete Job

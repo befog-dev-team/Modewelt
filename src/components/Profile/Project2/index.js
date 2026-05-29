@@ -19,11 +19,13 @@ export default function EducationPage({ user, username, loggedinUserId }) {
 
     // Fetch education data when the component loads
     useEffect(() => {
-        fetchEducationData();
-    }, []);
+        if (username) {
+            fetchEducationData();
+        }
+    }, [username]);
 
     const fetchEducationData = async () => {
-
+        if (!username) return;
         setIsLoading(true);
         setError(null);
         try {
@@ -169,7 +171,7 @@ export default function EducationPage({ user, username, loggedinUserId }) {
         <div className="flex justify-between">
             <h1 className="font-bold p-2 dark:text-gray-100">Education</h1>
             {loggedinUserId === user?.id && educationList.length < MAX_EDUCATION_LIMIT && (
-                <LuPlus className="cursor-pointer text-2xl dark:text-gray-400 dark:hover:text-white transition-colors" onClick={handleAddEducationClick} />
+                <LuPlus className="cursor-pointer text-2xl dark:text-gray-200 dark:hover:text-white transition-colors" onClick={handleAddEducationClick} />
             )}
         </div>
 

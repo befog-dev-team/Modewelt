@@ -109,8 +109,8 @@ export default function Network({ users, trendingTopics }) {
                     {activeSection === 'hashtags' && <Hashtag trendingTopics={trendingTopics} />}
                     
                     {!['connections', 'invitations', 'hashtags'].includes(activeSection) && (
-                        <div className="flex items-center justify-center p-10 bg-white shadow-sm rounded-lg">
-                            <p className="text-gray-500 font-semibold italic">Select a section to view content</p>
+                        <div className="flex items-center justify-center p-10 bg-white dark:bg-gray-800 shadow-sm rounded-lg border dark:border-gray-700 transition-colors">
+                            <p className="text-gray-500 dark:text-gray-400 font-semibold italic">Select a section to view content</p>
                         </div>
                     )}
                 </div>

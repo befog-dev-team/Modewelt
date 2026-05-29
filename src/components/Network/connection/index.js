@@ -62,11 +62,11 @@ export default function Connection() {
           ].map((item, index) => (
             <div
               key={index}
-              className="bg-white w-full sm:w-[300px] h-auto rounded-[4px] p-4 shadow-md hover:shadow-lg transition-shadow ease-in-out duration-300 relative"
+              className="bg-white dark:bg-gray-800 w-full sm:w-[300px] h-auto rounded-[4px] p-4 shadow-md hover:shadow-lg transition-shadow ease-in-out duration-300 relative"
             >
               {/* Card Header */}
               <div className="flex justify-between items-center mb-4">
-                <div className="font-[Arial] font-bold text-[13px] uppercase">
+                <div className="font-[Arial] font-bold text-[13px] uppercase dark:text-gray-200">
                   {item.period}
                 </div>
                 <div className="relative">
@@ -75,18 +75,18 @@ export default function Connection() {
                     height={24}
                     width={24}
                     src="/assets/network/connections/threedots.png"
-                    className="cursor-pointer hover:bg-gray-100 rounded-full transition-colors"
+                    className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors dark:invert"
                     onClick={(e) => {
                       e.stopPropagation();
                       setOpenDropdown(openDropdown === index ? null : index);
                     }}
                   />
                   {openDropdown === index && (
-                    <div className="absolute right-0 top-full mt-1 w-32 bg-white border border-gray-100 rounded-md shadow-xl z-20 py-1 transition-all duration-200">
-                      <button className="w-full px-4 py-2 text-left text-[12px] hover:bg-gray-50 text-gray-700 font-medium">
+                    <div className="absolute right-0 top-full mt-1 w-32 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-md shadow-xl z-20 py-1 transition-all duration-200">
+                      <button className="w-full px-4 py-2 text-left text-[12px] hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium">
                         See Stats
                       </button>
-                      <button className="w-full px-4 py-2 text-left text-[12px] hover:bg-gray-50 text-gray-700 font-medium">
+                      <button className="w-full px-4 py-2 text-left text-[12px] hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium">
                         See All
                       </button>
                     </div>
@@ -108,11 +108,11 @@ export default function Connection() {
 
         {/* Divider */}
         <div className="flex items-center space-x-4 mt-8">
-          <hr className="flex-grow border-[#E7E7E7]" />
-          <span className="font-[Gotham] font-bold text-[12px] text-[rgb(24,24,24)] uppercase">
+          <hr className="flex-grow border-[#E7E7E7] dark:border-gray-700" />
+          <span className="font-[Gotham] font-bold text-[12px] text-[rgb(24,24,24)] dark:text-gray-300 uppercase">
             Your Connections
           </span>
-          <hr className="flex-grow border-[#E7E7E7]" />
+          <hr className="flex-grow border-[#E7E7E7] dark:border-gray-700" />
         </div>
 
         {/* Your Connections */}

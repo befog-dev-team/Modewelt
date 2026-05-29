@@ -48,28 +48,28 @@ export default function JobListing() {
   });
 
   return (
-    <div className="bg-gradient-to-b from-[#dcf59d] to-[#f6f7f2] min-h-screen">
+    <div className="bg-gradient-to-b from-[#dcf59d] to-[#f6f7f2] dark:from-black dark:to-gray-950 min-h-screen transition-colors">
       <Navbar />
       <div className="p-4 sm:p-6 max-w-7xl w-full mx-auto">
         <motion.div
-          className="rounded-xl overflow-hidden bg-white shadow-lg p-6 space-y-6"
+          className="rounded-xl overflow-hidden bg-white dark:bg-gray-900 shadow-lg p-6 space-y-6 border dark:border-gray-800 transition-colors"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
           {/* Job Header */}
           <div className="flex flex-col lg:flex-row justify-between gap-6">
-            <div className="w-full my-4 bg-gradient-to-r from-[#f6f7f2] to-[#ffffff] py-6 px-8 rounded-xl shadow-sm">
-              <h1 className="text-3xl font-bold text-gray-800">{job.jobTitle}</h1>
-              <p className="text-gray-600 mt-2">
+            <div className="w-full my-4 bg-gradient-to-r from-[#f6f7f2] to-[#ffffff] dark:from-gray-800 dark:to-gray-900/50 py-6 px-8 rounded-xl shadow-sm border dark:border-gray-700 transition-colors">
+              <h1 className="text-3xl font-bold text-gray-800 dark:text-white transition-colors">{job.jobTitle}</h1>
+              <p className="text-gray-600 dark:text-gray-300 mt-2 transition-colors">
                 {job.company} | {job.location}
               </p>
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 transition-colors">
                 {job.jobType} • {job.workplaceType} • {job.salaryAmount} {job.salaryCurrency} {job.salaryType}
               </p>
-              <p className="text-xs text-gray-400">Posted: {formatRelativeDate(job.createdAt)}</p>
-              <p className="text-xs text-gray-500">Expires: {formattedExpirationDate}</p>
-              <span className={`text-sm font-semibold ${jobStatus === "Active" ? "text-green-600" : "text-red-500"}`}>
+              <p className="text-xs text-gray-400 dark:text-gray-500">Posted: {formatRelativeDate(job.createdAt)}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Expires: {formattedExpirationDate}</p>
+              <span className={`text-sm font-semibold ${jobStatus === "Active" ? "text-green-600 dark:text-green-400" : "text-red-500 dark:text-red-400"}`}>
                 {jobStatus}
               </span>
               <div className="flex flex-col sm:flex-row gap-3 mt-6 justify-end">
@@ -98,35 +98,35 @@ export default function JobListing() {
             </div> */}
           </div>
 
-          <div className="border-t border-gray-200 my-6"></div>
+          <div className="border-t border-gray-200 dark:border-gray-800 my-6 transition-colors"></div>
 
           <Section title="About the Role">
-            <p className="text-gray-700">{job.jobTitle}</p>
+            <p className="text-gray-700 dark:text-gray-300">{job.jobTitle}</p>
           </Section>
 
           {/* Job Details */}
           <Section title="Job Description">
-            <p className="text-gray-700">{job.description}</p>
+            <p className="text-gray-700 dark:text-gray-300">{job.description}</p>
           </Section>
 
           <Section title="Job Level">
-            <p className="text-gray-700">{job.jobLevel}</p>
+            <p className="text-gray-700 dark:text-gray-300">{job.jobLevel}</p>
           </Section>
 
           <Section title="Requirements">
-            <ul className="list-disc list-inside space-y-2 text-gray-700">
+            <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
               <li>{job.requirements || "No requirements listed."}</li>
             </ul>
           </Section>
 
           <Section title="What We Offer">
-            <ul className="list-disc list-inside space-y-2 text-gray-700">
+            <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
               <li>{job.benefits || "No benefits listed."}</li>
             </ul>
           </Section>
 
           <Section title="Skills">
-            <ul className="list-disc list-inside space-y-2 text-gray-700">
+            <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
               {job.skills && job.skills.map((skill, index) => (
                 <li key={index}>{skill}</li>
               ))}
@@ -134,17 +134,17 @@ export default function JobListing() {
           </Section>
 
           <Section title="Salary Details">
-            <div className="grid grid-cols-2 gap-4 text-gray-700">
+            <div className="grid grid-cols-2 gap-4 text-gray-700 dark:text-gray-300">
               <div>
-                <p className="text-sm text-gray-500">Amount:</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Amount:</p>
                 <p className="font-bold">{job.salaryAmount} {job.salaryCurrency}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500">Type:</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Type:</p>
                 <p className="font-bold">{job.salaryType}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500">Country:</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Country:</p>
                 <p className="font-bold">{job.salaryCountry}</p>
               </div>
             </div>
@@ -157,7 +157,7 @@ export default function JobListing() {
 
 const Section = ({ title, children }) => (
   <div className="w-full">
-    <h2 className="text-xl font-semibold text-gray-800 mt-6 mb-4">{title}</h2>
-    <div className="text-gray-700">{children}</div>
+    <h2 className="text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-4 transition-colors">{title}</h2>
+    <div className="text-gray-700 dark:text-gray-300 transition-colors">{children}</div>
   </div>
 );

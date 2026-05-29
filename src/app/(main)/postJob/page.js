@@ -72,12 +72,12 @@ const PostJob = () => {
   };
 
   return (
-    <div className="flex items-center m-5 w-full bg-white shadow-md rounded-lg justify-center h-[85vh]">
+    <div className="flex items-center m-5 w-full bg-white dark:bg-gray-900 shadow-md rounded-lg justify-center h-[85vh] transition-colors border dark:border-gray-800">
       <div className="w-full max-w-[50rem] h-auto p-6">
         <h1 className="text-4xl font-bold text-center text-[#f26744]">Post a job</h1>
-        <p className="mt-2 text-center text-gray-600">Increase the quality of your hire</p>
+        <p className="mt-2 text-center text-gray-600 dark:text-gray-400">Increase the quality of your hire</p>
         <form className="mt-6 flex flex-col items-center relative">
-          <label htmlFor="jobTitle" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="jobTitle" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Job Title
           </label>
           <div className="relative w-full max-w-[506px]">
@@ -87,17 +87,17 @@ const PostJob = () => {
               value={jobTitle}
               onChange={handleChange}
               placeholder="Title"
-              className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f26744] focus:outline-none"
+              className="w-full px-4 py-2 mt-2 border border-gray-300 dark:border-gray-700 bg-transparent dark:text-white rounded-lg focus:ring-2 focus:ring-[#f26744] focus:outline-none transition-colors"
               autoComplete="off"
               required
             />
             {showSuggestions && filteredSuggestions.length > 0 && (
-              <ul className="absolute z-20 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-xl max-h-60 overflow-y-auto overflow-x-hidden no-scrollbar">
+              <ul className="absolute z-20 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl max-h-60 overflow-y-auto overflow-x-hidden no-scrollbar">
                 {filteredSuggestions.map((suggestion, index) => (
                   <li
                     key={index}
                     onClick={() => handleSuggestionClick(suggestion)}
-                    className="px-4 py-3 cursor-pointer hover:bg-gray-100 text-gray-700 text-sm border-b last:border-0 transition-colors"
+                    className="px-4 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm border-b dark:border-gray-700 last:border-0 transition-colors"
                   >
                     {suggestion}
                   </li>
@@ -114,13 +114,13 @@ const PostJob = () => {
             Continue
           </button>
         </form>
-        <p className="mt-6 text-sm text-center text-gray-500">
+        <p className="mt-6 text-sm text-center text-gray-500 dark:text-gray-400">
           If you write with AI, we’ll use the job title and details from your company page to suggest a job post.{' '}
           <a href="#" className="text-[#f26744] hover:underline">
             Learn more
           </a>
         </p>
-        <p className="mt-2 text-sm text-center text-gray-500">
+        <p className="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">
           Limits may apply to free job posts.{' '}
           <a href="#" className="text-[#f26744] hover:underline">
             View our policy
@@ -140,7 +140,7 @@ const Page = () => {
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1770977882753-e2a85226e17d?q=80&w=2000&auto=format&fit=crop')" }}
       ></div>
       {/* Overlay for readability */}
-      <div className="fixed inset-0 bg-white/75 backdrop-blur-[1px] -z-10"></div>
+      <div className="fixed inset-0 bg-white/75 dark:bg-black/75 backdrop-blur-[1px] -z-10 transition-colors"></div>
 
       <div className="h-[90vh] w-full flex items-center justify-center relative z-10">
         <PostJob />

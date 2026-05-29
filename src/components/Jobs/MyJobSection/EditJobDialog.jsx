@@ -102,13 +102,13 @@ export default function EditJobDialog({
                             <select
                                 id="workplaceType"
                                 name="workplaceType"
-                                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                className="flex h-10 w-full rounded-md border border-input bg-background dark:bg-gray-800 dark:text-white px-3 py-2 text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fc3fb4]/30 disabled:cursor-not-allowed disabled:opacity-50"
                                 value={formData.workplaceType}
                                 onChange={handleInputChange}
                             >
-                                <option value="Remote">Remote</option>
-                                <option value="On-site">On-site</option>
-                                <option value="Hybrid">Hybrid</option>
+                                <option value="Remote" className="dark:bg-gray-900">Remote</option>
+                                <option value="On-site" className="dark:bg-gray-900">On-site</option>
+                                <option value="Hybrid" className="dark:bg-gray-900">Hybrid</option>
                             </select>
                         </div>
                         <div className="space-y-2">
@@ -116,14 +116,14 @@ export default function EditJobDialog({
                             <select
                                 id="jobType"
                                 name="jobType"
-                                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                className="flex h-10 w-full rounded-md border border-input bg-background dark:bg-gray-800 dark:text-white px-3 py-2 text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fc3fb4]/30 disabled:cursor-not-allowed disabled:opacity-50"
                                 value={formData.jobType}
                                 onChange={handleInputChange}
                             >
-                                <option value="Full-time">Full-time</option>
-                                <option value="Part-time">Part-time</option>
-                                <option value="Contract">Contract</option>
-                                <option value="Internship">Internship</option>
+                                <option value="Full-time" className="dark:bg-gray-900">Full-time</option>
+                                <option value="Part-time" className="dark:bg-gray-900">Part-time</option>
+                                <option value="Contract" className="dark:bg-gray-900">Contract</option>
+                                <option value="Internship" className="dark:bg-gray-900">Internship</option>
                             </select>
                         </div>
                     </div>

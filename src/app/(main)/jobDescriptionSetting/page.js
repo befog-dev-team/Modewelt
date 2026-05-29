@@ -120,18 +120,18 @@ export default function JobSettingsForm() {
     };
 
     return (
-        <div className="bg-[#F9F6EE]">
+        <div className="bg-[#F9F6EE] dark:bg-gray-950 min-h-screen transition-colors">
             <div className="mb-8">
                 <Navbar />
             </div>
-            <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-xl">
-                <h2 className="text-xl font-bold mb-4 text-center">Confirm Job Settings</h2>
+            <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-gray-900 shadow-md rounded-xl border dark:border-gray-800 transition-colors">
+                <h2 className="text-xl font-bold mb-4 text-center text-gray-900 dark:text-white transition-colors">Confirm Job Settings</h2>
                 <div className="space-y-4">
 
-                    <label htmlFor="salaryCountry" className="block font-medium cursor-pointer">Country</label>
+                    <label htmlFor="salaryCountry" className="block font-medium cursor-pointer text-gray-900 dark:text-gray-200 mb-1">Country</label>
                     <select
                         id="salaryCountry"
-                        className="w-full p-2 border rounded-md"
+                        className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#fc3fb4] outline-none transition-colors"
                         value={formData.salaryCountry}
                         onChange={handleCountryChange}
                     >
@@ -143,31 +143,31 @@ export default function JobSettingsForm() {
 
                     <div className="flex gap-4">
                         <div className="w-1/2">
-                            <label htmlFor="salaryCurrency" className="block font-medium">Currency</label>
+                            <label htmlFor="salaryCurrency" className="block font-medium text-gray-900 dark:text-gray-200 mb-1">Currency</label>
                             <input
                                 id="salaryCurrency"
                                 type="text"
-                                className="w-full p-2 border rounded-md bg-gray-50"
+                                className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-gray-50 dark:bg-gray-800/50 text-gray-900 dark:text-white transition-colors"
                                 value={formData.salaryCurrency}
                                 disabled={true}
                             />
                         </div>
                         <div className="w-1/2">
-                            <label htmlFor="salaryAmount" className="block font-medium cursor-pointer">Amount</label>
+                            <label htmlFor="salaryAmount" className="block font-medium cursor-pointer text-gray-900 dark:text-gray-200 mb-1">Amount</label>
                             <input
                                 id="salaryAmount"
                                 type="number"
-                                className="w-full p-2 border rounded-md"
+                                className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#fc3fb4] outline-none transition-colors"
                                 value={formData.salaryAmount}
                                 onChange={(e) => setFormData(prev => ({ ...prev, salaryAmount: e.target.value }))}
                             />
                         </div>
                     </div>
 
-                    <label htmlFor="salaryType" className="block font-medium cursor-pointer">Salary Type</label>
+                    <label htmlFor="salaryType" className="block font-medium cursor-pointer text-gray-900 dark:text-gray-200 mb-1">Salary Type</label>
                     <select
                         id="salaryType"
-                        className="w-full p-2 border rounded-md"
+                        className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#fc3fb4] outline-none transition-colors"
                         value={formData.salaryType}
                         onChange={(e) => setFormData(prev => ({ ...prev, salaryType: e.target.value }))}
                     >
@@ -176,20 +176,20 @@ export default function JobSettingsForm() {
                     </select>
 
                     {/* Job Overview */}
-                    <h3 className="text-lg font-semibold mt-6">Job Overview</h3>
-                    <label htmlFor="expirationDate" className="block font-medium cursor-pointer">Job Expiry Date</label>
+                    <h3 className="text-lg font-semibold mt-6 text-gray-900 dark:text-white transition-colors">Job Overview</h3>
+                    <label htmlFor="expirationDate" className="block font-medium cursor-pointer text-gray-900 dark:text-gray-200 mb-1">Job Expiry Date</label>
                     <input
                         id="expirationDate"
                         type="date"
-                        className="w-full p-2 border rounded-md"
+                        className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#fc3fb4] outline-none transition-colors"
                         value={formData.expirationDate}
                         onChange={(e) => setFormData(prev => ({ ...prev, expirationDate: e.target.value }))}
                     />
 
-                    <label htmlFor="jobLevel" className="block font-medium cursor-pointer">Job Level</label>
+                    <label htmlFor="jobLevel" className="block font-medium cursor-pointer text-gray-900 dark:text-gray-200 mb-1">Job Level</label>
                     <select
                         id="jobLevel"
-                        className="w-full p-2 border rounded-md"
+                        className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#fc3fb4] outline-none transition-colors"
                         value={formData.jobLevel}
                         onChange={(e) => setFormData(prev => ({ ...prev, jobLevel: e.target.value }))}
                     >
@@ -202,10 +202,10 @@ export default function JobSettingsForm() {
                 {/* Navigation Buttons */}
                 <div className="mt-6 flex justify-end">
                     <div>
-                        <button onClick={() => router.back()} className="mr-2 px-4 py-2 border rounded-md">
+                        <button onClick={() => router.back()} className="mr-2 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                             Back
                         </button>
-                        <button type="submit" onClick={handleSubmit} className="bg-[#fc3fb4] text-white px-4 py-2 rounded-md hover:bg-[#fc3fb4]">
+                        <button type="submit" onClick={handleSubmit} className="bg-[#fc3fb4] text-white px-4 py-2 rounded-md hover:bg-[#e037a1] transition-colors">
                             {isLoading ? (
                                 <Loader2 className="w-6 h-6 animate-spin mx-auto" />
                             ) :

@@ -28,18 +28,17 @@ function Profile() {
 
     return (
         <div className="p-4 flex justify-center items-center">
-            <div className="w-full max-w-3xl bg-white shadow-lg rounded-lg">
+            <div className="w-full max-w-3xl bg-white dark:bg-gray-900 shadow-lg rounded-lg border dark:border-gray-800 transition-colors">
                 <div className="p-4">
                     {/* Title Section */}
                     <div className="flex justify-between items-center">
-                        <h1 className="font-bold text-lg">About</h1>
-                        <div className="cursor-pointer" onClick={handleEditClick}>
+                        <h1 className="font-bold text-lg dark:text-gray-100">About</h1>
+                        <div className="cursor-pointer dark:text-gray-400 dark:hover:text-white transition-colors" onClick={handleEditClick}>
                             <MdEdit className="text-lg" />
                         </div>
                     </div>
 
-                    {/* Post Description */}
-                    <div className="mt-2 text-gray-600">
+                    <div className="mt-2 text-gray-600 dark:text-gray-400">
                         <div
                             className={`px-2 mt-2 text-sm leading-relaxed transition-all duration-500 ease-in-out overflow-hidden ${expanded ? "max-h-[1000px]" : "max-h-[100px]"
                                 }`}
@@ -58,17 +57,17 @@ function Profile() {
 
             {/* Popup Section */}
             {isPopupOpen && (
-                <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-white p-4 rounded shadow-lg w-full max-w-md">
-                        <h2 className="text-lg font-bold mb-4">Edit About Section</h2>
+                <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
+                    <div className="bg-white dark:bg-gray-900 p-4 rounded shadow-lg w-full max-w-md border dark:border-gray-800">
+                        <h2 className="text-lg font-bold mb-4 dark:text-white">Edit About Section</h2>
                         <textarea
-                            className="w-full h-[120px] border p-2 rounded focus:ring-[#fc3fb4] focus:ring-2"
+                            className="w-full h-[120px] border dark:border-gray-700 bg-transparent dark:text-white p-2 rounded focus:ring-[#fc3fb4] focus:ring-2"
                             value={newText}
                             onChange={(e) => setNewText(e.target.value)}
                         ></textarea>
                         <div className="flex justify-end mt-4 space-x-2">
                             <button
-                                className="bg-gray-300 text-black px-4 py-2 rounded"
+                                className="bg-gray-300 dark:bg-gray-700 text-black dark:text-gray-200 px-4 py-2 rounded"
                                 onClick={handleCancel}
                             >
                                 Cancel

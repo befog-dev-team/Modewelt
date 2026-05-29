@@ -27,7 +27,7 @@ export default function Index() {
       ].map((job, index) => (
         <div
           key={index}
-          className="w-full flex flex-col sm:flex-row items-center justify-between px-6 py-4 bg-white rounded-lg shadow-md space-y-4 sm:space-y-0 sm:space-x-6"
+          className="w-full flex flex-col sm:flex-row items-center justify-between px-6 py-4 bg-white dark:bg-gray-900 rounded-lg shadow-md border dark:border-gray-800 space-y-4 sm:space-y-0 sm:space-x-6 transition-colors"
         >
           {/* Image and Text Section */}
           <div className="flex items-center space-x-4 w-full sm:w-auto">
@@ -41,14 +41,14 @@ export default function Index() {
               />
             </div>
             <div className="flex flex-col space-y-2 w-full sm:w-[300px]">
-              <p className="font-[Gotham] text-[#181818] font-bold text-[16px] sm:text-[18px] leading-tight">
+              <p className="font-[Gotham] text-[#181818] dark:text-white font-bold text-[16px] sm:text-[18px] leading-tight transition-colors">
                 {job.title}
               </p>
-              <div className="flex gap-3 text-sm text-[#18181899]">
+              <div className="flex gap-3 text-sm text-[#18181899] dark:text-gray-400 transition-colors">
                 <div className="font-[Arial]">{job.company}</div>
-                <div className="font-[Arial] text-[#181818]">{job.location}</div>
+                <div className="font-[Arial] text-[#181818] dark:text-gray-300 transition-colors">{job.location}</div>
               </div>
-              <span className="font-[Gotham] text-[#181818] text-[12px] sm:text-[14px] leading-[18px] mt-2">
+              <span className="font-[Gotham] text-[#181818] dark:text-gray-400 text-[12px] sm:text-[14px] leading-[18px] mt-2 transition-colors">
                 {job.description}
               </span>
             </div>

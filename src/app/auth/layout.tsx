@@ -9,5 +9,9 @@ export default async function Layout({
 }) {
     const { user } = await validateRequest(); // Validate the request
 
+    if (user) {
+        redirect("/");
+    }
+
     return <>{children}</>; // Return the children
 }

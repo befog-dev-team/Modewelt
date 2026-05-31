@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { MdOutlineFileUpload, MdEditSquare } from "react-icons/md";
+import { MdEditSquare } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import vector from "../../../../public/assets/profile/Vector.png";
 import EditProfile from "@/components/Profile/EditProfile";

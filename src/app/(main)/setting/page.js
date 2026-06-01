@@ -29,22 +29,22 @@ function loadLS(key, fallback) {
 
 // ─── Section list ─────────────────────────────────────────────────────────────
 const SECTIONS = [
-    { id: "profile",       label: "Edit Profile",    icon: User },
-    { id: "notifications", label: "Notifications",   icon: Bell },
-    { id: "privacy",       label: "Account Privacy", icon: Shield },
-    { id: "security",      label: "Security",        icon: Lock },
-    { id: "appearance",    label: "Appearance",      icon: Palette },
-    { id: "account",       label: "Account",         icon: AlertTriangle },
+    { id: "profile", label: "Edit Profile", icon: User },
+    { id: "notifications", label: "Notifications", icon: Bell },
+    { id: "privacy", label: "Account Privacy", icon: Shield },
+    { id: "security", label: "Security", icon: Lock },
+    { id: "appearance", label: "Appearance", icon: Palette },
+    { id: "account", label: "Account", icon: AlertTriangle },
 ];
 
 export default function SettingsPage() {
-    const [activeSection, setActiveSection]   = useState("profile");
-    const [deleteOpen, setDeleteOpen]         = useState(false);
-    const [deleteLoading, setDeleteLoading]   = useState(false);
+    const [activeSection, setActiveSection] = useState("profile");
+    const [deleteOpen, setDeleteOpen] = useState(false);
+    const [deleteLoading, setDeleteLoading] = useState(false);
     const [editProfileOpen, setEditProfileOpen] = useState(false);
-    const router       = useRouter();
-    const queryClient  = useQueryClient();
-    const { user }     = useSession();
+    const router = useRouter();
+    const queryClient = useQueryClient();
+    const { user } = useSession();
 
     // ── Notifications (persisted) ──
     const [notifications, setNotifications] = useState(DEFAULT_NOTIF);
@@ -85,9 +85,9 @@ export default function SettingsPage() {
     };
 
     // ── Password change ──
-    const [pwForm, setPwForm]               = useState({ current: "", next: "", confirm: "" });
-    const [showPw, setShowPw]               = useState({ current: false, next: false, confirm: false });
-    const [pwLoading, setPwLoading]         = useState(false);
+    const [pwForm, setPwForm] = useState({ current: "", next: "", confirm: "" });
+    const [showPw, setShowPw] = useState({ current: false, next: false, confirm: false });
+    const [pwLoading, setPwLoading] = useState(false);
     const handlePasswordChange = async (e) => {
         e.preventDefault();
         if (pwForm.next !== pwForm.confirm) { toast.error("New passwords do not match"); return; }
@@ -96,7 +96,7 @@ export default function SettingsPage() {
         try {
             await axios.patch("/api/users/change-password", {
                 currentPassword: pwForm.current,
-                newPassword:     pwForm.next,
+                newPassword: pwForm.next,
             });
             toast.success("Password changed successfully!");
             setPwForm({ current: "", next: "", confirm: "" });
@@ -183,12 +183,12 @@ export default function SettingsPage() {
                         {activeSection === "profile" && (
                             <Section title="Edit Profile" subtitle="Update your public profile information">
                                 <div className="space-y-3">
-                                    <ProfileRow label="Display Name"    value={user.displayName} />
-                                    <ProfileRow label="Username"        value={`@${user.username}`} />
-                                    <ProfileRow label="Email"           value={user.email || "Not set"} />
-                                    <ProfileRow label="Headline"        value={user.profileHeadline || "Not set"} />
-                                    <ProfileRow label="Location"        value={user.location || "Not set"} />
-                                    <ProfileRow label="Bio"             value={user.bio || "Not set"} multiline />
+                                    <ProfileRow label="Display Name" value={user.displayName} />
+                                    <ProfileRow label="Username" value={`@${user.username}`} />
+                                    <ProfileRow label="Email" value={user.email || "Not set"} />
+                                    <ProfileRow label="Headline" value={user.profileHeadline || "Not set"} />
+                                    <ProfileRow label="Location" value={user.location || "Not set"} />
+                                    <ProfileRow label="Bio" value={user.bio || "Not set"} multiline />
                                     <div className="pt-3">
                                         <button onClick={() => setEditProfileOpen(true)}
                                             className="px-5 py-2 bg-[#a45286] text-white text-sm font-semibold rounded-lg hover:bg-[#8a3e70] transition-colors">
@@ -203,12 +203,12 @@ export default function SettingsPage() {
                         {activeSection === "notifications" && (
                             <Section title="Notifications" subtitle="Choose what you want to be notified about">
                                 <div className="divide-y divide-gray-100">
-                                    <ToggleRow label="New Follower"   desc="When someone follows you"                  value={notifications.newFollower}  onChange={() => toggleNotification("newFollower")} />
-                                    <ToggleRow label="Post Likes"     desc="When someone likes your post"               value={notifications.postLike}     onChange={() => toggleNotification("postLike")} />
-                                    <ToggleRow label="Post Comments"  desc="When someone comments on your post"         value={notifications.postComment}  onChange={() => toggleNotification("postComment")} />
-                                    <ToggleRow label="Mentions"       desc="When someone mentions you"                  value={notifications.mentions}     onChange={() => toggleNotification("mentions")} />
-                                    <ToggleRow label="Job Alerts"     desc="New job postings matching your profile"     value={notifications.jobAlerts}    onChange={() => toggleNotification("jobAlerts")} />
-                                    <ToggleRow label="Weekly Digest"  desc="A weekly summary of activity on your network" value={notifications.weeklyDigest} onChange={() => toggleNotification("weeklyDigest")} />
+                                    <ToggleRow label="New Follower" desc="When someone follows you" value={notifications.newFollower} onChange={() => toggleNotification("newFollower")} />
+                                    <ToggleRow label="Post Likes" desc="When someone likes your post" value={notifications.postLike} onChange={() => toggleNotification("postLike")} />
+                                    <ToggleRow label="Post Comments" desc="When someone comments on your post" value={notifications.postComment} onChange={() => toggleNotification("postComment")} />
+                                    <ToggleRow label="Mentions" desc="When someone mentions you" value={notifications.mentions} onChange={() => toggleNotification("mentions")} />
+                                    <ToggleRow label="Job Alerts" desc="New job postings matching your profile" value={notifications.jobAlerts} onChange={() => toggleNotification("jobAlerts")} />
+                                    <ToggleRow label="Weekly Digest" desc="A weekly summary of activity on your network" value={notifications.weeklyDigest} onChange={() => toggleNotification("weeklyDigest")} />
                                 </div>
                                 <p className="text-xs text-gray-400 mt-4">Preferences are saved to your browser.</p>
                             </Section>
@@ -224,9 +224,9 @@ export default function SettingsPage() {
                                         value={privacy.privateAccount} onChange={() => togglePrivacy("privateAccount")}
                                         icon={privacy.privateAccount ? <EyeOff className="w-4 h-4 text-[#fc3fb4]" /> : <Eye className="w-4 h-4 text-gray-400" />}
                                     />
-                                    <ToggleRow label="Show Activity Status"        desc="Let others see when you were last active"          value={privacy.showActivity}      onChange={() => togglePrivacy("showActivity")} />
-                                    <ToggleRow label="Profile View Notifications"  desc="Get notified when someone views your profile"      value={privacy.showProfileViews}  onChange={() => togglePrivacy("showProfileViews")} />
-                                    <ToggleRow label="Allow Direct Messages"       desc="Allow other users to send you messages"            value={privacy.allowMessages}     onChange={() => togglePrivacy("allowMessages")} />
+                                    <ToggleRow label="Show Activity Status" desc="Let others see when you were last active" value={privacy.showActivity} onChange={() => togglePrivacy("showActivity")} />
+                                    <ToggleRow label="Profile View Notifications" desc="Get notified when someone views your profile" value={privacy.showProfileViews} onChange={() => togglePrivacy("showProfileViews")} />
+                                    <ToggleRow label="Allow Direct Messages" desc="Allow other users to send you messages" value={privacy.allowMessages} onChange={() => togglePrivacy("allowMessages")} />
                                 </div>
                                 <p className="text-xs text-gray-400 mt-4">Preferences are saved to your browser.</p>
                             </Section>
@@ -241,7 +241,7 @@ export default function SettingsPage() {
                                             show={showPw.current} onToggleShow={() => setShowPw(p => ({ ...p, current: !p.current }))}
                                             onChange={v => setPwForm(p => ({ ...p, current: v }))} />
                                         <PwField label="New Password" id="next" value={pwForm.next}
-                                            show={showPw.next}    onToggleShow={() => setShowPw(p => ({ ...p, next: !p.next }))}
+                                            show={showPw.next} onToggleShow={() => setShowPw(p => ({ ...p, next: !p.next }))}
                                             onChange={v => setPwForm(p => ({ ...p, next: v }))} />
                                         <PwField label="Confirm New Password" id="confirm" value={pwForm.confirm}
                                             show={showPw.confirm} onToggleShow={() => setShowPw(p => ({ ...p, confirm: !p.confirm }))}
@@ -280,8 +280,8 @@ export default function SettingsPage() {
                                     <p className="text-sm font-medium text-gray-700">Theme</p>
                                     <div className="grid grid-cols-2 gap-3">
                                         {[
-                                            { id: "light", label: "Light", icon: <Sun  className="w-5 h-5" /> },
-                                            { id: "dark",  label: "Dark",  icon: <Moon className="w-5 h-5" /> },
+                                            { id: "light", label: "Light", icon: <Sun className="w-5 h-5" /> },
+                                            { id: "dark", label: "Dark", icon: <Moon className="w-5 h-5" /> },
                                         ].map(t => (
                                             <button key={t.id} onClick={() => applyTheme(t.id)}
                                                 className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all font-medium text-sm
@@ -315,7 +315,7 @@ export default function SettingsPage() {
                                     </div>
                                 </Section>
 
-                                <Section title="Danger Zone" subtitle="Irreversible — proceed with caution" danger>
+                                <Section title="Careful" subtitle="Irreversible — proceed with caution" danger>
                                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                                         <div>
                                             <h3 className="text-sm font-semibold text-red-600">Delete Account</h3>

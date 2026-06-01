@@ -14,8 +14,8 @@ model User {
   displayName            String
   email                  String?                  @unique
   location               String?
-  phone                  String
-  passwordHash           String
+  phone                  String?
+  passwordHash           String?
   googleId               String?                  @unique
   backgroundImageUrl     String?
   avatarUrl              String?

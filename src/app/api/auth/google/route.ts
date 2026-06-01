@@ -8,9 +8,12 @@ export async function GET() {
 
     const scopes = ["profile", "email"];
 
+    // In Arctic 3.x, createAuthorizationURL takes (state, codeVerifier, scopes)
     const url = google.createAuthorizationURL(state, codeVerifier, scopes);
 
-    (await cookies()).set("state", state, {
+    const cookieStore = await cookies();
+    
+    cookieStore.set("state", state, {
         path: "/",
         secure: process.env.NODE_ENV === "production",
         httpOnly: true,
@@ -18,7 +21,7 @@ export async function GET() {
         sameSite: "lax",
     });
 
-    (await cookies()).set("code_verifier", codeVerifier, {
+    cookieStore.set("code_verifier", codeVerifier, {
         path: "/",
         secure: process.env.NODE_ENV === "production",
         httpOnly: true,

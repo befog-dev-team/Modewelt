@@ -101,7 +101,7 @@ export async function signUp(
 
     return { error: "" };
   } catch (error) {
-    console.error(error);
+    console.error("Real signup error:", error instanceof Error ? error.stack : error);
     return { error: "Something went wrong. Please try again." };
   }
 }

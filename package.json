@@ -33,6 +33,8 @@
     "@radix-ui/react-tooltip": "^1.1.8",
     "@shadcn/ui": "^0.0.4",
     "@studio-freight/lenis": "^1.0.42",
+    "@supabase/ssr": "^0.10.3",
+    "@supabase/supabase-js": "^2.106.2",
     "@tanstack/react-query": "^5.66.0",
     "@tanstack/react-query-devtools": "^5.66.0",
     "@tiptap/extension-color": "^2.11.5",

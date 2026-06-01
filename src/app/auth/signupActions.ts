@@ -21,6 +21,7 @@ const transporter = nodemailer.createTransport({
 export async function signUp(
   credentials: SignUpValues
 ): Promise<{ error: string }> {
+  console.log("====> SERVER ACTION: signUp started with credentials:", credentials);
   try {
     const { username: rawUsername, email: rawEmail, password, phone } = signupSchema.parse(credentials);
 

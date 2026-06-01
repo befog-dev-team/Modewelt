@@ -60,7 +60,7 @@ export async function signUp(
     const tokenExpiry = new Date();
     tokenExpiry.setDate(tokenExpiry.getDate() + 7); // 7 days expiry time
 
-    // Start transaction
+    // Start database transaction
     await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       await tx.user.create({
         data: {
@@ -74,12 +74,6 @@ export async function signUp(
         },
       });
 
-      await streamServerClient.upsertUser({
-        id: userId,
-        username,
-        name: username,
-      });
-
       await tx.emailVerificationToken.create({
         data: {
           token: verificationToken,
@@ -88,6 +82,17 @@ export async function signUp(
         },
       });
     });
+
+    // Try to register the user with Stream Chat outside the transaction
+    try {
+      await streamServerClient.upsertUser({
+        id: userId,
+        username,
+        name: username,
+      });
+    } catch (streamError) {
+      console.warn("⚠️ Stream Chat upsert skipped/failed (network/timeout):", streamError instanceof Error ? streamError.message : streamError);
+    }
 
     // Create the email verification URL
     const verificationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/verify-email?token=${verificationToken}`;

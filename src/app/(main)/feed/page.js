@@ -1,26 +1,26 @@
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
 import { Suspense } from "react";
 
 // Left Sections (Lazy Loaded)
-const CreatePostSection = dynamic(() => import("../../../components/Feed/CreatePostSection"), {
+const CreatePostSection = nextDynamic(() => import("../../../components/Feed/CreatePostSection"), {
   loading: () => <div className="h-40 animate-pulse bg-white dark:bg-gray-800 mb-4 rounded-lg" />,
 });
-const SortBySection = dynamic(() => import("../../../components/Feed/SortBySection"), {
+const SortBySection = nextDynamic(() => import("../../../components/Feed/SortBySection"), {
   loading: () => <div className="h-10 animate-pulse bg-white dark:bg-gray-800 mb-4 rounded-lg" />,
 });
 
 // Right Sections (Lazy Loaded)
-const ProfileSection = dynamic(() => import("../../../components/Feed/ProfileSection"), {
+const ProfileSection = nextDynamic(() => import("../../../components/Feed/ProfileSection"), {
   loading: () => <div className="h-64 animate-pulse bg-white dark:bg-gray-800 mb-4" />,
 });
-const WhoToFollow = dynamic(() => import("../../../components/Feed/WhoToFollow"), {
+const WhoToFollow = nextDynamic(() => import("../../../components/Feed/WhoToFollow"), {
   loading: () => <div className="h-64 animate-pulse bg-white dark:bg-gray-800 mb-4" />,
 });
-const TrendingHashtagsSection = dynamic(() => import("../../../components/Feed/TrendingHashtagsSection"), {
+const TrendingHashtagsSection = nextDynamic(() => import("../../../components/Feed/TrendingHashtagsSection"), {
   loading: () => <div className="h-64 animate-pulse bg-white dark:bg-gray-800 mb-4" />,
 });
 
-
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Feed",

@@ -1,6 +1,8 @@
 import React from 'react'
 import Feed from './feed/page'
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Feed",
   description: "Feed page for the showing posts",

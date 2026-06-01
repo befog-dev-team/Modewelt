@@ -1,8 +1,11 @@
 
+import { notFound } from "next/navigation";
 // import Footer from "@/components/Footer";
 import NotificationWrapper from "./NotificationWrapper";
 import { getTodayProfileViews } from "@/lib/queries/profileViews";
 import { validateRequest } from "@/auth";
+
+export const dynamic = "force-dynamic";
 
 // Page metadata
 export const metadata = {

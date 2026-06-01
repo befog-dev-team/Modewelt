@@ -78,7 +78,11 @@ export default function SettingsPage() {
         else { document.documentElement.classList.remove("dark"); setTheme("light"); }
     }, []);
     const applyTheme = (t) => {
-        t === "dark" ? document.documentElement.classList.add("dark") : document.documentElement.classList.remove("dark");
+        if (t === "dark") {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
         localStorage.setItem("mw-theme", t);
         setTheme(t);
         toast.success(`${t === "dark" ? "Dark" : "Light"} mode enabled`);

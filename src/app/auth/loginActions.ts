@@ -70,7 +70,7 @@ export async function login(
 
         return { error: "" }; // Successful login
     } catch (error) {
-        console.error(error);
+        console.error("Real login error:", error instanceof Error ? error.stack : error);
         return { error: "Something went wrong. Please try again." };
     }
 }

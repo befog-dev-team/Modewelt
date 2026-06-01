@@ -1,18 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { SlFeed } from "react-icons/sl";
 import { GoPeople } from "react-icons/go";
 import { FiBriefcase } from "react-icons/fi";
-import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { FaEllipsisH } from "react-icons/fa";
 import { RiAdminLine } from "react-icons/ri";
-import { FiSun, FiMoon } from "react-icons/fi";
-import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
 const OtherModal = dynamic(() => import("../Other/index"), { ssr: false });
 const SearchField = dynamic(() => import("../SearchField"), { ssr: false });
@@ -25,19 +21,8 @@ function Navbar({ unreadNotificationCount }) {
   const pathname = usePathname();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const toggleModal = () => setIsModalOpen(!isModalOpen);
   const closeModal = () => setIsModalOpen(false);
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
 
   if (!user) return null;
 

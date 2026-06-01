@@ -60,11 +60,6 @@ const nextConfig: import('next').NextConfig = {
       }
     ];
   },
-
-  webpack: (config) => {
-    config.cache = false;
-    return config;
-  },
 };
 
 export default nextConfig;

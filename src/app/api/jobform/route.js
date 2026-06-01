@@ -1,44 +1,15 @@
-import { v2 as cloudinary } from "cloudinary";
 import prisma from "@/lib/prisma";
-import { Readable } from "stream";
 import { NextResponse } from "next/server";
-
-// 📌 Cloudinary Configuration
-cloudinary.config({
-    cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+import { uploadFile, deleteFile } from "@/lib/uploadHelper";
+import path from "path";
+import fs from "fs";
 
 // 📌 Allowed document types
 const ALLOWED_DOC_TYPES = ["pdf", "doc", "docx", "rtf", "odt", "txt"];
 
-// 📌 Upload to Cloudinary Function (Handles All Docs)
-const uploadToCloudinary = async (fileBuffer, folder, filename) => {
-    return new Promise((resolve, reject) => {
-        const fileExtension = filename.split(".").pop().toLowerCase();
-        const publicId = filename.replace(/\.[^/.]+$/, "");
-
-        const resourceType = ALLOWED_DOC_TYPES.includes(fileExtension) ? "raw" : "image";
-
-        const stream = cloudinary.uploader.upload_stream(
-            {
-                folder,
-                resource_type: resourceType,
-                public_id: publicId,
-                format: fileExtension,
-            },
-            (error, result) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(result); // Return entire Cloudinary result object
-                }
-            }
-        );
-
-        Readable.from(fileBuffer).pipe(stream);
-    });
+// 📌 Upload Function (Handles All Docs)
+const uploadToStorage = async (fileBuffer, folder, filename) => {
+    return await uploadFile(fileBuffer, folder, filename);
 };
 
 // 📌 Handle POST Request: Submit Job Application
@@ -87,7 +58,7 @@ export async function POST(req) {
         if (resumeFile instanceof File && resumeFile.size > 0) {
             try {
                 const resumeBuffer = await resumeFile.arrayBuffer();
-                const uploadResult = await uploadToCloudinary(Buffer.from(resumeBuffer), "job-resumes", resumeFile.name);
+                const uploadResult = await uploadToStorage(Buffer.from(resumeBuffer), "job-resumes", resumeFile.name);
                 resumeFileUrl = uploadResult.secure_url;
                 resumeFileName = resumeFile.name;
                 resumeFileSize = resumeFile.size;
@@ -103,7 +74,7 @@ export async function POST(req) {
             documentFiles.map(async (document) => {
                 if (document instanceof File && document.size > 0) {
                     const docBuffer = Buffer.from(await document.arrayBuffer());
-                    const uploadResult = await uploadToCloudinary(docBuffer, "job-documents", document.name);
+                    const uploadResult = await uploadToStorage(docBuffer, "job-documents", document.name);
                     return {
                         fileUrl: uploadResult.secure_url,
                         fileName: document.name,
@@ -218,10 +189,26 @@ export async function DELETE(req) {
         const application = await prisma.jobApplication.findUnique({ where: { id: applicationId } });
         if (!application) return NextResponse.json({ error: "Application not found" }, { status: 404 });
 
-        const deleteFiles = [application.resumeFile, ...(application.additionalDocuments || [])].filter(Boolean);
+        const deleteFiles = [application.resumeFileUrl, ...(application.additionalDocuments || []).map(d => d.fileUrl)].filter(Boolean);
         for (const fileUrl of deleteFiles) {
-            const publicId = fileUrl.split("/").pop().split(".")[0];
-            await cloudinary.api.delete_resources([publicId], { resource_type: "raw" });
+            if (fileUrl.startsWith("/uploads/")) {
+                try {
+                    const filePath = path.join(process.cwd(), "public", fileUrl);
+                    if (fs.existsSync(filePath)) {
+                        await fs.promises.unlink(filePath);
+                        console.log(`Deleted local resume file: ${filePath}`);
+                    }
+                } catch (e) {
+                    console.error("❌ Local file delete error:", e);
+                }
+            } else {
+                try {
+                    const publicId = fileUrl.split("/").pop().split(".")[0];
+                    await deleteFile(publicId);
+                } catch (e) {
+                    console.error("❌ Remote file delete error:", e);
+                }
+            }
         }
 
         await prisma.jobApplication.delete({ where: { id: applicationId } });

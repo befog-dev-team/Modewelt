@@ -1,13 +1,6 @@
-import { v2 as cloudinary } from "cloudinary";
 import prisma from "@/lib/prisma";
 import { validateRequest } from "@/auth";
-
-// Cloudinary Configuration
-cloudinary.config({
-    cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+import { uploadFile, deleteFile } from "@/lib/uploadHelper";
 
 // API Route: Handle POST request
 export async function POST(req) {
@@ -30,29 +23,10 @@ export async function POST(req) {
 
         let mediaUploadResult = null;
 
-        // Upload media to Cloudinary (if provided)
+        // Upload media (if provided)
         if (file) {
-            mediaUploadResult = await new Promise(async (resolve, reject) => {
-                const buffer = Buffer.from(await file.arrayBuffer());
-
-                cloudinary.uploader.upload_stream(
-                    {
-                        resource_type: file.type.startsWith("video/") ? "video" : "image",
-                        folder: "projects-media",
-                        transformation: file.type.startsWith("video/")
-                            ? [{ width: 1280, height: 720, crop: "limit", fetch_format: "mp4" }]
-                            : [{ quality: "auto", fetch_format: "jpg" }]
-                    },
-                    (error, result) => {
-                        if (error) {
-                            console.error("❌ Cloudinary Upload Error:", error);
-                            reject(error);
-                        } else {
-                            resolve(result);
-                        }
-                    }
-                ).end(buffer);
-            });
+            const buffer = Buffer.from(await file.arrayBuffer());
+            mediaUploadResult = await uploadFile(buffer, "projects-media", file.name, file.type);
         }
 
         // Save project in database
@@ -111,31 +85,13 @@ export async function PUT(req) {
             return Response.json({ error: "Project not found" }, { status: 404 });
         }
         let mediaUploadResult = null;
-        // Upload new media to Cloudinary (if provided)
+        // Upload new media (if provided)
         if (file) {
-            mediaUploadResult = await new Promise(async (resolve, reject) => {
-                const buffer = Buffer.from(await file.arrayBuffer());
-                cloudinary.uploader.upload_stream(
-                    {
-                        resource_type: file.type.startsWith("video/") ? "video" : "image",
-                        folder: "projects-media",
-                        transformation: file.type.startsWith("video/")
-                            ? [{ width: 1280, height: 720, crop: "limit", fetch_format: "mp4" }]
-                            : [{ quality: "auto", fetch_format: "jpg" }]
-                    },
-                    (error, result) => {
-                        if (error) {
-                            console.error("❌ Cloudinary Upload Error:", error);
-                            reject(error);
-                        } else {
-                            resolve(result);
-                        }
-                    }
-                ).end(buffer);
-            });
+            const buffer = Buffer.from(await file.arrayBuffer());
+            mediaUploadResult = await uploadFile(buffer, "projects-media", file.name, file.type);
             // Delete old media if a new one is uploaded
-            if (project.media?.length > 0) {
-                await cloudinary.uploader.destroy(project.media[0].public_id);
+            if (project.media?.length > 0 && project.media[0].public_id) {
+                await deleteFile(project.media[0].public_id);
             }
         }
         // Update project in the database
@@ -196,10 +152,12 @@ export async function DELETE(req) {
         if (!project) {
             return Response.json({ error: "Project not found" }, { status: 404 });
         }
-        // Delete associated media from Cloudinary
+        // Delete associated media
         if (project.media.length > 0) {
             for (const media of project.media) {
-                await cloudinary.uploader.destroy(media.public_id);
+                if (media.public_id) {
+                    await deleteFile(media.public_id);
+                }
             }
         }
         // Delete the project from the database

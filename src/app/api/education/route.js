@@ -1,13 +1,6 @@
-import { v2 as cloudinary } from "cloudinary";
 import prisma from "@/lib/prisma";
 import { validateRequest } from "@/auth";
-
-// Cloudinary Configuration
-cloudinary.config({
-    cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+import { uploadFile } from "@/lib/uploadHelper";
 
 // API Route: Handle POST request (Add Education)
 export async function POST(req) {
@@ -33,26 +26,12 @@ export async function POST(req) {
         let imageUrl = null;
 
         if (file) {
-            const buffer = Buffer.from(await file.arrayBuffer());
-
             try {
-                const uploadResult = await new Promise((resolve, reject) => {
-                    cloudinary.uploader.upload_stream(
-                        { folder: "education-logos", transformation: [{ quality: "auto", fetch_format: "jpg" }] },
-                        (error, result) => {
-                            if (error) {
-                                console.error("❌ Cloudinary Upload Error:", error);
-                                reject(error);
-                            } else {
-                                resolve(result?.secure_url);
-                            }
-                        }
-                    ).end(buffer);
-                });
-
-                imageUrl = uploadResult;
+                const buffer = Buffer.from(await file.arrayBuffer());
+                const uploadResult = await uploadFile(buffer, "education-logos", file.name, file.type);
+                imageUrl = uploadResult.secure_url;
             } catch (uploadError) {
-                console.error("❌ Cloudinary Upload Failed:", uploadError);
+                console.error("❌ Media Upload Failed:", uploadError);
                 return Response.json({ error: "Image upload failed" }, { status: 500 });
             }
         }
@@ -109,20 +88,11 @@ export async function PUT(req) {
 
         let imageUrl = education.imageUrl;
 
-        // Upload new image to Cloudinary (if provided)
+        // Upload new image (if provided)
         if (file) {
             const buffer = Buffer.from(await file.arrayBuffer());
-            const uploadResult = await new Promise((resolve, reject) => {
-                cloudinary.uploader.upload_stream(
-                    { folder: "education-logos", transformation: [{ quality: "auto", fetch_format: "jpg" }] },
-                    (error, result) => {
-                        if (error) reject(error);
-                        else resolve(result?.secure_url);
-                    }
-                ).end(buffer);
-            });
-
-            imageUrl = uploadResult;
+            const uploadResult = await uploadFile(buffer, "education-logos", file.name, file.type);
+            imageUrl = uploadResult.secure_url;
         }
 
         // Update education in the database

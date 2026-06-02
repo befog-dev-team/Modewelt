@@ -58,7 +58,8 @@ const Auth = () => {
       data.email = data.email.toLowerCase();
       // Start transition
       startTransition(async () => {
-        const { error } = await login(data); // login action
+        const result = await login(data); // login action
+        const { error } = result || {};
         if (error) {
           setError(error); // set error
           toast.error(error); // error toast
@@ -111,7 +112,10 @@ const Auth = () => {
 
       // Start transition
       startTransition(async () => {
-        const { error } = await signUp(data); // signup action
+        console.log("====> CLIENT: Calling signUp server action with data:", data);
+        const result = await signUp(data);
+        console.log("====> CLIENT: signUp response received:", result);
+        const { error } = result || { error: "Something went wrong" };
         if (error) {
           setError(error); // set error
           toast.error(error); // error toast

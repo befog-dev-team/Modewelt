@@ -1,39 +1,10 @@
-import { v2 as cloudinary } from "cloudinary";
 import { NextResponse } from "next/server";
-import { Readable } from "stream";
 import prisma from "@/lib/prisma";
+import { uploadFile } from "@/lib/uploadHelper";
 
-// Cloudinary Configuration
-cloudinary.config({
-    cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-});
-
-// Upload to Cloudinary Function
-const uploadToCloudinary = async (fileBuffer, folder, filename) => {
-    return new Promise((resolve, reject) => {
-        const fileExtension = filename.split(".").pop().toLowerCase();
-        const publicId = filename.replace(/\.[^/.]+$/, "");
-
-        const stream = cloudinary.uploader.upload_stream(
-            {
-                folder,
-                resource_type: "raw",
-                public_id: publicId,
-                format: fileExtension,
-            },
-            (error, result) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(result);
-                }
-            }
-        );
-
-        Readable.from(fileBuffer).pipe(stream);
-    });
+// Upload to Storage Function
+const uploadToStorage = async (fileBuffer, folder, filename, fileType) => {
+    return await uploadFile(fileBuffer, folder, filename, fileType);
 };
 
 export async function POST(req) {
@@ -92,7 +63,7 @@ export async function POST(req) {
             reportFiles.map(async (document) => {
                 if (document && typeof document.arrayBuffer === "function" && document.size > 0) {
                     const docBuffer = Buffer.from(await document.arrayBuffer());
-                    const uploadResult = await uploadToCloudinary(docBuffer, "report-files", document.name);
+                    const uploadResult = await uploadToStorage(docBuffer, "report-files", document.name, document.type);
                     return {
                         reportId: report.id, // Associate media with the report
                         fileName: document.name,

@@ -1,13 +1,6 @@
-import { v2 as cloudinary } from "cloudinary";
 import prisma from "@/lib/prisma";
 import { validateRequest } from "@/auth";
-
-// Cloudinary Configuration
-cloudinary.config({
-    cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+import { uploadFile, deleteFile } from "@/lib/uploadHelper";
 
 // Handle POST Request (Add Experience)
 export async function POST(req) {
@@ -32,12 +25,7 @@ export async function POST(req) {
 
         if (file) {
             const buffer = Buffer.from(await file.arrayBuffer());
-            const uploadResult = await new Promise((resolve, reject) => {
-                cloudinary.uploader.upload_stream(
-                    { folder: "experience-logos", transformation: [{ quality: "auto", fetch_format: "jpg" }] },
-                    (error, result) => error ? reject(error) : resolve(result)
-                ).end(buffer);
-            });
+            const uploadResult = await uploadFile(buffer, "experience-logos", file.name, file.type);
             imageUrl = uploadResult.secure_url;
             publicId = uploadResult.public_id;
         }
@@ -83,15 +71,10 @@ export async function PUT(req) {
 
         if (file) {
             const buffer = Buffer.from(await file.arrayBuffer());
-            const uploadResult = await new Promise((resolve, reject) => {
-                cloudinary.uploader.upload_stream(
-                    { folder: "experience-logos", transformation: [{ quality: "auto", fetch_format: "jpg" }] },
-                    (error, result) => error ? reject(error) : resolve(result)
-                ).end(buffer);
-            });
+            const uploadResult = await uploadFile(buffer, "experience-logos", file.name, file.type);
             imageUrl = uploadResult.secure_url;
             publicId = uploadResult.public_id;
-            if (experience.publicId) await cloudinary.uploader.destroy(experience.publicId);
+            if (experience.publicId) await deleteFile(experience.publicId);
         }
 
         const updatedExperience = await prisma.experience.update({
@@ -120,7 +103,7 @@ export async function DELETE(req) {
         });
         if (!experience) return Response.json({ error: "Experience not found" }, { status: 404 });
 
-        if (experience.publicId) await cloudinary.uploader.destroy(experience.publicId);
+        if (experience.publicId) await deleteFile(experience.publicId);
         await prisma.experience.delete({ where: { id: experienceId } });
 
         return Response.json({ success: true, message: "Experience deleted successfully" }, { status: 200 });

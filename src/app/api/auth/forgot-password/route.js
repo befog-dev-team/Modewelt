@@ -61,7 +61,7 @@ export async function POST(req) {
 
         return NextResponse.json({ message: "Password reset email sent" }, { status: 200 });
     } catch (error) {
-        console.error("Failed to send password reset email", error);
+        console.error("Failed to send password reset email:", error instanceof Error ? error.stack : error);
         return NextResponse.json({
             error: "Internal Server Error",
             details: error.message || "Unknown error",

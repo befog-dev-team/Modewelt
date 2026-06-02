@@ -33,13 +33,17 @@ export async function DELETE(req, props) {
 
         const { skillId } = params;
 
-        // Ensure the skill exists and belongs to the user
+        // Ensure the skill exists and belongs to the user (unless admin)
         const skill = await prisma.skill.findUnique({
-            where: { id: skillId, userId: user.id },
+            where: { id: skillId },
         });
-
+        
         if (!skill) {
-            return NextResponse.json({ error: "Skill not found or unauthorized" }, { status: 403 });
+            return NextResponse.json({ error: "Skill not found" }, { status: 404 });
+        }
+
+        if (skill.userId !== user.id && user.role !== "ADMIN") {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
         }
 
         await prisma.skill.delete({

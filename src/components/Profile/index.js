@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import { MdEdit } from "react-icons/md";
 
-function Profile() {
+function Profile({ user, loggedinUserId }) {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [aboutText, setAboutText] = useState(
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur nobis quo veritatis ullam doloribus, earum cupiditate minima provident officia ex eveniet debitis aliquam mollitia fuga praesentium veniam. Iste, illo delectus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus velit eligendi dolorum quae expedita."
+        user?.bio || "No bio available."
     );
     const [newText, setNewText] = useState(aboutText);
     const [expanded, setExpanded] = useState(false);
@@ -17,7 +17,9 @@ function Profile() {
         setIsPopupOpen(true);
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
+        // Implementation for saving bio would go here
+        // For now, update local state
         setAboutText(newText);
         setIsPopupOpen(false);
     };
@@ -33,9 +35,11 @@ function Profile() {
                     {/* Title Section */}
                     <div className="flex justify-between items-center">
                         <h1 className="font-bold text-lg dark:text-gray-100">About</h1>
-                        <div className="cursor-pointer dark:text-gray-400 dark:hover:text-white transition-colors" onClick={handleEditClick}>
-                            <MdEdit className="text-lg" />
-                        </div>
+                        {(loggedinUserId === user?.id || user?.role === "ADMIN") && (
+                            <div className="cursor-pointer dark:text-gray-400 dark:hover:text-white transition-colors" onClick={handleEditClick}>
+                                <MdEdit className="text-lg" />
+                            </div>
+                        )}
                     </div>
 
                     <div className="mt-2 text-gray-600 dark:text-gray-400">

@@ -45,19 +45,21 @@ export const fileRouter = { // export the file router
             );
 
             // update the user with the new avatar
-            await Promise.all([ // update the user in the database and on the stream server in parallel
-                prisma.user.update({ // update the user in the database
-                    where: { id: metadata.user.id }, // find the user by id
-                    data: { // set the user's avatar url to the new url 
-                        avatarUrl: newAvatarUrl, // set the avatar url to the new url
+            await Promise.all([
+                prisma.user.update({
+                    where: { id: metadata.user.id },
+                    data: {
+                        avatarUrl: newAvatarUrl,
                     },
                 }),
-                streamServerClient.partialUpdateUser({ // update the user on the stream server
-                    id: metadata.user.id, // find the user by id
-                    set: { // set the user's avatar url to the new url 
-                        image: newAvatarUrl, // set the image field to the new url
-                    }
-                })
+                ...(streamServerClient ? [
+                    streamServerClient.partialUpdateUser({
+                        id: metadata.user.id,
+                        set: {
+                            image: newAvatarUrl,
+                        }
+                    })
+                ] : [])
             ])
 
             // update the user with the new avatar

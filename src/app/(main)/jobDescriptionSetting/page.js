@@ -114,7 +114,7 @@ export default function JobSettingsForm() {
                     jobLevel: "Beginner",
                     expirationDate: "",
                 });
-                router.push("/jobs");
+                router.push("/jobManagement");
             },
         });
     };

@@ -243,10 +243,10 @@ export default function SkillsPage({ user, username, loggedinUserId }) {
                   </button>
                 )}
 
-                {loggedinUserId === user?.id && (
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute right-0">
+                {(loggedinUserId === user?.id || user?.role === "ADMIN") && (
+                  <div className="flex items-center">
                     <MdDelete
-                      className="text-gray-500 cursor-pointer text-xl hover:text-red-600"
+                      className="text-gray-500 cursor-pointer text-xl hover:text-red-600 transition-colors"
                       onClick={() => handleDeleteSkill(skill.id)}
                     />
                   </div>

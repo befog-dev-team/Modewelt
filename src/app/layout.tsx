@@ -217,7 +217,7 @@ export default function RootLayout({
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
       </head>
 
-      <body className={`${geistSans.variable} ${geistMono.variable} ${sora.variable} antialiased bg-[--background-color] overflow-x-hidden font-sans`}>
+      <body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} ${sora.variable} antialiased bg-[--background-color] overflow-x-hidden font-sans`}>
         <ReactQueryProvider>
           <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} />
           {/* <!-- Google Tag Manager (noscript) --> */}

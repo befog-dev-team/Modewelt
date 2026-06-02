@@ -208,8 +208,8 @@ export default function ExperiencePage({ user, username, loggedinUserId }) {
                                 </div>
                             </div>
 
-{loggedinUserId === user?.id && (
-    <div className="absolute top-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+{(loggedinUserId === user?.id || user?.role === "ADMIN") && (
+    <div className="absolute top-2 right-2 flex space-x-2">
         <MdEdit className="text-gray-600 dark:text-gray-400 cursor-pointer hover:text-blue-500" size={20} onClick={() => handleEditExperience(experience)} />
         <MdDelete className="text-red-500 cursor-pointer hover:text-red-700" size={20} onClick={() => handleDeleteExperience(experience.id)} />
     </div>

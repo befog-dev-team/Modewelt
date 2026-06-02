@@ -99,9 +99,13 @@ export async function DELETE(req) {
         if (!experienceId) return Response.json({ error: "Experience ID is required" }, { status: 400 });
 
         const experience = await prisma.experience.findUnique({
-            where: { id: experienceId, userId: user.id }
+            where: { id: experienceId }
         });
         if (!experience) return Response.json({ error: "Experience not found" }, { status: 404 });
+
+        if (experience.userId !== user.id && user.role !== "ADMIN") {
+            return Response.json({ error: "Unauthorized" }, { status: 403 });
+        }
 
         if (experience.publicId) await deleteFile(experience.publicId);
         await prisma.experience.delete({ where: { id: experienceId } });

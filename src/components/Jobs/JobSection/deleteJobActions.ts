@@ -19,7 +19,7 @@ export async function deleteJob(id: string) {
 
     if (!job) throw new Error("Job not found");
 
-    if (job.userId !== user.id) throw new Error("Unauthorized");
+    if (job.userId !== user.id && user.role !== "ADMIN") throw new Error("Unauthorized");
 
     // Use a transaction to ensure both deletions happen correctly
     const deletedJob = await prisma.$transaction(async (tx) => {

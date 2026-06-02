@@ -25,7 +25,7 @@ function InputField({ label, type, placeholder, required = false, value, onChang
             <input
                 type={type}
                 placeholder={placeholder}
-                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#fc3fb4]"
+                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#fc3fb4] bg-white text-gray-900 placeholder-gray-400"
                 required={required}
                 value={value}
                 onChange={onChange}
@@ -43,7 +43,7 @@ function SelectField({ label, value, options, onChange, required = false }) {
                 {label} {required && <span className="text-red-500">*</span>}
             </label>
             <select
-                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#fc3fb4]"
+                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#fc3fb4] bg-white text-gray-900"
                 value={value} // <-- Controlled value
                 onChange={(e) => onChange(e.target.value)} // <-- Pass value to parent
                 required={required}
@@ -129,8 +129,8 @@ export default function Home() {
         portfolioUrl: "",
         language: "",
         skills: "",
-        experienceList: [{ id: "", role: "", company: "" }],
-        educationList: [{ id: "", degree: "", institution: "" }],
+        experienceList: [],
+        educationList: [],
         role: "",
         company: "",
         degree: "",
@@ -196,10 +196,7 @@ export default function Home() {
 
         setFormData((prevState) => ({
             ...prevState,
-            experienceList:
-                prevState.experienceList.length > 0 && prevState.experienceList[0].id === ""
-                    ? [newExperience] // Replace the empty first entry
-                    : [...prevState.experienceList, newExperience], // Append if not empty
+            experienceList: [...prevState.experienceList, newExperience],
             role: "", // Reset input fields
             company: "",
         }));
@@ -220,10 +217,7 @@ export default function Home() {
 
         setFormData((prevState) => ({
             ...prevState,
-            educationList:
-                prevState.educationList.length > 0 && prevState.educationList[0].id === ""
-                    ? [newEducation] // Replace the empty first entry
-                    : [...prevState.educationList, newEducation], // Append if not empty
+            educationList: [...prevState.educationList, newEducation],
             degree: "", // Reset input fields
             institution: "",
         }));
@@ -374,8 +368,8 @@ export default function Home() {
                     portfolioUrl: "",
                     language: "",
                     skills: "",
-                    experienceList: [{ id: "", role: "", company: "" }],
-                    educationList: [{ id: "", degree: "", institution: "" }],
+                    experienceList: [],
+                    educationList: [],
                     role: "",
                     company: "",
                     degree: "",
@@ -424,7 +418,16 @@ export default function Home() {
                     />
 
                     {formData.resumeFile && (
-                        <p className="text-sm text-gray-600 mt-2 bg-white">Selected File: {formData.resumeFile?.name}</p>
+                        <div className="flex justify-between items-center text-sm text-gray-600 mt-2 bg-gray-50 p-2 rounded max-w-lg">
+                            <span>Selected Resume: {formData.resumeFile.name}</span>
+                            <button
+                                type="button"
+                                onClick={() => setFormData({ ...formData, resumeFile: null })}
+                                className="text-red-500 hover:text-red-700"
+                            >
+                                <FaTrash />
+                            </button>
+                        </div>
                     )}
 
                     {/* Personal Information */}
@@ -483,7 +486,7 @@ export default function Home() {
                             <select
                                 value={formData.countryCode}
                                 onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
-                                className="border p-2 rounded-l focus:outline-none focus:ring-2 focus:ring-[#fc3fb4]"
+                                className="border p-2 rounded-l focus:outline-none focus:ring-2 focus:ring-[#fc3fb4] bg-white text-gray-900"
                                 required
                             >
                                 <option value="+91">+91</option>
@@ -513,7 +516,7 @@ export default function Home() {
                                 type="text"
                                 value={formData.phone}
                                 placeholder="Enter your phone number"
-                                className="border p-2 flex-1 rounded-r focus:outline-none focus:ring-2 focus:ring-[#fc3fb4]"
+                                className="border p-2 flex-1 rounded-r focus:outline-none focus:ring-2 focus:ring-[#fc3fb4] bg-white text-gray-900 placeholder-gray-400"
                                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                 required
                             />
@@ -638,25 +641,24 @@ export default function Home() {
 
                         {/* Dynamic List of Experience */}
                         <ul className="space-y-2">
-                            {formData.experienceList?.length > 0 ? (
+                            {formData.experienceList.length > 0 ? (
                                 formData.experienceList.map((exp) => (
-                                    (exp.role && exp.company) ? (
-                                        <li
-                                            key={exp.id}
-                                            className="flex justify-between items-center p-2 bg-gray-100 rounded-md"
+                                    <li
+                                        key={exp.id}
+                                        className="flex justify-between items-center p-2 bg-gray-50 border rounded-md"
+                                    >
+                                        <div>
+                                            <p className="text-sm font-medium text-gray-900">{exp.role}</p>
+                                            <p className="text-xs text-gray-600">{exp.company}</p>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => removeExperience(exp.id)}
+                                            className="text-red-500 hover:text-red-700 transition"
                                         >
-                                            <div>
-                                                <p className="text-sm font-medium text-gray-900">{exp.role}</p>
-                                                <p className="text-xs text-gray-600">{exp.company}</p>
-                                            </div>
-                                            <button
-                                                onClick={() => removeExperience(exp.id)}
-                                                className="text-red-500 hover:text-red-700 transition"
-                                            >
-                                                <FaTrash />
-                                            </button>
-                                        </li>
-                                    ) : null
+                                            <FaTrash />
+                                        </button>
+                                    </li>
                                 ))
                             ) : (
                                 <p className="text-gray-500 text-sm">No experience details added yet.</p>
@@ -671,14 +673,14 @@ export default function Home() {
                                 placeholder="Enter Role"
                                 value={formData.role}
                                 onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                                className="w-full p-2 border border-gray-300 rounded-md"
+                                className="w-full p-2 border border-gray-300 rounded-md bg-white text-gray-900 placeholder-gray-400"
                             />
                             <input
                                 type="text"
                                 placeholder="Company Name"
                                 value={formData.company}
                                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                                className="w-full p-2 border border-gray-300 rounded-md"
+                                className="w-full p-2 border border-gray-300 rounded-md bg-white text-gray-900 placeholder-gray-400"
                             />
                         </div>
 
@@ -699,26 +701,24 @@ export default function Home() {
 
                         {/* Dynamic List of Education */}
                         <ul className="space-y-2">
-                            {formData.educationList?.length > 0 ? (
+                            {formData.educationList.length > 0 ? (
                                 formData.educationList.map((edu) => (
-                                    // Only render the list item if there is valid content for degree or institution
-                                    (edu.degree && edu.institution) ? (
-                                        <li
-                                            key={edu.id}
-                                            className="flex justify-between items-center p-2 bg-gray-100 rounded-md"
+                                    <li
+                                        key={edu.id}
+                                        className="flex justify-between items-center p-2 bg-gray-50 border rounded-md"
+                                    >
+                                        <div>
+                                            <p className="text-sm font-medium text-gray-900">{edu.degree}</p>
+                                            <p className="text-xs text-gray-600">{edu.institution}</p>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => removeEducation(edu.id)}
+                                            className="text-red-500 hover:text-red-700 transition"
                                         >
-                                            <div>
-                                                <p className="text-sm font-medium text-gray-900">{edu.degree}</p>
-                                                <p className="text-xs text-gray-600">{edu.institution}</p>
-                                            </div>
-                                            <button
-                                                onClick={() => removeEducation(edu.id)}
-                                                className="text-red-500 hover:text-red-700 transition"
-                                            >
-                                                <FaTrash />
-                                            </button>
-                                        </li>
-                                    ) : null // Don't render if no content for degree or institution
+                                            <FaTrash />
+                                        </button>
+                                    </li>
                                 ))
                             ) : (
                                 <p className="text-gray-500 text-sm">No education details added yet.</p>
@@ -732,14 +732,14 @@ export default function Home() {
                                 placeholder="Enter Degree"
                                 value={formData.degree}
                                 onChange={(e) => setFormData({ ...formData, degree: e.target.value })}
-                                className="w-full p-2 border border-gray-300 rounded-md"
+                                className="w-full p-2 border border-gray-300 rounded-md bg-white text-gray-900 placeholder-gray-400"
                             />
                             <input
                                 type="text"
                                 placeholder="Enter Institution"
                                 value={formData.institution}
                                 onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
-                                className="w-full p-2 border border-gray-300 rounded-md"
+                                className="w-full p-2 border border-gray-300 rounded-md bg-white text-gray-900 placeholder-gray-400"
                             />
                         </div>
 
@@ -779,7 +779,20 @@ export default function Home() {
                                 <h3 className="text-gray-700 font-medium">Selected Files:</h3>
                                 <ul className="list-disc ml-5">
                                     {files.map((file, index) => (
-                                        <li key={index} className="text-sm text-gray-600">{file.name}</li>
+                                        <li key={index} className="flex justify-between items-center text-sm text-gray-600 bg-gray-50 p-2 rounded mt-1">
+                                            <span>{file.name}</span>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    const newFiles = [...files];
+                                                    newFiles.splice(index, 1);
+                                                    setFiles(newFiles);
+                                                }}
+                                                className="text-red-500 hover:text-red-700"
+                                            >
+                                                <FaTrash />
+                                            </button>
+                                        </li>
                                     ))}
                                 </ul>
                             </div>
@@ -801,7 +814,7 @@ export default function Home() {
                         <input
                             type="text"
                             placeholder="Captcha"
-                            className="border rounded-md p-2 flex-1 focus:outline-none focus:ring-2 focus:ring-[#fc3fb4]"
+                            className="border rounded-md p-2 flex-1 focus:outline-none focus:ring-2 focus:ring-[#fc3fb4] bg-white text-gray-900 placeholder-gray-400"
                             value={inputCaptcha}
                             onChange={(e) => setInputCaptcha(e.target.value)}
                             required

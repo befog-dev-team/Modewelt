@@ -8,28 +8,62 @@ import { FaEllipsisVertical } from "react-icons/fa6";
 import imageArticle from "../../../../../public/assets/profile/imgarticle.png";
 import Navbar from "@/components/Navbar";
 
-// Lazy load heavy components
-const Userprofile = dynamic(() => import("../../../../components/userprofile/profile"), { 
-  loading: () => <div className="h-64 animate-pulse bg-gray-100 rounded-lg" />
-});
+import { useParams } from "next/navigation";
+import { useSession } from "../../SessionProvider";
+import { useEffect } from "react";
+
+// Real components
+import Profile from "../../../../components/Profile";
+import Experience from "../../../../components/Profile/Experience";
+import SkillsPage from "../../../../components/Profile/Skills";
+import ProjectPage from "../../../../components/Profile/Project";
+import ProjectPage2 from "../../../../components/Profile/Project2";
+import Userprofile from "../../../../components/Profile/UserProfile";
+
 const Side = dynamic(() => import("../../../../components/userprofile/side"), { ssr: false });
 const About = dynamic(() => import("../../../../components/userprofile/about"));
-const ProjectPage = dynamic(() => import("../../../../components/userprofile/project"));
-const SkillsPage = dynamic(() => import("../../../../components/userprofile/skills"));
-const Experience = dynamic(() => import("../../../../components/userprofile/experience"));
-const ProjectPage2 = dynamic(() => import("../../../../components/userprofile/project2"));
 const Postpage = dynamic(() => import("../../../../components/Profile/Post"));
 const Commentpage = dynamic(() => import("../../../../components/Profile/Comment"));
 const Videopage = dynamic(() => import("../../../../components/Profile/Video"));
 const Imagepage = dynamic(() => import("../../../../components/Profile/Images"));
 const Documentpage = dynamic(() => import("../../../../components/Profile/Documents"));
+const SkillsPagePlaceholder = dynamic(() => import("../../../../components/userprofile/skills"));
+const ExperiencePlaceholder = dynamic(() => import("../../../../components/userprofile/experience"));
 
 function Page() {
-  // const router = useRouter();
+  const { username: routeUsername } = useParams();
+  const { user: sessionUser } = useSession();
+  
+  const [profileUser, setProfileUser] = useState(null);
   const [activeSection, setActiveSection] = useState("profile");
   const [activeSectionPost, setActiveSectionPost] = useState("post");
-
   const [activeTab, setActiveTab] = useState("events");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchProfileUser() {
+      try {
+        const res = await fetch(`/api/users/profile/${routeUsername}`);
+        if (res.ok) {
+          const data = await res.json();
+          setProfileUser(data);
+        }
+      } catch (error) {
+        console.error("Error fetching profile user:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchProfileUser();
+  }, [routeUsername]);
+
+  if (isLoading) {
+    return <div className="flex justify-center items-center h-screen"><div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-[#fc3fb4]"></div></div>;
+  }
+
+  if (!profileUser) {
+    return <div className="text-center mt-20">User not found</div>;
+  }
 
   const handleTabSwitch = (tab) => {
     setActiveTab(tab);
@@ -88,7 +122,7 @@ function Page() {
 
           <div className="flex flex-col">
             {/* Left side with images and details */}
-            <Userprofile />
+            <Userprofile user={profileUser} loggedinUserId={sessionUser?.id} />
 
             <div className="flex flex-wrap items-end border-b-[1px] border-[#E7E7E7] w-full max-w-[850px] mt-2">
               <button
@@ -125,11 +159,11 @@ function Page() {
             {/* Profile Section */}
             {activeSection === "profile" && (
               <div>
-                <About />
-                <ProjectPage />
-                <SkillsPage />
-                <Experience />
-                <ProjectPage2 />
+                <Profile user={profileUser} username={profileUser.username} loggedinUserId={sessionUser?.id} />
+                <ProjectPage user={profileUser} username={profileUser.username} loggedinUserId={sessionUser?.id} />
+                <SkillsPage user={profileUser} username={profileUser.username} loggedinUserId={sessionUser?.id} />
+                <Experience user={profileUser} username={profileUser.username} loggedinUserId={sessionUser?.id} />
+                <ProjectPage2 user={profileUser} username={profileUser.username} loggedinUserId={sessionUser?.id} />
               </div>
             )}
 

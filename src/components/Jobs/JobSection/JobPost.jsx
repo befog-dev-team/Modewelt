@@ -2,24 +2,37 @@
 
 import { useState } from "react";
 import { IoLocationOutline } from "react-icons/io5";
-import { HiOutlineOfficeBuilding, HiOutlineTrash, HiOutlineFlag, HiOutlineInformationCircle } from "react-icons/hi";
+import { HiOutlineOfficeBuilding, HiOutlineTrash, HiOutlineFlag, HiOutlineInformationCircle, HiOutlinePencil } from "react-icons/hi";
 import { FaEllipsisH } from "react-icons/fa";
 import dynamic from "next/dynamic";
 const DeleteJobDialog = dynamic(() => import("./DeleteJobDialog"), { ssr: false });
 const ReportJobModal = dynamic(() => import("./ReportJobModal"), { ssr: false });
 import Link from "next/link";
 import { useSession } from "@/app/(main)/SessionProvider";
+import { useRouter } from "next/navigation";
 
 export default function JobPost({ job }) {
     const { user } = useSession();
+    const router = useRouter();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
-    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-    const handleDeleteClick = () => setIsDeleteDialogOpen(true);
-    const handleReportClick = () => setIsReportModalOpen(true);
+    const toggleMenu = (e) => {
+        e.stopPropagation();
+        setIsMenuOpen(!isMenuOpen);
+    };
+    const handleDeleteClick = (e) => {
+        e.stopPropagation();
+        setIsDeleteDialogOpen(true);
+        setIsMenuOpen(false);
+    };
+    const handleReportClick = (e) => {
+        e.stopPropagation();
+        setIsReportModalOpen(true);
+        setIsMenuOpen(false);
+    };
 
     const maxDescriptionLength = 100;
 
@@ -52,11 +65,23 @@ export default function JobPost({ job }) {
                     <FaEllipsisH className="text-gray-700 dark:text-gray-400 cursor-pointer w-6 h-6 hover:text-[#fc3fb4] transition-colors" onClick={toggleMenu} />
                     {isMenuOpen && (
                         <div className="absolute right-0 mt-2 w-[160px] bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-xl rounded-lg z-10 overflow-hidden transition-colors">
-                            {job.userId === user.id && (
-                                <button onClick={handleDeleteClick} className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-600 hover:text-white transition-colors">
-                                    <HiOutlineTrash className="text-lg" />
-                                    Delete
-                                </button>
+                            {user && (job.userId === user.id || user.role === "ADMIN") && (
+                                <>
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            router.push(`/editJob/${job.id}`);
+                                        }}
+                                        className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                                    >
+                                        <HiOutlinePencil className="text-lg text-blue-500" />
+                                        Edit
+                                    </button>
+                                    <button onClick={handleDeleteClick} className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-600 hover:text-white transition-colors">
+                                        <HiOutlineTrash className="text-lg" />
+                                        Delete
+                                    </button>
+                                </>
                             )}
                             <button onClick={handleReportClick} className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                                 <HiOutlineFlag className="text-lg" />

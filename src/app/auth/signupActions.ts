@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { signupSchema, SignUpValues } from "@/lib/validation";
+import { z } from "zod";
 import { hash } from "@node-rs/argon2";
 import { generateIdFromEntropySize } from "lucia";
 import nodemailer from "nodemailer";
@@ -70,7 +71,7 @@ export async function signUp(
           email,
           passwordHash,
           phone,
-          isVerified: false,
+          isVerified: true, // Auto-verify: email sending is optional
         },
       });
 
@@ -85,29 +86,45 @@ export async function signUp(
 
     // Try to register the user with Stream Chat outside the transaction
     try {
-      await streamServerClient.upsertUser({
-        id: userId,
-        username,
-        name: username,
-      });
+      if (streamServerClient) {
+        await streamServerClient.upsertUser({
+          id: userId,
+          username,
+          name: username,
+        });
+      }
     } catch (streamError) {
       console.warn("⚠️ Stream Chat upsert skipped/failed (network/timeout):", streamError instanceof Error ? streamError.message : streamError);
     }
 
-    // Create the email verification URL
-    const verificationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/verify-email?token=${verificationToken}`;
-
-    // Send the verification email
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: "Verify Your Email Address",
-      html: getEmailVerificationTemplate(verificationUrl),
-    });
+    // Try to send a verification email (non-blocking — won't fail signup if unconfigured)
+    try {
+      if (process.env.EMAIL_USER && process.env.EMAIL_PASS && process.env.NEXT_PUBLIC_BASE_URL) {
+        const verificationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/verify-email?token=${verificationToken}`;
+        await transporter.sendMail({
+          from: process.env.EMAIL_USER,
+          to: email,
+          subject: "Verify Your Email Address",
+          html: getEmailVerificationTemplate(verificationUrl),
+        });
+      } else {
+        console.warn("⚠️ Email env vars not set — skipping verification email.");
+      }
+    } catch (emailError) {
+      console.warn("⚠️ Failed to send verification email:", emailError instanceof Error ? emailError.message : emailError);
+    }
 
     return { error: "" };
   } catch (error) {
-    console.error("Real signup error:", error instanceof Error ? error.stack : error);
+    console.error("Real signup error details:", error);
+    if (error instanceof z.ZodError) {
+      return { error: error.errors[0].message };
+    }
+    if (error instanceof Error) {
+      if (error.message.includes("is not defined") || error.message.includes("missing")) {
+        return { error: "Server configuration error: missing environment variables." };
+      }
+    }
     return { error: "Something went wrong. Please try again." };
   }
 }

@@ -20,12 +20,18 @@ const Auth = () => {
 
   useEffect(() => {
     const mode = searchParams.get("mode");
-    if (mode === "signup") {
-      setActive(true);
-    } else {
-      setActive(false);
-    }
+    setActive(mode === "signup");
   }, [searchParams]);
+
+  const toggleMode = (signup) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (signup) {
+      params.set("mode", "signup");
+    } else {
+      params.delete("mode");
+    }
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
 
   const [pending, startTransition] = useTransition(); // for transition
   const [error, setError] = useState(undefined); // for error handling
@@ -39,7 +45,7 @@ const Auth = () => {
   const {
     register: loginRegister, // register function
     handleSubmit: handleLoginSubmit, // submit function
-    formState: { isSubmitting: isLoginSubmitting }, // form state
+    formState: { errors: loginErrors, isSubmitting: isLoginSubmitting }, // form state
     reset: resetLogin, // reset form
   } = useForm({
     // form hook
@@ -81,7 +87,7 @@ const Auth = () => {
   const {
     register: signupRegister, // register function
     handleSubmit: handleSignupSubmit, // submit function
-    formState: { isSubmitting: isSignupSubmitting }, // form state
+    formState: { errors: signupErrors, isSubmitting: isSignupSubmitting }, // form state
     reset: resetSignup // reset form
   } = useForm({
     // form hook
@@ -97,6 +103,7 @@ const Auth = () => {
 
   // Signup function
   const handleSignup = async (data) => {
+    console.log("Submit button clicked! handleSignup called with data:", data);
     try {
       // Reset error
       setError(undefined);
@@ -121,8 +128,10 @@ const Auth = () => {
           toast.error(error); // error toast
         }
         else {
-          toast.success("Signup successful! Please check your email for verification.");
+          toast.success("Account created! You can now log in.");
           resetSignup(); // reset form
+          // Switch to login view so user can sign in immediately
+          toggleMode(false);
         }
       });
     } catch (err) {
@@ -144,7 +153,7 @@ const Auth = () => {
 
       {/* AUTH CONTAINER */}
       <div
-        className={`auth-container relative z-10 h-[524px] w-[957px] border-gray-200 border flex bg-[#ffffff] shadow-2xl rounded-2xl max-w-4xl ${active ? "active" : ""}`}
+        className={`auth-container relative z-10 h-[580px] w-[957px] border-gray-200 border flex bg-[#ffffff] shadow-2xl rounded-2xl max-w-4xl ${active ? "active" : ""}`}
       >
         <div className="curved-shape1"></div>
         <div className="curved-shape2"></div>
@@ -204,6 +213,9 @@ const Auth = () => {
                 required
                 className="w-full h-12 bg-white border border-gray-300 rounded-xl px-4 text-gray-900 placeholder-gray-500 focus:border-[#9466FF] focus:ring-1 focus:ring-[#9466FF] transition-all outline-none"
               />
+              {loginErrors.email && (
+                <p className="text-red-500 text-xs mt-1 ml-1">{loginErrors.email.message}</p>
+              )}
             </div>
             <div className="relative group">
               <input
@@ -216,6 +228,9 @@ const Auth = () => {
               <span className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700" onClick={togglePassword}>
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </span>
+              {loginErrors.password && (
+                <p className="text-red-500 text-xs mt-1 ml-1">{loginErrors.password.message}</p>
+              )}
             </div>
 
             <button
@@ -223,7 +238,7 @@ const Auth = () => {
               disabled={isLoginSubmitting}
               className="w-full h-12 bg-[#9466FF] hover:bg-[#8354f5] text-white font-bold rounded-xl shadow-lg shadow-purple-500/20 transition-all duration-300 flex items-center justify-center transform active:scale-[0.98]"
             >
-              {pending ? (
+              {pending || isLoginSubmitting ? (
                 <Loader2 className="animate-spin" />
               ) : (
                 "Login"
@@ -234,7 +249,7 @@ const Auth = () => {
               <button
                 type="button"
                 className="w-full h-12 bg-white border border-gray-300 hover:bg-gray-50 text-gray-900 font-medium rounded-xl shadow-sm transition-all duration-300 flex items-center justify-center transform active:scale-[0.98]"
-                onClick={() => setActive(true)}
+                onClick={() => toggleMode(true)}
               >
                 Create account
               </button>
@@ -274,25 +289,34 @@ const Auth = () => {
               className="input-box animation !h-[45px] !mt-3"
               style={{ "--li": 19, "--S": 2 }}
             >
-              <input type="text" {...signupRegister("username")} required />
+              <input type="text" id="register_username" {...signupRegister("username")} required />
               <label htmlFor="register_username">Username</label>
               <i className="bx bxs-user-rectangle"></i>
+              {signupErrors.username && (
+                <p className="text-red-500 text-[10px] mt-[-2px] ml-1 absolute bottom-[-14px]">{signupErrors.username.message}</p>
+              )}
             </div>
             <div
               className="input-box animation !h-[45px] !mt-3"
               style={{ "--li": 20, "--S": 3 }}
             >
-              <input type="email" {...signupRegister("email")} required />
+              <input type="email" id="register_email" {...signupRegister("email")} required />
               <label htmlFor="register_email">Email</label>
               <i className="bx bxs-envelope"></i>
+              {signupErrors.email && (
+                <p className="text-red-500 text-[10px] mt-[-2px] ml-1 absolute bottom-[-14px]">{signupErrors.email.message}</p>
+              )}
             </div>
             <div
               className="input-box animation !h-[45px] !mt-3"
               style={{ "--li": 21, "--S": 4 }}
             >
-              <input type="text" {...signupRegister("phone")} required />
+              <input type="text" id="register_phone" {...signupRegister("phone")} required />
               <label htmlFor="register_phone">Phone</label>
               <i className="bx bxs-phone"></i>
+              {signupErrors.phone && (
+                <p className="text-red-500 text-[10px] mt-[-2px] ml-1 absolute bottom-[-14px]">{signupErrors.phone.message}</p>
+              )}
             </div>
             <div
               className="input-box animation !h-[45px] !mt-3"
@@ -300,6 +324,7 @@ const Auth = () => {
             >
               <input
                 type={showPassword ? "text" : "password"}
+                id="register_password"
                 {...signupRegister("password")}
                 required
               />
@@ -307,6 +332,9 @@ const Auth = () => {
               <span className="absolute right-[-1px] top-1/2 transform -translate-y-1/2 cursor-pointer" onClick={togglePassword}>
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </span>
+              {signupErrors.password && (
+                <p className="text-red-500 text-[10px] mt-[-2px] ml-1 absolute bottom-[-14px]">{signupErrors.password.message}</p>
+              )}
               {/* <i className="bx bxs-lock-alt"></i> */}
             </div>
             <div
@@ -315,6 +343,7 @@ const Auth = () => {
             >
               <input
                 type={showConfirmPassword ? "text" : "password"}
+                id="register_confirm_password"
                 {...signupRegister("confirmPassword")}
                 required
               />
@@ -324,22 +353,26 @@ const Auth = () => {
               <span className="absolute right-[-1px] top-1/2 transform -translate-y-1/2 cursor-pointer" onClick={toggleConfirmPassword}>
                 {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </span>
+              {signupErrors.confirmPassword && (
+                <p className="text-red-500 text-[10px] mt-[-2px] ml-1 absolute bottom-[-14px]">{signupErrors.confirmPassword.message}</p>
+              )}
               {/* <i className="bx bxs-lock"></i> */}
             </div>
 
             <div
-              className="input-box animation !h-[45px] !mt-4"
+              className="animation !mt-6"
               style={{ "--li": 24, "--S": 7 }}
             >
               <button
                 type="submit"
+                id="signup_button"
                 disabled={isSignupSubmitting}
-                className={`uppercase w-full ${pending
+                className={`uppercase w-full h-12 ${pending || isSignupSubmitting
                   ? "bg-[#9466FF] hover:bg-[#9466FF] cursor-not-allowed"
                   : "bg-[#9466FF] hover:bg-[#8354f5]"
-                  } text-white py-2 px-4 rounded-full transition duration-300`}
+                  } text-white font-bold rounded-xl shadow-lg shadow-purple-500/20 transition-all duration-300 flex items-center justify-center transform active:scale-[0.98]`}
               >
-                {pending ? (
+              {pending || isSignupSubmitting ? (
                   <Loader2 className="mx-auto animate-spin" />
                 ) : (
                   "Sign Up"
@@ -356,7 +389,7 @@ const Auth = () => {
                 Already have an account?{" "}
                 <span
                   className="SignInLink text-[#fc3fb4] font-bold hover:underline cursor-pointer"
-                  onClick={() => setActive(false)}
+                  onClick={() => toggleMode(false)}
                 >
                   Login
                 </span>

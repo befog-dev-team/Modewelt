@@ -3,9 +3,7 @@
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { validateRequest } from "@/auth";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "./prisma";
 
 // Function to require admin access and log activity
 export const activityRequire = async (action) => {

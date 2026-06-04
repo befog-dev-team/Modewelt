@@ -1,6 +1,23 @@
 import { Prisma } from "@prisma/client"; // Import Prisma client
 
-// Define the user select properties
+// Define a lighter user select for feeds and basic components
+export function getFeedUserDataSelect(loggedInUserId: string) {
+    return {
+        id: true,
+        username: true,
+        displayName: true,
+        avatarUrl: true,
+        profileHeadline: true,
+        _count: {
+            select: {
+                followers: true,
+                following: true,
+            },
+        },
+    } satisfies Prisma.UserSelect;
+}
+
+// Define the full user select properties for profile pages
 export function getUserDataSelect(loggedInUserId: string) {
     return {
         id: true,
@@ -154,7 +171,7 @@ export type UserData = Prisma.UserGetPayload<{
 export function getPostDataInclude(loggedInUserId: string) {
     return {
         user: {
-            select: getUserDataSelect(loggedInUserId), // Include user details
+            select: getFeedUserDataSelect(loggedInUserId), // Use lighter select for posts in feeds
         },
         attachments: true, // Include attachments
         likes: {
@@ -193,7 +210,7 @@ export interface PostsPage {
 export function getCommentDataInclude(loggedInUserId: string) {
     return {
         user: {
-            select: getUserDataSelect(loggedInUserId),
+            select: getFeedUserDataSelect(loggedInUserId),
         },
         likes: {
             where: {
@@ -212,7 +229,7 @@ export function getCommentDataInclude(loggedInUserId: string) {
         replies: {
             include: {
                 user: {
-                    select: getUserDataSelect(loggedInUserId),
+                    select: getFeedUserDataSelect(loggedInUserId),
                 },
                 likes: {
                     where: {
